@@ -23,7 +23,7 @@ class CreateCarGenerationsTable extends Migration
             $table->string('name');
             $table->date('start');
             $table->date('finish');
-            $table->boolean('isDelete');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

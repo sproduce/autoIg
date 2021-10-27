@@ -19,7 +19,7 @@ class CreateCarBrandsTable extends Migration
             $table->id();
             $table->uuid('uuid');
             $table->string('name');
-            $table->boolean('isDelete');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -27,7 +27,7 @@ class CreateCarConfigurationsTable extends Migration
             $table->string('hp');
             $table->string('regNumber');
             $table->string('vin');
-            $table->boolean('isDelete');
+            $table->softDeletes();
         });
     }
 
