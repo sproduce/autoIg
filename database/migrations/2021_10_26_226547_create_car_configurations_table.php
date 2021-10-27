@@ -17,10 +17,17 @@ class CreateCarConfigurationsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->uuid('uuid');
+            $table->unsignedBigInteger('generationId');
+            $table->foreign('generationId')->references('id')->on('car_generations');
+
+            $table->unsignedBigInteger('typeId');
+            $table->foreign('typeId')->references('id')->on('car_types');
+
             $table->string('displacement');
             $table->string('hp');
             $table->string('regNumber');
             $table->string('vin');
+            $table->boolean('isDelete');
         });
     }
 
