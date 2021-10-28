@@ -18,3 +18,9 @@ Route::get('/', function () {
 });
 
 Route::get('/reference/brand',[ReferenceController::class,'showBrands']);
+Route::post('/reference/brand',[ReferenceController::class,'addBrands']);
+
+
+Route::get('/dialog/addBrand',function(){
+    return view('dialog.addBrand');
+});

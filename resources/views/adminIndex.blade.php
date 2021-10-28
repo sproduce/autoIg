@@ -7,7 +7,7 @@
         <title>CRM</title>
 
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+
 
         <!-- Styles -->
         <link href="/css/app.css" rel="stylesheet">
@@ -16,18 +16,18 @@
     </head>
 
     <body class="antialiased">
-    @section('dialog')
+
         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
             <div id="modal-dialog" class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content" id="modal-content"></div>
             </div>
         </div>
-    @endsection
+
 
 
 
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"> CRM</a>
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/"> CRM</a>
         <div class="bg-danger w-100 text-center h-100" id="notice"></div>
         <ul class="navbar-nav mr-auto">
         </ul>
@@ -122,10 +122,11 @@
 
 
 
-
-
-@section('js')
-    @endsection
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/ready.js') }}" defer></script>
+    <script src="{{ asset('js/js.cookie.min.js') }}" defer></script>
+    <script src="{{ asset('js/user.js') }}" defer></script>
+    @yield('js')
 
     </body>
 </html>
