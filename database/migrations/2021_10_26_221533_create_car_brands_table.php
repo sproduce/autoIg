@@ -18,7 +18,7 @@ class CreateCarBrandsTable extends Migration
             //$table->collation = 'utf8_general_ci';
             $table->id();
             $table->uuid('uuid');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -13,11 +13,15 @@
 
 @section('content')
     @if($brands->count())
-        есть данные
+        @foreach ($brands as $brand)
+            {{$brand->name}}</br>
+        @endforeach
+
+
     @else
         <div class="row">
             <div class="col-12 text-center">
-                <h5>Производители не добавлены</h5>
+                <h5>Марки не добавлены</h5>
             </div>
         </div>
     @endif

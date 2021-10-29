@@ -17,14 +17,39 @@ Class BrandService{
     public function getBrandByLetter(){
         $letter=$this->request->query('letter','A');
 
-        $result=$this->brandRep->getBrandByLetter($letter);
+
+        return $this->brandRep->getBrandByLetter($letter);
     }
 
 
 
 
     public function addBrand(){
+        $brandName=$this->request->input('brandName');
+        if($brandName){
+            $brandObj=$this->brandRep->getBrandByName($brandName);
+            if(!$brandObj->count()){
+                $this->brandRep->saveBrand($brandName);
+            }
+        }
 
     }
+
+    public function addBrands(){
+        $arrayOfBrands=explode("\r\n", ucwords(strtolower($this->request->input('brandsName'))));
+        foreach($arrayOfBrands as $brandName){
+            if($brandName){
+                $brandObj=$this->brandRep->getBrandByName($brandName);
+                if(!$brandObj->count()){
+                    $this->brandRep->saveBrand($brandName);
+                }
+            }
+        }
+
+
+
+    }
+
+
 
 }

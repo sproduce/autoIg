@@ -19,7 +19,23 @@ class ReferenceController extends Controller
 
 
     public function showBrands(BrandService $brandServ){
-        $brandServ->getBrandByLetter();
-        return view('reference.brandList',['brands'=>carBrand::all()]);
+        $brandsObj=$brandServ->getBrandByLetter();
+
+        return view('reference.brandList',['brands'=>$brandsObj]);
     }
+
+    public function addBrand(BrandService $brandServ): \Illuminate\Http\RedirectResponse
+    {
+        $brandServ->addBrand();
+        return redirect()->back();
+    }
+
+    public function addBrands(BrandService $brandServ){
+        $brandServ->addBrands();
+        return redirect()->back();
+    }
+
+
+
+
 }

@@ -23,6 +23,10 @@ class CreateCarConfigurationsTable extends Migration
             $table->unsignedBigInteger('typeId');
             $table->foreign('typeId')->references('id')->on('car_types');
 
+
+            $table->unsignedBigInteger('ownerId');
+            $table->foreign('ownerId')->references('id')->on('car_owners');
+
             $table->string('displacement');
             $table->string('hp');
             $table->string('regNumber');
