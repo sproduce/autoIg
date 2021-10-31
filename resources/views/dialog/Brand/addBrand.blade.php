@@ -8,12 +8,13 @@
     @csrf
     <div class="modal-body">
         <div class="container-fluid">
-            <div class="form-row text-center">
-                <div class="form-group col-md-4 input-group-sm">
-                    <label for="brandName" title="Латинские буквы">Марка</label>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="brandName" title="Латинские буквы">Марка</label>
+                <div class="col-sm-8">
                     <input list="oftenCars" type="text" name="brandName" id="brandName" class="form-control" autocomplete="off" required/>
                 </div>
             </div>
+
 
         </div>
     </div>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReferenceController;
+use App\Http\Controllers\DialogController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,15 +19,19 @@ Route::get('/', function () {
 });
 
 Route::get('/reference/brand',[ReferenceController::class,'showBrands']);
+Route::get('/reference/delBrand',[ReferenceController::class,'delBrand']);
 
 Route::post('/reference/brand',[ReferenceController::class,'addBrand']);
 Route::post('/reference/brands',[ReferenceController::class,'addBrands']);
-
+Route::post('/reference/editBrand',[ReferenceController::class,'editBrand']);
 
 
 Route::get('/dialog/addBrand',function(){
     return view('dialog.Brand.addBrand');
 });
+
+Route::get('/dialog/editBrand',[DialogController::class,'editBrand']);
+
 
 
 Route::get('/dialog/addBrandGroup',function(){

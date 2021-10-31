@@ -12,9 +12,27 @@
 @endsection
 
 @section('content')
+
     @if($brands->count())
         @foreach ($brands as $brand)
-            {{$brand->name}}</br>
+            <div class="row row-table">
+                <div class="col-10">
+                   <a href="/reference/model?brandId={{$brand->id}}"> {{$brand->name}}</a>
+                </div>
+                <div class="col-2">
+                    <a class="btn btn-ssm btn-outline-warning DialogUserSMin" title="Редактировать" href="/dialog/editBrand?brandId={{$brand->id}}"><i class="far fa-edit"></i></a>
+
+                    <div class="float-right">
+
+                          <a href="/reference/delBrand?brandId={{$brand->id}}" class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить марку?')"><i class="fas fa-trash"></i> </a>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
         @endforeach
 
 

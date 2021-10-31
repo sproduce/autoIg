@@ -8,5 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class carModel extends Model
 {
     use HasFactory;
+    protected $fillable = ['name'];
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($post) {
+            $post->uuid = (string) Str::uuid();
+        });
+    }
 }

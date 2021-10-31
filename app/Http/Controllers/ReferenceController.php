@@ -35,6 +35,28 @@ class ReferenceController extends Controller
         return redirect()->back();
     }
 
+    public function delBrand(){
+
+        $brandId=(int)$request->query('brandId');
+       // $brandObj=carBrand::find($brandId);
+        //$brandObj->delete();
+        carBrand::destroy($brandId);
+        return redirect()->back();
+    }
+
+    public function editBrand(Request $request){
+        $brandId=(int)$request->input('brandId');
+        if($brandId){
+            $brandObj=carBrand::find($brandId);
+            $brandObj->name=$request->input('brandName');
+            $brandObj->save();
+        }
+
+        //var_dump($brandObj);
+
+
+        return redirect()->back();
+    }
 
 
 
