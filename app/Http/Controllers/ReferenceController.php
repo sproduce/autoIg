@@ -35,11 +35,9 @@ class ReferenceController extends Controller
         return redirect()->back();
     }
 
-    public function delBrand(){
+    public function delBrand(Request $request){
 
         $brandId=(int)$request->query('brandId');
-       // $brandObj=carBrand::find($brandId);
-        //$brandObj->delete();
         carBrand::destroy($brandId);
         return redirect()->back();
     }
