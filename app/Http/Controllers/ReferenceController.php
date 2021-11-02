@@ -6,7 +6,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\carBrand;
+
 use App\Services\BrandService;
+use App\Services\ModelService;
 
 
 class ReferenceController extends Controller
@@ -44,18 +46,48 @@ class ReferenceController extends Controller
 
     public function editBrand(Request $request){
         $brandId=(int)$request->input('brandId');
-        if($brandId){
+        if ($brandId) {
             $brandObj=carBrand::find($brandId);
             $brandObj->name=$request->input('brandName');
             $brandObj->save();
         }
 
-        //var_dump($brandObj);
+
+
+
+
 
 
         return redirect()->back();
     }
 
+
+    public function showModels(Request $request){
+        $brandId=(int)$request->input('brandId');
+        $brandObj=carBrand::find($brandId);
+        return view('reference.modelList',['brand'=>$brandObj]);
+    }
+
+
+    public function addModel(ModelService $modelServ)
+    {
+        $modelServ->addModel();
+        return redirect()->back();
+    }
+    public function addModels()
+    {
+
+    }
+
+    public function editModel()
+    {
+
+    }
+
+    public function delModel()
+    {
+
+    }
 
 
 }

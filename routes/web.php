@@ -27,7 +27,7 @@ Route::post('/reference/editBrand',[ReferenceController::class,'editBrand']);
 
 
 Route::get('/dialog/addBrand',function(){
-    return view('dialog.Brand.addBrand');
+    return view('dialog.Car.addBrand');
 });
 
 Route::get('/dialog/editBrand',[DialogController::class,'editBrand']);
@@ -35,5 +35,11 @@ Route::get('/dialog/editBrand',[DialogController::class,'editBrand']);
 
 
 Route::get('/dialog/addBrandGroup',function(){
-    return view('dialog.Brand.addBrands');
+    return view('dialog.Car.addBrands');
 });
+
+
+Route::get('/reference/model',[ReferenceController::class,'showModels']);
+Route::get('/dialog/addModel',[DialogController::class,'addModel']);
+Route::post('/reference/model',[ReferenceController::class,'addModel']);
+Route::post('/reference/models',[ReferenceController::class,'addModels']);

@@ -18,5 +18,11 @@ class carBrand extends Model
         });
     }
 
+    public function models(){
+
+        return $this->hasMany(carModel::class,'brandid');
+    }
+
+
 
 }
