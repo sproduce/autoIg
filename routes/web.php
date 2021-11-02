@@ -41,5 +41,13 @@ Route::get('/dialog/addBrandGroup',function(){
 
 Route::get('/reference/model',[ReferenceController::class,'showModels']);
 Route::get('/dialog/addModel',[DialogController::class,'addModel']);
+Route::get('/dialog/addModelGroup',[DialogController::class,'addModels']);
+Route::get('/dialog/editModel',[DialogController::class,'editModel']);
+Route::get('/reference/delModel',[ReferenceController::class,'delModel']);
 Route::post('/reference/model',[ReferenceController::class,'addModel']);
 Route::post('/reference/models',[ReferenceController::class,'addModels']);
+Route::post('/reference/editModel',[ReferenceController::class,'editModel']);
+
+Route::get('/reference/generation',[ReferenceController::class,'showGenerations']);
+
+

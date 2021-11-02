@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class carModel extends Model
 {
     use HasFactory;
-    protected $fillable = ['name'];
+    protected $fillable = ['name','brandId'];
 
     protected static function boot()
     {
@@ -18,4 +18,16 @@ class carModel extends Model
             $post->uuid = (string) Str::uuid();
         });
     }
+
+    public function generations(){
+
+        return $this->hasMany(carGeneration::class,'modelId')->orderBy('name');
+    }
+
+    public function brand()
+    {
+        return $this->hasOne(carBrand::class,'id','brandId');
+
+    }
+
 }

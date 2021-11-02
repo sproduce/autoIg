@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\carBrand;
-
+use App\Models\carModel;
 
 class DialogController extends Controller
 {
@@ -23,6 +23,20 @@ class DialogController extends Controller
         $brandId=(int)$request->query('brandId');
         $brandObj=carBrand::find($brandId);
         return view('dialog.Car.addModel',['brand'=>$brandObj]);
+    }
+
+    public function addModels(Request $request){
+        $brandId=(int)$request->query('brandId');
+        $brandObj=carBrand::find($brandId);
+        return view('dialog.Car.addModels',['brand'=>$brandObj]);
+    }
+
+
+    public function editModel(Request $request)
+    {
+        $modelId=(int)$request->query('modelId');
+        $modelObj=carModel::find($modelId);
+        return view('dialog.Car.editModel',['model'=>$modelObj]);
     }
 
 

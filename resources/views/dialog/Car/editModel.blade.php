@@ -4,15 +4,15 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<form method="POST" action="/reference/model">
-    <input type="text" id="modelId" name="brandId" value="{{$model->id}}" hidden/>
+<form method="POST" action="/reference/editModel">
+    <input type="text" id="modelId" name="modelId" value="{{$model->id}}" hidden/>
     @csrf
     <div class="modal-body">
         <div class="container-fluid">
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="modelName" title="Латинские буквы">Модель</label>
                 <div class="col-sm-8">
-                    <input list="oftenCars" type="text" name="modelName" id="modelName" class="form-control" autocomplete="off" required/>
+                    <input list="oftenCars" type="text" name="modelName" id="modelName" class="form-control" autocomplete="off" value="{{$model->name}}" required/>
                 </div>
             </div>
 

@@ -1,5 +1,5 @@
 <div class="modal-header text-center">
-    <h6 class="modal-title w-100 font-weight-bold">Добавить модель</h6>
+    <h6 class="modal-title w-100 font-weight-bold">Добавить список моделей</h6>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -10,9 +10,9 @@
     <div class="modal-body">
         <div class="container-fluid">
             <div class="form-group row">
-                <label class="col-sm-3 col-form-label" for="modelName" title="Латинские буквы">Модель</label>
-                <div class="col-sm-8">
-                    <textarea name="modelName" id="modelName" class="form-control" required></textarea>
+                <label class="col-sm-3 col-form-label" for="modelsName" title="Латинские буквы">Список моделей</label>
+                <div class="col-sm-6">
+                    <textarea name="modelsName" id="modelsName" class="form-control" required></textarea>
                 </div>
             </div>
 

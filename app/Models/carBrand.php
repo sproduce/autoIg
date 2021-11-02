@@ -20,7 +20,7 @@ class carBrand extends Model
 
     public function models(){
 
-        return $this->hasMany(carModel::class,'brandid');
+        return $this->hasMany(carModel::class,'brandid')->orderBy('name');
     }
 
 

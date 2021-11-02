@@ -17,8 +17,7 @@ Class ModelService{
 
     public function addModel(){
         $brandId=(int)$this->request->input('brandId');
-        echo $brandId;
-        $modelName=$this->request->input('modelName');
+                $modelName=$this->request->input('modelName');
         if ($brandId&&$modelName){
             $modelObj=$this->modelRep->getModelByName($modelName);
             if (!$modelObj->count()){
@@ -30,12 +29,13 @@ Class ModelService{
 
 
     public function addModels(){
-        $arrayOfBrands=explode("\r\n", ucwords(strtolower($this->request->input('brandsName'))));
-        foreach($arrayOfBrands as $brandName){
-            if($brandName){
-                $brandObj=$this->brandRep->getBrandByName($brandName);
-                if(!$brandObj->count()){
-                    $this->brandRep->saveBrand($brandName);
+        $arrayOfModels=explode("\r\n", ucwords(strtolower($this->request->input('modelsName'))));
+        $brandId=(int)$this->request->input('brandId');
+        foreach($arrayOfModels as $modelName){
+            if($modelName &&$brandId){
+                $modelObj=$this->modelRep->getModelByName($modelName);
+                if(!$modelObj->count()){
+                    $this->modelRep->saveModel($modelName,$brandId);
                 }
             }
         }

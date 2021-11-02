@@ -28,7 +28,7 @@ class BrandRepository implements BrandRepositoryInterface
     public function saveBrand($brandName){
         //$carBrand=new carBrand();
         $result=carBrand::create([
-            'name' => $brandName,
+            'name' => $brandName
         ]);
         //$this->carBrand->name=$brandName;
         //$this->carBrand->save();

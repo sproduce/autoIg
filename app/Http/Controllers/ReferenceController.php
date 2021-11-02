@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\carBrand;
+use App\Models\carModel;
 
 use App\Services\BrandService;
 use App\Services\ModelService;
@@ -51,13 +52,6 @@ class ReferenceController extends Controller
             $brandObj->name=$request->input('brandName');
             $brandObj->save();
         }
-
-
-
-
-
-
-
         return redirect()->back();
     }
 
@@ -74,20 +68,42 @@ class ReferenceController extends Controller
         $modelServ->addModel();
         return redirect()->back();
     }
-    public function addModels()
+    public function addModels(ModelService $modelServ)
     {
-
+        $modelServ->addModels();
+        return redirect()->back();
     }
 
-    public function editModel()
+    public function editModel(Request $request)
     {
+        $modelId=(int)$request->input('modelId');
 
+        if ($modelId) {
+            $modelObj=carModel::find($modelId);
+            $modelObj->name=$request->input('modelName');
+            $modelObj->save();
+        }
+        return redirect()->back();
     }
 
-    public function delModel()
+    public function delModel(Request $request)
     {
-
+        $modelId=(int)$request->query('modelId');
+        carModel::destroy($modelId);
+        return redirect()->back();
     }
+
+
+
+    public function showGenerations(Request $request)
+    {
+        $modelId=(int)$request->input('modelId');
+        $modelObj=carModel::find($modelId);
+        return view('reference.generationList',['model'=>$modelObj]);
+    }
+
+
+
 
 
 }
