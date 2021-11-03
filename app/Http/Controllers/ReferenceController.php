@@ -68,7 +68,7 @@ class ReferenceController extends Controller
 
 
         if ($brandObj){
-            
+
             return view('reference.modelList',['brand'=>$brandObj]);
         } else {
 
@@ -124,6 +124,8 @@ class ReferenceController extends Controller
 
     public function addGeneration(ModelService $modelServ)
     {
+        $modelServ->addGeneration();
+        return redirect()->back();
     }
 
 

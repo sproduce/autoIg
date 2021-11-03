@@ -45,6 +45,16 @@ Class ModelService{
     public function addGeneration()
     {
 
+        $validated = $this->request->validate([
+            'name'=>'required|alpha_dash',
+            'modelId' => 'required|integer',
+            'start'=>'required|integer|min:1990|max:'.date('Y'),
+            'finish'=>''
+        ]);
+        $this->modelRep->addGeneration($validated);
     }
+
+
+
 
 }

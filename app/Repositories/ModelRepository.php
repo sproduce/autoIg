@@ -3,6 +3,7 @@
 namespace App\Repositories;
 use App\Repositories\Interfaces\ModelRepositoryInterface;
 use App\Models\carModel;
+use App\Models\carGeneration;
 use Illuminate\Support\Facades\DB;
 
 class ModelRepository implements ModelRepositoryInterface
@@ -29,7 +30,9 @@ class ModelRepository implements ModelRepositoryInterface
 
     public function addGeneration($generationArray)
     {
-     
+        $result=carGeneration::create(
+            $generationArray
+        );
     }
 
 
