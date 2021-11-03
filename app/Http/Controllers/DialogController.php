@@ -41,4 +41,12 @@ class DialogController extends Controller
 
 
 
+    public function addGeneration(Request $request)
+    {
+        $modelId=(int)$request->query('modelId');
+        $modelObj=carModel::find($modelId);
+        return view('dialog.Car.addGeneration',['model'=>$modelObj]);
+    }
+
+
 }

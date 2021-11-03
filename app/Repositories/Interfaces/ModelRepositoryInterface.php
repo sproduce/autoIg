@@ -7,6 +7,6 @@ interface ModelRepositoryInterface
 
     public function saveModel($modelName,$brandId);
     public function getModelByName($modelName);
-
+    public function addGeneration($generationArray);
 
 }

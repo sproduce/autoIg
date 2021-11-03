@@ -33,13 +33,14 @@ class ReferenceController extends Controller
         return redirect()->back();
     }
 
-    public function addBrands(BrandService $brandServ){
+    public function addBrands(BrandService $brandServ): \Illuminate\Http\RedirectResponse
+    {
         $brandServ->addBrands();
         return redirect()->back();
     }
 
-    public function delBrand(Request $request){
-
+    public function delBrand(Request $request): \Illuminate\Http\RedirectResponse
+    {
         $brandId=(int)$request->query('brandId');
         carBrand::destroy($brandId);
         return redirect()->back();
@@ -57,9 +58,26 @@ class ReferenceController extends Controller
 
 
     public function showModels(Request $request){
-        $brandId=(int)$request->input('brandId');
+
+        $validated = $request->validate([
+            'brandId' => 'required|integer'
+        ]);
+
+        $brandId=$request->input('brandId');
         $brandObj=carBrand::find($brandId);
-        return view('reference.modelList',['brand'=>$brandObj]);
+
+
+        if ($brandObj){
+            
+            return view('reference.modelList',['brand'=>$brandObj]);
+        } else {
+
+            return redirect()->back();
+        }
+
+
+
+
     }
 
 
@@ -102,6 +120,11 @@ class ReferenceController extends Controller
         return view('reference.generationList',['model'=>$modelObj]);
     }
 
+
+
+    public function addGeneration(ModelService $modelServ)
+    {
+    }
 
 
 

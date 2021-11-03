@@ -8,9 +8,11 @@
 @endsection
 
 @section('content')
+
     <div class="row">
         <div class="col-4">Производитель {{$brand->name}}</div>
     </div>
+
 
     @if($brand->models->count())
         @foreach ($brand->models as $model)

@@ -28,7 +28,8 @@ Class ModelService{
 
 
 
-    public function addModels(){
+    public function addModels()
+    {
         $arrayOfModels=explode("\r\n", ucwords(strtolower($this->request->input('modelsName'))));
         $brandId=(int)$this->request->input('brandId');
         foreach($arrayOfModels as $modelName){
@@ -39,11 +40,11 @@ Class ModelService{
                 }
             }
         }
-
-
-
     }
 
+    public function addGeneration()
+    {
 
+    }
 
 }

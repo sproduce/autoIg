@@ -49,5 +49,5 @@ Route::post('/reference/models',[ReferenceController::class,'addModels']);
 Route::post('/reference/editModel',[ReferenceController::class,'editModel']);
 
 Route::get('/reference/generation',[ReferenceController::class,'showGenerations']);
-
-
+Route::get('/dialog/addGeneration',[DialogController::class,'addGeneration']);
+Route::post('/reference/generation',[ReferenceController::class,'addGeneration']);

@@ -20,16 +20,17 @@ class ModelRepository implements ModelRepositoryInterface
 
 
     public function saveModel($modelName,$brandId){
-        //$carModel=new carModel();
         $result=carModel::create([
             'name' => $modelName,
             'brandId'=>$brandId
         ]);
-        //$this->carModel->BrandId=$brandId;
-        //$this->carModel->name=$modelName;
-        //$this->carModel->save();
     }
 
+
+    public function addGeneration($generationArray)
+    {
+     
+    }
 
 
 }
