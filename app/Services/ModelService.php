@@ -56,5 +56,20 @@ Class ModelService{
 
 
 
+    public function editGeneration()
+    {
+        $validated = $this->request->validate([
+            'id'=>'required|integer',
+            'name'=>'required|alpha_dash',
+            'start'=>'required|integer|min:1990|max:'.date('Y'),
+            'finish'=>''
+        ]);
+var_dump($validated);
+        $this->modelRep->editGeneration($validated);
+
+
+    }
+
+
 
 }

@@ -25,6 +25,13 @@ class BrandRepository implements BrandRepositoryInterface
     }
 
 
+        public function getBrands()
+        {
+            return $this->carBrand::all();
+        }
+
+
+
     public function saveBrand($brandName){
         //$carBrand=new carBrand();
         $result=carBrand::create([

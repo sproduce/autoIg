@@ -14,6 +14,14 @@ Class BrandService{
     }
 
 
+    public function getBarnds()
+    {
+
+        return $this->brandRep->getBrands();
+    }
+
+
+
     public function getBrandByLetter(){
         $letter=$this->request->query('letter','A');
 

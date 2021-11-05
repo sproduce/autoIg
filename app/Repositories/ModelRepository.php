@@ -35,5 +35,14 @@ class ModelRepository implements ModelRepositoryInterface
         );
     }
 
+    public function editGeneration($generationArray)
+    {
+        $carGeneration=carGeneration::find($generationArray['id']);
+        $carGeneration->name=$generationArray['name'];
+        $carGeneration->start=$generationArray['start'];
+        $carGeneration->finish=$generationArray['finish'];
+        $carGeneration->save();
+    }
+
 
 }

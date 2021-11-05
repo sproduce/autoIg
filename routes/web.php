@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\DialogController;
+use App\Http\Controllers\MotorPoolController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,4 +51,12 @@ Route::post('/reference/editModel',[ReferenceController::class,'editModel']);
 
 Route::get('/reference/generation',[ReferenceController::class,'showGenerations']);
 Route::get('/dialog/addGeneration',[DialogController::class,'addGeneration']);
+Route::get('/dialog/editGeneration',[DialogController::class,'editGeneration']);
 Route::post('/reference/generation',[ReferenceController::class,'addGeneration']);
+Route::post('/reference/editGeneration',[ReferenceController::class,'editGeneration']);
+
+
+
+Route::get('/motorPool/list',[MotorPoolController::class,'show']);
+
+Route::get('/motorPool/add',[DialogController::class,'addMotorPool']);

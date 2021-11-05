@@ -19,4 +19,11 @@ class carGeneration extends Model
         });
     }
 
+    public function model()
+    {
+        return $this->hasOne(carModel::class,'id','modelId');
+
+    }
+
+
 }

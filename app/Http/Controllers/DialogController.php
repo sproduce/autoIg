@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Models\carBrand;
 use App\Models\carModel;
+use App\Models\carGeneration;
+use App\Services\BrandService;
+
 
 class DialogController extends Controller
 {
@@ -47,6 +51,23 @@ class DialogController extends Controller
         $modelObj=carModel::find($modelId);
         return view('dialog.Car.addGeneration',['model'=>$modelObj]);
     }
+
+    public function editGeneration(Request $request)
+    {
+        $validated = $request->validate(['generationId'=>'required|integer']);
+        $generationObj=carGeneration::find($validated['generationId']);
+        return view('dialog.Car.editGeneration',['generation'=>$generationObj]);
+    }
+
+
+
+    public function addMotorPool(BrandService $brandServ)
+    {
+        $brandsObj=$brandServ->getBarnds();
+        return view('dialog.MotorPool.addCar',['brand'=>$brandsObj]);
+    }
+
+
 
 
 }

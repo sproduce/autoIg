@@ -128,7 +128,11 @@ class ReferenceController extends Controller
         return redirect()->back();
     }
 
+    public function editGeneration(ModelService $modelServ)
+    {
+        $modelServ->editGeneration();
 
+    }
 
 
 }

@@ -17,11 +17,20 @@
     @if($model->generations->count())
         @foreach ($model->generations as $generation)
             <div class="row row-table">
-                <div class="col-10">
+                <div class="col-6">
                     {{$generation->name}}
                 </div>
                 <div class="col-2">
-                    <a href="/reference/editGeneration" class="btn btn-ssm btn-outline-warning DialogUserMin" title="Редактировать"><i class="far fa-edit"></i></a>
+                    {{$generation->start}} -
+                    @if($generation->finish)
+                        {{$generation->finish}}
+                    @else
+                        н.в.
+                    @endif
+                </div>
+
+                <div class="col-2">
+                    <a href="/dialog/editGeneration?generationId={{$generation->id}}" class="btn btn-ssm btn-outline-warning DialogUserMin" title="Редактировать"><i class="far fa-edit"></i></a>
                     <div class="float-right">
                           <a href="/repository/delGeneration?generationId={{$generation->id}}" class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить поколение?')"><i class="fas fa-trash"></i> </a>
                     </div>
