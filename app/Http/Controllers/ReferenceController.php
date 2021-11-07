@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
 use App\Models\carBrand;
 use App\Models\carModel;
@@ -132,6 +133,20 @@ class ReferenceController extends Controller
     {
         $modelServ->editGeneration();
 
+    }
+
+    public function getModel(ModelService $modelServ)
+    {
+        //$modelServ->getModels();
+        $modelObj=$modelServ->getModels();
+
+        return response()->json($modelObj);
+    }
+
+    public function getGeneration(ModelService $modelServ)
+    {
+        $generationObj=$modelServ->getGenerations();
+        return response()->json($generationObj);
     }
 
 

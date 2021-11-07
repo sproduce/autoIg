@@ -10,7 +10,7 @@ class carModel extends Model
 {
     use HasFactory;
     protected $fillable = ['name','brandId'];
-
+    protected $hidden = ["created_at", "updated_at","deleted_at"];
     protected static function boot()
     {
         parent::boot();

@@ -64,12 +64,31 @@ Class ModelService{
             'start'=>'required|integer|min:1990|max:'.date('Y'),
             'finish'=>''
         ]);
-var_dump($validated);
         $this->modelRep->editGeneration($validated);
 
 
     }
 
+    public function getModels()
+    {
+        $validated=$this->request->validate(['brandId'=>'required|integer']);
+        $modelObj=$this->modelRep->getModels($validated['brandId']);
+        return $modelObj;
+    }
+
+
+    public function getGenerations()
+    {
+        $validated=$this->request->validate(['modelId'=>'required|integer']);
+        $generationObj=$this->modelRep->getGenerations($validated['modelId']);
+        return $generationObj;
+    }
+
+    public function getTypes()
+    {
+        $typesObj=$this->modelRep->getTypes();
+        return $typesObj;
+    }
 
 
 }

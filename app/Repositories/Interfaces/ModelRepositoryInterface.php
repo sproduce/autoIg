@@ -9,4 +9,8 @@ interface ModelRepositoryInterface
     public function getModelByName($modelName);
     public function addGeneration($generationArray);
     public function editGeneration($generationArray);
+    public function getModels($brandId);
+    public function getGenerations($modelId);
+    public function getTypes();
+
 }

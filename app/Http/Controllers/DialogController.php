@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 
+
 use Illuminate\Http\Request;
 use App\Models\carBrand;
 use App\Models\carModel;
 use App\Models\carGeneration;
 use App\Services\BrandService;
-
+use App\Services\ModelService;
 
 class DialogController extends Controller
 {
@@ -61,10 +62,11 @@ class DialogController extends Controller
 
 
 
-    public function addMotorPool(BrandService $brandServ)
+    public function addMotorPool(BrandService $brandServ,ModelService $modelServ)
     {
         $brandsObj=$brandServ->getBarnds();
-        return view('dialog.MotorPool.addCar',['brand'=>$brandsObj]);
+        $typesObj=$modelServ->getTypes();
+        return view('dialog.MotorPool.addCar',['brands'=>$brandsObj,'types'=>$typesObj]);
     }
 
 

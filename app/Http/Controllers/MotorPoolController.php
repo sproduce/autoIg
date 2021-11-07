@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\MotorPoolService;
+
 
 class MotorPoolController extends Controller
 {
@@ -13,9 +15,9 @@ class MotorPoolController extends Controller
         return view('motorPool.motorPoolList');
     }
 
-    public function add()
+    public function add(MotorPoolService $motorPoolServ)
     {
-
+        $motorPoolServ->addCar();
     }
 
 

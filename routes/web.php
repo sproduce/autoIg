@@ -60,3 +60,4 @@ Route::post('/reference/editGeneration',[ReferenceController::class,'editGenerat
 Route::get('/motorPool/list',[MotorPoolController::class,'show']);
 
 Route::get('/motorPool/add',[DialogController::class,'addMotorPool']);
+Route::post('/motorPool/add',[MotorPoolController::class,'add']);

@@ -27,7 +27,7 @@ class BrandRepository implements BrandRepositoryInterface
 
         public function getBrands()
         {
-            return $this->carBrand::all();
+            return $this->carBrand::orderBy('name')->get();
         }
 
 

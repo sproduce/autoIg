@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories;
+use App\Models\carType;
 use App\Repositories\Interfaces\ModelRepositoryInterface;
 use App\Models\carModel;
 use App\Models\carGeneration;
@@ -45,4 +46,20 @@ class ModelRepository implements ModelRepositoryInterface
     }
 
 
+    public function getModels($brandId)
+    {
+        return carModel::select('id','name')->where('brandId',$brandId)->orderBy('name')->get();
+    }
+
+
+    public function getGenerations($modelId)
+    {
+     return carGeneration::select('id','name')->where('modelId',$modelId)->get();;
+    }
+
+
+    public function getTypes()
+    {
+     return carType::select('id','name')->get();
+    }
 }
