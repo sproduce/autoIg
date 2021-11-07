@@ -71,7 +71,11 @@
                     <label for="color">Цвет</label>
                     <input type="color" name="color" id="color" class="form-control"/>
                 </div>
-                <div class="form-group col-md-6 input-group-sm">
+                <div class="form-group col-md-3 input-group-sm">
+                    <label for="owner">Владелец</label>
+                    <input type="text" name="owner" id="owner" class="form-control" autocomplete="off" />
+                </div>
+                <div class="form-group col-md-3 input-group-sm">
                     <label for="nickName">NickName</label>
                     <input type="text" name="nickName" id="nickName" class="form-control" autocomplete="off" />
                 </div>
