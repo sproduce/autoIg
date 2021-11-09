@@ -16,15 +16,17 @@
             <div class="col-2">
                 Модель
             </div>
-            <div class="col-3">
-                Поколение
-
-            </div>
-            <div class="col-2">
-                Владелец
-            </div>
             <div class="col-2">
                 Номер
+            </div>
+            <div class="col-1">
+                Цвет
+            </div>
+            <div class="col-1">
+                Год
+            </div>
+            <div class="col-4">
+                Комментарий
             </div>
         </div>
         @foreach ($carsPool as $car)
@@ -36,15 +38,19 @@
                 <div class="col-2">
                     {{$car->generation->model->name}}
                 </div>
-                <div class="col-3">
-                    {{$car->generation->name}}
-                </div>
                 <div class="col-2">
-                    {{$car->owner->name}}
-                 </div>
-                 <div class="col-2">
-                     {{$car->regNumber}}
+                    {{$car->regNumber}}
                 </div>
+                <div class="col-1">
+                    {{$car->color}}
+                 </div>
+                 <div class="col-1">
+                     {{$car->year}}
+                </div>
+                <div class="col-3">
+                    {{$car->nickName}}
+                </div>
+
                 <div class="col-1">
                     <a href="" title="Документы" class="btn btn-ssm btn-outline-success">
                         <i class="far fa-file-alt"></i>

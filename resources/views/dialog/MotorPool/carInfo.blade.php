@@ -10,59 +10,104 @@
     <div class="modal-body">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-4">
-                    Марка : {{$car->generation->model->brand->name}}
+                <div class="col-md-2">
+                    <strong>Марка</strong>
                 </div>
-                <div class="col-md-4">
-                    Модель : {{$car->generation->model->name}}
+                <div class="col-md-2">
+                    {{$car->generation->model->brand->name}}
                 </div>
-                <div class="col-md-4">
-                    Поколение : {{$car->generation->name}}
+
+                <div class="col-md-2">
+                    <strong>Двигатель</strong>
+                </div>
+                <div class="col-md-2">
+                    {{$car->engine->name}}
+                </div>
+                <div class="col-md-2">
+                    <strong>Год выпуска</strong>
+                </div>
+                <div class="col-md-2">
+                    {{$car->year}}
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-2">
+                    <strong>Модель</strong>
+                </div>
+                <div class="col-md-2">
+                    {{$car->generation->model->name}}
+                </div>
+                <div class="col-md-2">
+                    <strong>Обьем</strong>
+                </div>
+                <div class="col-md-2">
+                    {{$car->displacement}}
+                </div>
+                <div class="col-md-2">
+                    <strong>Рег.номер</strong>
+                </div>
+                <div class="col-md-2">
+                    {{$car->regNumber}}
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-4">
-                    Кузов : {{$car->body->name}}
+                <div class="col-md-2">
+                    <strong>Поколение</strong>
                 </div>
-                <div class="col-md-4">
-                    Трансмиссия : {{$car->transmission->name}}
+                <div class="col-md-2">
+                    {{$car->generation->name}}
                 </div>
-                <div class="col-md-4">
-                    Тип двигателя : {{$car->engine->name}}
-
+                <div class="col-md-2">
+                    <strong>Сил</strong>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    Обьем двигателя : {{$car->displacement}}
+                <div class="col-md-2">
+                    {{$car->hp}}
                 </div>
-                <div class="col-md-3">
-                    Лошадиных сил : {{$car->hp}}
+                <div class="col-md-2">
+                    <strong>Цвет</strong>
                 </div>
-                <div class="col-md-3">
-                    Год выпуска : {{$car->year}}
+                <div class="col-md-2">
+                    {{$car->color}}
                 </div>
-                <div class="col-md-3">
-                    Цвет : {{$car->color}}
-                </div>
-
             </div>
 
             <div class="row">
-                <div class="col-md-5">
-                    Вин код : {{$car->vin}}
+                <div class="col-md-2">
+                    <strong>Кузов</strong>
                 </div>
-                <div class="col-md-3">
-                    Рег.номер : {{$car->regNumber}}
+                <div class="col-md-2">
+                    {{$car->body->name}}
                 </div>
-                <div class="col-md-4">
-                    Владелец : {{$car->owner->name}}
+                <div class="col-md-2">
+                    <strong>Трансмиссия</strong>
+                </div>
+                <div class="col-md-2">
+                    {{$car->transmission->name}}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    Комментарий : {{$car->nickName}}
+            <div class="row border-top mt-2 pt-2">
+                <div class="col-md-2">
+                    <strong>Вин код</strong>
+                </div>
+                <div class="col-md-4">
+                    {{$car->vin}}
+                </div>
+                <div class="col-md-2">
+                    <strong>Владелец</strong>
+                </div>
+                <div class="col-md-4">
+                    {{$car->owner->name}}
+                </div>
+            </div>
+            <div class="row mt-2 pt-2">
+                <div class="col-md-2">
+                    <strong>Комментарий</strong>
+                </div>
+                <div class="col-md-10">
+                    {{$car->nickName}}
                 </div>
             </div>
         </div>

@@ -17,6 +17,7 @@ class ChangeCarConfiguration extends Migration
             $table->string('nickName')->nullable();
             $table->string('color')->nullable();
             $table->unsignedBigInteger('pid')->nullable();
+            $table->string('year');
         });
     }
 
@@ -28,7 +29,7 @@ class ChangeCarConfiguration extends Migration
     public function down()
     {
         Schema::table('car_configurations', function (Blueprint $table) {
-            $table->dropColumn(['nickName','color','pid']);
+            $table->dropColumn(['nickName','color','pid','year']);
         });
     }
 }

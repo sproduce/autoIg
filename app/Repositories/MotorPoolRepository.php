@@ -28,6 +28,7 @@ public function addCar($carInfoArray)
     $car->transmissionTypeId=$carInfoArray['transmissionTypeId'];
     $car->nickName=$carInfoArray['nickName'];
     $car->color=$carInfoArray['color'];
+    $car->year=$carInfoArray['year'];
     //var_dump($carInfoArray);
     $car->save();
 

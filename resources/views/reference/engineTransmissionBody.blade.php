@@ -24,13 +24,66 @@
 
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active mt-2" id="nav-engine" role="tabpanel" aria-labelledby="nav-engine-tab">
-            Engine
+            @foreach($types['engine'] as $engine)
+                <div class="row">
+                    <div class="col-10">
+                        {{$engine->name}}
+                    </div>
+                    <div class="col-2">
+                        <a class="btn btn-ssm btn-outline-warning DialogUserSMin" title="Редактировать" href="" ><i class="far fa-edit"></i></a>
+                        <div class="float-right">
+                            <a href="" class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить?')"><i class="fas fa-trash"></i> </a>
+                        </div>
+                    </div>
+                </div>
+
+            @endforeach
+            <div class="row">
+                <div class="col-12">
+                        <a class="btn btn-ssm btn-outline-success DialogUserSMin mt-5" title="Добавить" href=""><i class="far fa-plus-square"></i></a>
+                </div>
+            </div>
         </div>
         <div class="tab-pane fade mt-2" id="nav-body" role="tabpanel" aria-labelledby="nav-body-tab">
-            Body
+            @foreach($types['body'] as $body)
+                <div class="row">
+                    <div class="col-10">
+                        {{$body->name}}
+                    </div>
+                    <div class="col-2">
+                        <a class="btn btn-ssm btn-outline-warning DialogUserSMin" title="Редактировать" href="" ><i class="far fa-edit"></i></a>
+                        <div class="float-right">
+                            <a href="" class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить?')"><i class="fas fa-trash"></i> </a>
+                        </div>
+                    </div>
+                </div>
+
+            @endforeach
+                <div class="row">
+                    <div class="col-12">
+                        <a class="btn btn-ssm btn-outline-success DialogUserSMin mt-5" title="Добавить" href=""><i class="far fa-plus-square"></i></a>
+                    </div>
+                </div>
         </div>
         <div class="tab-pane fade mt-2" id="nav-transmission" role="tabpanel" aria-labelledby="nav-transmission-tab">
-            Transmission
+            @foreach($types['transmission'] as $transmission)
+                <div class="row">
+                    <div class="col-10">
+                        {{$transmission->name}}
+                    </div>
+                    <div class="col-2">
+                        <a class="btn btn-ssm btn-outline-warning DialogUserSMin" title="Редактировать" href="" ><i class="far fa-edit"></i></a>
+                        <div class="float-right">
+                            <a href="" class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить?')"><i class="fas fa-trash"></i> </a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            <div class="row">
+               <div class="col-12">
+                    <a class="btn btn-ssm btn-outline-success DialogUserSMin mt-5" title="Добавить" href=""><i class="far fa-plus-square"></i></a>
+               </div>
+            </div>
         </div>
 
 

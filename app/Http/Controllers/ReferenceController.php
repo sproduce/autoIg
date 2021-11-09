@@ -151,10 +151,10 @@ class ReferenceController extends Controller
 
 
 
-    public function engineTransmissionBody()
+    public function engineTransmissionBody(ModelService $modelServ)
     {
-
-        return view('reference.engineTransmissionBody');
+        $typesObj=$modelServ->getTypes();
+        return view('reference.engineTransmissionBody',['types'=>$typesObj]);
     }
 
 
