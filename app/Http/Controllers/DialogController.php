@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\carBrand;
 use App\Models\carModel;
 use App\Models\carGeneration;
+use App\Models\carOwner;
 use App\Services\BrandService;
 use App\Services\ModelService;
 
@@ -66,7 +67,9 @@ class DialogController extends Controller
     {
         $brandsObj=$brandServ->getBarnds();
         $typesObj=$modelServ->getTypes();
-        return view('dialog.MotorPool.addCar',['brands'=>$brandsObj,'types'=>$typesObj]);
+        $ownersObj=carOwner::all();
+
+        return view('dialog.MotorPool.addCar',['brands'=>$brandsObj,'types'=>$typesObj,'owners'=>$ownersObj]);
     }
 
 

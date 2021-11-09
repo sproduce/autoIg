@@ -15,20 +15,28 @@ Class MotorPoolService{
     }
 
 
+    public function getCar()
+    {
+
+    }
+
+
+
     public function addCar()
     {
         $validated = $this->request->validate([
-            'manufId'=>'required|alpha_dash',
-            'modelId' => 'required|integer',
-            'generationId'=>'required|alpha_dash',
-            'typeId'=>'required|alpha_dash',
+            'generationId'=>'required|integer',
+            'typeId'=>'integer',
+            'engineId'=>'integer',
+            'transmissionTypeId'=>'integer',
             'year'=>'',
             'displacement'=>'',
             'hp'=>'',
             'regNumber'=>'',
             'vin'=>'',
             'color'=>'',
-            'nickName'=>''
+            'nickName'=>'',
+            'ownerId'=>''
         ]);
         $this->motorPoolRep->addCar($validated);
     }

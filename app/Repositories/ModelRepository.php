@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Repositories;
-use App\Models\carType;
+
 use App\Repositories\Interfaces\ModelRepositoryInterface;
 use App\Models\carModel;
 use App\Models\carGeneration;
+use App\Models\carType;
+use App\Models\carEngineType;
+use App\Models\carTransmissionType;
 use Illuminate\Support\Facades\DB;
 
 class ModelRepository implements ModelRepositoryInterface
@@ -54,12 +57,24 @@ class ModelRepository implements ModelRepositoryInterface
 
     public function getGenerations($modelId)
     {
-     return carGeneration::select('id','name')->where('modelId',$modelId)->get();;
+     return carGeneration::select('id','name','start','finish')->where('modelId',$modelId)->get();;
     }
 
 
     public function getTypes()
     {
-     return carType::select('id','name')->get();
+        return carType::all();
     }
+
+    public function getEngines()
+    {
+        return carEngineType::all();
+    }
+
+
+    public function getTransmissions()
+    {
+        return carTransmissionType::all();
+    }
+
 }

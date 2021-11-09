@@ -26,6 +26,10 @@ Route::post('/reference/brand',[ReferenceController::class,'addBrand']);
 Route::post('/reference/brands',[ReferenceController::class,'addBrands']);
 Route::post('/reference/editBrand',[ReferenceController::class,'editBrand']);
 
+Route::get('/reference/engineTransmissionBody',[ReferenceController::class,'engineTransmissionBody']);
+
+
+
 
 Route::get('/dialog/addBrand',function(){
     return view('dialog.Car.addBrand');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeCarConfiguration extends Migration
+class CreateCarEngineTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class ChangeCarConfiguration extends Migration
      */
     public function up()
     {
-        Schema::table('car_configurations', function (Blueprint $table) {
-            $table->string('nickname');
-            $table->string('color');
-            $table->unsignedBigInteger('pid');
+        Schema::create('car_engine_types', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->string('name');
         });
     }
 
@@ -27,6 +27,6 @@ class ChangeCarConfiguration extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('car_engine_types');
     }
 }

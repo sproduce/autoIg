@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeCarConfiguration extends Migration
+class AddEngineTransmissionInCarConfiguration extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,8 @@ class ChangeCarConfiguration extends Migration
     public function up()
     {
         Schema::table('car_configurations', function (Blueprint $table) {
-            $table->string('nickname');
-            $table->string('color');
-            $table->unsignedBigInteger('pid');
+            $table->unsignedBigInteger('engineTypeId');
+            $table->unsignedBigInteger('transmissionTypeId');
         });
     }
 
@@ -27,6 +26,8 @@ class ChangeCarConfiguration extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('car_configuration', function (Blueprint $table) {
+            //
+        });
     }
 }

@@ -12,5 +12,9 @@ interface ModelRepositoryInterface
     public function getModels($brandId);
     public function getGenerations($modelId);
     public function getTypes();
+    public function getEngines();
+    public function getTransmissions();
+
+
 
 }

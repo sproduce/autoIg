@@ -86,7 +86,9 @@ Class ModelService{
 
     public function getTypes()
     {
-        $typesObj=$this->modelRep->getTypes();
+        $typesObj['body']=$this->modelRep->getTypes();
+        $typesObj['engine']=$this->modelRep->getEngines();
+        $typesObj['transmission']=$this->modelRep->getTransmissions();
         return $typesObj;
     }
 

@@ -10,7 +10,7 @@
     <div class="modal-body">
         <div class="container-fluid">
             <div class="form-row text-center">
-                <div class="form-group col-md-3 input-group-sm">
+                <div class="form-group col-md-4 input-group-sm">
                     <label for="manufId" title="Латинские буквы">Марка</label>
                     <select name="manufId" id="manufId" class="form-control">
                         <option value="0" id="firstBrandOption">Выберите марку</option>
@@ -20,33 +20,53 @@
                     </select>
 
                 </div>
-                <div class="form-group col-md-3 input-group-sm">
+                <div class="form-group col-md-4 input-group-sm">
                     <label for="modelId" title="Латинские буквы">Модель</label>
 
                     <select name="modelId" id="modelId" class="form-control" disabled>
                     </select>
                 </div>
-                <div class="form-group col-md-3 input-group-sm">
+                <div class="form-group col-md-4 input-group-sm">
                     <label for="generationId">Поколение</label>
                     <select name="generationId"  id="generationId" class="form-control" disabled>
-                    </select>
-                </div>
-                <div class="form-group col-md-3 input-group-sm">
-                    <label for="type">Кузов</label>
-                    <select name="typeId" id="typeId" class="form-control">
-                        @foreach($types as $type)
-                        <option value="{{$type->id}}">{{$type->name}}</option>
-                        @endforeach
                     </select>
                 </div>
             </div>
 
             <div class="form-row text-center">
-
-                <div class="form-group col-md-3 input-group-sm">
-                    <label for="year">Год выпуска</label>
-                    <input type="text" name="year" id="year" class="form-control" autocomplete="off"/>
+                <div class="form-group col-md-4 input-group-sm">
+                    <label for="type">Кузов</label>
+                    <select name="typeId" id="typeId" class="form-control">
+                        @foreach($types['body'] as $type)
+                            <option value="{{$type->id}}">{{$type->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
+                <div class="form-group col-md-4 input-group-sm">
+                    <label for="transmissionTypeId">Трансмиссия</label>
+                    <select name="transmissionTypeId" id="transmissionTypeId" class="form-control">
+
+                        @foreach($types['transmission'] as $transmission)
+                            <option value="{{$transmission->id}}">{{$transmission->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-4 input-group-sm">
+                    <label for="engineTypeId">Тип двигателя</label>
+                    <select name="engineTypeId" id="engineTypeId" class="form-control">
+                        @foreach($types['engine'] as $engine)
+                            <option value="{{$engine->id}}">{{$engine->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+
+
+
+            <div class="form-row text-center">
+
+
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="displacement">Обьем двигателя (cc)</label>
                     <input type="text" name="displacement" id="displacement" class="form-control" autocomplete="off"/>
@@ -56,27 +76,38 @@
                     <input type="text" name="hp" id="hp" class="form-control" autocomplete="off"/>
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
-                    <label for="regNumber">Рег.номер</label>
-                    <input type="text" name="regNumber" id="regNumber" class="form-control" autocomplete="off"/>
+                    <label for="year">Год выпуска</label>
+                    <input type="text" name="year" id="year" class="form-control" autocomplete="off"/>
                 </div>
+                <div class="form-group col-md-3 input-group-sm">
+                    <label for="color">Цвет</label>
+                    <input type="text" name="color" id="color" class="form-control"/>
+                </div>
+
             </div>
 
             <div class="form-row text-center">
-                <div class="form-group col-md-4 input-group-sm">
+                <div class="form-group col-md-5 input-group-sm">
                     <label for="vin">Вин код</label>
                     <input type="text" name="vin" id="vin" class="form-control" autocomplete="off"/>
                 </div>
+                <div class="form-group col-md-3 input-group-sm">
+                    <label for="regNumber">Рег.номер</label>
+                    <input type="text" name="regNumber" id="regNumber" class="form-control" autocomplete="off"/>
+                </div>
 
-                <div class="form-group col-md-2 input-group-sm">
-                    <label for="color">Цвет</label>
-                    <input type="color" name="color" id="color" class="form-control"/>
+                <div class="form-group col-md-4 input-group-sm">
+                    <label for="ownerId">Владелец</label>
+                    <select name="ownerId" id="ownerId" class="form-control">
+                    @foreach($owners as $owner)
+                        <option value="{{$owner->id}}">{{$owner->name}}</option>
+                    @endforeach
+                    </select>
                 </div>
-                <div class="form-group col-md-3 input-group-sm">
-                    <label for="owner">Владелец</label>
-                    <input type="text" name="owner" id="owner" class="form-control" autocomplete="off" />
-                </div>
-                <div class="form-group col-md-3 input-group-sm">
-                    <label for="nickName">NickName</label>
+            </div>
+            <div class="form-row text-center">
+                <div class="form-group col-md-12 input-group-sm">
+                    <label for="nickName">Комментарий</label>
                     <input type="text" name="nickName" id="nickName" class="form-control" autocomplete="off" />
                 </div>
             </div>
@@ -92,13 +123,6 @@
 
 
     <script>
-        function getOptions (dataArray){
-            var html = '';
-            for (var i = 0; i< dataArray.length; i++) {
-                html += '<option value="' + dataArray[i].id + '">'+ dataArray[i].name + '</option>';
-            }
-            return html;
-        }
 
 
         $(function()
@@ -106,15 +130,19 @@
             $('#manufId').change(function() {
                 $('#firstBrandOption').remove();
                 $('#modelId').empty();
-                $('#generationText').empty();
-                $('#generationText').attr('disabled',true);
+                $('#generationId').empty();
+                $('#generationId').attr('disabled',true);
                 $.get("/api/getModels",{brandId:$(this).val()}).done(function( data ) {
                     if (data.length){
-                        $('#modelId').append(getOptions(data));
+                        var html = '';
+                        for (var i = 0; i< data.length; i++) {
+                            html += '<option value="' + data[i].id + '">'+ data[i].name +'</option>';
+                        }
+                        $('#modelId').append(html);
                         $('#modelId').removeAttr('disabled');
                         $('#modelId').trigger('change');
                     } else {
-                        $('#modelText').attr('disabled',true);
+                        $('#modelId').attr('disabled',true);
                     }
                 });
             });
@@ -125,7 +153,15 @@
                 $('#generationId').empty();
                 $.get("/api/getGenerations",{modelId:$('#modelId').val()}).done(function( data ) {
                     if (data.length){
-                        $('#generationId').append(getOptions(data));
+                        var html = '';
+                        for (var i = 0; i< data.length; i++) {
+                            if (!data[i].finish){
+                                data[i].finish='н.в.'
+                            }
+                            html += '<option value="' + data[i].id + '">'+ data[i].name +'  ('+data[i].start +'-'+data[i].finish+')</option>';
+                        }
+
+                        $('#generationId').append(html);
                         $('#generationId').removeAttr('disabled');
                     } else {
                         $('#generationId').attr('disabled',true);

@@ -101,6 +101,13 @@
                                 Машины
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"  href="/reference/engineTransmissionBody">
+                                <i class="fas fa-cogs"></i>
+                                Кпп двигатель кузов
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>

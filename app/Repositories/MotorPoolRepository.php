@@ -19,4 +19,9 @@ public function addCar($carInfoArray)
     var_dump($carInfoArray);
 }
 
+public function getCar()
+{
+    // TODO: Implement getCar() method.
+}
+
 }
