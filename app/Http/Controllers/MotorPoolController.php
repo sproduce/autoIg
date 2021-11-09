@@ -10,14 +10,17 @@ class MotorPoolController extends Controller
 {
     //
 
-    public function show()
+    public function show(MotorPoolService $motorPoolServ)
     {
-        return view('motorPool.motorPoolList');
+        $carsPoolObj=$motorPoolServ->getCars();
+
+        return view('motorPool.motorPoolList',['carsPool'=>$carsPoolObj]);
     }
 
     public function add(MotorPoolService $motorPoolServ)
     {
         $motorPoolServ->addCar();
+        return redirect()->back();
     }
 
 
@@ -26,5 +29,13 @@ class MotorPoolController extends Controller
 
 
     }
+
+    public function dialogCarInfo(MotorPoolService $motorPoolServ)
+    {
+        $carObj=$motorPoolServ->getCar();
+        return view('dialog.MotorPool.carInfo',['car'=>$carObj]);
+    }
+
+
 
 }

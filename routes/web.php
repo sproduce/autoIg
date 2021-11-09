@@ -53,6 +53,9 @@ Route::post('/reference/model',[ReferenceController::class,'addModel']);
 Route::post('/reference/models',[ReferenceController::class,'addModels']);
 Route::post('/reference/editModel',[ReferenceController::class,'editModel']);
 
+
+Route::get('/dialog/carInfo',[MotorPoolController::class,'dialogCarInfo']);
+
 Route::get('/reference/generation',[ReferenceController::class,'showGenerations']);
 Route::get('/dialog/addGeneration',[DialogController::class,'addGeneration']);
 Route::get('/dialog/editGeneration',[DialogController::class,'editGeneration']);

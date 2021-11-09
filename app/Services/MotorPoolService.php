@@ -15,10 +15,18 @@ Class MotorPoolService{
     }
 
 
+    public function getCars()
+    {
+        return $this->motorPoolRep->getCars();
+    }
+
+
     public function getCar()
     {
-
+        $validated = $this->request->validate(['carId'=>'required|integer']);
+        return $this->motorPoolRep->getCar($validated['carId']);
     }
+
 
 
 
@@ -27,13 +35,13 @@ Class MotorPoolService{
         $validated = $this->request->validate([
             'generationId'=>'required|integer',
             'typeId'=>'integer',
-            'engineId'=>'integer',
+            'engineTypeId'=>'integer',
             'transmissionTypeId'=>'integer',
-            'year'=>'',
+            'year'=>'required',
             'displacement'=>'',
             'hp'=>'',
-            'regNumber'=>'',
-            'vin'=>'',
+            'regNumber'=>'required',
+            'vin'=>'required',
             'color'=>'',
             'nickName'=>'',
             'ownerId'=>''
