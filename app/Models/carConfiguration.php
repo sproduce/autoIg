@@ -9,6 +9,12 @@ use Illuminate\Support\Str;
 class carConfiguration extends Model
 {
     use HasFactory;
+
+    /**
+     * @var mixed
+     */
+    private $generationId;
+
     protected static function boot()
     {
         parent::boot();

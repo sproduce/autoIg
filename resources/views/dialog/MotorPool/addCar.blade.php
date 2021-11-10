@@ -28,7 +28,7 @@
                 </div>
                 <div class="form-group col-md-4 input-group-sm">
                     <label for="generationId">Поколение</label>
-                    <select name="generationId"  id="generationId" class="form-control" disabled>
+                    <select name="generationId"  id="generationId" class="form-control" required disabled>
                     </select>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="year">Год выпуска</label>
-                    <input type="text" name="year" id="year" class="form-control" autocomplete="off"/>
+                    <input type="text" name="year" id="year" class="form-control" required autocomplete="off"/>
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="color">Цвет</label>
@@ -89,11 +89,11 @@
             <div class="form-row text-center">
                 <div class="form-group col-md-5 input-group-sm">
                     <label for="vin">Вин код</label>
-                    <input type="text" name="vin" id="vin" class="form-control" autocomplete="off"/>
+                    <input type="text" name="vin" id="vin" class="form-control" required autocomplete="off"/>
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="regNumber">Рег.номер</label>
-                    <input type="text" name="regNumber" id="regNumber" class="form-control" autocomplete="off"/>
+                    <input type="text" name="regNumber" id="regNumber" class="form-control" required autocomplete="off"/>
                 </div>
 
                 <div class="form-group col-md-4 input-group-sm">
@@ -106,14 +106,26 @@
                 </div>
             </div>
             <div class="form-row text-center">
-                <div class="form-group col-md-12 input-group-sm">
-                    <label for="nickName">Комментарий</label>
+                <div class="form-group col-md-4 input-group-sm">
+                    <label for="dateStart">Поставлена на учет</label>
+                    <input type="date" name="dateStart" id="dateStart" required class="form-control"/>
+                </div>
+                <div class="form-group col-md-4 input-group-sm">
+                    <label for="dateFinish">Снята с учета</label>
+                    <input type="date" name="dateFinish" id="dateFinish" class="form-control"/>
+                </div>
+                <div class="form-group col-md-4 input-group-sm">
+                    <label for="nickName">NickName</label>
                     <input type="text" name="nickName" id="nickName" class="form-control" autocomplete="off" />
                 </div>
             </div>
-
-
-    </div>
+            <div class="form-row text-center">
+                <div class="form-group col-md-12 input-group-sm">
+                    <label for="comment">Комментарий</label>
+                    <input type="text" name="comment" id="comment" class="form-control" autocomplete="off" />
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="modal-footer d-flex justify-content-center">

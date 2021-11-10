@@ -68,3 +68,10 @@ Route::get('/motorPool/list',[MotorPoolController::class,'show']);
 
 Route::get('/motorPool/add',[DialogController::class,'addMotorPool']);
 Route::post('/motorPool/add',[MotorPoolController::class,'add']);
+
+
+
+
+Route::get('/dialog/editEngineType',[DialogController::class,'editEngineType']);
+Route::get('/dialog/editType',[DialogController::class,'editType']);
+Route::get('/dialog/editTransmissionType',[DialogController::class,'editTransmissionType']);

@@ -11,6 +11,7 @@ use App\Models\carGeneration;
 use App\Models\carOwner;
 use App\Services\BrandService;
 use App\Services\ModelService;
+use App\Models\carEngineType;
 
 class DialogController extends Controller
 {
@@ -69,6 +70,24 @@ class DialogController extends Controller
     }
 
 
+    public function editEngineType(ModelService $modelServ)
+    {
+        $engineObj=$modelServ->getEngineType();
 
+        return view('dialog.Car.editEngineType',['engine'=>$engineObj]);
+    }
+
+    public function editTransmissionType(ModelService $modelServ)
+    {
+        $transmissionObj=$modelServ->getTransmissionType();
+        return view('dialog.Car.editTransmissionType',['transmission'=>$transmissionObj]);
+    }
+
+
+    public function editType(ModelService $modelServ)
+    {
+        $typeObj=$modelServ->getType();
+        return view('dialog.Car.editType',['type'=>$typeObj]);
+    }
 
 }

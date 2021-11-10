@@ -29,6 +29,10 @@ public function addCar($carInfoArray)
     $car->nickName=$carInfoArray['nickName'];
     $car->color=$carInfoArray['color'];
     $car->year=$carInfoArray['year'];
+    $car->dateStart=$carInfoArray['dateStart'];
+    $car->dateFinish=$carInfoArray['dateFinish'];
+    $car->comment=$carInfoArray['comment'];
+
     //var_dump($carInfoArray);
     $car->save();
 

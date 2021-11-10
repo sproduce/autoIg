@@ -93,4 +93,23 @@ Class ModelService{
     }
 
 
+    public function getType()
+    {
+        $typeId=$this->request->validate(['typeId'=>'required|integer']);
+        return $this->modelRep->getType($typeId['typeId']);
+    }
+
+    public function getEngineType()
+    {
+        $engineId=$this->request->validate(['engineId'=>'required|integer']);
+        return $this->modelRep->getEngine($engineId['engineId']);
+    }
+
+    public function getTransmissionType()
+    {
+        $transmissionId=$this->request->validate(['transmissionId'=>'required|integer']);
+        return $this->modelRep->getTransmission($transmissionId['transmissionId']);
+    }
+
+
 }

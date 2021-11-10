@@ -154,7 +154,7 @@ class ReferenceController extends Controller
     public function engineTransmissionBody(ModelService $modelServ)
     {
         $typesObj=$modelServ->getTypes();
-        return view('reference.engineTransmissionBody',['types'=>$typesObj]);
+        return view('reference.engineTransmissionBody',['types'=>$typesObj,'body'=>'']);
     }
 
 

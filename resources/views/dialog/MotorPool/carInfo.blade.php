@@ -87,6 +87,12 @@
                 <div class="col-md-2">
                     {{$car->transmission->name}}
                 </div>
+                <div class="col-md-2">
+                    <strong>Nickname</strong>
+                </div>
+                <div class="col-md-2">
+                    {{$car->nickName}}
+                </div>
             </div>
             <div class="row border-top mt-2 pt-2">
                 <div class="col-md-2">
@@ -102,12 +108,33 @@
                     {{$car->owner->name}}
                 </div>
             </div>
+
+            <div class="row border-top mt-2 pt-2">
+                <div class="col-md-3">
+                    <strong>Постановка на учет</strong>
+                </div>
+                <div class="col-md-3">
+                    {{$car->dateStart}}
+                </div>
+                <div class="col-md-3">
+                    <strong>Снятие с учета</strong>
+                </div>
+                <div class="col-md-3">
+                    {{$car->dateFinish}}
+                </div>
+
+
+            </div>
+
+
+
+
             <div class="row mt-2 pt-2">
                 <div class="col-md-2">
                     <strong>Комментарий</strong>
                 </div>
                 <div class="col-md-10">
-                    {{$car->nickName}}
+                    {{$car->comment}}
                 </div>
             </div>
         </div>

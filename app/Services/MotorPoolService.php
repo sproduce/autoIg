@@ -44,7 +44,10 @@ Class MotorPoolService{
             'vin'=>'required',
             'color'=>'',
             'nickName'=>'',
-            'ownerId'=>''
+            'ownerId'=>'',
+            'dateStart'=>'required',
+            'dateFinish'=>'',
+            'comment'=>''
         ]);
         $this->motorPoolRep->addCar($validated);
     }

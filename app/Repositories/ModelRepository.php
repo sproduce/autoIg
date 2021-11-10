@@ -66,15 +66,28 @@ class ModelRepository implements ModelRepositoryInterface
         return carType::all();
     }
 
+    public function getType($id)
+    {
+        return carType::find($id);
+    }
+
     public function getEngines()
     {
         return carEngineType::all();
     }
 
+    public function getEngine($id)
+    {
+        return carEngineType::find($id);
+    }
 
     public function getTransmissions()
     {
         return carTransmissionType::all();
     }
 
+    public function getTransmission($id)
+    {
+        return carTransmissionType::find($id);
+    }
 }
