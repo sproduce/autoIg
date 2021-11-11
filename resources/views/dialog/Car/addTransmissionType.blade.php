@@ -9,9 +9,9 @@
     <div class="modal-body">
         <div class="container-fluid">
             <div class="form-group row">
-                <label class="col-sm-3 col-form-label" for="brandName" title="Латинские буквы">КПП</label>
+                <label class="col-sm-3 col-form-label" for="name" title="Латинские буквы">КПП</label>
                 <div class="col-sm-8">
-                    <input list="oftenCars" type="text" name="brandName" id="brandName" class="form-control" autocomplete="off" required/>
+                    <input list="oftenCars" type="text" name="name" id="name" class="form-control" autocomplete="off" required/>
                 </div>
 
             </div>

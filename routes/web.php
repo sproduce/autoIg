@@ -89,3 +89,7 @@ Route::get('/dialog/addTransmissionType',function(){
     return view('dialog.Car.addTransmissionType');
 });
 
+Route::post('/reference/addEngineType',[ReferenceController::class,'addCarEngineType']);
+Route::post('/reference/addType',[ReferenceController::class,'addCarType']);
+Route::post('/reference/addTransmissionType',[ReferenceController::class,'addCarTransmissionType']);
+

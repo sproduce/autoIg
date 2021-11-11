@@ -112,4 +112,30 @@ Class ModelService{
     }
 
 
+    public function addCarType()
+    {
+        $validated = $this->request->validate([
+            'name'=>''
+        ]);
+        $this->modelRep->addType($validated['name']);
+    }
+
+    public function addCarEngineType()
+    {
+        $validated = $this->request->validate([
+            'name'=>''
+        ]);
+        $this->modelRep->addEngine($validated['name']);
+    }
+
+    public function addCarTransmissionType()
+    {
+        $validated = $this->request->validate([
+            'name'=>''
+        ]);
+        $this->modelRep->addTransmission($validated['name']);
+    }
+
+
+
 }

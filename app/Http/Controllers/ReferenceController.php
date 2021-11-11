@@ -154,13 +154,30 @@ class ReferenceController extends Controller
     public function engineTransmissionBody(ModelService $modelServ)
     {
         $typesObj=$modelServ->getTypes();
-        return view('reference.engineTransmissionBody',['types'=>$typesObj,'body'=>'']);
+        return view('reference.engineTransmissionBody',['types'=>$typesObj,'engine'=>'']);
     }
 
 
+    public function addCarType(ModelService $modelServ)
+    {
+        $typesObj=$modelServ->getTypes();
+        $modelServ->addCarType();
+        return redirect()->back();
+    }
 
+    public function addCarEngineType(ModelService $modelServ)
+    {
+        $typesObj=$modelServ->getTypes();
+        $modelServ->addCarEngineType();
+        return redirect()->back();
+    }
 
-
+    public function addCarTransmissionType(ModelService $modelServ)
+    {
+        $typesObj=$modelServ->getTypes();
+        $modelServ->addCarTransmissionType();
+        return redirect()->back();
+    }
 
 
 }

@@ -13,10 +13,15 @@ interface ModelRepositoryInterface
     public function getGenerations($modelId);
     public function getTypes();
     public function getType($id);
+    public function addType($typeArray);
+    public function editType($typeName);
     public function getEngines();
     public function getEngine($id);
+    public function addEngine($engineName);
+    public function editEngine($engineArray);
     public function getTransmissions();
     public function getTransmission($id);
-
+    public function addTransmission($transmissionName);
+    public function editTransmission($transmissionArray);
 
 }

@@ -71,6 +71,18 @@ class ModelRepository implements ModelRepositoryInterface
         return carType::find($id);
     }
 
+    public function addType($typeName)
+    {
+        $carType=new carType();
+        $carType->name=$typeName;
+        $carType->save();
+    }
+
+    public function editType($typeArray)
+    {
+        // TODO: Implement editType() method.
+    }
+
     public function getEngines()
     {
         return carEngineType::all();
@@ -79,6 +91,16 @@ class ModelRepository implements ModelRepositoryInterface
     public function getEngine($id)
     {
         return carEngineType::find($id);
+    }
+    public function addEngine($engineName)
+    {
+        $carEngine=new carEngineType();
+        $carEngine->name=$engineName;
+        $carEngine->save();
+    }
+    public function editEngine($engineArray)
+    {
+        // TODO: Implement editEngine() method.
     }
 
     public function getTransmissions()
@@ -89,5 +111,17 @@ class ModelRepository implements ModelRepositoryInterface
     public function getTransmission($id)
     {
         return carTransmissionType::find($id);
+    }
+
+    public function addTransmission($transmissionName)
+    {
+        $carTransmission=new carTransmissionType();
+        $carTransmission->name=$transmissionName;
+        $carTransmission->save();
+    }
+
+    public function editTransmission($transmissionArray)
+    {
+        // TODO: Implement editTransmission() method.
     }
 }
