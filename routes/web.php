@@ -75,3 +75,17 @@ Route::post('/motorPool/add',[MotorPoolController::class,'add']);
 Route::get('/dialog/editEngineType',[DialogController::class,'editEngineType']);
 Route::get('/dialog/editType',[DialogController::class,'editType']);
 Route::get('/dialog/editTransmissionType',[DialogController::class,'editTransmissionType']);
+
+
+Route::get('/dialog/addEngineType',function(){
+    return view('dialog.Car.addEngineType');
+});
+
+Route::get('/dialog/addType',function(){
+    return view('dialog.Car.addType');
+});
+
+Route::get('/dialog/addTransmissionType',function(){
+    return view('dialog.Car.addTransmissionType');
+});
+

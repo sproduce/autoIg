@@ -40,7 +40,7 @@
             @endforeach
             <div class="row">
                 <div class="col-12">
-                        <a class="btn btn-ssm btn-outline-success DialogUserSMin mt-5" title="Добавить" href=""><i class="far fa-plus-square"></i></a>
+                        <a class="btn btn-ssm btn-outline-success DialogUserSMin mt-5" title="Добавить" href="/dialog/addEngineType"><i class="far fa-plus-square"></i></a>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
             @endforeach
                 <div class="row">
                     <div class="col-12">
-                        <a class="btn btn-ssm btn-outline-success DialogUserSMin mt-5" title="Добавить" href=""><i class="far fa-plus-square"></i></a>
+                        <a class="btn btn-ssm btn-outline-success DialogUserSMin mt-5" title="Добавить" href="/dialog/addType"><i class="far fa-plus-square"></i></a>
                     </div>
                 </div>
         </div>
@@ -81,7 +81,7 @@
             @endforeach
             <div class="row">
                <div class="col-12">
-                    <a class="btn btn-ssm btn-outline-success DialogUserSMin mt-5" title="Добавить" href=""><i class="far fa-plus-square"></i></a>
+                    <a class="btn btn-ssm btn-outline-success DialogUserSMin mt-5" title="Добавить" href="/dialog/addTransmissionType"><i class="far fa-plus-square"></i></a>
                </div>
             </div>
         </div>
