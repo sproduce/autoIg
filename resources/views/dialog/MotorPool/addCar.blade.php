@@ -6,7 +6,6 @@
     </div>
 <form method="POST" action="/motorPool/add">
     @csrf
-    <input type="text" name="userId" value="{$userId}" hidden/>
     <div class="modal-body">
         <div class="container-fluid">
             <div class="form-row text-center">
@@ -107,7 +106,7 @@
             </div>
             <div class="form-row text-center">
                 <div class="form-group col-md-4 input-group-sm">
-                    <label for="dateStart">Поставлена на учет</label>
+                    <label for="dateStart">Начало владения</label>
                     <input type="date" name="dateStart" id="dateStart" required class="form-control"/>
                 </div>
                 <div class="form-group col-md-4 input-group-sm">

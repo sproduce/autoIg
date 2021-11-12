@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 
+use App\Services\MotorPoolService;
 use Illuminate\Http\Request;
 use App\Models\carBrand;
 use App\Models\carModel;
@@ -89,5 +90,13 @@ class DialogController extends Controller
         $typeObj=$modelServ->getType();
         return view('dialog.Car.editType',['type'=>$typeObj]);
     }
+
+
+    public function addCarContract(MotorPoolService $motorPoolServ)
+    {
+          $carObj=$motorPoolServ->getCar();
+         return view('dialog.Contract.addCarContract',['car'=>$carObj]);
+    }
+
 
 }

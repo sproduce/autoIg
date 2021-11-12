@@ -111,7 +111,7 @@
 
             <div class="row border-top mt-2 pt-2">
                 <div class="col-md-3">
-                    <strong>Постановка на учет</strong>
+                    <strong>Начало владения</strong>
                 </div>
                 <div class="col-md-3">
                     {{$car->dateStart}}

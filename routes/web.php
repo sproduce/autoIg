@@ -93,3 +93,8 @@ Route::post('/reference/addEngineType',[ReferenceController::class,'addCarEngine
 Route::post('/reference/addType',[ReferenceController::class,'addCarType']);
 Route::post('/reference/addTransmissionType',[ReferenceController::class,'addCarTransmissionType']);
 
+
+
+Route::get('/contract/list',[\App\Http\Controllers\ContractController::class,'show']);
+
+Route::get('/contract/addCarContract',[DialogController::class,'addCarContract']);

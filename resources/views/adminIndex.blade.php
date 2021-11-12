@@ -45,7 +45,7 @@
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="/contract/list">
                                 <i class="fas fa-file-alt"></i>
                                 Договора
                             </a>
@@ -54,6 +54,12 @@
                             <a class="nav-link" href="/motorPool/list">
                                 <i class="fas fa-taxi"></i>
                                 Автопарк
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  href="/carDriver/list">
+                                <i class="fas fa-user-tie"></i>
+                                Водители
                             </a>
                         </li>
                     </ul>
@@ -106,6 +112,18 @@
                             <a class="nav-link"  href="/reference/engineTransmissionBody">
                                 <i class="fas fa-cogs"></i>
                                 Кпп двигатель кузов
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contract/typeList">
+                                <i class="fas fa-file-alt"></i>
+                                Типы договоров
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contract/statusList">
+                                <i class="fas fa-file-alt"></i>
+                                Статусы договоров
                             </a>
                         </li>
                     </ul>
