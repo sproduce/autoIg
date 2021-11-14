@@ -9,6 +9,10 @@ public function getContractTypes();
 public function addContractStatus();
 public function getContractStatuses();
 
+public function getTariffs();
+public function addTariff();
+
+
 public function addContract();
 public function getContracts();
 

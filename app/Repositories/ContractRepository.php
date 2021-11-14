@@ -3,6 +3,8 @@
 namespace App\Repositories;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use Illuminate\Support\Facades\DB;
+use App\Models\rentContract;
+
 
 class ContractRepository implements ContractRepositoryInterface
 {
@@ -30,12 +32,23 @@ class ContractRepository implements ContractRepositoryInterface
 
     public function getContracts()
     {
-        // TODO: Implement getContracts() method.
+        return rentContract::all();
     }
     public function addContract()
     {
         // TODO: Implement addContract() method.
     }
 
+
+    public function getTariffs()
+    {
+        // TODO: Implement getTariffs() method.
+    }
+
+
+    public function addTariff()
+    {
+        // TODO: Implement addTariff() method.
+    }
 
 }

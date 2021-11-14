@@ -16,6 +16,7 @@ class CreateRentContractTypesTable extends Migration
         Schema::create('rent_contract_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+
         });
     }
 

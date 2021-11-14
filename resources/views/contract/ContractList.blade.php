@@ -19,7 +19,7 @@
 
     <div class="row mt-4">
         <div class="col-12">
-            <a class="btn btn-ssm btn-outline-success DialogUser" title="Добавить договор" href="/contract/add"><i class="far fa-plus-square"></i></a>
+            <a class="btn btn-ssm btn-outline-success" title="Добавить договор" href="/contract/add"><i class="far fa-plus-square"></i></a>
         </div>
     </div>
 

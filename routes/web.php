@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\DialogController;
 use App\Http\Controllers\MotorPoolController;
+use App\Http\Controllers\ContractController;
+use App\Http\Controllers\CarDriverController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -95,6 +97,17 @@ Route::post('/reference/addTransmissionType',[ReferenceController::class,'addCar
 
 
 
-Route::get('/contract/list',[\App\Http\Controllers\ContractController::class,'show']);
+Route::get('/contract/list',[ContractController::class,'show']);
 
 Route::get('/contract/addCarContract',[DialogController::class,'addCarContract']);
+
+Route::get('/contract/add',function(){
+    return view('contract.addCarContract');});
+
+
+
+Route::get('carDriver/list',[CarDriverController::class,'show']);
+Route::get('carDriver/add',function(){
+    return view('dialog.CarDriver.addCarDriver');});
+route::post('carDriver/add',[CarDriverController::class,'add']);
+

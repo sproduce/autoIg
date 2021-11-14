@@ -126,6 +126,12 @@
                                 Статусы договоров
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contract/tariffList">
+                                <i class="fas fa-file-alt"></i>
+                                Тарифы договоров
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -157,10 +163,11 @@
 
 
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/ready.js') }}" defer></script>
     <script src="{{ asset('js/js.cookie.min.js') }}" defer></script>
     <script src="{{ asset('js/user.js') }}" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
     @yield('js')
 
     </body>

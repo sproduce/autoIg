@@ -5,16 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class rentContract extends Model
+class rentCarDriverContact extends Model
 {
     use HasFactory;
-
-    public function driver()
-    {
-
-        return $this->hasOne(rentCarDriver::class,'id','driverId');
-
-    }
-
-
+    protected $fillable = ['phone','driverId'];
+    private $phone,$driverId;
 }

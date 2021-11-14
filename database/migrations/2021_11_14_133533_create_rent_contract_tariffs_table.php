@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRentCarDriversTable extends Migration
+class CreateRentContractTariffsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateRentCarDriversTable extends Migration
      */
     public function up()
     {
-        Schema::create('rent_car_drivers', function (Blueprint $table) {
+        Schema::create('rent_contract_tariffs', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('name');
@@ -27,6 +27,6 @@ class CreateRentCarDriversTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rent_car_drivers');
+        Schema::dropIfExists('rent_contract_tariffs');
     }
 }
