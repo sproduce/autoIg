@@ -25,7 +25,10 @@
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="typeId" title="Тип договора">Тип договора</label>
                     <select name="typeId" id="typeId" class="form-control">
-                        <option>Тип договора</option>
+                        @foreach($contractTypes as $contractType)
+                            <option value="{{$contractType->id}}">{{$contractType->name}}</option>
+                        @endforeach
+
                     </select>
                 </div>
             </div>
@@ -33,20 +36,25 @@
             <div class="form-row text-center mt-3">
                 <div class="form-group col-md-5 input-group-sm">
                     <label for="driverId" title="Водитель">Водитель</label>
-                    <a href="" class="btn btn-ssm btn-outline-success ml-2"><i class="fas fa-search-plus"></i></a>
+                    <a href="#" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
                     <input id="carText" class="form-control" disabled/>
                     <input name="driverId" id="driverId"  hidden />
                 </div>
                 <div class="form-group col-md-5 input-group-sm">
                     <label for="carId" title="Машина">Машина</label>
-                    <a href="" class="btn btn-ssm btn-outline-success ml-2"><i class="fas fa-search-plus"></i></a>
+                    <a href="#" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
                     <input id="carText" class="form-control" disabled/>
                     <input name="carId" id="carId"  hidden />
                 </div>
                 <div class="form-group col-md-2 input-group-sm">
                     <label for="statusId" title="Статус договора">Статус договора</label>
+
+
                     <select name="statusId" id="statusId" class="form-control">
-                        <option>Статус</option>
+                        @foreach($contractStatuses as $contractStatus)
+                            <option value="{{$contractStatus->id}}">{{$contractStatus->name}}</option>
+                        @endforeach
+
                     </select>
                 </div>
 
@@ -57,7 +65,9 @@
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="tarifId" title="Тариф договора">Тариф договора</label>
                     <select name="tarifId" id="tarifId" class="form-control">
-                        <option>тариф</option>
+                        @foreach($contractTariffs as $contractTariff)
+                            <option value="{{$contractTariff->id}}">{{$contractTariff->name}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group col-md-2 input-group-sm">
