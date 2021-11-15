@@ -43,8 +43,14 @@
     });
 
 $("#search").keyup(function(){
-    $("#carDriverSearch").load("/carDriver/search?driverText="+$("#search").val());
-   console.log('press'+$("#search").val());
+    $("#carDriverSearch").load("/carDriver/search?driverText="+$("#search").val(),function(){
+        $(".driverSearch").click(function(){
+            $("#driverId").val($(this).attr("data-driverSearchId"));
+            $("#driverText").val($(this).attr("data-driverSeachText"));
+            $('#modal').modal('toggle');
+        });
+    });
+
 });
 
 </script>

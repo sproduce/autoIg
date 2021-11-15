@@ -8,6 +8,8 @@ public function getLastDrivers($kol);
 public function getCarDrivers();
 public function getCarDriver($id);
 public function addCarDriver($carDriverArray);
+public function carDriverSearch($text);
+
 
 public function getCarDriverContacts($carDriverId);
 public function addCarDriverContact($contactArray);

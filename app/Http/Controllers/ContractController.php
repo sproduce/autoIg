@@ -41,5 +41,10 @@ class ContractController extends Controller
     }
 
 
+    public function saveContract()
+    {
+        $this->contractServ->addContract();
+    }
+
 
 }

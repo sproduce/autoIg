@@ -13,3 +13,8 @@
 .row-table:nth-child(odd){
     background-color: rgba(0,0,0,.05);
 }
+
+
+.sidebar-sticky {
+    position: absolute;
+}

@@ -11,8 +11,8 @@
 
         <!-- Styles -->
         <link href="/css/app.css" rel="stylesheet">
-        <link href="/css/style.css" rel="stylesheet">
         <link href="/css/dashboard.css" rel="stylesheet">
+        <link href="/css/style.css" rel="stylesheet">
     </head>
 
     <body class="antialiased">

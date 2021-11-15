@@ -49,5 +49,11 @@ class CarDriverRepository implements CarDriverRepositoryInterface
 
     }
 
+    public function carDriverSearch($text)
+    {
+
+        return rentCarDriver::query()->where('name','LIKE','%'.$text.'%')->orWhere('surname','LIKE','%'.$text.'%') ->get();
+    }
+
 
 }

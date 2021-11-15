@@ -35,7 +35,8 @@ class CarDriverController extends Controller
 
     public function search()
     {
-        $this->carDriverServ->searchDriver();
+        $carDriversObj=$this->carDriverServ->searchDriver();
+        return view('carDriver.carDriverSearchResult',['carDrivers'=>$carDriversObj]);
     }
 
 
