@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class rentCarDriver extends Model
 {
     use HasFactory;
-    protected $fillable = ['surname','name','male','birthday','nickname','comment','regionId'];
-    private $id,$surname,$name,$male,$birthday,$nickname,$comment,$regionId;
+    protected $fillable = ['surname','name','male','birthday','nickname','comment','regionId','patronymic'];
+    private $id,$surname,$name,$male,$birthday,$nickname,$comment,$regionId,$patronymic;
 
 
     public function contacts()

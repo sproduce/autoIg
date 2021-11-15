@@ -34,6 +34,7 @@ Class CarDriverService{
             'male'=>'',
             'birthday'=>'',
             'nickname'=>'',
+            'patronymic'=>'',
             'comment'=>'']);
 
             $carDriverObj=$this->carDriverRep->addCarDriver($validated);

@@ -105,6 +105,7 @@ Route::get('/contract/add',[ContractController::class,'addContract']);
 Route::post('/contract/add',[ContractController::class,'saveContract']);
 
 Route::get('/contract/addDriver',[ContractController::class,'addDriverDialog']);
+Route::get('/contract/addCar',[ContractController::class,'addCarDialog']);
 
 Route::get('/carDriver/search',[CarDriverController::class,'search']);
 

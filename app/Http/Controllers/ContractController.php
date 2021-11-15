@@ -41,6 +41,11 @@ class ContractController extends Controller
     }
 
 
+    public function addCarDialog()
+    {
+        return view('dialog.Contract.addCarContract');
+    }
+
     public function saveContract()
     {
         $this->contractServ->addContract();

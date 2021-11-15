@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group col-md-5 input-group-sm">
                     <label for="carId" title="Машина">Машина</label>
-                    <a href="#" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+                    <a href="/contract/addCar" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
                     <input id="carText" class="form-control" disabled/>
                     <input name="carId" id="carId"  hidden />
                 </div>
