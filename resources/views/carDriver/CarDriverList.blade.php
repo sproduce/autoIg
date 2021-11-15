@@ -10,10 +10,10 @@
     @if($carDrivers->count())
         <div class="row align-items-center font-weight-bold border">
             <div class="col-3">
-                Фамилия | Имя
+                Фамилия | Имя | Отчество
             </div>
             <div class="col-2">
-                День рождения
+                Дата рождения
             </div>
             <div class="col-1">
                 Пол
@@ -33,7 +33,7 @@
         @foreach($carDrivers as $carDriver)
             <div class="row row-table">
                 <div class="col-3">
-                    {{$carDriver->surname}}  {{$carDriver->name}}
+                    {{$carDriver->surname}}  {{$carDriver->name}} {{$carDriver->patronymic}}
                 </div>
                 <div class="col-2">
                     {{$carDriver->birthday}}
