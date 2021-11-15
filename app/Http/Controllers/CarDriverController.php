@@ -3,22 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Services\CarDriverService;
-use Illuminate\Http\Request;
-
 
 class CarDriverController extends Controller
 {
-
-    public function show(CarDriverService $carDriverServ)
+    private $carDriverServ;
+    function __construct(CarDriverService $carDriverServ)
     {
-        $carDriversObj=$carDriverServ->getCarDrivers();
+        $this->carDriverServ=$carDriverServ;
+    }
+
+
+    public function show()
+    {
+        $carDriversObj=$this->carDriverServ->getCarDrivers();
         return view('carDriver.CarDriverList',['carDrivers'=>$carDriversObj]);
     }
 
-    public function add(CarDriverService $carDriverServ)
+    public function add()
     {
-        $carDriverServ->addCarDriver();
+        $this->carDriverServ->addCarDriver();
         return redirect()->back();
+    }
+
+
+    public function addDialog()
+    {
+        $carDriverRegionsObj=$this->carDriverServ->getCarDriverRegions();
+        return view('dialog.CarDriver.addCarDriver',['carDriverRegions'=>$carDriverRegionsObj]);
+    }
+
+
+    public function search()
+    {
+        $this->carDriverServ->searchDriver();
     }
 
 

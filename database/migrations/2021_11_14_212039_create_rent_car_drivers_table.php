@@ -16,13 +16,16 @@ class CreateRentCarDriversTable extends Migration
         Schema::create('rent_car_drivers', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
             $table->string('surname');
             $table->string('name');
+            $table->string('patronymic')->nullable();
             $table->boolean('male')->nullable();
             $table->date('birthday')->nullable();
             $table->string('nickname')->nullable();
             $table->string('comment')->nullable();
-
+            $table->unsignedBigInteger('regionId');
+            $table->foreign('regionId')->references('id')->on('rent_car_driver_regions');
         });
     }
 

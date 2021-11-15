@@ -103,10 +103,11 @@ Route::get('/contract/addCarContract',[DialogController::class,'addCarContract']
 
 Route::get('/contract/add',[ContractController::class,'addContract']);
 
+Route::get('/contract/addDriver',[ContractController::class,'addDriverDialog']);
 
+Route::get('/carDriver/search',[CarDriverController::class,'search']);
 
 Route::get('carDriver/list',[CarDriverController::class,'show']);
-Route::get('carDriver/add',function(){
-    return view('dialog.CarDriver.addCarDriver');});
+Route::get('carDriver/add', [CarDriverController::class,'addDialog']);
 route::post('carDriver/add',[CarDriverController::class,'add']);
 

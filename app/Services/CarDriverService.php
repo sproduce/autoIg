@@ -29,6 +29,7 @@ Class CarDriverService{
     public function addCarDriver()
     {
         $validated=$this->request->validate(['surname'=>'required',
+            'regionId'=>'required',
             'name'=>'',
             'male'=>'',
             'birthday'=>'',
@@ -37,12 +38,34 @@ Class CarDriverService{
 
             $carDriverObj=$this->carDriverRep->addCarDriver($validated);
             $validatedcontact=$this->request->validate(['phone'=>'']);
-            if ($validatedcontact['phone']){
-                $validatedcontact['driverId']=$carDriverObj->id;
-                $this->carDriverRep->addCarDriverContact($validatedcontact);
-            }
+            foreach($validatedcontact['phone'] as $phone){
+                if($phone){
+                    $driverContactArray['driverId']=$carDriverObj->id;
+                    $driverContactArray['phone']=$phone;
+                    $this->carDriverRep->addCarDriverContact($driverContactArray);
+                }
 
+                }
     }
+
+
+    public function getCarDriverRegions()
+    {
+        return $this->carDriverRep->getCarDriverRegions();
+    }
+
+    public function getLastDrivers($kol)
+    {
+        return $this->carDriverRep->getLastDrivers($kol);
+    }
+
+
+    public function searchDriver()
+    {
+        $validate=$this->request->validate(['driverText'=>'required']);
+        var_dump($validate);
+    }
+
 
 
 

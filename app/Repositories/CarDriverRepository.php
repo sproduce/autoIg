@@ -5,6 +5,7 @@ use App\Repositories\Interfaces\CarDriverRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use App\Models\rentCarDriver;
 use App\Models\rentCarDriverContact;
+use App\Models\rentCarDriverRegion;
 
 class CarDriverRepository implements CarDriverRepositoryInterface
 {
@@ -29,6 +30,23 @@ class CarDriverRepository implements CarDriverRepositoryInterface
     public function getCarDriverContacts($carDriverId)
     {
         // TODO: Implement getCarDriverContacts() method.
+    }
+
+
+    public function getCarDriverRegions()
+    {
+        return rentCarDriverRegion::all();
+    }
+
+    public function addCarDriverRegion()
+    {
+        // TODO: Implement addCarDriverRegion() method.
+    }
+
+    public function getLastDrivers($kol)
+    {
+        return rentCarDriver::take($kol)->orderByDesc('id')->get();
+
     }
 
 

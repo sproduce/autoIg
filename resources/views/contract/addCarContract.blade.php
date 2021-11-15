@@ -36,8 +36,8 @@
             <div class="form-row text-center mt-3">
                 <div class="form-group col-md-5 input-group-sm">
                     <label for="driverId" title="Водитель">Водитель</label>
-                    <a href="#" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
-                    <input id="carText" class="form-control" disabled/>
+                    <a href="/contract/addDriver" class="btn btn-ssm btn-outline-success ml-2 DialogUserMin"><i class="fas fa-search-plus"></i></a>
+                    <input id="driverText" class="form-control" disabled/>
                     <input name="driverId" id="driverId"  hidden />
                 </div>
                 <div class="form-group col-md-5 input-group-sm">

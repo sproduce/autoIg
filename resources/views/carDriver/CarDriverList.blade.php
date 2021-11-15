@@ -45,12 +45,15 @@
                         Жен
                     @endif
                 </div>
-                <div class="col-2">
+                @if($carDriver->contacts->count())
+                <div class="col-2" title="@foreach($carDriver->contacts as $contact) {{$contact->phone}} @endforeach">
                     @if($carDriver->contacts->count())
                         {{$carDriver->contacts[0]->phone}}
                     @endif
-
                 </div>
+                @else
+                    <div class="col-2"></div>
+                @endif
                 <div class="col-2">
                     {{$carDriver->nickname}}
                 </div>
@@ -84,7 +87,7 @@
 
     <script>
         $('#modal').on('shown.bs.modal', function (e) {
-            $('#phone').inputmask("+7(999) 999-99-99");
+            $('.phone').inputmask("+7(999) 999-99-99");
 
         })
 
