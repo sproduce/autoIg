@@ -31,7 +31,7 @@ class ContractRepository implements ContractRepositoryInterface
 
     public function getContracts()
     {
-        return rentContract::all();
+        return rentContract::all()->sortByDesc('start');
     }
     public function addContract($contractArray)
     {

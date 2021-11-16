@@ -45,7 +45,7 @@
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="/contract/list">
+                            <a class="nav-link" href="/contract/actualList">
                                 <i class="fas fa-file-alt"></i>
                                 Договора
                             </a>

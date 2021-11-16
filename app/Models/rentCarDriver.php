@@ -17,5 +17,9 @@ class rentCarDriver extends Model
         return $this->hasMany(rentCarDriverContact::class,'driverId')->orderByDesc('id');
     }
 
+    public function region()
+    {
+        return $this->hasOne(rentCarDriverRegion::class,'id','regionId');
+    }
 
 }

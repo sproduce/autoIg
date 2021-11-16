@@ -33,6 +33,7 @@
         @foreach($carDrivers as $carDriver)
             <div class="row row-table">
                 <div class="col-3">
+                    <a href="/dialog/carDriverInfo?carDriverId={{$carDriver->id}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
                     {{$carDriver->surname}}  {{$carDriver->name}} {{$carDriver->patronymic}}
                 </div>
                 <div class="col-2">

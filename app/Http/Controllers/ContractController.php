@@ -12,16 +12,25 @@ use App\Services\CarDriverService;
 class ContractController extends Controller
 {
     private $contractServ;
+
     function __construct(ContractService $contractServ)
     {
-        $this->contractServ=$contractServ;
+        $this->contractServ = $contractServ;
     }
 
-    public function show()
+    public function showActual()
     {
-        $contractsObj=$this->contractServ->getContracts();
-        return view('contract.ContractList',['contracts'=>$contractsObj]);
+        $contractsObj = $this->contractServ->getContracts();
+        return view('contract.ContractActualList', ['contracts' => $contractsObj]);
     }
+
+    public function showCompleted()
+    {
+        return view('contract.ContractCompletedList');
+    }
+
+
+
 
     public function addContract(MotorPoolService $motorPoolServ)
     {

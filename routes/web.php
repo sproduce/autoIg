@@ -57,6 +57,7 @@ Route::post('/reference/editModel',[ReferenceController::class,'editModel']);
 
 
 Route::get('/dialog/carInfo',[MotorPoolController::class,'dialogCarInfo']);
+Route::get('/dialog/carDriverInfo',[CarDriverController::class,'dialogInfo']);
 
 Route::get('/reference/generation',[ReferenceController::class,'showGenerations']);
 Route::get('/dialog/addGeneration',[DialogController::class,'addGeneration']);
@@ -97,7 +98,9 @@ Route::post('/reference/addTransmissionType',[ReferenceController::class,'addCar
 
 
 
-Route::get('/contract/list',[ContractController::class,'show']);
+Route::get('/contract/actualList',[ContractController::class,'showActual']);
+Route::get('/contract/completedList',[ContractController::class,'showCompleted']);
+
 
 Route::get('/contract/add',[ContractController::class,'addContract']);
 Route::post('/contract/add',[ContractController::class,'saveContract']);

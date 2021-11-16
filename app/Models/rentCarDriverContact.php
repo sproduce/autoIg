@@ -10,4 +10,5 @@ class rentCarDriverContact extends Model
     use HasFactory;
     protected $fillable = ['phone','driverId'];
     private $phone,$driverId;
+
 }

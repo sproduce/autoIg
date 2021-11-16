@@ -5,7 +5,8 @@
     <h6 class="m-0">Добавить договор</h6>
 @endsection
 @section('content')
-<form method="POST" action="/contract/add">
+<form method="POST" action="/contract/edit">
+    <input type="number" name="id" id="id" value="{{$contract->id}}"/>
     @csrf
     <div class="modal-body">
         <div class="container-fluid">

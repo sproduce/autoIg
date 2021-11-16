@@ -39,5 +39,11 @@ class CarDriverController extends Controller
         return view('carDriver.carDriverSearchResult',['carDrivers'=>$carDriversObj]);
     }
 
+    public function dialogInfo()
+    {
+        $carDriverObj=$this->carDriverServ->getCarDriver();
+        return view('dialog.CarDriver.info',['carDriver'=>$carDriverObj]);
+    }
+
 
 }
