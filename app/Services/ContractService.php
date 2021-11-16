@@ -25,21 +25,21 @@ Class ContractService{
     public function addContract()
     {
 
-        $validate=$this->request->validate(['start'=>'',
+        $validate=$this->request->validate(['start'=>'required',
             'finish'=>'',
             'finishFact'=>'',
-            'typeId'=>'',
-            'driverId'=>'',
-            'carId'=>'',
-            'statusId'=>'',
-            'tarifId'=>'',
+            'typeId'=>'required|integer',
+            'driverId'=>'required|integer',
+            'carId'=>'required|integer',
+            'statusId'=>'required|integer',
+            'tariffId'=>'required|integer',
             'balance'=>'',
             'deposit'=>'',
-            'number'=>'',
+            'number'=>'required',
             'comment'=>''
         ]);
-        var_dump($validate);
-
+        //var_dump($validate);
+        $this->contractRep->addContract($validate);
     }
 
     public function editContract()

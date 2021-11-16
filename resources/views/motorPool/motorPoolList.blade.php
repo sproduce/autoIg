@@ -49,7 +49,7 @@
                     <a href="" title="Документы" class="btn btn-ssm btn-outline-success">
                         <i class="far fa-file-alt"></i>
                     </a>
-                    <a href="/contract/addCarContract?carId={{$car->id}}" title="Добавить договор" class="btn btn-ssm btn-outline-secondary DialogUser">
+                    <a href="/contract/add?carId={{$car->id}}" title="Добавить договор" class="btn btn-ssm btn-outline-secondary">
                         <i class="fas fa-file-contract"></i>
                     </a>
 

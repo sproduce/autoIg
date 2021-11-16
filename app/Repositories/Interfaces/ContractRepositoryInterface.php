@@ -13,7 +13,7 @@ public function getTariffs();
 public function addTariff();
 
 
-public function addContract();
+public function addContract($contractArray);
 public function getContracts();
 
 

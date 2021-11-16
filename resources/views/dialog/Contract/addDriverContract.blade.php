@@ -14,21 +14,29 @@
                 </div>
             </div>
         </div>
+        <div class="row align-items-center font-weight-bold border">
+            <div class="col-sm-4">Фамилия | Имя | Отчество</div>
+            <div class="col-sm-3">Дата рождения</div>
+            <div class="col-sm-4">Телефон</div>
+        </div>
         <div id="carDriverSearch">
         @foreach($carDrivers as $carDriver)
-            <div class="row">
-                <div class="col-2">{{$carDriver->surname}}</div>
-                <div class="col-2">{{$carDriver->name}}</div>
-                <div class="col-2">{{$carDriver->patronymic}}</div>
-                <div class="col-2">{{$carDriver->birthday}}</div>
-                <div class="col-2">{{$carDriver->nickname}}</div>
-                <div class="col-2">
-                    <button class="btn btn-ssm btn-outline-success driverSearch" data-driverSeachText="{{$carDriver->surname}} {{$carDriver->name}} {{$carDriver->patronymic}}" data-driverSearchId="{{$carDriver->id}}">
-                        <i class="fas fa-user-plus" ></i>
-                    </button>
+                <div class="row row-table">
+                    <div class="col-sm-4">{{$carDriver->surname}} {{$carDriver->name}} {{$carDriver->patronymic}}</div>
+                    <div class="col-sm-3">{{$carDriver->birthday}}</div>
+                    @if($carDriver->contacts->count())
+                        <div class="col-sm-4" title="@foreach($carDriver->contacts as $contact) {{$contact->phone}} @endforeach">
+                            {{$carDriver->contacts[0]->phone}}
+                        </div>
+                    @else
+                        <div class="col-sm-4">Не добавлен</div>
+                    @endif
+                    <div class="col-sm-1">
+                        <button class="btn btn-ssm btn-outline-success driverSearch" data-driverSeachText="{{$carDriver->surname}} {{$carDriver->name}} {{$carDriver->patronymic}}" data-driverSearchId="{{$carDriver->id}}">
+                            <i class="fas fa-user-plus" ></i>
+                        </button>
+                    </div>
                 </div>
-
-            </div>
         @endforeach
         </div>
 
@@ -43,6 +51,7 @@
     });
 
 $("#search").keyup(function(){
+    if($("#search").val().length>0)
     $("#carDriverSearch").load("/carDriver/search?driverText="+$("#search").val(),function(){
         $(".driverSearch").click(function(){
             $("#driverId").val($(this).attr("data-driverSearchId"));

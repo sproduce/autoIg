@@ -2,24 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Services\MotorPoolService;
 
 
 class MotorPoolController extends Controller
 {
-    //
-
-    public function show(MotorPoolService $motorPoolServ)
+    private $motorPoolServ;
+    function __construct(MotorPoolService $motorPoolServ)
     {
-        $carsPoolObj=$motorPoolServ->getCars();
+        $this->motorPoolServ=$motorPoolServ;
+    }
+
+    public function show()
+    {
+        $carsPoolObj=$this->motorPoolServ->getCars();
 
         return view('motorPool.motorPoolList',['carsPool'=>$carsPoolObj]);
     }
 
-    public function add(MotorPoolService $motorPoolServ)
+    public function add()
     {
-        $motorPoolServ->addCar();
+        $this->motorPoolServ->addCar();
         return redirect()->back();
     }
 
@@ -30,12 +33,18 @@ class MotorPoolController extends Controller
 
     }
 
-    public function dialogCarInfo(MotorPoolService $motorPoolServ)
+    public function dialogCarInfo()
     {
-        $carObj=$motorPoolServ->getCar();
+        $carObj=$this->motorPoolServ->getCar();
         return view('dialog.MotorPool.carInfo',['car'=>$carObj]);
     }
 
+
+    public function search()
+    {
+        $carsObj=$this->motorPoolServ->search();
+        return view('car.carSearchResult',['cars'=>$carsObj]);
+    }
 
 
 }

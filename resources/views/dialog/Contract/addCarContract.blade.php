@@ -14,42 +14,39 @@
                 </div>
             </div>
         </div>
-        <div id="carDriverSearch">
-        @foreach($cars as $car)
-            <div class="row">
-                <div class="col-2"></div>
-                <div class="col-2"></div>
-                <div class="col-2"></div>
-                <div class="col-2"></div>
-                <div class="col-2"></div>
-                <div class="col-2">
-                    <button class="btn btn-ssm btn-outline-success driverSearch" data-driverSeachText="{{$carDriver->surname}} {{$carDriver->name}} {{$carDriver->patronymic}}" data-driverSearchId="{{$carDriver->id}}">
-                        <i class="fas fa-user-plus" ></i>
-                    </button>
-                </div>
-
+    <div id="carSearch">
+    @foreach($cars as $car)
+        <div class="row row-table">
+            <div class="col-6">{{$car->nickName}} {{$car->regNumber}}</div>
+            <div class="col-4"></div>
+            <div class="col-2">
+                <button class="btn btn-ssm btn-outline-success carSearch" data-carSeachText="{{$car->generation->model->brand->name}} {{$car->generation->model->name}} {{$car->generation->name}} {{$car->regNumber}} {{$car->color}} {{$car->nickName}}" data-carSearchId="{{$car->id}}">
+                    <i class="fas fa-user-plus" ></i>
+                </button>
             </div>
-        @endforeach
         </div>
-
+    @endforeach
     </div>
+</div>
 
 
 <script>
-    $(".driverSearch").click(function(){
-        $("#driverId").val($(this).attr("data-driverSearchId"));
-        $("#driverText").val($(this).attr("data-driverSeachText"));
-        $('#modal').modal('toggle');
-    });
+$(".carSearch").click(function(){
+    $("#carId").val($(this).attr("data-carSearchId"));
+    console.log($(this).attr("data-carSearchId"));
+    $("#carText").val($(this).attr("data-carSeachText"));
+    $('#modal').modal('toggle');
+});
 
 $("#search").keyup(function(){
-    $("#carDriverSearch").load("/carDriver/search?driverText="+$("#search").val(),function(){
-        $(".driverSearch").click(function(){
-            $("#driverId").val($(this).attr("data-driverSearchId"));
-            $("#driverText").val($(this).attr("data-driverSeachText"));
-            $('#modal').modal('toggle');
-        });
+    if($("#search").val().length>0)
+$("#carSearch").load("/car/search?carText="+$("#search").val(),function(){
+    $(".carSearch").click(function(){
+        $("#carId").val($(this).attr("data-carSearchId"));
+        $("#carText").val($(this).attr("data-carSeachText"));
+        $('#modal').modal('toggle');
     });
+});
 
 });
 

@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
-use Illuminate\Support\Facades\DB;
 use App\Models\rentContract;
 
 
@@ -34,9 +33,9 @@ class ContractRepository implements ContractRepositoryInterface
     {
         return rentContract::all();
     }
-    public function addContract()
+    public function addContract($contractArray)
     {
-        // TODO: Implement addContract() method.
+        return rentContract::create($contractArray);
     }
 
 

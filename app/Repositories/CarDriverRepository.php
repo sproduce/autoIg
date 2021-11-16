@@ -52,7 +52,13 @@ class CarDriverRepository implements CarDriverRepositoryInterface
     public function carDriverSearch($text)
     {
 
-        return rentCarDriver::query()->where('name','LIKE','%'.$text.'%')->orWhere('surname','LIKE','%'.$text.'%') ->get();
+        return rentCarDriver::query()->where('name','LIKE','%'.$text.'%')
+            ->orWhere('surname','LIKE','%'.$text.'%')
+            ->orWhereHas('contacts',function($q) use ($text){
+                return $q->where('phone','LIKE','%'.$text.'%');
+            })
+            ->take(5)
+            ->get();
     }
 
 

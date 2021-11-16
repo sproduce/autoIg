@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
-use Illuminate\Support\Facades\DB;
 use App\Models\carConfiguration;
 
 
@@ -46,7 +45,19 @@ public function getCars()
 
 public function getCar($carId)
 {
-    return carConfiguration::find($carId);
+    return carConfiguration::find($carId)?? new carConfiguration;
+}
+
+
+public function getLastCars($kol)
+{
+    return carConfiguration::take($kol)->orderByDesc('id')->get();
+}
+
+
+public function search($text)
+{
+    return carConfiguration::query()->where('nickName','LIKE','%'.$text.'%')->orWhere('regNumber','LIKE','%'.$text.'%')->get();
 }
 
 

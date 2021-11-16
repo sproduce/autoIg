@@ -23,11 +23,15 @@ Class MotorPoolService{
 
     public function getCar()
     {
-        $validated = $this->request->validate(['carId'=>'required|integer']);
+        $validated = $this->request->validate(['carId' => 'integer']);
+        $validated['carId'] = $validated['carId'] ?? 0;
         return $this->motorPoolRep->getCar($validated['carId']);
     }
 
-
+    public function getLastCars($kol)
+    {
+        return $this->motorPoolRep->getLastCars($kol);
+    }
 
 
     public function addCar()
@@ -65,7 +69,11 @@ Class MotorPoolService{
 
     }
 
-
+    public function search()
+    {
+        $validate=$this->request->validate(['carText'=>'required']);
+        return $this->motorPoolRep->search($validate['carText']);
+    }
 
 
 }

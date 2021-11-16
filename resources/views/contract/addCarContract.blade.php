@@ -36,15 +36,20 @@
             <div class="form-row text-center mt-3">
                 <div class="form-group col-md-5 input-group-sm">
                     <label for="driverId" title="Водитель">Водитель</label>
-                    <a href="/contract/addDriver" class="btn btn-ssm btn-outline-success ml-2 DialogUserMin"><i class="fas fa-search-plus"></i></a>
+                    <a href="/contract/addDriver" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
                     <input id="driverText" class="form-control" disabled/>
                     <input name="driverId" id="driverId"  hidden />
                 </div>
                 <div class="form-group col-md-5 input-group-sm">
                     <label for="carId" title="Машина">Машина</label>
                     <a href="/contract/addCar" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
-                    <input id="carText" class="form-control" disabled/>
-                    <input name="carId" id="carId"  hidden />
+                    @if($car->id)
+                    <input id="carText" class="form-control" value="{{$car->generation->model->brand->name}} {{$car->generation->model->name}} {{$car->generation->name}} {{$car->regNumber}} {{$car->color}} {{$car->nickName}}" disabled />
+                    <input name="carId" id="carId" value="{{$car->id}}"  hidden />
+                    @else
+                        <input id="carText" class="form-control" value="" disabled />
+                        <input name="carId" id="carId" value=""  hidden />
+                    @endif
                 </div>
                 <div class="form-group col-md-2 input-group-sm">
                     <label for="statusId" title="Статус договора">Статус договора</label>
@@ -63,8 +68,8 @@
 
             <div class="form-row text-center mt-3">
                 <div class="form-group col-md-3 input-group-sm">
-                    <label for="tarifId" title="Тариф договора">Тариф договора</label>
-                    <select name="tarifId" id="tarifId" class="form-control">
+                    <label for="tariffId" title="Тариф договора">Тариф договора</label>
+                    <select name="tariffId" id="tariffId" class="form-control">
                         @foreach($contractTariffs as $contractTariff)
                             <option value="{{$contractTariff->id}}">{{$contractTariff->name}}</option>
                         @endforeach

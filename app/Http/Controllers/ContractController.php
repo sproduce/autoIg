@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Services\ContractService;
+use App\Services\MotorPoolService;
 use App\Models\rentContractStatus;
 use App\Models\rentContractTariff;
 use App\Models\rentContractType;
@@ -23,13 +23,13 @@ class ContractController extends Controller
         return view('contract.ContractList',['contracts'=>$contractsObj]);
     }
 
-    public function addContract()
+    public function addContract(MotorPoolService $motorPoolServ)
     {
         $contractStatusObj=rentContractStatus::all();
         $contractTariffObj=rentContractTariff::all();
         $contractTypeObj=rentContractType::all();
-
-        return view('contract.addCarContract',['contractStatuses'=>$contractStatusObj,'contractTariffs'=>$contractTariffObj,'contractTypes'=>$contractTypeObj]);
+        $carObj=$motorPoolServ->getCar();
+        return view('contract.addCarContract',['contractStatuses'=>$contractStatusObj,'contractTariffs'=>$contractTariffObj,'contractTypes'=>$contractTypeObj,'car'=>$carObj]);
     }
 
 
@@ -41,14 +41,16 @@ class ContractController extends Controller
     }
 
 
-    public function addCarDialog()
+    public function addCarDialog(MotorPoolService $motorPoolServ)
     {
-        return view('dialog.Contract.addCarContract');
+        $carsObj=$motorPoolServ->getLastCars(7);
+        return view('dialog.Contract.addCarContract',['cars'=>$carsObj]);
     }
 
     public function saveContract()
     {
         $this->contractServ->addContract();
+        return redirect('/contract/list');
     }
 
 
