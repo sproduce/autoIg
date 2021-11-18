@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Services\ContractService;
 use App\Services\MotorPoolService;
-use App\Models\rentContractStatus;
-use App\Models\rentContractTariff;
-use App\Models\rentContractType;
 use App\Services\CarDriverService;
 
 class ContractController extends Controller
@@ -32,14 +29,15 @@ class ContractController extends Controller
 
 
 
-    public function addContract(MotorPoolService $motorPoolServ)
+    public function addContract(MotorPoolService $motorPoolServ,CarDriverService $carDriverServ)
     {
-        $contractStatusObj=rentContractStatus::all();
-        $contractTariffObj=rentContractTariff::all();
-        $contractTypeObj=rentContractType::all();
+        $directory=$this->contractServ->getContractDirectory();
         $carObj=$motorPoolServ->getCar();
-        return view('contract.addCarContract',['contractStatuses'=>$contractStatusObj,'contractTariffs'=>$contractTariffObj,'contractTypes'=>$contractTypeObj,'car'=>$carObj]);
+        $driverObj=$carDriverServ->getCarDriver();
+        return view('contract.addCarContract',['contractObj'=>$directory,'car'=>$carObj,'driver'=>$driverObj]);
     }
+
+
 
 
     public function addDriverDialog(CarDriverService $carDriverServ)
@@ -62,11 +60,18 @@ class ContractController extends Controller
         return redirect('/contract/actualList');
     }
 
+    public function updateContract()
+    {
+        $this->contractServ->editContract();
+        return redirect('/contract/actualList');
+    }
+
 
     public function editContract()
     {
         $contractObj=$this->contractServ->getContract();
-        return view('contract.editCarContract',['contract'=>$contractObj]);
+        $directoryObj=$this->contractServ->getContractDirectory();
+        return view('contract.editCarContract',['contract'=>$contractObj,'directory'=>$directoryObj]);
     }
 
 

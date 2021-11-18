@@ -21,7 +21,8 @@ Class CarDriverService{
 
     public function getCarDriver()
     {
-        $validated=$this->request->validate(['carDriverId'=>'required|integer']);
+        $validated=$this->request->validate(['carDriverId'=>'integer']);
+        $validated['carDriverId']=$validated['carDriverId']??0;
         return $this->carDriverRep->getCarDriver($validated['carDriverId']);
 
     }

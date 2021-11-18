@@ -10,10 +10,11 @@ class rentContract extends Model
     use HasFactory;
 
     private $start,$finish,$finishFact,$typeId,$driverId,$carId,$statusId,$tariffId,$balance,$deposit,$number,$comment;
-    protected $fillable =['start','finish','finishFact','typeId','driverId','carId','statusId','tariffId','balance','deposit','number','$comment'];
+    protected $fillable =['start','finish','finishFact','typeId','driverId','carId','statusId','tariffId','balance','deposit','number','comment'];
 
     public function driver()
     {
+
         return $this->hasOne(rentCarDriver::class,'id','driverId');
 
     }

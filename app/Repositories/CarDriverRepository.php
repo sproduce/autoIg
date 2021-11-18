@@ -20,7 +20,7 @@ class CarDriverRepository implements CarDriverRepositoryInterface
     }
     public function getCarDriver($id)
     {
-        return rentCarDriver::find($id);
+        return rentCarDriver::find($id)??new rentCarDriver();
     }
 
     public function addCarDriverContact($contactArray)

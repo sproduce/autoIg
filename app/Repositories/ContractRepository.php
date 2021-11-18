@@ -3,7 +3,9 @@
 namespace App\Repositories;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Models\rentContract;
-
+use App\Models\rentContractStatus;
+use App\Models\rentContractTariff;
+use App\Models\rentContractType;
 
 class ContractRepository implements ContractRepositoryInterface
 {
@@ -15,7 +17,8 @@ class ContractRepository implements ContractRepositoryInterface
 
     public function getContractStatuses()
     {
-        // TODO: Implement getContractStatuses() method.
+       return rentContractStatus::all();
+
     }
 
 
@@ -26,7 +29,7 @@ class ContractRepository implements ContractRepositoryInterface
 
     public function getContractTypes()
     {
-        // TODO: Implement getContractTypes() method.
+        return rentContractType::all();
     }
 
     public function getContracts()
@@ -45,15 +48,20 @@ class ContractRepository implements ContractRepositoryInterface
     }
 
 
-    public function getTariffs()
+    public function getContractTariffs()
     {
-        // TODO: Implement getTariffs() method.
+        return rentContractTariff::all();
     }
 
 
-    public function addTariff()
+    public function addContractTariff()
     {
         // TODO: Implement addTariff() method.
     }
 
+
+    public function updateContract($contractId, $dataArray)
+    {
+        rentContract::where('id',$contractId)->update($dataArray);
+    }
 }

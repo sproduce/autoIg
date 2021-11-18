@@ -45,7 +45,21 @@ Class ContractService{
 
     public function editContract()
     {
-
+        $contract=$this->request->validate(['id'=>'required|integer']);
+        $validate=$this->request->validate(['start'=>'required',
+            'finish'=>'',
+            'finishFact'=>'',
+            'typeId'=>'required|integer',
+            'driverId'=>'required|integer',
+            'carId'=>'required|integer',
+            'statusId'=>'required|integer',
+            'tariffId'=>'required|integer',
+            'balance'=>'',
+            'deposit'=>'',
+            'number'=>'required',
+            'comment'=>''
+        ]);
+        $this->contractRep->updateContract( $contract['id'],$validate);
     }
 
 
@@ -59,6 +73,15 @@ Class ContractService{
 
     }
 
+    public function getContractDirectory()
+    {
+    $orderCollection=collect(['type'=>$this->contractRep->getContractTypes(),
+                              'status'=>$this->contractRep->getContractStatuses(),
+                                'tariff'=>$this->contractRep->getContractTariffs()
+                ]);
+
+    return $orderCollection;
+    }
 
 
 }

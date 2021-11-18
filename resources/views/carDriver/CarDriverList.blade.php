@@ -25,7 +25,7 @@
                 Nickname
             </div>
             <div class="col-2">
-                Комментарий
+
             </div>
         </div>
 
@@ -59,7 +59,9 @@
                     {{$carDriver->nickname}}
                 </div>
                 <div class="col-2">
-                    {{$carDriver->comment}}
+                    <a href="/contract/add?carDriverId={{$carDriver->id}}" title="Добавить договор" class="btn btn-ssm btn-outline-secondary">
+                        <i class="fas fa-file-contract"></i>
+                    </a>
                 </div>
 
             </div>

@@ -1,6 +1,10 @@
 @extends('../adminIndex')
 
-
+@php
+    $contractTypes=$contractObj->get('type');
+    $contractStatuses=$contractObj->get('status');
+    $contractTariffs=$contractObj->get('tariff');
+@endphp
 @section('header')
     <h6 class="m-0">Добавить договор</h6>
 @endsection
@@ -37,8 +41,13 @@
                 <div class="form-group col-md-5 input-group-sm">
                     <label for="driverId" title="Водитель">Водитель</label>
                     <a href="/contract/addDriver" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
-                    <input id="driverText" class="form-control" disabled/>
-                    <input name="driverId" id="driverId"  hidden />
+                    @if($driver->id)
+                        <input id="driverText" class="form-control" value="{{$driver->surname}} {{$driver->name}} {{$driver->patronymic}}"  disabled/>
+                        <input name="driverId" id="driverId" value="{{$driver->id}}"  hidden />
+                        @else
+                        <input id="driverText" class="form-control" disabled/>
+                        <input name="driverId" id="driverId"  hidden />
+                    @endif
                 </div>
                 <div class="form-group col-md-5 input-group-sm">
                     <label for="carId" title="Машина">Машина</label>

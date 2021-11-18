@@ -24,23 +24,26 @@
             @if($contracts->count())
                 <div class="row align-items-center font-weight-bold border">
                     <div class="col-1 p-0">Номер</div>
-                    <div class="col-2 p-0">Дата начала</div>
-                    <div class="col-2 p-0">Дата окончания</div>
-                    <div class="col-2 p-0">Фактическая дата</div>
+                    <div class="col-2 p-0">Даты</div>
+                    <div class="col-2 p-0">Автомобиль</div>
+                    <div class="col-2 p-0">Водитель</div>
                     <div class="col-1 p-0">Депозит</div>
                     <div class="col-1 p-0">Баланс</div>
-                    <div class="col-1 p-0">Статус</div>
+                    <div class="col-2 p-0">??</div>
+                    <div class="col-1"></div>
                 </div>
                 @foreach($contracts as $contract)
                     <div class="row row-table">
-                        <div class="col-1">{{$contract->number}}</div>
+                        <div class="col-12">
+                    <div class="row">
+                        <div class="col-1 p-0">{{$contract->number}}</div>
                         <div class="col-2">{{$contract->start}}</div>
-                        <div class="col-2">{{$contract->finish}}</div>
-                        <div class="col-2">{{$contract->finishFact}}</div>
+                        <div class="col-2">{{$contract->car->generation->model->brand->name}}</div>
+                        <div class="col-2">{{$contract->driver->surname}}</div>
                         <div class="col-1 text-right">{{$contract->deposit}}</div>
                         <div class="col-1 text-right">{{$contract->balance}}</div>
-                        <div class="col-1">{{$contract->status->name}}</div>
-                        <div class="col-2">
+                        <div class="col-2">{{$contract->status->name}}</div>
+                        <div class="col-1 p-0">
                             <a class="btn btn-ssm btn-outline-info DialogUser" href="/dialog/carInfo?carId={{$contract->carId}}" title="Информация о машине"><i class="fas fa-car"></i></a>
                             <a class="btn btn-ssm btn-outline-info DialogUser" href="/dialog/carDriverInfo?carDriverId={{$contract->driverId}}"  title="Информация о водителе"><i class="fas fa-user-tie"></i></a>
                             <div class="float-right">
@@ -49,6 +52,28 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-1 p-0"></div>
+                        <div class="col-2">{{$contract->finish}}</div>
+                        <div class="col-2"> {{$contract->car->generation->model->name}}</div>
+                        <div class="col-2">{{$contract->driver->name}}</div>
+                        <div class="col-1 text-right"></div>
+                        <div class="col-1 text-right"></div>
+                        <div class="col-2">{{$contract->tariff->name}}</div>
+                        <div class="col-1"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-1 p-0"></div>
+                        <div class="col-2">{{$contract->finishFact}}</div>
+                        <div class="col-2">{{$contract->car->nickName}}</div>
+                        <div class="col-2">{{$contract->driver->nickname}}</div>
+                        <div class="col-1 text-right"></div>
+                        <div class="col-1 text-right"></div>
+                        <div class="col-2">{{$contract->type->name}}</div>
+                        <div class="col-1"></div>
+                    </div>
+                    </div>
+                    </div>
                 @endforeach
 
 
