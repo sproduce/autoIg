@@ -15,6 +15,7 @@ public function addTariff();
 
 public function addContract($contractArray);
 public function getContracts();
+public function getContract($id);
 
 
 

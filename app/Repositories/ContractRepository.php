@@ -38,6 +38,12 @@ class ContractRepository implements ContractRepositoryInterface
         return rentContract::create($contractArray);
     }
 
+    public function getContract($id)
+    {
+
+        return rentContract::find($id) ?? new rentContract();
+    }
+
 
     public function getTariffs()
     {

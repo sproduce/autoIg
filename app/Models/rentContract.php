@@ -15,6 +15,7 @@ class rentContract extends Model
     public function driver()
     {
         return $this->hasOne(rentCarDriver::class,'id','driverId');
+
     }
     public function type()
     {

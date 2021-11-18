@@ -77,7 +77,7 @@
                 </div>
                 <div class="form-group col-md-2 input-group-sm">
                     <label for="balance" title="Баланс договора">Баланс договора</label>
-                    <input type=number name="balance" id="balance" class="form-control"/>
+                    <input type="number" name="balance" id="balance" class="form-control"/>
                 </div>
                 <div class="form-group col-md-2 input-group-sm">
                     <label for="deposit" title="Депозит договора">Депозит договора</label>
@@ -85,7 +85,7 @@
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="number" title="Номер договора">Номер договора</label>
-                    <input type="text" name="number" id="number" class="form-control" autocomplete="off"/>
+                    <input type="text" name="number" id="number" class="form-control" autocomplete="off" required/>
                 </div>
             </div>
             <div class="form-row text-center mt-3">

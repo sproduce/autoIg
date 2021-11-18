@@ -44,7 +44,7 @@
                             <a class="btn btn-ssm btn-outline-info DialogUser" href="/dialog/carInfo?carId={{$contract->carId}}" title="Информация о машине"><i class="fas fa-car"></i></a>
                             <a class="btn btn-ssm btn-outline-info DialogUser" href="/dialog/carDriverInfo?carDriverId={{$contract->driverId}}"  title="Информация о водителе"><i class="fas fa-user-tie"></i></a>
                             <div class="float-right">
-                                <a class="btn btn-ssm btn-outline-warning DialogUser" href="/contract/edit?contractId={{$contract->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                                <a class="btn btn-ssm btn-outline-warning" href="/contract/edit?contractId={{$contract->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
                             </div>
                         </div>
                     </div>

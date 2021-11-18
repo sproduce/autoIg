@@ -19,7 +19,8 @@ Class ContractService{
 
     public function getContract()
     {
-
+        $validate=$this->request->validate(['contractId'=>'required|integer']);
+        return $this->contractRep->getContract($validate['contractId']);
     }
 
     public function addContract()

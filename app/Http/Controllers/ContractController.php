@@ -59,7 +59,14 @@ class ContractController extends Controller
     public function saveContract()
     {
         $this->contractServ->addContract();
-        return redirect('/contract/list');
+        return redirect('/contract/actualList');
+    }
+
+
+    public function editContract()
+    {
+        $contractObj=$this->contractServ->getContract();
+        return view('contract.editCarContract',['contract'=>$contractObj]);
     }
 
 

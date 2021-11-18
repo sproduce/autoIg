@@ -104,6 +104,9 @@ Route::get('/contract/completedList',[ContractController::class,'showCompleted']
 
 Route::get('/contract/add',[ContractController::class,'addContract']);
 Route::post('/contract/add',[ContractController::class,'saveContract']);
+Route::get('/contract/edit',[ContractController::class,'editContract']);
+Route::post('/contract/edit',[ContractController::class,'updateContract']);
+
 
 Route::get('/contract/addDriver',[ContractController::class,'addDriverDialog']);
 Route::get('/contract/addCar',[ContractController::class,'addCarDialog']);

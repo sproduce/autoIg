@@ -26,7 +26,7 @@
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="typeId" title="Тип договора">Тип договора</label>
                     <select name="typeId" id="typeId" class="form-control">
-                        @foreach($contractTypes as $contractType)
+                        @foreach($contract->type as $contractType)
                             <option value="{{$contractType->id}}">{{$contractType->name}}</option>
                         @endforeach
 
