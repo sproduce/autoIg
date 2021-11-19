@@ -42,16 +42,19 @@
                     {{$car->color}}
                  </div>
 
-                <div class="col-3">
+                <div class="col-2">
                     {{$car->nickName}}
                 </div>
-                <div class="col-1">
+                <div class="col-2">
                     <a href="" title="Документы" class="btn btn-ssm btn-outline-success">
                         <i class="far fa-file-alt"></i>
                     </a>
                     <a href="/contract/add?carId={{$car->id}}" title="Добавить договор" class="btn btn-ssm btn-outline-secondary">
                         <i class="fas fa-file-contract"></i>
                     </a>
+                    <div class="float-right">
+                        <a class="btn btn-ssm btn-outline-warning" href="/motorPool/edit?carId={{$car->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                    </div>
 
                 </div>
             </div>

@@ -29,8 +29,8 @@ class MotorPoolController extends Controller
 
     public function edit()
     {
-
-
+        $carObj=$this->motorPoolServ->getCar();
+        return view('dialog.MotorPool.editCar',['car'=>$carObj]);
     }
 
     public function dialogCarInfo()

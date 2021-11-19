@@ -72,6 +72,7 @@ Route::get('/motorPool/list',[MotorPoolController::class,'show']);
 Route::get('/motorPool/add',[DialogController::class,'addMotorPool']);
 Route::post('/motorPool/add',[MotorPoolController::class,'add']);
 
+Route::get('/motorPool/edit',[MotorPoolController::class,'edit']);
 
 
 
@@ -117,5 +118,6 @@ Route::get('/car/search',[MotorPoolController::class,'search']);
 
 Route::get('/carDriver/list',[CarDriverController::class,'show']);
 Route::get('/carDriver/add', [CarDriverController::class,'addDialog']);
-route::post('/carDriver/add',[CarDriverController::class,'add']);
+Route::post('/carDriver/add',[CarDriverController::class,'add']);
 
+Route::get('/carDriver/edit',[CarDriverController::class,'edit']);

@@ -62,6 +62,9 @@
                     <a href="/contract/add?carDriverId={{$carDriver->id}}" title="Добавить договор" class="btn btn-ssm btn-outline-secondary">
                         <i class="fas fa-file-contract"></i>
                     </a>
+                    <div class="float-right">
+                        <a class="btn btn-ssm btn-outline-warning" href="/carDriver/edit?carDriverId={{$carDriver->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                    </div>
                 </div>
 
             </div>

@@ -46,4 +46,12 @@ class CarDriverController extends Controller
     }
 
 
+    public function edit()
+    {
+        $carDriverObj=$this->carDriverServ->getCarDriver();
+
+        return view('dialog.CarDriver.editCarDriver',['carDriver'=>$carDriverObj]);
+    }
+
+
 }
