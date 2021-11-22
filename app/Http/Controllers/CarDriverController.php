@@ -19,7 +19,7 @@ class CarDriverController extends Controller
         return view('carDriver.CarDriverList',['carDrivers'=>$carDriversObj]);
     }
 
-    public function add()
+    public function saveCarDriver()
     {
         $this->carDriverServ->addCarDriver();
         return redirect()->back();
@@ -46,11 +46,17 @@ class CarDriverController extends Controller
     }
 
 
-    public function edit()
+    public function editCarDriver()
     {
         $carDriverObj=$this->carDriverServ->getCarDriver();
+        $carDriverRegionsObj=$this->carDriverServ->getCarDriverRegions();
+        return view('dialog.CarDriver.editCarDriver',['carDriver'=>$carDriverObj,'carDriverRegions'=>$carDriverRegionsObj]);
+    }
 
-        return view('dialog.CarDriver.editCarDriver',['carDriver'=>$carDriverObj]);
+    public function updateCarDriver()
+    {
+        $this->carDriverServ->editCarDriver();
+        return redirect()->back();
     }
 
 

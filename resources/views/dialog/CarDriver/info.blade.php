@@ -36,7 +36,7 @@
                     <strong>nickName</strong>
                 </div>
                 <div class="col-md-4">
-                    {{$carDriver->nickName}}
+                    {{$carDriver->nickname}}
                 </div>
             </div>
 
@@ -74,10 +74,10 @@
             </div>
 
             <div class="row border-top mt-2 pt-2">
-                <div class="col-md-1 text-right">
+                <div class="col-md-2 text-right">
                     <strong>Комментарий</strong>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-10">
                     {{$carDriver->comment}}
                 </div>
             </div>

@@ -63,7 +63,8 @@
                         <i class="fas fa-file-contract"></i>
                     </a>
                     <div class="float-right">
-                        <a class="btn btn-ssm btn-outline-warning" href="/carDriver/edit?carDriverId={{$carDriver->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                        <a class="btn btn-ssm btn-outline-warning DialogUserMin" href="/carDriver/edit?carDriverId={{$carDriver->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                        <a href="/carDriver/delete?carDriverId={{$carDriver->id}}" class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить марку?')"><i class="fas fa-trash"></i> </a>
                     </div>
                 </div>
 

@@ -99,18 +99,7 @@ Route::post('/reference/addTransmissionType',[ReferenceController::class,'addCar
 
 
 
-Route::get('/contract/actualList',[ContractController::class,'showActual']);
-Route::get('/contract/completedList',[ContractController::class,'showCompleted']);
 
-
-Route::get('/contract/add',[ContractController::class,'addContract']);
-Route::post('/contract/add',[ContractController::class,'saveContract']);
-Route::get('/contract/edit',[ContractController::class,'editContract']);
-Route::post('/contract/edit',[ContractController::class,'updateContract']);
-
-
-Route::get('/contract/addDriver',[ContractController::class,'addDriverDialog']);
-Route::get('/contract/addCar',[ContractController::class,'addCarDialog']);
 
 Route::get('/carDriver/search',[CarDriverController::class,'search']);
 Route::get('/car/search',[MotorPoolController::class,'search']);
@@ -118,6 +107,8 @@ Route::get('/car/search',[MotorPoolController::class,'search']);
 
 Route::get('/carDriver/list',[CarDriverController::class,'show']);
 Route::get('/carDriver/add', [CarDriverController::class,'addDialog']);
-Route::post('/carDriver/add',[CarDriverController::class,'add']);
+Route::post('/carDriver/add',[CarDriverController::class,'saveCarDriver']);
 
-Route::get('/carDriver/edit',[CarDriverController::class,'edit']);
+Route::get('/carDriver/edit',[CarDriverController::class,'editCarDriver']);
+Route::post('/carDriver/edit',[CarDriverController::class,'updateCarDriver']);
+

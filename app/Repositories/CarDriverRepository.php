@@ -62,4 +62,25 @@ class CarDriverRepository implements CarDriverRepositoryInterface
     }
 
 
+    public function updateCarDriver($id,$carDriverArray)
+    {
+
+        rentCarDriver::where('id',$id)->update($carDriverArray);
+    }
+    public function updateCarDriverContact($driverId,$contactArray)
+    {
+        // TODO: Implement updateCarDriverContact() method.
+    }
+
+    public function delCarDriverContacts($driverId)
+    {
+        // TODO: Implement delCarDriverContacts() method.
+    }
+
+    public function delCarDriver($id)
+    {
+        rentCarDriver::destroy($id);
+    }
+
+
 }

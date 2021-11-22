@@ -30,7 +30,7 @@ Class CarDriverService{
     public function addCarDriver()
     {
         $validated=$this->request->validate(['surname'=>'required',
-            'regionId'=>'required',
+            'regionId'=>'required|integer',
             'name'=>'',
             'male'=>'',
             'birthday'=>'',
@@ -48,6 +48,23 @@ Class CarDriverService{
                 }
 
                 }
+    }
+
+
+    public function editCarDriver()
+    {
+        $validated=$this->request->validate(['id'=>'required|integer',
+            'surname'=>'required',
+            'regionId'=>'required|integer',
+            'name'=>'',
+            'male'=>'',
+            'birthday'=>'',
+            'nickname'=>'',
+            'patronymic'=>'',
+            'comment'=>'']);
+            $carDriverId=$validated['id'];
+            empty($validated['id']);
+            $this->carDriverRep->updateCarDriver($carDriverId,$validated);
     }
 
 
