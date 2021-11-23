@@ -17,6 +17,7 @@ class CreateRentPaymentsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
+
             $table->dateTime('dateTime');
             $table->unsignedBigInteger('payAccountId');
             $table->unsignedBigInteger('payOperationTypeId');

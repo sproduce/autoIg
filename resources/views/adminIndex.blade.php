@@ -75,7 +75,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"  href="/">
+                            <a class="nav-link"  href="/payment/list">
                                 <i class="fas fa-ruble-sign"></i>
                                 Доход/Расход
                             </a>
