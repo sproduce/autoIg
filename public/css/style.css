@@ -18,3 +18,10 @@
 .sidebar-sticky {
     position: absolute;
 }
+
+
+
+
+.clickable:hover{
+    background: #d5e6a2;
+}

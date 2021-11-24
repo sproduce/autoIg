@@ -14,7 +14,7 @@ class AddCommRentPayments extends Migration
     public function up()
     {
         Schema::table('rent_payments', function (Blueprint $table) {
-            $table->integer('comm')->nullable()->change();
+            $table->integer('comm')->nullable();
             $table->integer('balance')->nullable()->change();
             $table->string('name')->nullable()->change();
             $table->unsignedBigInteger('carId')->nullable()->change();
