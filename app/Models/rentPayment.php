@@ -28,6 +28,6 @@ class rentPayment extends Model
 
     public function getdateTimeAttribute($value)
     {
-        return date('d-m-Y H:m', strtotime($value));
+        return date('d-m-Y H:i', strtotime($value));
     }
 }

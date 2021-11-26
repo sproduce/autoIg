@@ -13,3 +13,7 @@ route::post('/add',[PaymentController::class,'add']);
 route::get('/edit',[PaymentController::class,'edit']);
 route::post('/edit',[PaymentController::class,'update']);
 route::get('/delete',[PaymentController::class,'delete']);
+
+
+
+Route::get('/addCar',[PaymentController::class,'addCarDialog']);

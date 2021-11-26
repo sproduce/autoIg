@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\PaymentService;
-
+use App\Services\MotorPoolService;
 
 class PaymentController extends Controller
 {
@@ -56,6 +56,16 @@ class PaymentController extends Controller
         $this->paymentServ->deletePayment();
         return redirect('/payment/list');
     }
+
+
+    public function addCarDialog(MotorPoolService $motorPoolServ)
+    {
+        $carsObj=$motorPoolServ->getLastCars(7);
+        return view('dialog.Payment.addCar',['cars'=>$carsObj]);
+    }
+
+
+
 
 
 }

@@ -39,6 +39,8 @@ Class PaymentService{
             'payAccountId'=>'required|integer',
             'payOperationTypeId'=>'required|integer',
             'name'=>'',
+            'carId'=>'',
+            'finished'=>'',
             'pid'=>'integer']);
         $validate['pid']=$validate['pid'] ?? 0;
 

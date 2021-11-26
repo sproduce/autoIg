@@ -50,7 +50,20 @@
             </div>
         @endfor
 
+
         <div class="row pt-3 mt-3 border-top">
+            <div class="col-2">
+                Машина
+            </div>
+            <div class="col-5">
+                <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                <input id="carText" disabled />
+                <input name="carId" id="carId" value=""  hidden />
+            </div>
+
+        </div>
+
+        <div class="row mt-2">
             <div class="col-2">
                 Комментарий
             </div>
@@ -59,6 +72,15 @@
             </div>
         </div>
 
+
+        <div class="row mt-2">
+            <div class="col-2">
+                Платеж завершен
+            </div>
+            <div class="col-10">
+                <input type="checkbox" value="1"  name="finished"/>
+            </div>
+        </div>
         <div class="row mt-3 pt-3">
             <div class="col-4">
                 <input type="submit" class="btn btn-primary" value="Добавить">

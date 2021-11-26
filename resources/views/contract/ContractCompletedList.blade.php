@@ -2,7 +2,8 @@
 
 
 @section('header')
-            <h6 class="m-0">Договора</h6>
+    <a class="btn btn-ssm btn-outline-success mr-3" title="Добавить договор" href="/contract/add"><i class="far fa-plus-square"></i></a>
+    <h6 class="m-0">Договора</h6>
 @endsection
 
 @section('content')
