@@ -75,4 +75,10 @@ class ContractController extends Controller
     }
 
 
+    public function search()
+    {
+        $contractsObj=$this->contractServ->search();
+        return view('contract.resultSearch',['contracts'=>$contractsObj]);
+    }
+
 }

@@ -84,4 +84,17 @@ Class ContractService{
     }
 
 
+    public function getLastContracts($kol)
+    {
+        return $this->contractRep->getLastContracts($kol);
+    }
+
+
+    public function search()
+    {
+        $searchText=$this->request->validate(['contractText'=>'']);
+        return $this->contractRep->search($searchText['contractText']);
+    }
+
+
 }

@@ -41,7 +41,11 @@ Class PaymentService{
             'name'=>'',
             'carId'=>'',
             'finished'=>'',
-            'pid'=>'integer']);
+            'pid'=>'integer',
+            'comment'=>'',
+            'contractId'=>'integer'
+        ]);
+        var_dump($validate);
         $validate['pid']=$validate['pid'] ?? 0;
 
         $this->paymentRep->addPayment($validate);
@@ -49,7 +53,19 @@ Class PaymentService{
 
     public function getPayments()
     {
-        return $this->paymentRep->getPayments();
+        $validateDate=$this->request->validate(['filterStart'=>'date','filterFinish'=>'date']);
+        if (isset($validateDate['filterStart'])&&isset($validateDate['filterFinish'])){
+           return $this->paymentRep->getPayments($validateDate['filterStart'],$validateDate['filterFinish']);
+
+        } else {
+            //$date = new \DateTime();
+            //$resultArray['dateTo']=$date->format('Y-m-d');
+            //$date->modify('-1 month');
+            //$resultArray['dateFrom']=$date->format('Y-m-d');
+            return $this->paymentRep->getPaymentsAll();
+        }
+
+
     }
 
     public function getPayment()

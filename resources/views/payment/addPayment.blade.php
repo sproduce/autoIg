@@ -21,6 +21,7 @@
 @section('content')
     <form method="POST" action="/payment/add">
         @csrf
+
         <div class="row pb-3 mb-3 border-bottom">
             <div class="col-1">Дата</div>
             <div class="col-3"><input type="datetime-local" name="dateTime"/></div>
@@ -30,48 +31,102 @@
             <div class="col-3"><input type="number" value="0" name="comm"/></div>
         </div>
 
-
-        @for($step=0;$step<$colLine;$step++)
-            <div class="row">
-                <div class="col-3 @isset($accounts[$step]->nickName)clickable @endisset">
-                    @isset($accounts[$step]->nickName)
-                        <input type="radio"  name="payAccountId" value="{{$accounts[$step]->id}}" required>
-                        {{$accounts[$step]->nickName}}
-                    @endisset
-                </div>
-                <div class="col-3 @isset($operationTypes[$step]->name)clickable  @endisset">
-                    @isset($operationTypes[$step]->name)
-                        <input type="radio"  name="payOperationTypeId" value="{{$operationTypes[$step]->id}}" required>
-                        {{$operationTypes[$step]->name}}
-                    @endisset
-
-                </div>
-
+        <div class="row">
+            <div class="col-3">
+                @foreach($accounts as $account)
+                    <div class="row">
+                        <div class="col-12 clickable">
+                            <input type="radio"  name="payAccountId" value="{{$account->id}}" required>
+                            {{$account->nickName}}
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        @endfor
-
-
-        <div class="row pt-3 mt-3 border-top">
-            <div class="col-2">
-                Машина
+            <div class="col-2 border-right">
+                @foreach($operationTypes as $operationType)
+                    <div class="row">
+                        <div class="col-12 clickable">
+                            <input type="radio"  name="payOperationTypeId" value="{{$operationType->id}}" required>
+                            {{$operationType->name}}
+                        </div>
+                    </div>
+                @endforeach
             </div>
-            <div class="col-5">
-                <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
-                <input id="carText" disabled />
-                <input name="carId" id="carId" value=""  hidden />
+            <div class="col-3">
+                <div class="row">
+                    <div class="col-3">
+                        Машина
+                    </div>
+                    <div class="col-1">
+                        <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                    </div>
+                    <div class="col-7">
+                        <input id="carText" disabled />
+                        <input name="carId" id="carId" value=""  hidden />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-3">
+                        Группа
+                    </div>
+                    <div class="col-1">
+                        <a href="/payment/addCarGroup" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                    </div>
+                    <div class="col-7">
+                        <input id="carGroupText" disabled />
+                        <input name="carGroupId" id="carGroupId" value=""  hidden />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        Договор
+                    </div>
+                    <div class="col-1">
+                        <a href="/payment/addContract" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                    </div>
+                    <div class="col-7">
+                        <input id="contractText" disabled />
+                        <input name="contractId" id="contractId" value=""  hidden />
+                    </div>
+                </div>
+
+
             </div>
 
         </div>
 
-        <div class="row mt-2">
+
+
+
+
+        <div class="row pt-3">
+            <div class="col-2">
+
+            </div>
+            <div class="col-5 pt-1">
+
+
+            </div>
+
+        </div>
+        <div class="row mt-3">
+            <div class="col-2">
+                Название
+            </div>
+            <div class="col-10">
+                <input type="text" class="col-6" name="name"/>
+            </div>
+        </div>
+
+        <div class="row mt-3">
             <div class="col-2">
                 Комментарий
             </div>
             <div class="col-10">
-                <input type="text" name="name"/>
+                <input type="text" class="col-6" name="comment"/>
             </div>
         </div>
-
 
         <div class="row mt-2">
             <div class="col-2">

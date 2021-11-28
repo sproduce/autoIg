@@ -18,5 +18,9 @@ public function getContracts();
 public function getContract($id);
 public function updateContract($contractId,$dataArray);
 
+public function getLastContracts($kol);
+
+public function search($text);
+
 
 }

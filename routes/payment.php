@@ -17,3 +17,7 @@ route::get('/delete',[PaymentController::class,'delete']);
 
 
 Route::get('/addCar',[PaymentController::class,'addCarDialog']);
+Route::get('/addCarGroup',[PaymentController::class,'addCarGroupDialog']);
+Route::get('/addContract',[PaymentController::class,'addContractDialog']);
+
+

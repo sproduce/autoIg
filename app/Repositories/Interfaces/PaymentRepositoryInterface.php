@@ -12,7 +12,8 @@ interface PaymentRepositoryInterface
     public function getOperationType($id);
 
     public function getPayment($id);
-    public function getPayments();
+    public function getPayments($start,$finish);
+    public function getPaymentsAll();
     public function addPayment($paymentArray);
     public function updatePayment($id,$paymentArray);
     public function delPayment($id);

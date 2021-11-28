@@ -12,8 +12,21 @@ class rentPayment extends Model
     use HasFactory;
     use SoftDeletes;
     private $id,$dateTime,$payAccountId,$payOperationTypeId,$payment,$balance,$name,$carId,$carGroupId,$finished,$pid,$comm;
-    protected $fillable =['dateTime','payAccountId','payOperationTypeId','payment','balance','name','carId','carGroupId','finished','pid','comm'];
+    protected $fillable =['dateTime','payAccountId','payOperationTypeId','payment','balance','name','carId','carGroupId','finished','pid','comm','comment','contractId'];
+
+
     //protected $dateFormat = 'Y-m-d';
+
+
+    public function car()
+    {
+        return $this->hasOne(carConfiguration::class,'id','carId');
+    }
+
+    public function contract()
+    {
+        return $this->hasOne(rentContract::class,'id','contractId');
+    }
 
 
     public function account()
@@ -25,6 +38,7 @@ class rentPayment extends Model
     {
         return $this->hasOne(payOperationType::class,'id','payOperationTypeId');
     }
+
 
     public function getdateTimeAttribute($value)
     {

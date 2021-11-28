@@ -7,9 +7,23 @@
 @endsection
 
 @section('content')
+    <form method="GET" action="">
+        <div class="row">
 
+            <div class="col-2">
+                От: <input type="date" name="filterStart"/>
+            </div>
+            <div class="col-2">
+                До: <input type="date" name="filterFinish"/>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-ssm btn-success" type="submit">Показать</button>
+            </div>
 
-    <div class="card text-center">
+        </div>
+    </form>
+
+    <div class="card text-center mt-3">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">

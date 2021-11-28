@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ContractService;
 use App\Services\PaymentService;
 use App\Services\MotorPoolService;
 
@@ -64,8 +65,17 @@ class PaymentController extends Controller
         return view('dialog.Payment.addCar',['cars'=>$carsObj]);
     }
 
+    public function addCarGroupDialog()
+    {
+
+    }
 
 
+    public function addContractDialog(ContractService $contractServ)
+    {
+        $contractsObj=$contractServ->getLastContracts(7);
+        return view('dialog.Payment.addContract',['contracts'=>$contractsObj]);
+    }
 
 
 }

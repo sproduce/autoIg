@@ -64,4 +64,17 @@ class ContractRepository implements ContractRepositoryInterface
     {
         rentContract::where('id',$contractId)->update($dataArray);
     }
+
+
+    public function getLastContracts($kol)
+    {
+        return rentContract::take($kol)->orderByDesc('id')->get();
+    }
+
+    public function search($text)
+    {
+        return rentContract::query()->where('number','LIKE','%'.$text.'%')->get();
+    }
+
+
 }

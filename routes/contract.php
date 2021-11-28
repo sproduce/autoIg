@@ -15,3 +15,6 @@ Route::post('/edit',[ContractController::class,'updateContract']);
 
 Route::get('/addDriver',[ContractController::class,'addDriverDialog']);
 Route::get('/addCar',[ContractController::class,'addCarDialog']);
+
+
+Route::get('/search',[ContractController::class,'search']);

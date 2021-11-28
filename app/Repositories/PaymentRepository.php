@@ -34,10 +34,17 @@ class PaymentRepository implements PaymentRepositoryInterface
         return rentPayment::find($id);
     }
 
-    public function getPayments()
+    public function getPayments($start,$finish)
+    {
+
+        return rentPayment::where('dateTime','>',$start)->where('dateTime','<=',$finish)->get();
+    }
+
+    public function getPaymentsAll()
     {
         return rentPayment::all();
     }
+
 
     public function addPayment($paymentArray)
     {
