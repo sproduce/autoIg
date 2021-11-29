@@ -1,37 +1,58 @@
 @extends('../adminIndex')
 
+@php
 
+    $payments=$paymentsObj->get('payments');
+    $filters=$paymentsObj->get('filters');
+    $types=$paymentsObj->get('types');
+    $accounts=$paymentsObj->get('accounts');
+
+@endphp
 @section('header')
     <a class="btn btn-ssm btn-outline-success mr-3" title="Добавить платеж" href="/payment/add"><i class="far fa-plus-square"></i></a>
             <h6 class="m-0">Платежи </h6>
 @endsection
 
 @section('content')
-    <form method="GET" action="">
+    <form method="GET" action="" id="filterForm">
     <div class="row">
 
             <div class="col-2">
-                От: <input type="date" name="filterStart"/>
+                От: <input type="date" name="filterStart" value="{{$filters['filterStart']}}"/>
             </div>
             <div class="col-2">
-                До: <input type="date" name="filterFinish"/>
+                До: <input type="date" name="filterFinish" value="{{$filters['filterFinish']}}"/>
             </div>
             <div class="col-2">
                 <button class="btn btn-ssm btn-success" type="submit">Показать</button>
             </div>
 
     </div>
-    </form>
+
     @if($payments->count())
-        <div class="row align-items-center font-weight-bold border mt-3">
+        <div class="row align-items-center font-weight-bold border mt-3 pb-1 mb-3">
             <div class="col-2">Дата/Время</div>
             <div class="col-1">Сумма <br/>(Комиссия)</div>
-            <div class="col-2">Счет</div>
-            <div class="col-2">Тип операции</div>
+            <div class="col-2">Счет<br/>
+                <select name="accountId"  id="accountId">
+                    <option value="0">Все</option>
+                    @foreach( $accounts as $account)
+                        <option value="{{$account->id}}"  @if($filters['accountId']==$account->id) selected @endif>{{$account->nickName}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-2">Тип операции<br/>
+                <select name="typeId"  id="typeId">
+                    <option value="0">Все</option>
+                    @foreach( $types as $type)
+                        <option value="{{$type->id}}" @if($filters['typeId']==$type->id) selected @endif>{{$type->name}}</option>
+                    @endforeach
+                </select>
+            </div>
             <div class="col-2">Информация</div>
             <div class="col-2"> Машина <br/>Договор</div>
         </div>
-
+    </form>
 
         @foreach($payments as $payment)
             <div class="row row-table">
@@ -61,3 +82,19 @@
 @endsection
 
 
+@section('js')
+
+    <script>
+        $("#typeId").change(function(){
+            $('#filterForm').submit();
+        });
+    </script>
+    <script>
+        $("#accountId").change(function(){
+            $('#filterForm').submit();
+        });
+    </script>
+
+
+
+@endsection

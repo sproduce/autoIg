@@ -36,8 +36,8 @@ class PaymentRepository implements PaymentRepositoryInterface
 
     public function getPayments($start,$finish)
     {
-
-        return rentPayment::where('dateTime','>',$start)->where('dateTime','<=',$finish)->get();
+        $finish = date('Y-m-d', strtotime($finish . ' +1 day'));
+        return rentPayment::where('dateTime','>',$start)->where('dateTime','<',$finish)->orderByDesc('dateTime')->get();
     }
 
     public function getPaymentsAll()

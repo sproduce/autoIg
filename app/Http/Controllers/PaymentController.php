@@ -19,7 +19,7 @@ class PaymentController extends Controller
     public function show()
     {
         $paymentsObj=$this->paymentServ->getPayments();
-        return view('payment.paymentList',['payments'=>$paymentsObj]);
+        return view('payment.paymentList',['paymentsObj'=>$paymentsObj]);
     }
 
     public function addDialog()
