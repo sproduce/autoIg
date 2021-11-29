@@ -65,7 +65,7 @@ Class ContractService{
 
     public function getContractTypes()
     {
-
+        return $this->contractRep->getContractTypes();
     }
 
     public function addContractType()

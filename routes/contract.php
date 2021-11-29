@@ -5,7 +5,7 @@ use App\Http\Controllers\ContractController;
 
 Route::get('/actualList',[ContractController::class,'showActual']);
 Route::get('/completedList',[ContractController::class,'showCompleted']);
-
+Route::get('/ContractTypes',[ContractController::class,'showContractTypes']);
 
 Route::get('/add',[ContractController::class,'addContract']);
 Route::post('/add',[ContractController::class,'saveContract']);

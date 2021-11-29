@@ -122,7 +122,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/contract/typeList">
+                            <a class="nav-link" href="/contract/ContractTypes">
                                 <i class="fas fa-file-alt"></i>
                                 Типы договоров
                             </a>

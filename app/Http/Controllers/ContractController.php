@@ -27,6 +27,11 @@ class ContractController extends Controller
     }
 
 
+    public function showContractTypes()
+    {
+        $contractTypesObj = $this->contractServ->getContractTypes();
+        return view('contract.ContractTypeList', ['contractTypes' => $contractTypesObj]);
+    }
 
 
     public function addContract(MotorPoolService $motorPoolServ,CarDriverService $carDriverServ)
