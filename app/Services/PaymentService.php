@@ -53,19 +53,20 @@ Class PaymentService{
 
     public function getPayments()
     {
-        $validateDate=$this->request->validate(['filterStart'=>'date','filterFinish'=>'date','typeId'=>'','accountId'=>'']);
-        $validateDate['typeId']=$validateDate['typeId']??0;
-        $validateDate['accountId']=$validateDate['accountId']??0;
-        if (!(isset($validateDate['filterStart'])&&isset($validateDate['filterFinish']))){
+        $validateFilter=$this->request->validate(['filterStart'=>'date','filterFinish'=>'date','typeId'=>'','accountId'=>'']);
+        $validateFilter['typeId']=$validateFilter['typeId']??0;
+        $validateFilter['accountId']=$validateFilter['accountId']??0;
+        if (!(isset($validateFilter['filterStart'])&&isset($validateFilter['filterFinish']))){
             $date = new \DateTime();
-            $validateDate['filterFinish']=$date->format('Y-m-d');
+            $validateFilter['filterFinish']=$date->format('Y-m-d');
             $date->modify('-1 month');
-            $validateDate['filterStart']=$date->format('Y-m-d');
+            $validateFilter['filterStart']=$date->format('Y-m-d');
         }
 
 
-        $payments=$this->paymentRep->getPayments($validateDate['filterStart'],$validateDate['filterFinish']);
-        $paymentsObj=collect(['filters'=>$validateDate,
+        $payments=$this->paymentRep->getPayments($validateFilter);
+
+        $paymentsObj=collect(['filters'=>$validateFilter,
                                 'payments'=>$payments,
                             'types'=>$this->paymentRep->getOperationTypes(),
                             'accounts'=>$this->paymentRep->getAccounts()

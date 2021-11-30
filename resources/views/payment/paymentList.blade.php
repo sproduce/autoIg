@@ -77,6 +77,13 @@
             </div>
 
         @endforeach
+
+    @else
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <h5>По таким параметрам платежи не найдены</h5>
+            </div>
+        </div>
     @endif
 
 @endsection
