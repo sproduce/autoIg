@@ -29,7 +29,7 @@
 
     </div>
 
-    @if($payments->count())
+
         <div class="row align-items-center font-weight-bold border mt-3 pb-1 mb-3">
             <div class="col-2">Дата/Время</div>
             <div class="col-1">Сумма <br/>(Комиссия)</div>
@@ -53,7 +53,7 @@
             <div class="col-2"> Машина <br/>Договор</div>
         </div>
     </form>
-
+    @if($payments->count())
         @foreach($payments as $payment)
             <div class="row row-table">
                 <div class="col-2"> {{$payment->dateTime}}</div>
@@ -79,7 +79,7 @@
         @endforeach
 
     @else
-        <div class="row mt-5">
+        <div class="row mt-3">
             <div class="col-12 text-center">
                 <h5>По таким параметрам платежи не найдены</h5>
             </div>

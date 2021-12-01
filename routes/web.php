@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\DialogController;
 use App\Http\Controllers\MotorPoolController;
-use App\Http\Controllers\ContractController;
 use App\Http\Controllers\CarDriverController;
+use App\Http\Controllers\CarGroupController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -112,3 +113,6 @@ Route::post('/carDriver/add',[CarDriverController::class,'saveCarDriver']);
 Route::get('/carDriver/edit',[CarDriverController::class,'editCarDriver']);
 Route::post('/carDriver/edit',[CarDriverController::class,'updateCarDriver']);
 
+Route::get('/carGroup/list',[CarGroupController::class,'show']);
+Route::get('/carGroup/add',[CarGroupController::class,'addDialog']);
+Route::post('/carGroup/add',[CarGroupController::class,'save']);

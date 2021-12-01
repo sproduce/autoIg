@@ -47,7 +47,7 @@ class PaymentRepository implements PaymentRepositoryInterface
         if ($validateFilter['accountId']){
             $query->where('payAccountId','=',$validateFilter['accountId']);
         }
-        return $query->where('dateTime','>',$start)->where('dateTime','<',$finish)->orderByDesc('dateTime')->get();
+        return $query->where('dateTime','>',$start)->where('dateTime','<',$finish)->orderByDesc('dateTime')->orderByDesc('id')->get();
     }
 
     public function getPaymentsAll()

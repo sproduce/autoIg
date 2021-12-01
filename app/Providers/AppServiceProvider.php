@@ -2,15 +2,17 @@
 
 namespace App\Providers;
 
-use App\Repositories\CarDriverRepository;
-use App\Repositories\ContractRepository;
 
 use Illuminate\Support\ServiceProvider;
 
+use App\Repositories\CarDriverRepository;
+use App\Repositories\CarGroupRepository;
+use App\Repositories\ContractRepository;
 use App\Repositories\BrandRepository;
 use App\Repositories\ModelRepository;
 use App\Repositories\MotorPoolRepository;
 use App\Repositories\PaymentRepository;
+
 
 use App\Repositories\Interfaces\BrandRepositoryInterface;
 use App\Repositories\Interfaces\ModelRepositoryInterface;
@@ -18,6 +20,9 @@ use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\Interfaces\CarDriverRepositoryInterface;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
+use App\Repositories\Interfaces\CarGroupRepositoryInterface;
+
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CarDriverRepositoryInterface::class,CarDriverRepository::class);
         $this->app->bind(ContractRepositoryInterface::class,ContractRepository::class);
         $this->app->bind(PaymentRepositoryInterface::class,PaymentRepository::class);
-
+        $this->app->bind(CarGroupRepositoryInterface::class,CarGroupRepository::class);
 
 
     }
