@@ -12,6 +12,9 @@ interface CarGroupRepositoryInterface
     public function delCarGroup($id);
     public function getCarGroupCars($id);
 
+    public function carGroupInfo($groupId);
+    public function addCarToGroup($groupArray);
+    public function delCarFromGroup($groupId,$carId);
 
 
 

@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class rentCarGroupLink extends Model
 {
+    protected $fillable =['carId','groupId','start','finish'];
     use HasFactory;
 }

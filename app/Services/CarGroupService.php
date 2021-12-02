@@ -26,10 +26,26 @@ Class CarGroupService{
                                             'start'=>'required',
                                             'finish'=>''
         ]);
+        $this->carGroupRep->addCarGroup($groupArray);
+    }
 
+    public function carGroupInfo()
+    {
+        $carGroup=$this->request->validate(['carGroupId'=>'required']);
+        return $this->carGroupRep->carGroupInfo($carGroup['carGroupId']);
+    }
 
+    public function addCarToGroup()
+    {
+        $carGroupArray=$this->request->validate(['carGroupId'=>'required',
+            'carId'=>'',
+            'start'=>'',
+            'finish'=>'']);
+
+        $this->carGroupRep->addCarToGroup($carGroupArray);
 
 
     }
+
 
 }

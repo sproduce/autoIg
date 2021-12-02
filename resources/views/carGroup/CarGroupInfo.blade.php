@@ -2,25 +2,25 @@
 
 
 @section('header')
-    <a class="btn btn-ssm btn-outline-success DialogUserMin mr-3" title="Добавить группу" href="/carGroup/add"><i class="far fa-plus-square"></i></a>
-    <h6 class="m-0">Группы машин</h6>
+
+    <h6 class="m-0">Машины в группе</h6>
 @endsection
 
 @section('content')
 
-    @if($carGroups->count())
+    @if($carGroupInfo->count())
         <div class="row align-items-center font-weight-bold border">
             <div class="col-3">
-                Название
+                Машина
             </div>
             <div class="col-2">
                 NickName
             </div>
             <div class="col-2">
-                Открыта
+                Добавлена
             </div>
             <div class="col-2">
-                Закрыта
+                Удалена
             </div>
 
             <div class="col-2">
@@ -29,19 +29,19 @@
         </div>
 
 
-        @foreach($carGroups as $carGroup)
+        @foreach($carGroupInfo as $car)
             <div class="row row-table">
                 <div class="col-3">
-                    <a href="/carGroup/info?carGroupId={{$carGroup->id}}" title="info">{{$carGroup->name}}</a>
+
                 </div>
                 <div class="col-2">
-                    {{$carGroup->nickName}}
+
                 </div>
                 <div class="col-2">
-                    {{$carGroup->start}}
+
                 </div>
                 <div class="col-2">
-                    {{$carGroup->finish}}
+
                 </div>
 
                 <div class="col-2">
@@ -53,10 +53,19 @@
     @else
         <div class="row">
             <div class="col-12 text-center">
-                <h5>Группы не добавлены</h5>
+                <h5>Машины в группу не добавлены</h5>
             </div>
         </div>
     @endif
+
+
+
+    <div class="row">
+        <div class="col-4">
+            <a class="btn btn-ssm btn-outline-success mr-3" title="Добавить группу" href=""><i class="far fa-plus-square"></i></a>
+        </div>
+    </div>
+
 
 
 

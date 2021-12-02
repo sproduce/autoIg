@@ -4,6 +4,8 @@ namespace App\Repositories;
 use App\Repositories\Interfaces\CarGroupRepositoryInterface;
 use App\Models\rentCarGroup;
 
+use App\Models\rentCarGroupLink;
+
 
 class CarGroupRepository implements CarGroupRepositoryInterface
 {
@@ -24,7 +26,7 @@ class CarGroupRepository implements CarGroupRepositoryInterface
 
     public function addCarGroup($groupArray)
     {
-        // TODO: Implement addCarGroup() method.
+        return rentCarGroup::create($groupArray);
     }
 
 
@@ -37,6 +39,22 @@ class CarGroupRepository implements CarGroupRepositoryInterface
     {
         // TODO: Implement getCarGroupCars() method.
     }
+
+    public function carGroupInfo($groupId)
+    {
+        return rentCarGroupLink::where('groupId', $groupId);
+    }
+
+    public function addCarToGroup($groupArray)
+    {
+        return rentCarGroupLink::create($groupArray);
+    }
+
+    public function delCarFromGroup($groupId, $carId)
+    {
+        // TODO: Implement delCarFromGroup() method.
+    }
+
 
 }
 

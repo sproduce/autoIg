@@ -15,5 +15,16 @@ class rentCarGroup extends Model
         //$this->hasMany('')
     }
 
+    public function getStartAttribute($value)
+    {
+        return date('d-m-Y', strtotime($value));
+    }
+
+    public function getFinishAttribute($value)
+    {
+        if($value)
+        return date('d-m-Y', strtotime($value));
+    }
+
 
 }

@@ -28,8 +28,22 @@ class CarGroupController extends Controller
     public function save()
     {
 
+        $this->carGroupServ->addCarGroup();
+        return redirect()->back();
     }
 
+    public function info()
+    {
+        $carGroupInfoObj=$this->carGroupServ->carGroupInfo();
+        return view('carGroup.CarGroupInfo',['carGroupInfo'=>$carGroupInfoObj]);
+    }
+
+
+    public function addCarToGroup()
+    {
+        $this->carGroupServ->addCarToGroup();
+        return redirect()->back();
+    }
 
 
 }
