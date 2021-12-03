@@ -35,12 +35,13 @@ class CarGroupController extends Controller
     public function info()
     {
         $carGroupInfoObj=$this->carGroupServ->carGroupInfo();
-        return view('carGroup.CarGroupInfo',['carGroupInfo'=>$carGroupInfoObj]);
+        return view('carGroup.CarGroupInfo',['carGroupInfoObj'=>$carGroupInfoObj]);
     }
 
 
     public function addCarToGroup()
     {
+        //echo "asdas";
         $this->carGroupServ->addCarToGroup();
         return redirect()->back();
     }

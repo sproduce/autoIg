@@ -116,5 +116,6 @@ Route::post('/carDriver/edit',[CarDriverController::class,'updateCarDriver']);
 Route::get('/carGroup/list',[CarGroupController::class,'show']);
 Route::get('/carGroup/add',[CarGroupController::class,'addDialog']);
 Route::post('/carGroup/add',[CarGroupController::class,'save']);
+Route::post('/carGroup/addCar',[CarGroupController::class,'addCarToGroup']);
 
 Route::get('/carGroup/info',[CarGroupController::class,'info']);

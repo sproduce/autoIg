@@ -10,25 +10,29 @@ class carModel extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','brandId'];
-    protected $hidden = ["created_at", "updated_at","deleted_at"];
+    protected $fillable = ['name', 'brandId'];
+    protected $hidden = ["created_at", "updated_at", "deleted_at"];
+
     protected static function boot()
     {
         parent::boot();
         static::creating(function ($post) {
-            $post->uuid = (string) Str::uuid();
+            $post->uuid = (string)Str::uuid();
         });
     }
 
-    public function generations(){
+    public function generations()
+    {
 
-        return $this->hasMany(carGeneration::class,'modelId')->orderBy('name');
+        return $this->hasMany(carGeneration::class, 'modelId')->orderBy('name');
     }
 
     public function brand()
     {
-        return $this->hasOne(carBrand::class,'id','brandId');
+        return $this->hasOne(carBrand::class, 'id', 'brandId');
 
     }
+
+
 
 }

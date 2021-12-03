@@ -45,7 +45,7 @@ Class PaymentService{
             'comment'=>'',
             'contractId'=>''
         ]);
-        var_dump($validate);
+
         $validate['pid']=$validate['pid'] ?? 0;
 
         $this->paymentRep->addPayment($validate);

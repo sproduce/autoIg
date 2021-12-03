@@ -11,7 +11,7 @@ class CarGroupRepository implements CarGroupRepositoryInterface
 {
     public function getCarGroup($id)
     {
-        // TODO: Implement getCarGroup() method.
+        return rentCarGroup::find($id);
     }
 
     public function getCarGroups()
@@ -42,7 +42,7 @@ class CarGroupRepository implements CarGroupRepositoryInterface
 
     public function carGroupInfo($groupId)
     {
-        return rentCarGroupLink::where('groupId', $groupId);
+        return rentCarGroupLink::where('groupId', $groupId)->get();
     }
 
     public function addCarToGroup($groupArray)

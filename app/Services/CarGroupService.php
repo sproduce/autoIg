@@ -32,12 +32,15 @@ Class CarGroupService{
     public function carGroupInfo()
     {
         $carGroup=$this->request->validate(['carGroupId'=>'required']);
-        return $this->carGroupRep->carGroupInfo($carGroup['carGroupId']);
+        $carGroupObj=$this->carGroupRep->getCarGroup($carGroup['carGroupId']);
+        $carGroupInfoObj=$this->carGroupRep->carGroupInfo($carGroup['carGroupId']);
+        $groupObj=collect(['carGroup'=>$carGroupObj,'carGroupInfo'=>$carGroupInfoObj]);
+        return $groupObj;
     }
 
     public function addCarToGroup()
     {
-        $carGroupArray=$this->request->validate(['carGroupId'=>'required',
+        $carGroupArray=$this->request->validate(['groupId'=>'required',
             'carId'=>'',
             'start'=>'',
             'finish'=>'']);

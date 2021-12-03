@@ -25,3 +25,8 @@
 .clickable:hover{
     background: #d5e6a2;
 }
+
+
+.displayNone {
+    display: none;
+}

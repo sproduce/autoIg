@@ -39,8 +39,12 @@ class carConfiguration extends Model
 
     public function generation()
     {
-        return $this->hasOne(carGeneration::class,'id','generationId');
+        return $this->belongsTo(carGeneration::class,'generationId');
     }
+
+
+
+
 
     public function owner()
     {
