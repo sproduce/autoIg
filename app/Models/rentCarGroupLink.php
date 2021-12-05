@@ -20,9 +20,12 @@ class rentCarGroupLink extends Model
         return date('d-m-Y', strtotime($value));
     }
 
-    public function getFinishtAttribute($value)
+    public function getFinishAttribute($value)
     {
-        return date('d-m-Y', strtotime($value));
+        if($value){
+            return date('d-m-Y', strtotime($value));
+        }
+
     }
 
 }

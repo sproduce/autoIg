@@ -39,6 +39,11 @@ class rentPayment extends Model
         return $this->hasOne(payOperationType::class,'id','payOperationTypeId');
     }
 
+    public function carOwner()
+    {
+        return $this->hasOne(carOwner::class,'id','carOwnerId');
+    }
+
 
     public function getdateTimeAttribute($value)
     {

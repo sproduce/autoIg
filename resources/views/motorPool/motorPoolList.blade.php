@@ -6,6 +6,7 @@
     <input type="text" class="h-50 ml-3" name="queryText" id="queryText" title="быстрый поиск"/>
 @endsection
 
+
 @section('content')
 
     @if($carsPool->count())

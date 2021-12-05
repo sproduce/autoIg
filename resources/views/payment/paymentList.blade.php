@@ -61,7 +61,12 @@
 
                 <div class="col-2">{{$payment->account->nickName}}</div>
                 <div class="col-2">{{$payment->operationType->name}}</div>
-                <div class="col-2">{{$payment->name}}</div>
+                <div class="col-1">{{$payment->name}}</div>
+                <div class="col-1">
+                    @if($payment->carOwner)
+                    {{$payment->carOwner->nickName}}
+                    @endif
+                </div>
                 <div class="col-2"> @if ($payment->car)
                         {{$payment->car->nickName}}
                                         @endif

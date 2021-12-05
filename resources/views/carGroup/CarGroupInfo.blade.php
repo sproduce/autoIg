@@ -37,7 +37,7 @@
         @foreach($carGroupInfo as $groupInfo)
             <div class="row row-table">
                 <div class="col-3">
-                     {{$groupInfo->car->generation->name}}
+					 {{$groupInfo->car->generation->model->brand->name}} {{$groupInfo->car->generation->model->name}} {{$groupInfo->car->year}}
                 </div>
                 <div class="col-2">
                     {{$groupInfo->car->nickName}}

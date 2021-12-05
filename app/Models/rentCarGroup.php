@@ -22,8 +22,10 @@ class rentCarGroup extends Model
 
     public function getFinishAttribute($value)
     {
-        if($value)
-        return date('d-m-Y', strtotime($value));
+        if($value){
+            return date('d-m-Y', strtotime($value));
+        }
+
     }
 
 
