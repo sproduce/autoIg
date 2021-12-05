@@ -14,7 +14,19 @@ Class ContractService{
 
     public function getContracts()
     {
-        return $this->contractRep->getContracts();
+            $currentContractFilter=$this->request->validate(['typeId'=>'integer']);
+
+            if (empty($currentContractFilter['typeId'])){
+                $currentContractFilter['typeId']=$this->contractRep->getContractTypeFirst();
+            } else {
+                $currentContractFilter['typeId']=$this->contractRep->getContractType($currentContractFilter['typeId']);
+            }
+
+            $contractTypesObj=$this->contractRep->getContractTypes();
+            $contractsObj=$this->contractRep->getContracts($currentContractFilter['typeId']->id);
+
+            $contractsCollect=collect(['contractTypes'=>$contractTypesObj,'contracts'=>$contractsObj,'currentContractFilter'=>$currentContractFilter]);
+        return $contractsCollect;
     }
 
     public function getContract()

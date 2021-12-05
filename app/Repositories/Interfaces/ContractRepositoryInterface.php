@@ -5,6 +5,9 @@ interface ContractRepositoryInterface
 {
 public function addContractType();
 public function getContractTypes();
+public function getContractType($typeId);
+public function getContractTypeFirst();
+
 
 public function addContractStatus();
 public function getContractStatuses();
@@ -14,7 +17,7 @@ public function addContractTariff();
 
 
 public function addContract($contractArray);
-public function getContracts();
+public function getContracts($typeId);
 public function getContract($id);
 public function updateContract($contractId,$dataArray);
 

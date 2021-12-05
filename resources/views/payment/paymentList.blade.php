@@ -31,8 +31,17 @@
 
 
         <div class="row align-items-center font-weight-bold border mt-3 pb-1 mb-3">
-            <div class="col-2">Дата/Время</div>
-            <div class="col-1">Сумма <br/>(Комиссия)</div>
+            <div class="col-2">
+                <div class="row">
+                    <div class="col-7">
+                        Дата/Время
+                    </div>
+                    <div class="5">
+                        Сумма <br/>(Комиссия)
+                    </div>
+                </div>
+
+            </div>
             <div class="col-2">Счет<br/>
                 <select name="accountId"  id="accountId">
                     <option value="0">Все</option>
@@ -49,24 +58,31 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-2">Информация</div>
-            <div class="col-2"> Машина <br/>Договор</div>
+            <div class="col-2">Кто</div>
+            <div class="col-2">Группа</div>
+            <div class="col-1">Комментарий</div>
         </div>
     </form>
     @if($payments->count())
         @foreach($payments as $payment)
             <div class="row row-table">
-                <div class="col-2"> {{$payment->dateTime}}</div>
-                <div class="col-1 text-right">@if($payment->comm) ({{$payment->comm}}) @endif {{$payment->payment}}</div>
 
+                <div class="col-2">
+                    <div class="row">
+                        <div class="col-7 p-0">
+                            {{$payment->dateTime}}
+                        </div>
+                        <div class="col-5 text-right p-0">
+                            @if($payment->comm) ({{$payment->comm}}) @endif {{$payment->payment}}
+                        </div>
+                    </div>
+                </div>
                 <div class="col-2">{{$payment->account->nickName}}</div>
                 <div class="col-2">{{$payment->operationType->name}}</div>
-                <div class="col-1">{{$payment->name}}</div>
-                <div class="col-1">
-                    @if($payment->carOwner)
-                    {{$payment->carOwner->nickName}}
-                    @endif
-                </div>
+                <div class="col-2">{{$payment->name}} @if($payment->carOwner)
+                        {{$payment->carOwner->nickName}}
+                    @endif</div>
+
                 <div class="col-2"> @if ($payment->car)
                         {{$payment->car->nickName}}
                                         @endif
@@ -74,6 +90,9 @@
                         {{$payment->contract->number}}
                     @endif
 
+                </div>
+                <div class="col-1">
+                    {{$payment->comment}}
                 </div>
                 <div class="col-1">
                     <a class="btn btn-ssm btn-outline-warning" href="/payment/edit?paymentId={{$payment->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>

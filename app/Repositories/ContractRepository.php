@@ -32,9 +32,13 @@ class ContractRepository implements ContractRepositoryInterface
         return rentContractType::all();
     }
 
-    public function getContracts()
+    public function getContracts($typeId=null)
     {
-        return rentContract::all()->sortByDesc('start');
+        $query=rentContract::query();
+        if($typeId){
+            $query->where('typeId',$typeId);
+        }
+        return $query->get()->sortByDesc('start');
     }
     public function addContract($contractArray)
     {
@@ -74,6 +78,16 @@ class ContractRepository implements ContractRepositoryInterface
     public function search($text)
     {
         return rentContract::query()->where('number','LIKE','%'.$text.'%')->get();
+    }
+
+    public function getContractTypeFirst()
+    {
+       return rentContractType::first();
+    }
+
+    public function getContractType($typeId)
+    {
+        return rentContractType::find($typeId);
     }
 
 

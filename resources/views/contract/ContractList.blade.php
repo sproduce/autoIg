@@ -1,5 +1,13 @@
 @extends('../adminIndex')
 
+@php
+    $contracts=$contractsCollect->get('contracts');
+    $contractTypes=$contractsCollect->get('contractTypes');
+    $currentContractFilter=$contractsCollect->get('currentContractFilter');
+    //Заменить на коллекции
+    $currentContractType=$currentContractFilter['typeId'];
+
+@endphp
 
 @section('header')
     <a class="btn btn-ssm btn-outline-success mr-3" title="Добавить договор" href="/contract/add"><i class="far fa-plus-square"></i></a>
@@ -26,13 +34,12 @@
     <div class="card text-center mt-3">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active">Тип</a>
-                </li>
+                @foreach($contractTypes as $contractType)
+                    <li class="nav-item">
+                        <a class="nav-link @if( $currentContractType->id==$contractType->id) active @endif" href="/contract/list?typeId={{$contractType->id}}">{{$contractType->name}}</a>
+                    </li>
+                @endforeach
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/contract/completedList">Тип1</a>
-                </li>
             </ul>
         </div>
         <div class="card-body">
@@ -46,7 +53,7 @@
                     <a class="nav-link active">Актуальные</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/contract/completedList">Завершенные</a>
+                    <a class="nav-link disabled" href="/contract/completedList">Завершенные</a>
                 </li>
             </ul>
         </div>
@@ -100,7 +107,7 @@
                         <div class="col-2">{{$contract->driver->nickname}}</div>
                         <div class="col-1 text-right"></div>
                         <div class="col-1 text-right"></div>
-                        <div class="col-2">{{$contract->type->name}}</div>
+                        <div class="col-2"></div>
                         <div class="col-1"></div>
                     </div>
                     </div>

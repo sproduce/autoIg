@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContractController;
 
 Route::get('/actualList',[ContractController::class,'showActual']);
+Route::get('/list',[ContractController::class,'show']);
 Route::get('/completedList',[ContractController::class,'showCompleted']);
 Route::get('/ContractTypes',[ContractController::class,'showContractTypes']);
 

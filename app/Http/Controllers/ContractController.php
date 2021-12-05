@@ -26,6 +26,13 @@ class ContractController extends Controller
         return view('contract.ContractCompletedList');
     }
 
+    public function show()
+    {
+        $contractsCollect=$this->contractServ->getContracts();
+        return view('contract.ContractList', ['contractsCollect' => $contractsCollect]);
+    }
+
+
 
     public function showContractTypes()
     {
@@ -62,13 +69,13 @@ class ContractController extends Controller
     public function saveContract()
     {
         $this->contractServ->addContract();
-        return redirect('/contract/actualList');
+        return redirect('/contract/list');
     }
 
     public function updateContract()
     {
         $this->contractServ->editContract();
-        return redirect('/contract/actualList');
+        return redirect('/contract/list');
     }
 
 
