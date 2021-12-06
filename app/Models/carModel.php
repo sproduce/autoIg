@@ -29,7 +29,7 @@ class carModel extends Model
 
     public function brand()
     {
-        return $this->hasOne(carBrand::class, 'id', 'brandId');
+        return $this->hasOne(carBrand::class, 'id', 'brandId')->withDefault();
 
     }
 

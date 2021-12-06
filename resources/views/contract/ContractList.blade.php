@@ -74,7 +74,9 @@
                     <div class="row row-table">
                         <div class="col-12">
                     <div class="row">
-                        <div class="col-1 p-0">{{$contract->number}}</div>
+                        <div class="col-1 text-left pl-0">
+                            {{$loop->iteration}}.
+                        </div>
                         <div class="col-2">{{$contract->start}}</div>
                         <div class="col-2">{{$contract->car->generation->model->brand->name}}</div>
                         <div class="col-2">{{$contract->driver->surname}}</div>
@@ -91,9 +93,9 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-1 p-0"></div>
+                        <div class="col-1 p-0">{{$contract->number}}</div>
                         <div class="col-2">{{$contract->finish}}</div>
-                        <div class="col-2"> {{$contract->car->generation->model->name}}</div>
+                        <div class="col-2">{{$contract->car->generation->model->name}}</div>
                         <div class="col-2">{{$contract->driver->name}}</div>
                         <div class="col-1 text-right"></div>
                         <div class="col-1 text-right"></div>

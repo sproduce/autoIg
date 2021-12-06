@@ -20,28 +20,28 @@ class rentPayment extends Model
 
     public function car()
     {
-        return $this->hasOne(carConfiguration::class,'id','carId');
+        return $this->hasOne(carConfiguration::class,'id','carId')->withDefault();
     }
 
     public function contract()
     {
-        return $this->hasOne(rentContract::class,'id','contractId');
+        return $this->hasOne(rentContract::class,'id','contractId')->withDefault();
     }
 
 
     public function account()
     {
-        return $this->hasOne(payAccount::class,'id','payAccountId');
+        return $this->hasOne(payAccount::class,'id','payAccountId')->withDefault();
     }
 
     public function operationType()
     {
-        return $this->hasOne(payOperationType::class,'id','payOperationTypeId');
+        return $this->hasOne(payOperationType::class,'id','payOperationTypeId')->withDefault();
     }
 
     public function carOwner()
     {
-        return $this->hasOne(carOwner::class,'id','carOwnerId');
+        return $this->hasOne(carOwner::class,'id','carOwnerId')->withDefault();
     }
 
 

@@ -21,7 +21,7 @@ class rentCarDriver extends Model
 
     public function region()
     {
-        return $this->hasOne(rentCarDriverRegion::class,'id','regionId');
+        return $this->hasOne(rentCarDriverRegion::class,'id','regionId')->withDefault();
     }
 
 }

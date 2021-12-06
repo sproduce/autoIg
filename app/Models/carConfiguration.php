@@ -39,7 +39,8 @@ class carConfiguration extends Model
 
     public function generation()
     {
-        return $this->belongsTo(carGeneration::class,'generationId');
+        return $this->hasOne(carGeneration::class,'id','generationId')->withDefault();
+
     }
 
 
@@ -48,23 +49,23 @@ class carConfiguration extends Model
 
     public function owner()
     {
-        return $this->hasOne(carOwner::class,'id','ownerId');
+        return $this->hasOne(carOwner::class,'id','ownerId')->withDefault();
     }
 
     public function engine()
     {
-        return $this->hasOne(carEngineType::class,'id','engineTypeId');
+        return $this->hasOne(carEngineType::class,'id','engineTypeId')->withDefault();
     }
 
     public function transmission()
     {
-        return $this->hasOne(carTransmissionType::class,'id','transmissionTypeId');
+        return $this->hasOne(carTransmissionType::class,'id','transmissionTypeId')->withDefault();
 
     }
 
     public function body()
     {
-        return $this->hasOne(carType::class,'id','typeId');
+        return $this->hasOne(carType::class,'id','typeId')->withDefault();
     }
 
 

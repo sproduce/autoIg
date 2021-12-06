@@ -15,25 +15,25 @@ class rentContract extends Model
     public function driver()
     {
 
-        return $this->hasOne(rentCarDriver::class,'id','driverId');
+        return $this->hasOne(rentCarDriver::class,'id','driverId')->withDefault();
 
     }
     public function type()
     {
-        return $this->hasOne(rentContractType::class,'id','typeId');
+        return $this->hasOne(rentContractType::class,'id','typeId')->withDefault();
     }
     public function tariff()
     {
-        return $this->hasOne(rentContractTariff::class,'id','tariffId');
+        return $this->hasOne(rentContractTariff::class,'id','tariffId')->withDefault();
     }
     public function status()
     {
-        return $this->hasOne(rentContractStatus::class,'id','statusId');
+        return $this->hasOne(rentContractStatus::class,'id','statusId')->withDefault();
     }
 
     public function car()
     {
-        return $this->hasOne(carConfiguration::class,'id','carId');
+        return $this->hasOne(carConfiguration::class,'id','carId')->withDefault();
     }
 
 }
