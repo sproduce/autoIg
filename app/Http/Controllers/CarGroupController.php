@@ -41,10 +41,23 @@ class CarGroupController extends Controller
 
     public function addCarToGroup()
     {
-        //echo "asdas";
         $this->carGroupServ->addCarToGroup();
         return redirect()->back();
     }
+
+    public function searchDialog()
+    {
+        $carGroupsObj=$this->carGroupServ->getLastCarGroups(5);
+
+        return view('dialog.CarGroup.searchCarGroup',['carGroups'=>$carGroupsObj]);
+    }
+
+    public function search()
+    {
+        $carGroupSearchObj=$this->carGroupServ->searchCarGroup();
+        return view('carGroup.carGroupSearchResult',['carGroups'=>$carGroupSearchObj]);
+    }
+
 
 
 }

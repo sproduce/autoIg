@@ -14,8 +14,7 @@ class rentPayment extends Model
     private $id,$dateTime,$payAccountId,$payOperationTypeId,$payment,$balance,$name,$carId,$carGroupId,$finished,$pid,$comm;
     protected $fillable =['dateTime','payAccountId','payOperationTypeId','payment','balance','name','carId','carGroupId','finished','pid','comm','comment','contractId'];
 
-
-    //protected $dateFormat = 'Y-m-d';
+      //protected $dateFormat = 'Y-m-d';
 
 
     public function car()
@@ -44,9 +43,15 @@ class rentPayment extends Model
         return $this->hasOne(carOwner::class,'id','carOwnerId')->withDefault();
     }
 
+    public function carGroup()
+    {
+        return $this->hasOne(rentCarGroup::class,'id','carGroupId')->withDefault();
+    }
 
     public function getdateTimeAttribute($value)
     {
         return date('d-m-Y H:i', strtotime($value));
     }
+
+
 }

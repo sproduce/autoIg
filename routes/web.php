@@ -118,4 +118,8 @@ Route::get('/carGroup/add',[CarGroupController::class,'addDialog']);
 Route::post('/carGroup/add',[CarGroupController::class,'save']);
 Route::post('/carGroup/addCar',[CarGroupController::class,'addCarToGroup']);
 
+Route::get('/carGroup/search',[CarGroupController::class,'search']);
+
+Route::get('/carGroup/searchDialog',[CarGroupController::class,'searchDialog']);
+
 Route::get('/carGroup/info',[CarGroupController::class,'info']);

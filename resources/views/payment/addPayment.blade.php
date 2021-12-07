@@ -71,11 +71,11 @@
                         Группа
                     </div>
                     <div class="col-1">
-                        <a href="/payment/addCarGroup" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                        <a href="/carGroup/searchDialog" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
                     </div>
                     <div class="col-7">
-                        <input id="carGroupText" disabled />
-                        <input name="carGroupId" id="carGroupId" value=""  hidden />
+                        <input id="carGroupText" name="carGroupText" disabled />
+                        <input name="carGroupId" id="carGroupId"  hidden />
                     </div>
                 </div>
                 <div class="row">

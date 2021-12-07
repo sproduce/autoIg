@@ -5,7 +5,7 @@ interface CarGroupRepositoryInterface
 {
 
     public function getCarGroups();
-
+    public function getLastCarGroups($kol);
     public function getCarGroup($id);
     public function addCarGroup($groupArray);
     public function updateCarGroup($id,$groupArray);
@@ -16,6 +16,6 @@ interface CarGroupRepositoryInterface
     public function addCarToGroup($groupArray);
     public function delCarFromGroup($groupId,$carId);
 
-
+    public function searchCarGroup($text);
 
 }

@@ -40,6 +40,7 @@ Class PaymentService{
             'payOperationTypeId'=>'required|integer',
             'name'=>'',
             'carId'=>'',
+            'carGroupId'=>'',
             'finished'=>'',
             'pid'=>'integer',
             'comment'=>'',

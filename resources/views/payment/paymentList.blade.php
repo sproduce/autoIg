@@ -64,8 +64,11 @@
         </div>
     </form>
     @if($payments->count())
-        @php $paySum=0;
-        @endphp
+        <div class="row">
+            <div class="col-2 text-right pr-0 font-weight-bold">
+                {{$payments->sum('payment')}}
+            </div>
+        </div>
         @foreach($payments as $payment)
             <div class="row row-table">
 
@@ -77,8 +80,6 @@
                         </div>
                         <div class="col-4 text-right p-0">
                             @if($payment->comm) ({{$payment->comm}}) @endif {{$payment->payment}}
-                                @php $paySum+=$payment->payment;
-                                @endphp
                         </div>
                     </div>
                 </div>
@@ -88,13 +89,16 @@
                         {{$payment->carOwner->nickName}}
                     @endif</div>
 
-                <div class="col-2"> @if ($payment->car)
+                <div class="col-2">
+                    @if ($payment->carId)
                         {{$payment->car->nickName}}
-                                        @endif
-                    @if ($payment->contract)
+                    @endif
+                    @if ($payment->contractId)
                         {{$payment->contract->number}}
                     @endif
-
+                    @if ($payment->carGroupId)
+                        {{$payment->carGroup->name}}
+                    @endif
                 </div>
                 <div class="col-1">
                     {{$payment->comment}}
@@ -105,11 +109,7 @@
                 </div>
             </div>
         @endforeach
-        <div class="row">
-            <div class="col-2 text-right pr-0 font-weight-bold">
-                {{$paySum}}
-            </div>
-        </div>
+
     @else
         <div class="row mt-3">
             <div class="col-12 text-center">

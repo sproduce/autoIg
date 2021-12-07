@@ -56,5 +56,16 @@ class CarGroupRepository implements CarGroupRepositoryInterface
     }
 
 
+    public function getLastCarGroups($kol)
+    {
+        return rentCarGroup::take($kol)->orderByDesc('id')->get();
+    }
+
+
+    public function searchCarGroup($text)
+    {
+        return rentCarGroup::query()->where('name','LIKE','%'.$text.'%')->orWhere('nickName','LIKE','%'.$text.'%')->get();
+    }
+
 }
 
