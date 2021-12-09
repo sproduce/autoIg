@@ -9,13 +9,6 @@
 @php
     $accounts=$paymentGuide->get('accounts');
     $operationTypes=$paymentGuide->get('operationTypes');
-    if($accounts->count()>=$operationTypes->count()){
-        $colLine=$accounts->count();
-        }
-        else{
-            $colLine=$operationTypes->count();
-        }
-
 @endphp
 
 @section('content')
