@@ -90,7 +90,14 @@ Class PaymentService{
             'comm'=>'required|integer',
             'payAccountId'=>'required|integer',
             'payOperationTypeId'=>'required|integer',
-            'name'=>'']);
+            'name'=>'',
+            'carId'=>'',
+            'carGroupId'=>'',
+            'finished'=>'',
+            'pid'=>'integer',
+            'comment'=>'',
+            'contractId'=>''
+        ]);
         $validateId=$this->request->validate(['id'=>'required|integer']);
 
         $this->paymentRep->updatePayment($validateId['id'],$validate);

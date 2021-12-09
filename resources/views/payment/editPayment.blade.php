@@ -12,9 +12,9 @@
 @endphp
 
 @section('content')
-    <form method="POST" action="/payment/add">
+    <form method="POST" action="/payment/edit">
         @csrf
-
+        <input type="number" name="id" value="{{$payment->id}}" hidden/>
         <div class="row pb-3 mb-3 border-bottom">
             <div class="col-1">Дата</div>
             <div class="col-3"><input type="datetime-local" name="dateTime" value="{{ date('Y-m-d\TH:i', strtotime($payment->dateTime))}}"/></div>
@@ -131,10 +131,10 @@
         </div>
         <div class="row mt-3 pt-3">
             <div class="col-4">
-                <input type="submit" class="btn btn-primary" value="Добавить">
+
             </div>
             <div class="col-4">
-                <input type="submit" class="btn btn-primary" value="Добавить следующий">
+                <input type="submit" class="btn btn-primary" value="Сохранить">
             </div>
         </div>
     </form>
