@@ -19,3 +19,4 @@ Route::get('/addCar',[ContractController::class,'addCarDialog']);
 
 
 Route::get('/search',[ContractController::class,'search']);
+Route::get('/info',[ContractController::class,'dialogInfo']);

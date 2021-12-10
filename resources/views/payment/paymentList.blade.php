@@ -92,9 +92,11 @@
                 <div class="col-2">
                     @if ($payment->carId)
                         {{$payment->car->nickName}}
+                        <a href="/dialog/carInfo?carId={{$payment->car->id}}" class="btn btn-ssm btn-outline-info DialogUser"> <i class="fas fa-info-circle"></i></a>
                     @endif
                     @if ($payment->contractId)
                         {{$payment->contract->number}}
+                            <a href="/contract/info?contractId={{$payment->contract->id}}" class="btn btn-ssm btn-outline-info DialogUser"> <i class="fas fa-info-circle"></i></a>
                     @endif
                     @if ($payment->carGroupId)
                         {{$payment->carGroup->name}}

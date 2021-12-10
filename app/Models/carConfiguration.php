@@ -43,9 +43,15 @@ class carConfiguration extends Model
 
     }
 
+    public function model()
+    {
 
+    }
 
+    public function brand()
+    {
 
+    }
 
     public function owner()
     {

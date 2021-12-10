@@ -93,4 +93,13 @@ class ContractController extends Controller
         return view('contract.resultSearch',['contracts'=>$contractsObj]);
     }
 
+    public function dialogInfo()
+    {
+        $contractObj=$this->contractServ->getContract();
+
+        return view('dialog.Contract.FullInfoContract',['contract'=>$contractObj]);
+    }
+
+
+
 }
