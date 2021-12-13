@@ -49,8 +49,8 @@ Class CarOwnerService{
 
     public function searchOwner()
     {
-        $validate=$this->request->validate(['ownerText'=>'required']);
-
+        $validate=$this->request->validate(['carOwnerText'=>'required']);
+        return $this->carOwnerRep->carOwnerSearch($validate['carOwnerText']);
     }
 
 

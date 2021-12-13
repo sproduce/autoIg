@@ -78,4 +78,13 @@ class PaymentController extends Controller
     }
 
 
+
+    public function listByContract()
+    {
+        $paymentsObj=$this->paymentServ->getPaymentsByContract();
+        return view('payment.paymentByContractList',['payments'=>$paymentsObj]);
+    }
+
+
+
 }

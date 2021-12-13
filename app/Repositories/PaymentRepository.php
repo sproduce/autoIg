@@ -72,5 +72,10 @@ class PaymentRepository implements PaymentRepositoryInterface
         $payment->delete();
     }
 
+    public function getPaymentsByContract($contractId)
+    {
+        rentPayment::where('contractId',$contractId);
+    }
+
 }
 

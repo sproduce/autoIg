@@ -112,6 +112,10 @@ Class PaymentService{
     }
 
 
+    public function getPaymentsByContract()
+    {
+
+    }
 
 
 }

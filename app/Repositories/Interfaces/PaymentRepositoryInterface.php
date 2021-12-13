@@ -18,4 +18,6 @@ interface PaymentRepositoryInterface
     public function updatePayment($id,$paymentArray);
     public function delPayment($id);
 
+    public function getPaymentsByContract($contractId);
+
 }

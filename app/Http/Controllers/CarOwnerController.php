@@ -56,7 +56,8 @@ class CarOwnerController extends Controller
 
     public function search()
     {
-
+        $carOwnersObj=$this->carOwnerServ->searchOwner();
+        return view('carOwner.carOwnerSearchResult',['carOwners'=>$carOwnersObj]);
     }
 
 }

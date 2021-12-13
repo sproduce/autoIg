@@ -93,7 +93,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-1 p-0">{{$contract->number}}</div>
+                        <div class="col-1 p-0"><a href="/payment/listByContract?contractId={{$contract->id}}" title="Платежи по договору">{{$contract->number}}</a></div>
                         <div class="col-2">{{$contract->finish}}</div>
                         <div class="col-2">{{$contract->car->generation->model->name}}</div>
                         <div class="col-2">{{$contract->driver->name}}</div>
