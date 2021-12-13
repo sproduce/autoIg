@@ -24,6 +24,12 @@ Class CarGroupService{
         return $this->carGroupRep->getLastCarGroups($kol);
     }
 
+    public function getCarGroup()
+    {
+        $validate=$this->request->validate(['carGroupId'=>'required']);
+        return $this->carGroupRep->getCarGroup($validate['carGroupId']);
+    }
+
 
     public function addCarGroup()
     {

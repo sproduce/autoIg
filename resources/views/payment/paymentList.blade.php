@@ -63,20 +63,22 @@
             <div class="col-1">Комментарий</div>
         </div>
     </form>
+
     @if($payments->count())
         <div class="row">
             <div class="col-2 text-right pr-0 font-weight-bold">
                 {{$payments->sum('payment')}}
             </div>
         </div>
+
         @foreach($payments as $payment)
             <div class="row row-table">
 
                 <div class="col-2">
                     <div class="row">
                         <div class="col-2 p-0">{{$loop->iteration}}.</div>
-                        <div class="col-6 p-0">
-                            {{$payment->dateTime}}
+                        <div class="col-6 p-0" title="{{$payment->dateTime}}">
+                            {{$payment->dateTime->format('d-m-Y')}}
                         </div>
                         <div class="col-4 text-right p-0">
                             @if($payment->comm) ({{$payment->comm}}) @endif {{$payment->payment}}
@@ -85,9 +87,16 @@
                 </div>
                 <div class="col-2">{{$payment->account->nickName}}</div>
                 <div class="col-2">{{$payment->operationType->name}}</div>
-                <div class="col-2">{{$payment->name}} @if($payment->carOwner)
+                <div class="col-2">{{$payment->name}}
+                    @if($payment->carOwnerId)
                         {{$payment->carOwner->nickName}}
-                    @endif</div>
+                        <a href="/carOwner/info?carOwnerId={{$payment->carOwnerId}}" class="btn btn-ssm btn-outline-info DialogUser"> <i class="fas fa-info-circle"></i></a>
+                    @endif
+                    @if($payment->carDriverId)
+                        {{$payment->carDriver->nickname}}
+                        <a href="/dialog/carDriverInfo?carDriverId={{$payment->carDriver->id}}" class="btn btn-ssm btn-outline-info DialogUser"> <i class="fas fa-info-circle"></i></a>
+                    @endif
+                </div>
 
                 <div class="col-2">
                     @if ($payment->carId)
@@ -100,6 +109,7 @@
                     @endif
                     @if ($payment->carGroupId)
                         {{$payment->carGroup->name}}
+                            <a href="/carGroup/info?carGroupId={{$payment->carGroup->id}}" class="btn btn-ssm btn-outline-info DialogUserMin"> <i class="fas fa-info-circle"></i></a>
                     @endif
                 </div>
                 <div class="col-1">

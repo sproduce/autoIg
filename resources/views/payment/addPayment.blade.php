@@ -48,6 +48,43 @@
             <div class="col-3">
                 <div class="row">
                     <div class="col-3">
+                        Водитель
+                    </div>
+                    <div class="col-1">
+                        <a href="/contract/addDriver" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                    </div>
+                    <div class="col-7">
+                        <input id="driverText" disabled />
+                        <input name="carDriverId" id="driverId" value=""  hidden />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        Владелец
+                    </div>
+                    <div class="col-1">
+                        <a href="/carOwner/searchDialog" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                    </div>
+                    <div class="col-7">
+                        <input id="carOwnerText" disabled />
+                        <input name="carOwnerId" id="carOwnerId" value=""  hidden />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-3">
+                        Имя
+                    </div>
+                    <div class="col-9">
+                        <input type="text" name="name" id="name"/>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-3">
+                <div class="row">
+                    <div class="col-3">
                         Машина
                     </div>
                     <div class="col-1">
@@ -102,14 +139,6 @@
 
             </div>
 
-        </div>
-        <div class="row mt-3">
-            <div class="col-2">
-                Название
-            </div>
-            <div class="col-10">
-                <input type="text" class="col-6" name="name"/>
-            </div>
         </div>
 
         <div class="row mt-3">

@@ -95,7 +95,7 @@
 
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link"  href="">
+                            <a class="nav-link"  href="/carOwner/list">
                                 <i class="fas fa-user-tie"></i>
                                 Владельцы машин
                             </a>

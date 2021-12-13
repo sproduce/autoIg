@@ -44,7 +44,9 @@ Class PaymentService{
             'finished'=>'',
             'pid'=>'integer',
             'comment'=>'',
-            'contractId'=>''
+            'contractId'=>'',
+            'carDriverId'=>'',
+            'carOwnerId'=>''
         ]);
 
         $validate['pid']=$validate['pid'] ?? 0;

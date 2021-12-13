@@ -59,5 +59,11 @@ class CarGroupController extends Controller
     }
 
 
+    public function dialogInfo()
+    {
+        $carGroupObj=$this->carGroupServ->getCarGroup();
+        return view('dialog.CarGroup.fullInfoCarGroup',['carGroup'=>$carGroupObj]);
+    }
+
 
 }

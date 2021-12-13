@@ -21,7 +21,7 @@
             <div class="col-1">Сумма</div>
             <div class="col-3"><input type="number" name="payment" required value="{{$payment->payment}}"/></div>
             <div class="col-1">Комиссия</div>
-            <div class="col-3"><input type="number" name="comm" value="{{$payment->comm}}"/></div>
+            <div class="col-3"><input type="number" name="comm" value="{{$payment->comm??'0'}}"/></div>
         </div>
 
         <div class="row">

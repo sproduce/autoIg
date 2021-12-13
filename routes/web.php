@@ -6,7 +6,7 @@ use App\Http\Controllers\DialogController;
 use App\Http\Controllers\MotorPoolController;
 use App\Http\Controllers\CarDriverController;
 use App\Http\Controllers\CarGroupController;
-
+use App\Http\Controllers\CarOwnerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -121,5 +121,19 @@ Route::post('/carGroup/addCar',[CarGroupController::class,'addCarToGroup']);
 Route::get('/carGroup/search',[CarGroupController::class,'search']);
 
 Route::get('/carGroup/searchDialog',[CarGroupController::class,'searchDialog']);
+Route::get('/carGroup/fullInfo',[CarGroupController::class,'info']);
+Route::get('/carGroup/info',[CarGroupController::class,'DialogInfo']);
 
-Route::get('/carGroup/info',[CarGroupController::class,'info']);
+
+
+
+Route::get('/carOwner/list',[CarOwnerController::class,'show']);
+Route::get('/carOwner/add',[CarOwnerController::class,'addDialog']);
+Route::post('/carOwner/add',[CarOwnerController::class,'save']);
+
+Route::get('/carOwner/edit',[CarOwnerController::class,'editDialog']);
+Route::post('/carOwner/edit',[CarOwnerController::class,'update']);
+Route::get('/carOwner/info',[CarOwnerController::class,'DialogInfo']);
+
+Route::get('/carOwner/searchDialog',[CarOwnerController::class,'searchDialog']);
+Route::get('/carOwner/search',[CarOwnerController::class,'search']);

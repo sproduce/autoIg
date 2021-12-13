@@ -12,6 +12,7 @@ use App\Repositories\BrandRepository;
 use App\Repositories\ModelRepository;
 use App\Repositories\MotorPoolRepository;
 use App\Repositories\PaymentRepository;
+use App\Repositories\CarOwnerRepository;
 
 
 use App\Repositories\Interfaces\BrandRepositoryInterface;
@@ -21,7 +22,7 @@ use App\Repositories\Interfaces\CarDriverRepositoryInterface;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Repositories\Interfaces\CarGroupRepositoryInterface;
-
+use App\Repositories\Interfaces\CarOwnerRepositoryInterface;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -40,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ContractRepositoryInterface::class,ContractRepository::class);
         $this->app->bind(PaymentRepositoryInterface::class,PaymentRepository::class);
         $this->app->bind(CarGroupRepositoryInterface::class,CarGroupRepository::class);
-
+        $this->app->bind(CarOwnerRepositoryInterface::class,CarOwnerRepository::class);
 
     }
 

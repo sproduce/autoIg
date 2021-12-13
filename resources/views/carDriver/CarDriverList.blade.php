@@ -2,6 +2,7 @@
 
 
 @section('header')
+    <a class="btn btn-ssm btn-outline-success mr-3 DialogUserMin" title="Добавить водителя" href="/carDriver/add"><i class="far fa-plus-square"></i></a>
             <h6 class="m-0">Водители</h6>
 @endsection
 
@@ -78,11 +79,7 @@
         </div>
     @endif
 
-    <div class="row mt-4">
-        <div class="col-12">
-            <a class="btn btn-ssm btn-outline-success DialogUserMin" title="Добавить договор" href="/carDriver/add"><i class="far fa-plus-square"></i></a>
-        </div>
-    </div>
+
 
 
 

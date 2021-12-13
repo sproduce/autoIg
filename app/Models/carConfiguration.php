@@ -45,7 +45,7 @@ class carConfiguration extends Model
 
     public function model()
     {
-
+        //return $this->generation()->hasOne(carModel::class,'id','modelId');
     }
 
     public function brand()

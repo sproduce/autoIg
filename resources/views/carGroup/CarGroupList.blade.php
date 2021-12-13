@@ -32,7 +32,7 @@
         @foreach($carGroups as $carGroup)
             <div class="row row-table">
                 <div class="col-3">
-                    <a href="/carGroup/info?carGroupId={{$carGroup->id}}" title="info">{{$carGroup->name}}</a>
+                    <a href="/carGroup/fullInfo?carGroupId={{$carGroup->id}}" title="info">{{$carGroup->name}}</a>
                 </div>
                 <div class="col-2">
                     {{$carGroup->nickName}}
