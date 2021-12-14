@@ -114,7 +114,8 @@ Class PaymentService{
 
     public function getPaymentsByContract()
     {
-
+        $validateId=$this->request->validate(['contractId'=>'required|integer']);
+        return $this->paymentRep->getPaymentsByContract($validateId['contractId']);
     }
 
 

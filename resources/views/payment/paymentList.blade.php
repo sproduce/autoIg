@@ -10,7 +10,9 @@
 @endphp
 @section('header')
     <a class="btn btn-ssm btn-outline-success mr-3" title="Добавить платеж" href="/payment/add"><i class="far fa-plus-square"></i></a>
-            <h6 class="m-0">Платежи </h6>
+            <h6 class="m-0 mr-3">Платежи </h6> {{$payments->sum('payment')}} ({{$payments->sum('comm')??'0'}})
+
+
 @endsection
 
 @section('content')
@@ -65,12 +67,6 @@
     </form>
 
     @if($payments->count())
-        <div class="row">
-            <div class="col-2 text-right pr-0 font-weight-bold">
-                {{$payments->sum('payment')}}
-            </div>
-        </div>
-
         @foreach($payments as $payment)
             <div class="row row-table">
 
@@ -90,26 +86,37 @@
                 <div class="col-2">{{$payment->name}}
                     @if($payment->carOwnerId)
                         {{$payment->carOwner->nickName}}
+                    <div class="float-right" title="Информация о владельце">
                         <a href="/carOwner/info?carOwnerId={{$payment->carOwnerId}}" class="btn btn-ssm btn-outline-info DialogUser"> <i class="fas fa-info-circle"></i></a>
+                    </div>
+
                     @endif
                     @if($payment->carDriverId)
                         {{$payment->carDriver->nickname}}
-                        <a href="/dialog/carDriverInfo?carDriverId={{$payment->carDriver->id}}" class="btn btn-ssm btn-outline-info DialogUser"> <i class="fas fa-info-circle"></i></a>
+                        <div class="float-right" title="Информация о водителе">
+                            <a href="/dialog/carDriverInfo?carDriverId={{$payment->carDriver->id}}" class="btn btn-ssm btn-outline-info DialogUser"> <i class="fas fa-info-circle"></i></a>
+                        </div>
                     @endif
                 </div>
 
                 <div class="col-2">
                     @if ($payment->carId)
                         {{$payment->car->nickName}}
-                        <a href="/dialog/carInfo?carId={{$payment->car->id}}" class="btn btn-ssm btn-outline-info DialogUser"> <i class="fas fa-info-circle"></i></a>
+                        <div class="float-right" title="Информация о машине">
+                            <a href="/dialog/carInfo?carId={{$payment->car->id}}" class="btn btn-ssm btn-outline-info DialogUser"> <i class="fas fa-info-circle"></i></a>
+                        </div>
                     @endif
                     @if ($payment->contractId)
                         {{$payment->contract->number}}
-                            <a href="/contract/info?contractId={{$payment->contract->id}}" class="btn btn-ssm btn-outline-info DialogUser"> <i class="fas fa-info-circle"></i></a>
+                            <div class="float-right" title="Информация о договоре ">
+                                <a href="/contract/info?contractId={{$payment->contract->id}}" class="btn btn-ssm btn-outline-info DialogUser"> <i class="fas fa-info-circle"></i></a>
+                            </div>
                     @endif
                     @if ($payment->carGroupId)
                         {{$payment->carGroup->name}}
-                            <a href="/carGroup/info?carGroupId={{$payment->carGroup->id}}" class="btn btn-ssm btn-outline-info DialogUserMin"> <i class="fas fa-info-circle"></i></a>
+                            <div class="float-right" title="Информация о группе">
+                                <a href="/carGroup/info?carGroupId={{$payment->carGroup->id}}" class="btn btn-ssm btn-outline-info DialogUserMin"> <i class="fas fa-info-circle"></i></a>
+                            </div>
                     @endif
                 </div>
                 <div class="col-1">
