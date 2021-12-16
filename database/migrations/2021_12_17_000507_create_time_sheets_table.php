@@ -20,6 +20,9 @@ class CreateTimeSheetsTable extends Migration
             $table->unsignedBigInteger('contractId')->nullable();
             $table->unsignedBigInteger('eventId')->nullable();
             $table->string('color');
+            $table->dateTime('dateTime');
+            $table->string('sum');
+            $table->string('comment');
             $table->foreign('carId')->references('id')->on('car_configurations');
         });
     }
