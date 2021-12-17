@@ -74,5 +74,16 @@ class carConfiguration extends Model
         return $this->hasOne(carType::class,'id','typeId')->withDefault();
     }
 
+    public function timeSheet($date)
+    {
+        $from=$date->format('Y-m-d');
+        $to=$date->addDays(1)->format('Y-m-d');
+        $result=$this->hasMany(timeSheet::class,'carId')->whereBetween('dateTime',[$from,$to])->get();
+        return $result;
+
+    }
+
+
+
 
 }

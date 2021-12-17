@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Services\MotorPoolService;
 
 class TimeSheetController extends Controller
 {
-    public function show()
+    public function show(MotorPoolService $motorPool)
     {
-        $currentDate=Carbon::now();
-        $currentDate->subDays(8);
-        return view('timeSheet.list',['currentDate'=>$currentDate]);
+        $motorPoolObj=$motorPool->getCars();
+        $tmpCarbon=new Carbon();
+        return view('timeSheet.list',['motorPool'=>$motorPoolObj,'carbon'=>$tmpCarbon]);
     }
 
 
