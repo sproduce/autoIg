@@ -2,8 +2,8 @@
 
 function loadTitle($row)
 {
-    
-    
+
+
 }
 
 
@@ -35,9 +35,9 @@ function ShowImage(imageUrl){
     $('#modal-content').empty();
     $('#modal-dialog').removeClass("modal-lg");
     $('#modal-dialog').addClass("modal-sm");
-   
+
     $('#modal-content').prepend("<img  src=\""+imageUrl+"\" />");
-        
+
     $('#modal').modal('toggle');
 }
 
@@ -53,14 +53,5 @@ function Login(){
     } else {
         window.location.href = "/clients/getClients";
     }
-}
-
-
-
-function ShowPartsList(partsInfoId,currentDiv){
-    tmp='#id'+partsInfoId;
-    
-    $(tmp).toggleClass("hidden");
-    $(currentDiv).find("i").toggleClass("fa-angle-double-down").toggleClass("fa-angle-double-up");
 }
 
