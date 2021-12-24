@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class timeSheet extends Model
 {
     use HasFactory;
+    protected $fillable = ['carId', 'eventId','dateTime','sum','comment'];
+
+
+
+    public function event()
+    {
+        return $this->hasOne(rentEvent::class,'id','eventId')->withDefault();
+    }
+
+
 }

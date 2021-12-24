@@ -2,6 +2,10 @@
 
 @php
 
+
+
+    $motorPool=$timeSheetCollect->get('motorPools');
+    $timeSheets=$timeSheetCollect->get('timeSheets');
 @endphp
 @section('header')
 
@@ -69,57 +73,78 @@
 
     @if($motorPool->count())
         @foreach($motorPool as $car)
-            <div class="row border carInfo" data-carId="{{$car->id}}">
+            <div class="row border carInfo" data-carid="{{$car->id}}">
                 <div class="col-2 border-right">
                     !{{$car->nickName}}
                 </div>
                 <div class="col-4">
                     <div class="row">
                         @for ($i = 7; $i>1; $i--)
-                            <div class="col-2 border-right timeClickable">
-                                @if ($car->timeSheet($carbon::now()->subDays($i))->count())
-                                @else
-                                    &nbsp;
-                                @endif
+                            @php
+                                $currentDate=$carbon::now()->subDays($i);
+                                $fromDate=$currentDate->format('Y-m-d');
+                                $toDate=$currentDate->addDays(1)->format('Y-m-d');
+                            @endphp
+                            <div class="col-2 border-right timeClickable" data-datetime="{{$fromDate}}">
+                                @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
+                                    {{$timeSheet->id}}
+                                @empty &nbsp
+                                @endforelse
                             </div>
                         @endfor
                     </div>
                 </div>
                 <div class="col-2">
                     <div class="row">
-                        <div class="col-4 border-right timeClickable">
-                            @if ($car->timeSheet($carbon::now()->subDays(1))->count())
-                                @foreach($car->timeSheet($carbon::now()->subDays(1)) as $event)
-                                    {{$event->carId}}
-                                @endforeach
-                            @else
-                                &nbsp;
-                            @endif
+                            @php
+                                $currentDate=$carbon::now()->subDays(1);
+                                $fromDate=$currentDate->format('Y-m-d');
+                                $toDate=$currentDate->addDays(1)->format('Y-m-d');
+                            @endphp
+                        <div class="col-4 border-right timeClickable" data-datetime="{{$fromDate}}">
+                            @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
+                                {{$timeSheet->id}}
+                            @empty &nbsp
+                            @endforelse
                         </div>
+                        @php
+                            $currentDate=$carbon::now();
+                            $fromDate=$currentDate->format('Y-m-d');
+                            $toDate=$currentDate->addDays(1)->format('Y-m-d');
+                        @endphp
+                        <div class="col-4 border-right timeClickable" data-datetime="{{$fromDate}}">
 
-                        <div class="col-4 border-right timeClickable">
-                            @if ($car->timeSheet($carbon::now())->count())
-                            @else
-                                &nbsp;
-                            @endif
+                            @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
+                                {{$timeSheet->id}}
+                            @empty &nbsp
+                            @endforelse
                         </div>
-                        <div class="col-4 border-right timeClickable">
-                            @if ($car->timeSheet($carbon::now()->addDays(1))->count())
-                            @else
-                                &nbsp;
-                            @endif
+                        @php
+                            $currentDate=$carbon::now()->addDays(1);
+                            $fromDate=$currentDate->format('Y-m-d');
+                            $toDate=$currentDate->addDays(1)->format('Y-m-d');
+                        @endphp
+                        <div class="col-4 border-right timeClickable" data-datetime="{{$fromDate}}">
+                            @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
+                                {{$timeSheet->id}}
+                            @empty &nbsp
+                            @endforelse
                         </div>
-
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="row">
                         @for ($i = 2; $i < 8; $i++)
-                            <div class="col-2 border-right timeClickable">
-                                @if ($car->timeSheet($carbon::now()->addDays($i))->count())
-                                @else
-                                    &nbsp;
-                                @endif
+                            @php
+                                $currentDate=$carbon::now()->addDays($i);
+                                $fromDate=$currentDate->format('Y-m-d');
+                                $toDate=$currentDate->addDays(1)->format('Y-m-d');
+                            @endphp
+                            <div class="col-2 border-right timeClickable" data-datetime="{{$fromDate}}">
+                                @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
+                                    {{$timeSheet->id}}
+                                    @empty &nbsp
+                                @endforelse
                             </div>
                         @endfor
                     </div>
@@ -139,9 +164,14 @@
 
 @section('js')
 <script>
-$(".timeClickable").dblclick(function() {
-    DialogUserMin('/timesheet/add');
-    console.log($(this).parent(".carInfo").attr("data-carId"));
+$(".timeClickable").dblclick(function(e) {
+    var carId=$(this).closest('.carInfo').data('carid');
+    var dateTime=$(this).data('datetime');
+    if (e.ctrlKey){
+        DialogUserMin('/timesheet/add?carId='+carId+'&date='+dateTime);
+    } else{
+        DialogUserMin('/timesheet/info?carId='+carId+'&date='+dateTime);
+    }
 });
 </script>
 @endsection

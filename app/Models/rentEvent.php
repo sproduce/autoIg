@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class rentEvent extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name', 'color','action'];
+
+
 }

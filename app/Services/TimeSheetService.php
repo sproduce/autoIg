@@ -1,24 +1,54 @@
 <?php
 namespace App\Services;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
+use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 Class TimeSheetService{
-    private $motorPoolRep,$request;
+    private $timeSheetRep,$request,$motorPoolRep;
 
-    function __construct(MotorPoolRepositoryInterface $motorPoolRep,Request $request)
+    function __construct(TimeSheetRepositoryInterface $timeSheetRep,MotorPoolRepositoryInterface $motoPoolRep,Request $request)
     {
-        $this->motorPoolRep=$motorPoolRep;
+        $this->timeSheetRep=$timeSheetRep;
         $this->request=$request;
+        $this->motorPoolRep=$motoPoolRep;
     }
 
     public function getCarsTimeSheets()
     {
-        $carsObj=$this->motorPoolRep->getCars()->keyBy('id');
-        //$carsObj=$this->motorPoolRep->getCars();
-        //$carsObj->dump();
-        //var_dump($carsObj);
-        return$carsObj;
+        $dateFrom=Carbon::now()->subDays(7)->format('Y-m-d');
+        $dateTo=Carbon::now()->addDay(8)->format('Y-m-d');
+        $timeSheetsObj=$this->timeSheetRep->getTimeSheets($dateFrom,$dateTo);
+
+        $motorPoolsObj=$this->motorPoolRep->getCars()->keyBy('id');
+
+        $timeSheetCollect=collect(['motorPools'=>$motorPoolsObj,'timeSheets'=>$timeSheetsObj]);
+
+        return $timeSheetCollect;
+    }
+
+    public function getCarTimeSheets()
+    {
+        $validate=$this->request->validate(['carId'=>'required|integer',
+            'date'=>'required'
+        ]);
+        $result=$this->timeSheetRep->getCarTimeSheetByDate($validate['carId'],$validate['date']);
+        return $result;
+    }
+
+
+    public function addEvent()
+    {
+        $validate=$this->request->validate(['carId'=>'required|integer',
+            'dateTime'=>'required',
+            'eventId'=>'required|integer',
+            'comment'=>'',
+            'sum'=>''
+        ]);
+
+        $this->timeSheetRep->addTimeSheet($validate);
+
     }
 
 
