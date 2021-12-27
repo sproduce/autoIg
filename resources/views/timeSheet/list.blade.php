@@ -84,12 +84,22 @@
                                 $currentDate=$carbon::now()->subDays($i);
                                 $fromDate=$currentDate->format('Y-m-d');
                                 $toDate=$currentDate->addDays(1)->format('Y-m-d');
+                                $col=$timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->count();
+                                if ($col){
+                                    $divCol=ceil(12/$col);
+                                }
+
                             @endphp
                             <div class="col-2 border-right timeClickable" data-datetime="{{$fromDate}}">
-                                @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
-                                    {{$timeSheet->id}}
-                                @empty &nbsp
-                                @endforelse
+                                <div class="row h-100">
+                                    @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
+                                        <div class="col-{{$divCol}} p-1" style="background-color:{{$timeSheet->event->color}}">
+
+                                        </div>
+
+                                    @empty &nbsp
+                                    @endforelse
+                                </div>
                             </div>
                         @endfor
                     </div>
@@ -100,35 +110,61 @@
                                 $currentDate=$carbon::now()->subDays(1);
                                 $fromDate=$currentDate->format('Y-m-d');
                                 $toDate=$currentDate->addDays(1)->format('Y-m-d');
+                                $col=$timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->count();
+                                if ($col){
+                                    $divCol=ceil(12/$col);
+                                }
                             @endphp
                         <div class="col-4 border-right timeClickable" data-datetime="{{$fromDate}}">
-                            @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
-                                {{$timeSheet->id}}
-                            @empty &nbsp
-                            @endforelse
+                            <div class="row h-100">
+                                @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
+                                    <div class="col-{{$divCol}} p-1" style="background-color:{{$timeSheet->event->color}}">
+
+                                    </div>
+
+                                @empty &nbsp
+                                @endforelse
+                            </div>
                         </div>
                         @php
                             $currentDate=$carbon::now();
                             $fromDate=$currentDate->format('Y-m-d');
                             $toDate=$currentDate->addDays(1)->format('Y-m-d');
+                            $col=$timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->count();
+                                if ($col){
+                                    $divCol=ceil(12/$col);
+                                }
                         @endphp
                         <div class="col-4 border-right timeClickable" data-datetime="{{$fromDate}}">
+                            <div class="row h-100">
+                                @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
+                                    <div class="col-{{$divCol}} p-1" style="background-color:{{$timeSheet->event->color}}">
 
-                            @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
-                                {{$timeSheet->id}}
-                            @empty &nbsp
-                            @endforelse
+                                    </div>
+
+                                @empty &nbsp
+                                @endforelse
+                            </div>
                         </div>
                         @php
                             $currentDate=$carbon::now()->addDays(1);
                             $fromDate=$currentDate->format('Y-m-d');
                             $toDate=$currentDate->addDays(1)->format('Y-m-d');
+                            $col=$timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->count();
+                            if ($col){
+                                $divCol=ceil(12/$col);
+                            }
                         @endphp
                         <div class="col-4 border-right timeClickable" data-datetime="{{$fromDate}}">
-                            @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
-                                {{$timeSheet->id}}
-                            @empty &nbsp
-                            @endforelse
+                            <div class="row h-100">
+                                @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
+                                    <div class="col-{{$divCol}} p-1" style="background-color:{{$timeSheet->event->color}}">
+
+                                    </div>
+
+                                @empty &nbsp
+                                @endforelse
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -139,12 +175,21 @@
                                 $currentDate=$carbon::now()->addDays($i);
                                 $fromDate=$currentDate->format('Y-m-d');
                                 $toDate=$currentDate->addDays(1)->format('Y-m-d');
+                                $col=$timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->count();
+                                if ($col){
+                                    $divCol=ceil(12/$col);
+                                }
                             @endphp
                             <div class="col-2 border-right timeClickable" data-datetime="{{$fromDate}}">
-                                @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
-                                    {{$timeSheet->id}}
+                                <div class="row h-100">
+                                    @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
+                                        <div class="col-{{$divCol}} p-1" style="background-color:{{$timeSheet->event->color}}">
+
+                                        </div>
+
                                     @empty &nbsp
-                                @endforelse
+                                    @endforelse
+                                </div>
                             </div>
                         @endfor
                     </div>

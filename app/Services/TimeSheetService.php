@@ -17,10 +17,12 @@ Class TimeSheetService{
 
     public function getCarsTimeSheets()
     {
-        $dateFrom=Carbon::now()->subDays(7)->format('Y-m-d');
-        $dateTo=Carbon::now()->addDay(8)->format('Y-m-d');
-        $timeSheetsObj=$this->timeSheetRep->getTimeSheets($dateFrom,$dateTo);
+        $dateFrom=Carbon::now()->subDays(7);
+        $dateTo=Carbon::now()->addDay(8);
+        $timeSheetsObj=$this->timeSheetRep->getTimeSheets($dateFrom->format('Y-m-d'),$dateTo->format('Y-m-d'));
 
+
+        //$timeSheetsObj->dump();
         $motorPoolsObj=$this->motorPoolRep->getCars()->keyBy('id');
 
         $timeSheetCollect=collect(['motorPools'=>$motorPoolsObj,'timeSheets'=>$timeSheetsObj]);
