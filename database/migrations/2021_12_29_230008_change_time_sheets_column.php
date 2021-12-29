@@ -17,6 +17,7 @@ class ChangeTimeSheetsColumn extends Migration
             $table->dropColumn(['contractId','color']);
             $table->unsignedBigInteger('dataId')->nullable();
             $table->unsignedBigInteger('pId')->nullable();
+            $table->unsignedMediumInteger('mileage')->nullable();
         });
     }
 
@@ -28,7 +29,7 @@ class ChangeTimeSheetsColumn extends Migration
     public function down()
     {
         Schema::table('time_sheets', function (Blueprint $table) {
-            $table->dropColumn(['dataId','pId']);
+            $table->dropColumn(['dataId','pId','mileage']);
             $table->unsignedBigInteger('contractId')->nullable();
             $table->string('color')->nullable();
         });
