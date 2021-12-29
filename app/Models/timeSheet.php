@@ -10,12 +10,24 @@ class timeSheet extends Model
     use HasFactory;
     protected $fillable = ['carId', 'eventId','dateTime','sum','comment'];
 
-
+    protected static function boot()
+    {
+        parent::boot();
+        static::created(function ($post) {
+            if (!$post->pId) {
+                $post->pId = $post->id;
+                $post->save();
+            }
+        });
+    }
 
     public function event()
     {
         return $this->hasOne(rentEvent::class,'id','eventId')->withDefault();
     }
+
+
+
 
 
 }
