@@ -46,7 +46,8 @@ Class TimeSheetService{
             'dateTime'=>'required',
             'eventId'=>'required|integer',
             'comment'=>'',
-            'sum'=>''
+            'sum'=>'',
+            'mileage'=>''
         ]);
 
         $this->timeSheetRep->addTimeSheet($validate);

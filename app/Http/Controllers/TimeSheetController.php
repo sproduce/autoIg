@@ -37,6 +37,16 @@ class TimeSheetController extends Controller
     }
 
 
+    public function editEventDialog(Request $request,TimeSheetService $timeSheetServ)
+    {
+        $validate=$request->validate(['carId'=>'required|integer']);
+        $timeSheetsObj=$timeSheetServ->getCarTimeSheets();
+        return view('dialog.TimeSheet.editEvent',['carId'=>$validate['carId'],'timeSheets'=>$timeSheetsObj]);
+    }
+
+
+
+
 
     public function add(TimeSheetService $timeSheetServ)
     {

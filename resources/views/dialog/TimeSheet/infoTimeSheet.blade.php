@@ -4,12 +4,19 @@
         <span aria-hidden="true">&times;</span>
         </button>
     </div>
+    <div class="row align-items-center font-weight-bold">
+        <div class="col-3">Событие</div>
+        <div class="col-3">Дата</div>
+        <div class="col-3">Сумма</div>
+        <div class="col-3">Пробег</div>
+    </div>
     <div class="modal-body">
         @foreach($timeSheets as $timeSheet)
-        <div class="row">
-            <div class="col-2" style="background-color:{{$timeSheet->event->color}}">{{$timeSheet->event->name}}</div>
-            <div class="col-4" title="{{$timeSheet->comment}}">{{$timeSheet->dateTime}}</div>
-            <div class="col-4">{{$timeSheet->sum}}</div>
+        <div class="row row-table">
+            <div class="col-3" style="background-color:{{$timeSheet->event->color}}">{{$timeSheet->event->name}}</div>
+            <div class="col-3" title="{{$timeSheet->comment}}">{{$timeSheet->dateTime}}</div>
+            <div class="col-3">{{$timeSheet->sum}}</div>
+            <div class="col-3">{{$timeSheet->mileage}}</div>
         </div>
 
         @endforeach

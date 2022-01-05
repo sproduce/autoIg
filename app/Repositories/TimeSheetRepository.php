@@ -17,7 +17,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     {
         $finish = date('Y-m-d', strtotime($date . ' +1 day'));
 
-        return timeSheet::query()->whereBetween('dateTime',[$date,$finish])->where('carId','=',$carId)->get();
+        return timeSheet::query()->whereBetween('dateTime',[$date,$finish])->where('carId','=',$carId)->orderBy('dateTime')->get();
     }
 
 

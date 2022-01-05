@@ -91,13 +91,12 @@
 
                             @endphp
                             <div class="col-2 border-right timeClickable" data-datetime="{{$fromDate}}">
-                                <div class="row h-100">
-                                    @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
-                                        <div class="col-{{$divCol}} p-1" style="background-color:{{$timeSheet->event->color}}">
-
-                                        </div>
-
-                                    @empty &nbsp
+                                <div class="row">&nbsp</div>
+                                <div class="row">
+                                    @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->sortBy('dateTime') as $timeSheet)
+                                        <div class="col-{{$divCol}} p-1" style="background-color:{{$timeSheet->event->color}}"></div>
+                                    @empty
+                                        <div class="col-12 p-1"></div>
                                     @endforelse
                                 </div>
                             </div>
@@ -116,13 +115,12 @@
                                 }
                             @endphp
                         <div class="col-4 border-right timeClickable" data-datetime="{{$fromDate}}">
-                            <div class="row h-100">
-                                @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
-                                    <div class="col-{{$divCol}} p-1" style="background-color:{{$timeSheet->event->color}}">
-
-                                    </div>
-
-                                @empty &nbsp
+                            <div class="row">&nbsp</div>
+                            <div class="row">
+                                @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->sortBy('dateTime') as $timeSheet)
+                                    <div class="col-1 p-1" style="background-color:{{$timeSheet->event->color}}"></div>
+                                @empty
+                                    <div class="col-12 p-1"></div>
                                 @endforelse
                             </div>
                         </div>
@@ -136,15 +134,17 @@
                                 }
                         @endphp
                         <div class="col-4 border-right timeClickable" data-datetime="{{$fromDate}}">
-                            <div class="row h-100">
-                                @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
-                                    <div class="col-{{$divCol}} p-1" style="background-color:{{$timeSheet->event->color}}">
-
-                                    </div>
-
-                                @empty &nbsp
+                            <div class="row">&nbsp</div>
+                            <div class="row">
+                                @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->sortBy('dateTime') as $timeSheet)
+                                    <div class="col-{{$divCol}} p-1" style="background-color:{{$timeSheet->event->color}}"></div>
+                                @empty
+                                    <div class="col-12 p-1"></div>
                                 @endforelse
                             </div>
+
+
+
                         </div>
                         @php
                             $currentDate=$carbon::now()->addDays(1);
@@ -156,13 +156,12 @@
                             }
                         @endphp
                         <div class="col-4 border-right timeClickable" data-datetime="{{$fromDate}}">
-                            <div class="row h-100">
-                                @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
-                                    <div class="col-{{$divCol}} p-1" style="background-color:{{$timeSheet->event->color}}">
-
-                                    </div>
-
-                                @empty &nbsp
+                            <div class="row">&nbsp</div>
+                            <div class="row">
+                                @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->sortBy('dateTime') as $timeSheet)
+                                    <div class="col-{{$divCol}} p-1" style="background-color:{{$timeSheet->event->color}}"></div>
+                                @empty
+                                    <div class="col-12 p-1"></div>
                                 @endforelse
                             </div>
                         </div>
@@ -181,13 +180,12 @@
                                 }
                             @endphp
                             <div class="col-2 border-right timeClickable" data-datetime="{{$fromDate}}">
-                                <div class="row h-100">
-                                    @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate]) as $timeSheet)
-                                        <div class="col-{{$divCol}} p-1" style="background-color:{{$timeSheet->event->color}}">
-
-                                        </div>
-
-                                    @empty &nbsp
+                                <div class="row">&nbsp</div>
+                                <div class="row">
+                                    @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->sortBy('dateTime') as $timeSheet)
+                                        <div class="col-{{$divCol}} p-1" style="background-color:{{$timeSheet->event->color}}"></div>
+                                    @empty
+                                        <div class="col-12 p-1"></div>
                                     @endforelse
                                 </div>
                             </div>
@@ -212,11 +210,21 @@
 $(".timeClickable").dblclick(function(e) {
     var carId=$(this).closest('.carInfo').data('carid');
     var dateTime=$(this).data('datetime');
-    if (e.ctrlKey){
-        DialogUserMin('/timesheet/add?carId='+carId+'&date='+dateTime);
-    } else{
-        DialogUserMin('/timesheet/info?carId='+carId+'&date='+dateTime);
+
+
+    switch(true){
+        case e.ctrlKey:
+            DialogUser('/timesheet/add?carId='+carId+'&date='+dateTime);
+            break;
+        case e.altKey:
+            DialogUser('/timesheet/edit?carId='+carId+'&date='+dateTime);
+            break;
+        default:
+            DialogUser('/timesheet/info?carId='+carId+'&date='+dateTime);
     }
+
+
+
 });
 </script>
 @endsection

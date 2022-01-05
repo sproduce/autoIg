@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class timeSheet extends Model
 {
     use HasFactory;
-    protected $fillable = ['carId', 'eventId','dateTime','sum','comment'];
+    protected $fillable = ['carId', 'eventId','dateTime','sum','comment','mileage','pId'];
 
     protected static function boot()
     {

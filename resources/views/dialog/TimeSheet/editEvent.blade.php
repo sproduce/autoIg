@@ -10,13 +10,11 @@
         <input name="carId" value="{{$carId}}" hidden/>
         <div class="row form-group">
             <div class="col-2 col-form-label">Дата</div>
-            <div class="col-4"><input type="datetime-local" class="form-control form-control-sm" value="{{$dateTime}}" name="dateTime"/></div>
+            <div class="col-4"><input type="datetime-local" class="form-control form-control-sm" value="" name="dateTime"/></div>
             <div class="col-2 col-form-label">Событие</div>
             <div class="col-4">
                 <select name="eventId" class="form-control form-control-sm">
-                    @foreach($rentEvents as $rentEvent)
-                        <option value="{{$rentEvent->id}}" style="background: {{$rentEvent->color}}">{{$rentEvent->name}}</option>
-                    @endforeach
+
                 </select>
             </div>
         </div>
