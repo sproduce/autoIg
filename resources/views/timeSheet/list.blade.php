@@ -21,7 +21,14 @@
 
 
 @endphp
+<form type="GET" action="">
+    <div class="row mb-3 text-center">
 
+        <input type="date" name="currentDate" value="{{$carbon->now()->format('Y-m-d')}}"/>
+        <input type="submit" value="Показать"/>
+    </div>
+
+</form>
     <div class="row border">
         <div class="col-2 border-right">
 
@@ -30,9 +37,11 @@
             <div class="row">
                 @for ($i = 7; $i>1; $i--)
                 <div class="col-2 border-right text-center">
-                    {{$carbon::now()->subDays($i)->format('D')}}
+                    {{$carbon->subDays($i)->isoFormat('ddd')}}
                     <br>
-                    {{$carbon::now()->subDays($i)->format('d')}}
+                    <a href="?currentDate={{$carbon->subDays($i)->format('Y-m-d')}}">
+                        {{$carbon->subDays($i)->isoFormat('D')}}
+                    </a>
                 </div>
                 @endfor
             </div>
@@ -40,20 +49,20 @@
         <div class="col-2">
             <div class="row">
                 <div class="col-4 border-right text-center">
-                    {{$carbon::now()->subDays(1)->format('D')}}
+                    {{$carbon->subDays(1)->isoFormat('ddd')}}
                     <br>
-                    {{$carbon::now()->subDays(1)->format('d')}}
+                    {{$carbon->subDays(1)->isoFormat('D')}}
                 </div>
 
-                <div class="col-4 border-right text-center">
-                    {{$carbon::now()->format('D')}}
+                <div class="col-4 border border-bottom-0 border-primary text-center">
+                    {{$carbon->isoFormat('ddd')}}
                     <br>
-                    {{$carbon::now()->format('d')}}
+                    {{$carbon->isoFormat('D')}}
                 </div>
                 <div class="col-4 border-right text-center">
-                    {{$carbon::now()->addDays(1)->format('D')}}
+                    {{$carbon->addDays(1)->isoFormat('ddd')}}
                     <br>
-                    {{$carbon::now()->addDays(1)->format('d')}}
+                    {{$carbon->addDays(1)->isoFormat('D')}}
                 </div>
 
             </div>
@@ -62,9 +71,11 @@
             <div class="row">
                 @for ($i = 2; $i < 8; $i++)
                     <div class="col-2 border-right text-center">
-                        {{$carbon::now()->addDays($i)->format('D')}}
+                        {{$carbon->addDays($i)->isoFormat('ddd')}}
                         <br>
-                        {{$carbon::now()->addDays($i)->format('d')}}
+                        <a href="?currentDate={{$carbon->addDays($i)->format('Y-m-d')}}">
+                            {{$carbon->addDays($i)->isoFormat('D')}}
+                        </a>
                     </div>
                 @endfor
             </div>
@@ -75,13 +86,17 @@
         @foreach($motorPool as $car)
             <div class="row border carInfo" data-carid="{{$car->id}}">
                 <div class="col-2 border-right">
-                    !{{$car->nickName}}
+
+                    {{$car->nickName}}
+                    @empty($car->nickName)
+                        Noname
+                        @endempty
                 </div>
                 <div class="col-4">
                     <div class="row">
                         @for ($i = 7; $i>1; $i--)
                             @php
-                                $currentDate=$carbon::now()->subDays($i);
+                                $currentDate=$carbon->subDays($i);
                                 $fromDate=$currentDate->format('Y-m-d');
                                 $toDate=$currentDate->addDays(1)->format('Y-m-d');
                                 $col=$timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->count();
@@ -106,7 +121,7 @@
                 <div class="col-2">
                     <div class="row">
                             @php
-                                $currentDate=$carbon::now()->subDays(1);
+                                $currentDate=$carbon->subDays(1);
                                 $fromDate=$currentDate->format('Y-m-d');
                                 $toDate=$currentDate->addDays(1)->format('Y-m-d');
                                 $col=$timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->count();
@@ -125,7 +140,7 @@
                             </div>
                         </div>
                         @php
-                            $currentDate=$carbon::now();
+                            $currentDate=$carbon;
                             $fromDate=$currentDate->format('Y-m-d');
                             $toDate=$currentDate->addDays(1)->format('Y-m-d');
                             $col=$timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->count();
@@ -133,7 +148,7 @@
                                     $divCol=ceil(12/$col);
                                 }
                         @endphp
-                        <div class="col-4 border-right timeClickable" data-datetime="{{$fromDate}}">
+                        <div class="col-4 border-right border-left timeClickable border-primary" data-datetime="{{$fromDate}}">
                             <div class="row">&nbsp</div>
                             <div class="row">
                                 @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->sortBy('dateTime') as $timeSheet)
@@ -147,7 +162,7 @@
 
                         </div>
                         @php
-                            $currentDate=$carbon::now()->addDays(1);
+                            $currentDate=$carbon->addDays(1);
                             $fromDate=$currentDate->format('Y-m-d');
                             $toDate=$currentDate->addDays(1)->format('Y-m-d');
                             $col=$timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->count();
@@ -171,7 +186,7 @@
                     <div class="row">
                         @for ($i = 2; $i < 8; $i++)
                             @php
-                                $currentDate=$carbon::now()->addDays($i);
+                                $currentDate=$carbon->addDays($i);
                                 $fromDate=$currentDate->format('Y-m-d');
                                 $toDate=$currentDate->addDays(1)->format('Y-m-d');
                                 $col=$timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->count();

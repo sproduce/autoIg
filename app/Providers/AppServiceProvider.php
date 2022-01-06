@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 
 use App\Repositories\CarDriverRepository;
@@ -59,6 +60,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Carbon::setLocale('ru');
     }
 }

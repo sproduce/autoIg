@@ -4,17 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Services\RentEventService;
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use App\Services\TimeSheetService;
 
 class TimeSheetController extends Controller
 {
-    public function show(TimeSheetService $timeSheetServ)
+    public function show(Request $request,TimeSheetService $timeSheetServ)
     {
         //$motorPoolObj=$motorPool->getCars();
-        $timeSheetCollect = $timeSheetServ->getCarsTimeSheets();
-        $tmpCarbon = new Carbon();
-        return view('timeSheet.list', ['timeSheetCollect' => $timeSheetCollect, 'carbon' => $tmpCarbon]);
+        $validate=$request->validate(['currentDate'=>'date']);
+        if (isset($validate['currentDate'])){
+            $currentDate=CarbonImmutable::create($validate['currentDate']);
+        } else {
+            $currentDate = CarbonImmutable::now();
+        }
+
+
+        $timeSheetCollect = $timeSheetServ->getCarsTimeSheets($currentDate);
+
+
+
+
+
+
+        return view('timeSheet.list', ['timeSheetCollect' => $timeSheetCollect, 'carbon' => $currentDate]);
     }
 
 

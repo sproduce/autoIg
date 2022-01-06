@@ -15,10 +15,10 @@ Class TimeSheetService{
         $this->motorPoolRep=$motoPoolRep;
     }
 
-    public function getCarsTimeSheets()
+    public function getCarsTimeSheets($currentDate)
     {
-        $dateFrom=Carbon::now()->subDays(7);
-        $dateTo=Carbon::now()->addDay(8);
+        $dateFrom=$currentDate->subDays(7);
+        $dateTo=$currentDate->addDay(8);
         $timeSheetsObj=$this->timeSheetRep->getTimeSheets($dateFrom->format('Y-m-d'),$dateTo->format('Y-m-d'));
 
 
