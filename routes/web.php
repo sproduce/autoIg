@@ -7,6 +7,13 @@ use App\Http\Controllers\MotorPoolController;
 use App\Http\Controllers\CarDriverController;
 use App\Http\Controllers\CarGroupController;
 use App\Http\Controllers\CarOwnerController;
+
+
+use App\Http\Controllers\EventRentalController;
+use App\Http\Controllers\EventFineController;
+use App\Http\Controllers\EventTransferController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -137,3 +144,8 @@ Route::get('/carOwner/info',[CarOwnerController::class,'DialogInfo']);
 
 Route::get('/carOwner/searchDialog',[CarOwnerController::class,'searchDialog']);
 Route::get('/carOwner/search',[CarOwnerController::class,'search']);
+
+
+Route::resource('eventRental', EventRentalController::class);
+Route::resource('eventTransfer', EventTransferController::class);
+Route::resource('eventFine', EventFineController::class);
