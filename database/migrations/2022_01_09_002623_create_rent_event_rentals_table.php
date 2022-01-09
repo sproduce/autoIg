@@ -21,8 +21,6 @@ class CreateRentEventRentalsTable extends Migration
             $table->unsignedBigInteger('contractId')->nullable();
             $table->boolean('isFinish')->nullable();
             $table->unsignedInteger('sum')->nullable();
-
-
         });
     }
 

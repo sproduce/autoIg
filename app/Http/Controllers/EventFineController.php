@@ -23,7 +23,7 @@ class EventFineController extends Controller
      */
     public function create()
     {
-        //
+        return view('rentEvent.addEventFine');
     }
 
     /**

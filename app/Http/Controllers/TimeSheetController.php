@@ -41,7 +41,7 @@ class TimeSheetController extends Controller
         $date=new Carbon();
         $date=$validate['date'].'T'.$date->format('H:i');
         $rentEventsObj=$rentEventServ->getRentEvents();
-        return view('dialog.TimeSheet.addEvent',['carId'=>$validate['carId'],'dateTime'=>$date,'rentEvents'=>$rentEventsObj]);
+        return view('rentEvent.addEvent',['carId'=>$validate['carId'],'dateTime'=>$date,'rentEvents'=>$rentEventsObj]);
     }
 
     public function infoDialog(TimeSheetService $timeSheetServ)

@@ -229,7 +229,7 @@ $(".timeClickable").dblclick(function(e) {
 
     switch(true){
         case e.ctrlKey:
-            DialogUser('/timesheet/add?carId='+carId+'&date='+dateTime);
+            $(location).prop('href','/timesheet/add?carId='+carId+'&date='+dateTime);
             break;
         case e.altKey:
             DialogUser('/timesheet/edit?carId='+carId+'&date='+dateTime);

@@ -32,7 +32,7 @@ class EventRentalController extends Controller
      */
     public function create()
     {
-        //
+        return view('rentEvent.addEventRental');
     }
 
     /**
