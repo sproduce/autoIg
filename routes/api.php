@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReferenceController;
+use App\Http\Controllers\MotorPoolController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/getModels',[ReferenceController::class,'getModel']);
 Route::get('/getGenerations',[ReferenceController::class,'getGeneration']);
+
+
+Route::get('/getCarInfo',[MotorPoolController::class,'getCarInfo']);
+Route::get('/getCarInfo/{carId}',[MotorPoolController::class,'getCarInfo']);

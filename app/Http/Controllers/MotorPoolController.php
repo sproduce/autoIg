@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Services\MotorPoolService;
+use Illuminate\Http\Request;
 
 
 class MotorPoolController extends Controller
 {
-    private $motorPoolServ;
-    function __construct(MotorPoolService $motorPoolServ)
+    private $motorPoolServ,$request;
+    function __construct(MotorPoolService $motorPoolServ,Request $request)
     {
         $this->motorPoolServ=$motorPoolServ;
+        $this->request=$request;
     }
 
     public function show()
@@ -46,5 +48,17 @@ class MotorPoolController extends Controller
         return view('car.carSearchResult',['cars'=>$carsObj]);
     }
 
+
+    public function getCarInfo($id=null)
+    {
+        if ($id){
+            $carId=$id;
+        } else{
+            $validated = $this->request->validate(['carId' => 'integer']);
+            $carId = $validated['carId']??0;
+        }
+        $carInfo=$this->motorPoolServ->getCar($carId);
+        return response()->json($carInfo);
+    }
 
 }

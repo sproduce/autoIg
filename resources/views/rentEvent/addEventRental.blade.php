@@ -7,6 +7,17 @@
             <label for="finish" title="Окончание аренды">Окончание аренды</label>
             <input type="datetime-local" name="finish" id="finish" class="form-control"/>
         </div>
+    </div>
+
+    <div class="form-row text-center">
+        <div class="form-group col-md-3 input-group-sm">
+            <label for="contractText" title="Автомобиль">
+                Машина
+                <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+            </label>
+            <input id="carText" class="form-control" value="" disabled />
+            <input name="carId" id="carId" value=""  hidden />
+        </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Договор">
                 Договор
@@ -16,11 +27,15 @@
             <input name="contractId" id="contractId" value=""  hidden />
         </div>
 
+
+    </div>
+
+
+    <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="sum" title="Сумма за период">Сумма за период</label>
             <input type="number" name="sum" id="sum" class="form-control"/>
         </div>
-
     </div>
 
 </div>

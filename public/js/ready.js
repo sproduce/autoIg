@@ -6,6 +6,18 @@ $(function() {
     }
 
 
+    initDialogWindow();
+
+
+
+
+
+
+});
+
+
+function initDialogWindow()
+{
 
     $(".DialogUser").on( "click", function() {
         DialogUser($( this ).attr('href'));
@@ -27,11 +39,4 @@ $(function() {
     });
 
 
-
-
-
-
-});
-
-
-
+}

@@ -21,11 +21,9 @@ Class MotorPoolService{
     }
 
 
-    public function getCar()
+    public function getCar($carId)
     {
-        $validated = $this->request->validate(['carId' => 'integer']);
-        $validated['carId'] = $validated['carId'] ?? 0;
-        return $this->motorPoolRep->getCar($validated['carId']);
+        return $this->motorPoolRep->getCar($carId);
     }
 
     public function getLastCars($kol)

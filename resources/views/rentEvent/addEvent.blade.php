@@ -25,7 +25,9 @@
 <script>
     $( "#eventId" ).change(function() {
         $("#placeholderSelect").remove();
-        $("#eventForm").load($("#eventId").val()+'/create');
+        $("#eventForm").load($("#eventId").val()+'/create',function(){
+            initDialogWindow();
+        });
     });
 </script>
 
