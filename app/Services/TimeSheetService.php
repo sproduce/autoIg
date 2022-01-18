@@ -15,14 +15,12 @@ Class TimeSheetService{
         $this->motorPoolRep=$motoPoolRep;
     }
 
-    public function getCarsTimeSheets($currentDate)
+    public function getCarsTimeSheets($periodDate)
     {
-        $dateFrom=$currentDate->subDays(7);
-        $dateTo=$currentDate->addDay(8);
-        $timeSheetsObj=$this->timeSheetRep->getTimeSheets($dateFrom->format('Y-m-d'),$dateTo->format('Y-m-d'));
+
+        $timeSheetsObj=$this->timeSheetRep->getTimeSheets($periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d'));
 
 
-        //$timeSheetsObj->dump();
         $motorPoolsObj=$this->motorPoolRep->getCars()->keyBy('id');
 
         $timeSheetCollect=collect(['motorPools'=>$motorPoolsObj,'timeSheets'=>$timeSheetsObj]);

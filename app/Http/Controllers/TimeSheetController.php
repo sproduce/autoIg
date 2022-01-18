@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\RentEventService;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Services\TimeSheetService;
 
@@ -19,16 +20,13 @@ class TimeSheetController extends Controller
         } else {
             $currentDate = CarbonImmutable::now();
         }
+        $dateFrom=$currentDate->subDays(12);
+        $dateTo=$currentDate->addDays(11);
+        $periodDate=CarbonPeriod::create($dateFrom,$dateTo);
 
+        $timeSheetCollect = $timeSheetServ->getCarsTimeSheets($periodDate);
 
-        $timeSheetCollect = $timeSheetServ->getCarsTimeSheets($currentDate);
-
-
-
-
-
-
-        return view('timeSheet.list', ['timeSheetCollect' => $timeSheetCollect, 'carbon' => $currentDate]);
+        return view('timeSheet.list', ['timeSheetCollect' => $timeSheetCollect, 'periodDate' => $periodDate,'currentDate'=> $currentDate]);
     }
 
 

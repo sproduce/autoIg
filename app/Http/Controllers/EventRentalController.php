@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\RentEventRepository;
+use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 
 class EventRentalController extends Controller
 {
-    protected $rentEventRep;
-    public function __construct(RentEventRepository $rentEventRep)
+    protected $rentEventRep,$request;
+    public function __construct(RentEventRepository $rentEventRep,Request $request)
     {
         $this->rentEventRep = $rentEventRep;
+        $this->request=$request;
     }
 
 
@@ -32,7 +34,11 @@ class EventRentalController extends Controller
      */
     public function create()
     {
-        return view('rentEvent.addEventRental');
+        $inputData=$this->request->validate(['carId'=>'integer|required','dateTime'=>'']);
+        $dateTime=$inputData['dateTime'] ?? CarbonImmutable::now();
+        $carId=$inputData['carId'];
+
+        return view('rentEvent.addEventRental',['carId'=>$carId,'dateTime'=>$dateTime]);
     }
 
     /**

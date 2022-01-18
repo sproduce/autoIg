@@ -1,7 +1,10 @@
+
+<form>
+<input name="carId" id="carId" value="{{$carId}}"  hidden />
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="start" title="Начало аренда">Начало аренды</label>
-            <input type="datetime-local" name="start" id="start" class="form-control" value="{{date('Y-m-d')}}T{{date('h:i')}}"/>
+            <input type="datetime-local" name="start" id="start" class="form-control" value="{{$dateTime}}"/>
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="finish" title="Окончание аренды">Окончание аренды</label>
@@ -16,7 +19,7 @@
                 <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
             </label>
             <input id="carText" class="form-control" value="" disabled />
-            <input name="carId" id="carId" value=""  hidden />
+
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Договор">
@@ -24,13 +27,9 @@
                 <a href="/payment/addContract" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
             </label>
             <input id="contractText" name="contractText"  class="form-control" disabled />
-            <input name="contractId" id="contractId" value=""  hidden />
+            <input name="contractId" id="contractId" value=""  hidden/>
         </div>
-
-
     </div>
-
-
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="sum" title="Сумма за период">Сумма за период</label>
@@ -38,4 +37,6 @@
         </div>
     </div>
 
-</div>
+
+
+</form>
