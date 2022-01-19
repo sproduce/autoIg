@@ -13,6 +13,7 @@
     <div class="row font-weight-bold">
         <div class="col-3">Название </div>
         <div class="col-3">Поведение </div>
+        <div class="col-3">Приоритет </div>
     </div>
 
 

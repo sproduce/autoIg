@@ -8,7 +8,7 @@ Route::get('/list',[TimeSheetController::class,'show']);
 
 Route::get('/info',[TimeSheetController::class,'infoDialog']);
 
-Route::get('/add',[TimeSheetController::class,'addEventDialog']);
+Route::get('/add',[TimeSheetController::class,'addEvent']);
 Route::post('/add',[TimeSheetController::class,'add']);
 
 Route::get('/edit',[TimeSheetController::class,'editEventDialog']);

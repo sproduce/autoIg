@@ -2,15 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\RentEventRepository;
+use App\Services\MotorPoolService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EventFineController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    protected $rentEventRep,$request,$eventId;
+
+    public function __construct(RentEventRepository $rentEventRep,Request $request)
+    {
+        $this->rentEventRep = $rentEventRep;
+        $this->request=$request;
+        $rc= new \ReflectionClass($this);
+        $eventObj=$rentEventRep->getEventByAction($rc->getShortName());
+        $this->eventId=$eventObj->id;
+
+    }
+
+
     public function index()
     {
         //
@@ -21,9 +32,17 @@ class EventFineController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(MotorPoolService $motorPoolServ)
     {
-        return view('rentEvent.addEventFine');
+        $inputData=$this->request->validate(['carId'=>'integer|required','date'=>'required']);
+        if ($inputData['date']){
+            $dateTime=new Carbon($inputData['date']);
+        } else{
+            $dateTime =new Carbon();
+        }
+        $dateTime->setTimeFrom(Carbon::now());
+        $carObj=$motorPoolServ->getCar($inputData['carId']);
+        return view('rentEvent.addEventFine',['carObj'=>$carObj,'dateTime'=>$dateTime,'eventId'=>$this->eventId]);
     }
 
     /**

@@ -2,14 +2,24 @@
 
 @section('header')
 
-    <h6 class="m-0 mr-3">Добавить событие</h6><input value="{{$dateTime}}" name="dateTime" id="dateTime" hidden/>
-    <select name="eventId" class="form-control form-control-sm" id="eventId">
-        <option id="placeholderSelect" selected>Событие ... </option>
-        @foreach($rentEvents as $rentEvent)
-            <option value="{{$rentEvent->action}}" style="background: {{$rentEvent->color}}">{{$rentEvent->name}}</option>
-        @endforeach
-    </select>
-    <input name="carId" value="{{$carId}}" id="carId" hidden/>
+    <div class="d-flex flex-row">
+        <div class="p-2">Добавить : </div>
+        <div class="p-2">
+            <select name="eventId" id="eventId">
+                <option id="placeholderSelect" selected>Событие ... </option>
+                @foreach($rentEvents as $rentEvent)
+                    <option value="{{$rentEvent->action}}" style="background: {{$rentEvent->color}}">{{$rentEvent->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="p-2">Машина: {{$carObj->nickName}}</div>
+        <div class="p-2">Дата: {{$dateTime->format('d-m-Y')}}</div>
+    </div>
+
+    <input value="{{$dateTime->format('d-m-Y')}}" name="dateTime" id="dateTime" hidden/>
+
+    <input name="carId" value="{{$carObj->id}}" id="carId" hidden/>
+
 @endsection
 
 
@@ -26,7 +36,8 @@
 <script>
     $( "#eventId" ).change(function() {
         $("#placeholderSelect").remove();
-        $("#eventForm").load($("#eventId").val()+'/create?carId='+$("#carId").val()+'&dateTime='+$("#dateTime").val(),function(){
+
+        $("#eventForm").load('/'+$("#eventId").val()+'/create?carId='+$("#carId").val()+'&date='+$("#dateTime").val(),function(){
             initDialogWindow();
         });
     });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\MotorPoolService;
 use App\Services\RentEventService;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
@@ -13,7 +14,6 @@ class TimeSheetController extends Controller
 {
     public function show(Request $request,TimeSheetService $timeSheetServ)
     {
-        //$motorPoolObj=$motorPool->getCars();
         $validate=$request->validate(['currentDate'=>'date']);
         if (isset($validate['currentDate'])){
             $currentDate=CarbonImmutable::create($validate['currentDate']);
@@ -31,15 +31,15 @@ class TimeSheetController extends Controller
 
 
 
-    public function addEventDialog(Request $request,RentEventService $rentEventServ)
+    public function addEvent(Request $request,RentEventService $rentEventServ,MotorPoolService $motorPoolServ)
     {
         $validate=$request->validate(['carId'=>'required|integer',
             'date'=>'required'
         ]);
-        $date=new Carbon();
-        $date=$validate['date'].'T'.$date->format('H:i');
+        $carObj=$motorPoolServ->getCar($validate['carId']);
+        $date=new Carbon($validate['date']);
         $rentEventsObj=$rentEventServ->getRentEvents();
-        return view('rentEvent.addEvent',['carId'=>$validate['carId'],'dateTime'=>$date,'rentEvents'=>$rentEventsObj]);
+        return view('rentEvent.addEvent',['carObj'=>$carObj,'dateTime'=>$date,'rentEvents'=>$rentEventsObj]);
     }
 
     public function infoDialog(TimeSheetService $timeSheetServ)

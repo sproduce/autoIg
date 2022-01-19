@@ -10,4 +10,5 @@ interface RentEventRepositoryInterface
     public function addEvent($dataArray);
     public function updateEvent($id,$dataArray);
     public function delEvent($id);
+    public function getEventByAction($action);
 }

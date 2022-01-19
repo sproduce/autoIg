@@ -3,16 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\RentEventRepository;
+use App\Services\MotorPoolService;
+use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 
 class EventRentalController extends Controller
 {
-    protected $rentEventRep,$request;
+    protected $rentEventRep,$request,$eventId;
+
     public function __construct(RentEventRepository $rentEventRep,Request $request)
     {
         $this->rentEventRep = $rentEventRep;
         $this->request=$request;
+        $rc= new \ReflectionClass($this);
+        $eventObj=$rentEventRep->getEventByAction($rc->getShortName());
+        $this->eventId=$eventObj->id;
+
     }
 
 
@@ -23,8 +30,7 @@ class EventRentalController extends Controller
      */
     public function index()
     {
-        $rc= new \ReflectionClass($this);
-        echo $rc->getShortName();
+
     }
 
     /**
@@ -32,24 +38,24 @@ class EventRentalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(MotorPoolService $motorPoolServ)
     {
-        $inputData=$this->request->validate(['carId'=>'integer|required','dateTime'=>'']);
-        $dateTime=$inputData['dateTime'] ?? CarbonImmutable::now();
-        $carId=$inputData['carId'];
+        $inputData=$this->request->validate(['carId'=>'integer|required','date'=>'required']);
+        if ($inputData['date']){
+            $dateTime=new Carbon($inputData['date']);
+        } else{
+            $dateTime =new Carbon();
+        }
+        $dateTime->setTimeFrom(Carbon::now());
+        $carObj=$motorPoolServ->getCar($inputData['carId']);
 
-        return view('rentEvent.addEventRental',['carId'=>$carId,'dateTime'=>$dateTime]);
+        return view('rentEvent.addEventRental',['carObj'=>$carObj,'dateTime'=>$dateTime,'eventId'=>$this->eventId]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store()
     {
-        //
+        $this->request->dd();
     }
 
     /**
@@ -81,7 +87,7 @@ class EventRentalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
         //
     }
