@@ -11,16 +11,19 @@
 
 @section('content')
     <div class="row font-weight-bold">
-        <div class="col-3">Название </div>
-        <div class="col-3">Поведение </div>
-        <div class="col-3">Приоритет </div>
+        <div class="col-2">Название </div>
+        <div class="col-2">Поведение </div>
+        <div class="col-2">Приоритет </div>
+        <div class="col-2">Продолжительность </div>
+        <div class="col-2">Иконка </div>
     </div>
 
 
     @foreach($rentEvents as $rentEvent)
         <div class="row row-table">
-            <div class="col-3" style="background-color:{{$rentEvent->color}}">{{$rentEvent->name}}</div>
-            <div class="col-3">{{$rentEvent->action}}</div>
+            <div class="col-2" style="background-color:{{$rentEvent->color}}">{{$rentEvent->name}}</div>
+            <div class="col-2">{{$rentEvent->action}}</div>
+            <div class="col-2"></div>
             <div class="col-2"></div>
             <div class="col-2"></div>
         </div>

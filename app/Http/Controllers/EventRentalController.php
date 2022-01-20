@@ -19,7 +19,6 @@ class EventRentalController extends Controller
         $rc= new \ReflectionClass($this);
         $eventObj=$rentEventRep->getEventByAction($rc->getShortName());
         $this->eventId=$eventObj->id;
-
     }
 
 

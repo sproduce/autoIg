@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\MotorPoolController;
-
+use App\Http\Controllers\ContractController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,3 +27,4 @@ Route::get('/getGenerations',[ReferenceController::class,'getGeneration']);
 
 Route::get('/getCarInfo',[MotorPoolController::class,'getCarInfo']);
 Route::get('/getCarInfo/{carId}',[MotorPoolController::class,'getCarInfo']);
+Route::get('/getContractInfo/{contarctId}',[ContractController::class,'getContractInfo']);

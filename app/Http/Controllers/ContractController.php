@@ -6,13 +6,18 @@ use App\Services\ContractService;
 use App\Services\MotorPoolService;
 use App\Services\CarDriverService;
 
+use Illuminate\Http\Request;
+
+
+
 class ContractController extends Controller
 {
-    private $contractServ;
+    private $contractServ,$request;
 
-    function __construct(ContractService $contractServ)
+    function __construct(ContractService $contractServ,Request $request)
     {
         $this->contractServ = $contractServ;
+        $this->request=$request;
     }
 
     public function showActual()
@@ -44,7 +49,10 @@ class ContractController extends Controller
     public function addContract(MotorPoolService $motorPoolServ,CarDriverService $carDriverServ)
     {
         $directory=$this->contractServ->getContractDirectory();
-        $carObj=$motorPoolServ->getCar();
+        $validated = $this->request->validate(['carId' => 'integer']);
+        $carId=$validated['carId']??0;
+        $carObj=$motorPoolServ->getCar($carId);
+
         $driverObj=$carDriverServ->getCarDriver();
         return view('contract.addCarContract',['contractObj'=>$directory,'car'=>$carObj,'driver'=>$driverObj]);
     }
@@ -81,7 +89,8 @@ class ContractController extends Controller
 
     public function editContract()
     {
-        $contractObj=$this->contractServ->getContract();
+        $validate=$this->request->validate(['contractId'=>'required|integer']);
+        $contractObj=$this->contractServ->getContract($validate['contractId']);
         $directoryObj=$this->contractServ->getContractDirectory();
         return view('contract.editCarContract',['contract'=>$contractObj,'directory'=>$directoryObj]);
     }
@@ -95,11 +104,18 @@ class ContractController extends Controller
 
     public function dialogInfo()
     {
-        $contractObj=$this->contractServ->getContract();
+        $validate=$this->request->validate(['contractId'=>'required|integer']);
+        $contractObj=$this->contractServ->getContract($validate['contractId']);
 
         return view('dialog.Contract.FullInfoContract',['contract'=>$contractObj]);
     }
 
+
+    public function getContractInfo($id)
+    {
+        $contractObj=$this->contractServ->getContract($id);
+        return response()->json($contractObj);
+    }
 
 
 }

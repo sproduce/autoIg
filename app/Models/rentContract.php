@@ -9,8 +9,8 @@ class rentContract extends Model
 {
     use HasFactory;
 
-    private $start,$finish,$finishFact,$typeId,$driverId,$carId,$statusId,$tariffId,$balance,$deposit,$number,$comment;
-    protected $fillable =['start','finish','finishFact','typeId','driverId','carId','statusId','tariffId','balance','deposit','number','comment'];
+    private $start,$finish,$finishFact,$typeId,$driverId,$carId,$statusId,$tariffId,$balance,$deposit,$number,$comment,$sum;
+    protected $fillable =['start','finish','finishFact','typeId','driverId','carId','statusId','tariffId','balance','deposit','number','comment','sum'];
 
     public function driver()
     {

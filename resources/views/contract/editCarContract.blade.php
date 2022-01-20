@@ -85,6 +85,10 @@
                     <label for="number" title="Номер договора">Номер договора</label>
                     <input type="text" name="number" id="number" class="form-control" value="{{$contract->number}}" autocomplete="off"/>
                 </div>
+                <div class="form-group col-md-2 input-group-sm">
+                    <label for="sum" title="Стоимость">Стоимость</label>
+                    <input type="number" name="sum" id="sum" class="form-control" value="{{$contract->sum}}" autocomplete="off"/>
+                </div>
             </div>
             <div class="form-row text-center mt-3">
                 <div class="form-group col-md-12 input-group-sm">

@@ -32,8 +32,8 @@
 
 <script>
 $(".carSearch").click(function(){
-    $("#contractId").val($(this).attr("data-contractSearchId"));
-    $("#contractText").val($(this).attr("data-contractSearchText"));
+    $("#contractId").val($(this).attr("data-contractSearchId")).change();
+    $("#contractText").val($(this).attr("data-contractSearchText")).change();
     $('#modal').modal('toggle');
 });
 
@@ -41,8 +41,8 @@ $("#search").keyup(function(){
     if($("#search").val().length>0)
 $("#carSearch").load("/contract/search?contractText="+$("#search").val(),function(){
     $(".carSearch").click(function(){
-        $("#contractId").val($(this).attr("data-contractSearchId"));
-        $("#contractText").val($(this).attr("data-contractSearchText"));
+        $("#contractId").val($(this).attr("data-contractSearchId")).change();
+        $("#contractText").val($(this).attr("data-contractSearchText")).change();
         $('#modal').modal('toggle');
     });
 });

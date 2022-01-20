@@ -33,42 +33,48 @@
     </div>
 
         <div class="form-row text-center inputLine">
-            <input type="datetime-local" class="dateTime" name="dateTime[]" hidden/>
+            <input type="datetime-local" class="dateTimeSheet" step="any" name="dateTimeSheet[]" hidden/>
             <div class="col-1">
                 <label></label>
             </div>
             <div class="input-group col-3 mb-3">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
-                        <input type="checkbox" name="sumCheck[]">
+                        <input type="checkbox" name="sumCheck[]" checked>
                     </div>
                 </div>
-                <input type="text" name="sum" class="form-control form-control-sm">
+                <input type="text" name="sum[]" class="form-control form-control-sm inputLineSum" autocomplete="off">
             </div>
         </div>
 
     <div class="form-row text-center" id="last-row">
         <div class="input-group col-1">
-            <input type="submit" class="btn btn-sm btn-primary mb-2" value="Добавить"/>
+            <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Добавить"/>
         </div>
     </div>
 </form>
 <script>
+
+    $(function() {
+        $('#formSubmit').prop('disabled', true);
+    });
+
+
     $("#finish").change(function(){
         var start = new Date($('#start').val());
         var end = new Date($('#finish').val());
         var millisBetween = start.getTime() - end.getTime();
         var days = millisBetween / (1000 * 3600 * 24);
         var kolDays=Math.round(Math.abs(days));
-        var fromDay,toDay;
         var copyLine=$('.inputLine:first').clone(true);
+        $('#formSubmit').prop('disabled', false);
         $('.inputLine').remove();
         var dateFrom,dateTo;
 
         for(i=0;i<kolDays;i++){
             dateFrom=start.getDate();
             var dateTimeFormat=start.toISOString();
-            copyLine.find(".dateTime").val(dateTimeFormat.substring(0,dateTimeFormat.length-1));
+            copyLine.find(".dateTimeSheet").val(dateTimeFormat.substring(0,dateTimeFormat.length-1));
             start.setDate(start.getDate()+1);
             dateTo=start.getDate();
             copyLine.find("label").text(dateFrom+' - '+dateTo);
@@ -78,5 +84,14 @@
         }
 
     });
+
+
+    $("#contractId").change(function(){
+        $.get( "/api/getContractInfo/"+ $("#contractId").val(), function( data ) {
+            $('.inputLineSum:first').val(data.sum);
+        });
+
+
+    })
 
 </script>

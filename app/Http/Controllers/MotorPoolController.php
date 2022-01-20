@@ -31,13 +31,15 @@ class MotorPoolController extends Controller
 
     public function edit()
     {
-        $carObj=$this->motorPoolServ->getCar();
+        $validated = $this->request->validate(['carId' => 'integer']);
+        $carObj=$this->motorPoolServ->getCar($validated['carId']);
         return view('dialog.MotorPool.editCar',['car'=>$carObj]);
     }
 
     public function dialogCarInfo()
     {
-        $carObj=$this->motorPoolServ->getCar();
+        $validated = $this->request->validate(['carId' => 'integer']);
+        $carObj=$this->motorPoolServ->getCar($validated['carId']);
         return view('dialog.MotorPool.carInfo',['car'=>$carObj]);
     }
 

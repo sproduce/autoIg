@@ -29,10 +29,10 @@ Class ContractService{
         return $contractsCollect;
     }
 
-    public function getContract()
+    public function getContract($id)
     {
-        $validate=$this->request->validate(['contractId'=>'required|integer']);
-        return $this->contractRep->getContract($validate['contractId']);
+
+        return $this->contractRep->getContract($id);
     }
 
     public function addContract()
@@ -49,7 +49,8 @@ Class ContractService{
             'balance'=>'',
             'deposit'=>'',
             'number'=>'required',
-            'comment'=>''
+            'comment'=>'',
+            'sum'=>''
         ]);
         //var_dump($validate);
         $this->contractRep->addContract($validate);
@@ -69,7 +70,8 @@ Class ContractService{
             'balance'=>'',
             'deposit'=>'',
             'number'=>'required',
-            'comment'=>''
+            'comment'=>'',
+            'sum'=>''
         ]);
         $this->contractRep->updateContract( $contract['id'],$validate);
     }
