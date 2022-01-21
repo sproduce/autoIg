@@ -19,7 +19,6 @@ Class EventRentalService{
     {
         $eventRentalData['contractId']=$dataArray['contractId'];
         $eventRentalObj=$this->eventRentalRep->addEventRental($eventRentalData);
-
         $timesheetData['carId']=$dataArray['carId'];
         $timesheetData['eventId']=$dataArray['eventId'];
         $timesheetData['comment']='';
