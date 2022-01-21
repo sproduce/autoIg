@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class rentEventRental extends Model
 {
     use HasFactory;
+    protected $fillable = ['personId','contractId','isFinish','sum'];
+
 }

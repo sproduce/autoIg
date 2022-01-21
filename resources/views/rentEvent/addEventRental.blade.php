@@ -1,7 +1,8 @@
 
 <form method="POST" action="/eventRental">
     @csrf
-    <input name="eventId" value="{{$eventId}}" hidden/>
+    <input name="eventId" value="{{$eventObj->id}}" hidden/>
+    <input name="duration" value="{{$eventObj->duration}}" hidden/>
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Автомобиль">
@@ -62,6 +63,7 @@
 
     $("#finish").change(function(){
         var start = new Date($('#start').val());
+
         var end = new Date($('#finish').val());
         var millisBetween = start.getTime() - end.getTime();
         var days = millisBetween / (1000 * 3600 * 24);
@@ -73,7 +75,11 @@
 
         for(i=0;i<kolDays;i++){
             dateFrom=start.getDate();
-            var dateTimeFormat=start.toISOString();
+
+            var userTimezoneOffset = start.getTimezoneOffset() * 60000;
+            var tmpDate=new Date(start.getTime() - userTimezoneOffset);
+            var dateTimeFormat=tmpDate.toISOString();
+
             copyLine.find(".dateTimeSheet").val(dateTimeFormat.substring(0,dateTimeFormat.length-1));
             start.setDate(start.getDate()+1);
             dateTo=start.getDate();
@@ -88,7 +94,7 @@
 
     $("#contractId").change(function(){
         $.get( "/api/getContractInfo/"+ $("#contractId").val(), function( data ) {
-            $('.inputLineSum:first').val(data.sum);
+            $('.inputLineSum').val(data.sum);
         });
 
 

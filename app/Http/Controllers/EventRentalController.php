@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\RentEventRepository;
+use App\Services\EventRentalService;
 use App\Services\MotorPoolService;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
@@ -10,7 +11,7 @@ use Illuminate\Http\Request;
 
 class EventRentalController extends Controller
 {
-    protected $rentEventRep,$request,$eventId;
+    protected $rentEventRep,$request,$eventObj;
 
     public function __construct(RentEventRepository $rentEventRep,Request $request)
     {
@@ -18,7 +19,7 @@ class EventRentalController extends Controller
         $this->request=$request;
         $rc= new \ReflectionClass($this);
         $eventObj=$rentEventRep->getEventByAction($rc->getShortName());
-        $this->eventId=$eventObj->id;
+        $this->eventObj=$eventObj;
     }
 
 
@@ -39,8 +40,8 @@ class EventRentalController extends Controller
      */
     public function create(MotorPoolService $motorPoolServ)
     {
-        $inputData=$this->request->validate(['carId'=>'integer|required','date'=>'required']);
-        if ($inputData['date']){
+        $inputData=$this->request->validate(['carId'=>'integer','date'=>'']);
+        if (isset($inputData['date'])){
             $dateTime=new Carbon($inputData['date']);
         } else{
             $dateTime =new Carbon();
@@ -48,13 +49,22 @@ class EventRentalController extends Controller
         $dateTime->setTimeFrom(Carbon::now());
         $carObj=$motorPoolServ->getCar($inputData['carId']);
 
-        return view('rentEvent.addEventRental',['carObj'=>$carObj,'dateTime'=>$dateTime,'eventId'=>$this->eventId]);
+        return view('rentEvent.addEventRental',['carObj'=>$carObj,'dateTime'=>$dateTime,'eventObj'=>$this->eventObj]);
     }
 
 
-    public function store()
+    public function store(EventRentalService $eventRentalServ)
     {
-        $this->request->dd();
+        $inputData=$this->request->validate(['carId'=>'integer|required',
+                                             'dateTimeSheet'=>'array|min:1',
+                                             'sum'=>'array',
+                                             'duration'=>'',
+                                             'contractId'=>'']);
+        $inputData['eventId']= $this->eventObj->id;
+        $inputData['color']=$this->eventObj->color;
+        $eventRentalServ->addEvent($inputData);
+        return redirect('/timesheet/list');
+
     }
 
     /**

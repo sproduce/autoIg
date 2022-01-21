@@ -24,7 +24,7 @@
             <div class="col-2" style="background-color:{{$rentEvent->color}}">{{$rentEvent->name}}</div>
             <div class="col-2">{{$rentEvent->action}}</div>
             <div class="col-2"></div>
-            <div class="col-2"></div>
+            <div class="col-2">{{$rentEvent->duration}}</div>
             <div class="col-2"></div>
         </div>
     @endforeach
