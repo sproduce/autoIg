@@ -15,6 +15,8 @@ class ChangeTimeSheet extends Migration
     {
         Schema::table('time_sheets', function (Blueprint $table) {
             $table->string('color')->nullable();
+            $table->unsignedTinyInteger('duration')->nullable();
+            $table->unsignedInteger('sum')->nullable();
         });
     }
 
@@ -26,7 +28,7 @@ class ChangeTimeSheet extends Migration
     public function down()
     {
         Schema::table('time_sheets', function (Blueprint $table) {
-            $table->dropColumn(['color']);
+            $table->dropColumn(['color','duration','sum']);
         });
     }
 }
