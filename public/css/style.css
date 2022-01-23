@@ -32,3 +32,11 @@
 .displayNone {
     display: none;
 }
+
+th.daySize{
+    width: 80px !important;
+}
+td.partSize{
+    width: 10px;
+}
+

@@ -188,6 +188,9 @@
     <script src="{{ asset('js/js.cookie.min.js') }}" defer></script>
     <script src="{{ asset('js/user.js') }}" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
+
+        <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
     @yield('js')
 
     </body>
