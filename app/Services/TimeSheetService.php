@@ -22,33 +22,32 @@ Class TimeSheetService{
 
 
         $motorPoolsObj=$this->motorPoolRep->getCars()->keyBy('id');
+        //var_dump($motorPoolsObj->toArray());
+        foreach($motorPoolsObj as $carId=>$motorPool){
+            foreach($periodDate as $date){
+                $fromDate=$date->format('Y-m-d');
+                $toDate=$date->addDays(1)->format('Y-m-d');
+                $dayTimeSheet=$timeSheetsObj->where('carId',$carId)->whereBetween('dateTime',[$fromDate,$toDate]);
+                //$dayTimeSheet->dump();
+            }
+
+        }
 
         $timeSheetCollect=collect(['motorPools'=>$motorPoolsObj,'timeSheets'=>$timeSheetsObj]);
 
         return $timeSheetCollect;
     }
 
-    public function getCarTimeSheets()
+    public function getCarTimeSheets($carId,$date)
     {
-        $validate=$this->request->validate(['carId'=>'required|integer',
-            'date'=>'required'
-        ]);
-        $result=$this->timeSheetRep->getCarTimeSheetByDate($validate['carId'],$validate['date']);
+             $result=$this->timeSheetRep->getCarTimeSheetByDate($carId,$date);
         return $result;
     }
 
 
     public function addEvent()
     {
-        $validate=$this->request->validate(['carId'=>'required|integer',
-            'dateTime'=>'required',
-            'eventId'=>'required|integer',
-            'comment'=>'',
-            'sum'=>'',
-            'mileage'=>''
-        ]);
 
-        $this->timeSheetRep->addTimeSheet($validate);
 
     }
 

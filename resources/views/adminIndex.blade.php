@@ -31,12 +31,7 @@
         <div class="bg-danger w-100 text-center h-100" id="notice"></div>
         <ul class="navbar-nav mr-auto">
         </ul>
-
-
         <a class="btn btn-sm btn-outline-info rounded-pill ml-3" href="">Выход</a>
-
-
-
     </nav>
 
     <div class="container-fluid">
@@ -188,9 +183,6 @@
     <script src="{{ asset('js/js.cookie.min.js') }}" defer></script>
     <script src="{{ asset('js/user.js') }}" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
-
-        <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
     @yield('js')
 
     </body>

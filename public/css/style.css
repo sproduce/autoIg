@@ -33,8 +33,19 @@
     display: none;
 }
 
-th.daySize{
-    width: 80px !important;
+div.daySize{
+    min-width: 60px;
+    width: 60px;
+    max-width: 60px;
+}
+div.durationSize{
+    width: 10px;
+    height: 10px;
+}
+
+div.carInfoSize{
+    min-width: 80px;
+    max-width: 200px;
 }
 td.partSize{
     width: 10px;

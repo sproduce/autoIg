@@ -12,16 +12,24 @@ use App\Services\TimeSheetService;
 
 class TimeSheetController extends Controller
 {
-    public function show(Request $request,TimeSheetService $timeSheetServ)
+    private $request;
+
+    public function __construct(Request $request)
     {
-        $validate=$request->validate(['currentDate'=>'date']);
+        $this->request=$request;
+    }
+
+
+    public function show(TimeSheetService $timeSheetServ)
+    {
+        $validate=$this->request->validate(['currentDate'=>'date']);
         if (isset($validate['currentDate'])){
             $currentDate=CarbonImmutable::create($validate['currentDate']);
         } else {
             $currentDate = CarbonImmutable::now();
         }
         $dateFrom=$currentDate->subDays(12);
-        $dateTo=$currentDate->addDays(11);
+        $dateTo=$currentDate->addDays(8);
         $periodDate=CarbonPeriod::create($dateFrom,$dateTo);
 
         $timeSheetCollect = $timeSheetServ->getCarsTimeSheets($periodDate);
@@ -31,9 +39,9 @@ class TimeSheetController extends Controller
 
 
 
-    public function addEvent(Request $request,RentEventService $rentEventServ,MotorPoolService $motorPoolServ)
+    public function addEvent(RentEventService $rentEventServ,MotorPoolService $motorPoolServ)
     {
-        $validate=$request->validate(['carId'=>'required|integer',
+        $validate=$this->request->validate(['carId'=>'required|integer',
             'date'=>'required'
         ]);
         $carObj=$motorPoolServ->getCar($validate['carId']);
@@ -44,16 +52,19 @@ class TimeSheetController extends Controller
 
     public function infoDialog(TimeSheetService $timeSheetServ)
     {
-        $timeSheetsObj=$timeSheetServ->getCarTimeSheets();
+        $validate=$this->request->validate(['carId'=>'required|integer',
+            'date'=>'required'
+        ]);
+        $timeSheetsObj=$timeSheetServ->getCarTimeSheets($validate['carId'],$validate['date']);
         return view('dialog.TimeSheet.infoTimeSheet',['timeSheets'=>$timeSheetsObj]);
     }
 
 
-    public function editEventDialog(Request $request,TimeSheetService $timeSheetServ)
+    public function editEventDialog(TimeSheetService $timeSheetServ)
     {
-        $validate=$request->validate(['carId'=>'required|integer']);
-        $timeSheetsObj=$timeSheetServ->getCarTimeSheets();
-        return view('dialog.TimeSheet.editEvent',['carId'=>$validate['carId'],'timeSheets'=>$timeSheetsObj]);
+        //$validate=$this->request->validate(['carId'=>'required|integer']);
+        //$timeSheetsObj=$timeSheetServ->getCarTimeSheets();
+        //return view('dialog.TimeSheet.editEvent',['carId'=>$validate['carId'],'timeSheets'=>$timeSheetsObj]);
     }
 
 

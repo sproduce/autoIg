@@ -14,73 +14,57 @@
 
 @section('content')
 
-    @php
-        @endphp
+    <div class="container-fluid overflow-auto">
 
-    <form type="GET" action="">
-        <div class="row mb-3 text-center">
-
-            <input type="date" name="currentDate" value="{{$currentDate->format('Y-m-d')}}"/>
-            <input type="submit" value="Показать"/>
-        </div>
-
-    </form>
-
-    <table id="dataTable"  class="display nowrap"  style="width:100%">
-        <thead>
-        <tr>
-            <th>#</th>
+        <div class="row flex-nowrap">
+            <div class="col p-0 text-center border carInfoSize">
+                <div class="p-0">#</div>
+            </div>
             @foreach($periodDate as $date)
                 @if($date==$currentDate)
-                    <th class="daySize">{{$date->isoFormat('ddd')}}
-                        {{$date->isoFormat('D')}}
-                    </th>
+                    <div class="col daySize p-0 text-center border bg-primary">
+                        <div class="p-0">{{$date->isoFormat('ddd')}}<br/>{{$date->isoFormat('D')}}</div>
+                    </div>
                 @else
-                    <th class="border text-center daySize">{{$date->isoFormat('ddd')}}
-                        <a href="?currentDate={{$date->format('Y-m-d')}}">
-                            {{$date->isoFormat('D')}}
-                        </a>
-                    </th>
+                    <div class="col daySize p-0 text-center border">
+                        <div class="p-0">{{$date->isoFormat('ddd')}}<br/>
+                            <a href="?currentDate={{$date->format('Y-m-d')}}">{{$date->isoFormat('D')}}</a>
+                        </div>
+                    </div>
                 @endif
             @endforeach
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($motorPool as $car)
-            <tr class="carInfo" data-carid="{{$car->id}}">
-                <td>
-                    {{$car->nickName}}
-                </td>
+        </div>
 
+
+        @foreach($motorPool as $car)
+            <div class="row flex-nowrap carInfo" data-carid="{{$car->id}}">
+                <div class="col p-0 text-left border carInfoSize">
+                    <div class="p-0">{{$car->nickName}}</div>
+                </div>
                 @foreach($periodDate as $date)
                     @php
                         $fromDate=$date->format('Y-m-d');
                         $toDate=$date->addDays(1)->format('Y-m-d');
                     @endphp
-                    <td class="timeClickable" data-datetime="{{$fromDate}}">
-                        @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->sortBy('dateTime') as $timeSheet)
-                            <div class="progress mb-1" style="height: 10px;">
-                                <div class="progress-bar" role="progressbar" style="background-color:{{$timeSheet->event->color}};width: 100%;"></div>
-                            </div>
-                            <div class="progress mb-1" style="height: 10px;">
-                                <div class="progress-bar" role="progressbar" style="background-color:{{$timeSheet->event->color}};width: 100%;"></div>
-                            </div>
-                            <div class="progress mb-1" style="height: 10px;">
-                                <div class="progress-bar" role="progressbar" style="background-color:{{$timeSheet->event->color}};width: 100%;"></div>
-                            </div>
-
-                        @empty
-
-                        @endforelse
-                    </td>
+                    <div class="col p-0 daySize border timeClickable" data-datetime="{{$fromDate}}">
+                        <div class="p-0">
+                            @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->sortBy('dateTime') as $timeSheet)
+                                <div class="durationSize" style="background-color:{{$timeSheet->event->color}};" title="{{$timeSheet->dateTime}}"></div>
+                            @empty
+                                &nbsp
+                            @endforelse
+                        </div>
+                    </div>
                 @endforeach
-            </tr>
+            </div>
         @endforeach
-        </tbody>
 
 
-    </table>
 
+
+
+
+    </div>
 
 
 @endsection
@@ -88,11 +72,6 @@
 
 @section('js')
     <script>
-        $(function() {
-            $('#dataTable').DataTable( {
-                "scrollX": true
-            } );
-        });
         $(".timeClickable").dblclick(function(e) {
             var carId=$(this).closest('.carInfo').data('carid');
             var dateTime=$(this).data('datetime');
