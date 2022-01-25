@@ -1,9 +1,6 @@
 @extends('../adminIndex')
 
-@php
-    $motorPool=$timeSheetCollect->get('motorPools');
-    $timeSheets=$timeSheetCollect->get('timeSheets');
-@endphp
+
 @section('header')
 
     <h6 class="m-0 mr-3">Табель</h6>
@@ -14,7 +11,7 @@
 
 @section('content')
 
-    <div class="container-fluid overflow-auto">
+    <div class="container-fluid overflow-auto" id="scrollTimeSheet">
 
         <div class="row flex-nowrap">
             <div class="col p-0 text-center border carInfoSize">
@@ -36,26 +33,24 @@
         </div>
 
 
-        @foreach($motorPool as $car)
+        @foreach($motorPoolObj as $car)
             <div class="row flex-nowrap carInfo" data-carid="{{$car->id}}">
                 <div class="col p-0 text-left border carInfoSize">
                     <div class="p-0">{{$car->nickName}}</div>
                 </div>
-                @foreach($periodDate as $date)
-                    @php
-                        $fromDate=$date->format('Y-m-d');
-                        $toDate=$date->addDays(1)->format('Y-m-d');
-                    @endphp
-                    <div class="col p-0 daySize border timeClickable" data-datetime="{{$fromDate}}">
-                        <div class="p-0">
-                            @forelse($timeSheets->where('carId',$car->id)->whereBetween('dateTime',[$fromDate,$toDate])->sortBy('dateTime') as $timeSheet)
-                                <div class="durationSize" style="background-color:{{$timeSheet->event->color}};" title="{{$timeSheet->dateTime}}"></div>
-                            @empty
-                                &nbsp
-                            @endforelse
+                @for($i=0;$i<21;$i++)
+                    <div class="col p-0 daySize border timeClickable" data-datetime="{{$periodDate->getStartDate()->addDays($i)->format('Y-m-d')}}">
+                        <div class="p-0 row m-0">
+                            @for($j=1;$j<=6;$j++)
+                                @if(isset($timeSheetArray[$car->id][$i*6+$j]))
+                                    <div class="durationSize" style="background-color:{{$timeSheetArray[$car->id][$i*6+$j]}};" ></div>
+                                @else
+                                    <div class="durationSize"></div>
+                                @endif
+                            @endfor
                         </div>
                     </div>
-                @endforeach
+                @endfor
             </div>
         @endforeach
 
@@ -72,6 +67,10 @@
 
 @section('js')
     <script>
+        $(function() {
+
+        });
+
         $(".timeClickable").dblclick(function(e) {
             var carId=$(this).closest('.carInfo').data('carid');
             var dateTime=$(this).data('datetime');

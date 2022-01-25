@@ -29,10 +29,9 @@ Class EventRentalService{
         foreach($dataArray['dateTimeSheet'] as $key=>$dateTime){
             $timesheetData['dateTime']=date("Y-m-d H:i:s",strtotime($dateTime));
             $timesheetData['sum']=$dataArray['sum'][$key];
-            $this->timeSheetRep->addTimeSheet($timesheetData);
+            $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
+            //$timeSheetObj->dd();
         }
-
-
 
     }
 

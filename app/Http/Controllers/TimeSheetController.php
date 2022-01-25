@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\MotorPoolRepository;
 use App\Services\MotorPoolService;
 use App\Services\RentEventService;
 use Carbon\Carbon;
@@ -20,21 +21,21 @@ class TimeSheetController extends Controller
     }
 
 
-    public function show(TimeSheetService $timeSheetServ)
+    public function show(TimeSheetService $timeSheetServ,MotorPoolRepository $motorPoolRep)
     {
         $validate=$this->request->validate(['currentDate'=>'date']);
         if (isset($validate['currentDate'])){
             $currentDate=CarbonImmutable::create($validate['currentDate']);
         } else {
-            $currentDate = CarbonImmutable::now();
+            $currentDate = CarbonImmutable::today();
         }
         $dateFrom=$currentDate->subDays(12);
         $dateTo=$currentDate->addDays(8);
         $periodDate=CarbonPeriod::create($dateFrom,$dateTo);
 
-        $timeSheetCollect = $timeSheetServ->getCarsTimeSheets($periodDate);
-
-        return view('timeSheet.list', ['timeSheetCollect' => $timeSheetCollect, 'periodDate' => $periodDate,'currentDate'=> $currentDate]);
+        $timeSheetArray = $timeSheetServ->getCarsTimeSheets($periodDate);
+        $motorPoolObj=$motorPoolRep->getCars();
+        return view('timeSheet.list', ['timeSheetArray' => $timeSheetArray, 'periodDate' => $periodDate,'currentDate'=> $currentDate,'motorPoolObj'=>$motorPoolObj]);
     }
 
 

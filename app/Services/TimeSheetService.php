@@ -2,40 +2,51 @@
 namespace App\Services;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
+use App\Repositories\RentEventRepository;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 Class TimeSheetService{
-    private $timeSheetRep,$request,$motorPoolRep;
+    private $timeSheetRep,$motorPoolRep,$rentEvent;
 
-    function __construct(TimeSheetRepositoryInterface $timeSheetRep,MotorPoolRepositoryInterface $motoPoolRep,Request $request)
+    function __construct(TimeSheetRepositoryInterface $timeSheetRep,MotorPoolRepositoryInterface $motoPoolRep,RentEventRepository $rentEvent)
     {
         $this->timeSheetRep=$timeSheetRep;
-        $this->request=$request;
         $this->motorPoolRep=$motoPoolRep;
+        $this->rentEvent=$rentEvent;
     }
 
     public function getCarsTimeSheets($periodDate)
     {
 
         $timeSheetsObj=$this->timeSheetRep->getTimeSheets($periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d'));
+        $timeSheetsArray=$this->timeSheetRep->getTimeSheetsArray($periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d'));
 
-
+        $timeSheetsCollection=collect($timeSheetsArray);
+        //$timeSheetsCollection->sortBy('carId')->dd();
+        //var_dump($timeSheetsArray);
         $motorPoolsObj=$this->motorPoolRep->getCars()->keyBy('id');
         //var_dump($motorPoolsObj->toArray());
-        foreach($motorPoolsObj as $carId=>$motorPool){
-            foreach($periodDate as $date){
-                $fromDate=$date->format('Y-m-d');
-                $toDate=$date->addDays(1)->format('Y-m-d');
-                $dayTimeSheet=$timeSheetsObj->where('carId',$carId)->whereBetween('dateTime',[$fromDate,$toDate]);
-                //$dayTimeSheet->dump();
+
+            $periodTimeSheet=$timeSheetsCollection->whereBetween('dateTime',[$periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d')])->sortBy('dateTime');
+        //$periodTimeSheet->dd();
+            foreach($periodTimeSheet as $dayTimeSheet){
+                //echo $periodDate->getStartDate()->format('Y-m-d H:m');
+                $currentDateTime=Carbon::parse($dayTimeSheet->dateTime);
+                $fromBox=ceil($periodDate->getStartDate()->diffInHours($currentDateTime)/4);
+                $toBox=$fromBox+ceil($dayTimeSheet->duration/4);
+                for($i=$fromBox;$i<=$toBox;$i++){
+                    $resultArray[$dayTimeSheet->carId][$i]=$dayTimeSheet->color;
+                }
+                //echo $fromBox." - ".$toBox;
+                //var_dump($dayTimeSheet);
             }
 
-        }
+            //var_dump($resultArray);
 
-        $timeSheetCollect=collect(['motorPools'=>$motorPoolsObj,'timeSheets'=>$timeSheetsObj]);
+        //$timeSheetCollect=collect(['motorPools'=>$motorPoolsObj,'timeSheets'=>$timeSheetsObj]);
 
-        return $timeSheetCollect;
+        //return $timeSheetCollect;
+        return $resultArray;
     }
 
     public function getCarTimeSheets($carId,$date)
