@@ -64,9 +64,8 @@ class EventTransferController extends Controller
         $inputData['eventId']= $this->eventObj->id;
         $inputData['color']=$this->eventObj->color;
         $inputData['duration']=$this->eventObj->duration;
-        var_dump($inputData);
-
-        //
+        $eventTransferServ->addEvent($inputData);
+        return redirect('/timesheet/list');
     }
 
     /**

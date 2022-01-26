@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class rentEventFine extends Model
 {
     use HasFactory;
+    protected $fillable = ['dateTimeOrder','dateTimeFine','datePaySale','sum','datePayMax','sumSale','uin'];
 }

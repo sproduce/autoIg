@@ -18,6 +18,7 @@ use App\Repositories\TimeSheetRepository;
 use App\Repositories\RentEventRepository;
 use App\Repositories\EventRentalRepository;
 use App\Repositories\EventTransferRepository;
+use App\Repositories\EventFineRepository;
 
 
 use App\Repositories\Interfaces\BrandRepositoryInterface;
@@ -32,7 +33,7 @@ use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use App\Repositories\Interfaces\EventRentalRepositoryInterface;
 use App\Repositories\Interfaces\EventTransferRepositoryInterface;
-
+use App\Repositories\Interfaces\EventFineRepositoryInterface;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -56,6 +57,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(RentEventRepositoryInterface::class,RentEventRepository::class);
         $this->app->bind(EventRentalRepositoryInterface::class,EventRentalRepository::class);
         $this->app->bind(EventTransferRepositoryInterface::class,EventTransferRepository::class);
+        $this->app->bind(EventFineRepositoryInterface::class,EventFineRepository::class);
 
     }
 

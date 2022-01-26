@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class rentEventTransfer extends Model
 {
     use HasFactory;
+    protected $fillable = ['personId','contractId','clientId','type'];
 }

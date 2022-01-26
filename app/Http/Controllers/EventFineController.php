@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\RentEventRepository;
+use App\Services\EventFineService;
 use App\Services\MotorPoolService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EventFineController extends Controller
 {
-    protected $rentEventRep,$request,$eventId;
+    protected $rentEventRep,$request,$eventObj;
 
     public function __construct(RentEventRepository $rentEventRep,Request $request)
     {
@@ -17,8 +18,7 @@ class EventFineController extends Controller
         $this->request=$request;
         $rc= new \ReflectionClass($this);
         $eventObj=$rentEventRep->getEventByAction($rc->getShortName());
-        $this->eventId=$eventObj->id;
-
+        $this->eventObj=$eventObj;
     }
 
 
@@ -34,7 +34,10 @@ class EventFineController extends Controller
      */
     public function create(MotorPoolService $motorPoolServ)
     {
-        $inputData=$this->request->validate(['carId'=>'integer|required','date'=>'required']);
+        $inputData=$this->request->validate([
+            'carId'=>'integer|required',
+            'date'=>'required']);
+
         if ($inputData['date']){
             $dateTime=new Carbon($inputData['date']);
         } else{
@@ -42,7 +45,7 @@ class EventFineController extends Controller
         }
         $dateTime->setTimeFrom(Carbon::now());
         $carObj=$motorPoolServ->getCar($inputData['carId']);
-        return view('rentEvent.addEventFine',['carObj'=>$carObj,'dateTime'=>$dateTime,'eventId'=>$this->eventId]);
+        return view('rentEvent.addEventFine',['carObj'=>$carObj,'dateTime'=>$dateTime,'eventObj'=>$this->eventObj]);
     }
 
     /**
@@ -51,9 +54,26 @@ class EventFineController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EventFineService $eventFineServ)
     {
-        //
+        $inputData=$this->request->validate([
+            'carId'=>'integer|required',
+            'dateOrder'=>'required',
+            'dateTimeFine'=>'required',
+            'uin'=>'',
+            'datePaySale'=>'',
+            'datePayMax'=>'',
+            'sum'=>'',
+            'sumSale'=>'',
+            'contractId'=>'']);
+
+        $inputData['eventId']= $this->eventObj->id;
+        $inputData['color']=$this->eventObj->color;
+        $inputData['duration']=$this->eventObj->duration;
+
+        $eventFineServ->addEvent($inputData);
+
+        return redirect('/timesheet/list');
     }
 
     /**

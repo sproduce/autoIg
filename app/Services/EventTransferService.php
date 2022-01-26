@@ -8,31 +8,28 @@ use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 Class EventTransferService{
     private $eventTransferRep,$timeSheetRep;
 
-    function __construct(EventTransferRepositoryInterface $eventRentalRep,TimeSheetRepositoryInterface $timeSheetRep)
+    function __construct(EventTransferRepositoryInterface $eventTransferRep,TimeSheetRepositoryInterface $timeSheetRep)
     {
-        $this->eventTransferRep=$eventRentalRep;
+        $this->eventTransferRep=$eventTransferRep;
         $this->timeSheetRep=$timeSheetRep;
     }
 
 
     public function addEvent($dataArray)
     {
-        $eventRentalData['contractId']=$dataArray['contractId'];
-        $eventRentalObj=$this->eventRentalRep->addEventRental($eventRentalData);
+        $eventTransferData['contractId']=$dataArray['contractId'];
+        $eventTransferData['type']=$dataArray['typeTransfer'];
+        $eventTransferObj=$this->eventTransferRep->addEventTransfer($eventTransferData);
+
         $timesheetData['carId']=$dataArray['carId'];
         $timesheetData['eventId']=$dataArray['eventId'];
         $timesheetData['comment']='';
-        $timesheetData['dataId']=$eventRentalObj->id;
+        $timesheetData['dataId']=$eventTransferObj->id;
         $timesheetData['color']=$dataArray['color'];
-        $timesheetData['duration']=$dataArray['duration'];
+        $timesheetData['duration']=$dataArray['duration'] ?? 1;
 
-        foreach($dataArray['dateTimeSheet'] as $key=>$dateTime){
-            $timesheetData['dateTime']=date("Y-m-d H:i:s",strtotime($dateTime));
-            $timesheetData['sum']=$dataArray['sum'][$key];
-            $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
-            //$timeSheetObj->dd();
-        }
-
+        $timesheetData['dateTime']=date("Y-m-d H:i:s",strtotime($dataArray['dateTimeTransfer']));
+        $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
     }
 
 

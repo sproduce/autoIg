@@ -40,7 +40,9 @@ class EventRentalController extends Controller
      */
     public function create(MotorPoolService $motorPoolServ)
     {
-        $inputData=$this->request->validate(['carId'=>'integer','date'=>'']);
+        $inputData=$this->request->validate([
+            'carId'=>'integer',
+            'date'=>'']);
         if (isset($inputData['date'])){
             $dateTime=new Carbon($inputData['date']);
         } else{

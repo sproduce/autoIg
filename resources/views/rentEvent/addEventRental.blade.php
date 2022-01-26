@@ -96,8 +96,6 @@
         $.get( "/api/getContractInfo/"+ $("#contractId").val(), function( data ) {
             $('.inputLineSum').val(data.sum);
         });
-
-
     })
 
 </script>

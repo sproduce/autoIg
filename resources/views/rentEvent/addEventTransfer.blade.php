@@ -1,4 +1,3 @@
-Прием-передача авто
 <form method="POST" action="/eventTransfer">
     @csrf
     <input name="eventId" value="{{$eventObj->id}}" hidden/>
@@ -42,10 +41,3 @@
         </div>
     </div>
 </form>
-<script>
-    $("#contractId").change(function(){
-        $.get( "/api/getContractInfo/"+ $("#contractId").val(), function( data ) {
-            $('.inputLineSum').val(data.sum);
-        });
-
-</script>
