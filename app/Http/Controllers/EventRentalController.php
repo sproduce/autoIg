@@ -55,11 +55,13 @@ class EventRentalController extends Controller
 
     public function store(EventRentalService $eventRentalServ)
     {
-        $inputData=$this->request->validate(['carId'=>'integer|required',
-                                             'dateTimeSheet'=>'array|min:1',
-                                             'sum'=>'array',
-                                             'duration'=>'',
-                                             'contractId'=>'']);
+        $inputData=$this->request->validate([
+            'carId'=>'integer|required',
+            'dateTimeSheet'=>'array|min:1',
+            'sum'=>'array',
+            'duration'=>'',
+            'contractId'=>'']);
+
         $inputData['eventId']= $this->eventObj->id;
         $inputData['color']=$this->eventObj->color;
         $eventRentalServ->addEvent($inputData);

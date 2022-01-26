@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Repositories\RentEventRepository;
 use App\Services\MotorPoolService;
+use App\Services\EventTransferService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EventTransferController extends Controller
 {
-    protected $rentEventRep,$request,$eventId;
+    protected $rentEventRep,$request,$eventObj;
 
     public function __construct(RentEventRepository $rentEventRep,Request $request)
     {
@@ -17,8 +18,10 @@ class EventTransferController extends Controller
         $this->request=$request;
         $rc= new \ReflectionClass($this);
         $eventObj=$rentEventRep->getEventByAction($rc->getShortName());
-        $this->eventId=$eventObj->id;
+        $this->eventObj=$eventObj;
     }
+
+
     public function index()
     {
 
@@ -40,7 +43,7 @@ class EventTransferController extends Controller
         $dateTime->setTimeFrom(Carbon::now());
         $carObj=$motorPoolServ->getCar($inputData['carId']);
 
-        return view('rentEvent.addEventTransfer',['carObj'=>$carObj,'dateTime'=>$dateTime,'eventId'=>$this->eventId]);
+        return view('rentEvent.addEventTransfer',['carObj'=>$carObj,'dateTime'=>$dateTime,'eventObj'=>$this->eventObj]);
     }
 
     /**
@@ -49,8 +52,20 @@ class EventTransferController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EventTransferService $eventTransferServ)
     {
+        $inputData=$this->request->validate([
+            'eventId'=>'required',
+            'carId'=>'integer|required',
+            'typeTransfer'=>'required',
+            'dateTimeTransfer'=>'required',
+            'contractId'=>'']);
+
+        $inputData['eventId']= $this->eventObj->id;
+        $inputData['color']=$this->eventObj->color;
+        $inputData['duration']=$this->eventObj->duration;
+        var_dump($inputData);
+
         //
     }
 
