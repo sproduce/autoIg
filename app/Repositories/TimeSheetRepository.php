@@ -15,7 +15,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     }
     public function getTimeSheetsArray($dateFrom, $dateTo)
     {
-        return DB::table('time_sheets')->leftJoin('rent_events','time_sheets.eventId','=','rent_events.id')->get(['time_sheets.*','rent_events.priority','rent_events.duration']);
+        return DB::table('time_sheets')->leftJoin('rent_events','time_sheets.eventId','=','rent_events.id')->get(['time_sheets.*','rent_events.priority','rent_events.duration','rent_events.name']);
     }
 
     public function getCarTimeSheetByDate($carId, $date)

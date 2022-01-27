@@ -18,13 +18,13 @@ Class TimeSheetService{
     public function getCarsTimeSheets($periodDate)
     {
 
-        $timeSheetsObj=$this->timeSheetRep->getTimeSheets($periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d'));
+        //$timeSheetsObj=$this->timeSheetRep->getTimeSheets($periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d'));
         $timeSheetsArray=$this->timeSheetRep->getTimeSheetsArray($periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d'));
 
         $timeSheetsCollection=collect($timeSheetsArray);
         //$timeSheetsCollection->sortBy('carId')->dd();
         //var_dump($timeSheetsArray);
-        $motorPoolsObj=$this->motorPoolRep->getCars()->keyBy('id');
+        //$motorPoolsObj=$this->motorPoolRep->getCars()->keyBy('id');
         //var_dump($motorPoolsObj->toArray());
 
             $periodTimeSheet=$timeSheetsCollection->whereBetween('dateTime',[$periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d')])->sortBy('dateTime');
@@ -35,7 +35,7 @@ Class TimeSheetService{
                 $fromBox=ceil($periodDate->getStartDate()->diffInHours($currentDateTime)/4);
                 $toBox=$fromBox+ceil($dayTimeSheet->duration/4);
                 for($i=$fromBox;$i<=$toBox;$i++){
-                    $resultArray[$dayTimeSheet->carId][$i]=$dayTimeSheet->color;
+                    $resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]=$dayTimeSheet;
                 }
                 //echo $fromBox." - ".$toBox;
                 //var_dump($dayTimeSheet);

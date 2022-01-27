@@ -40,15 +40,20 @@
                 </div>
                 @for($i=0;$i<21;$i++)
                     <div class="col p-0 daySize border timeClickable" data-datetime="{{$periodDate->getStartDate()->addDays($i)->format('Y-m-d')}}">
-                        <div class="p-0 row m-0">
-                            @for($j=1;$j<=6;$j++)
-                                @if(isset($timeSheetArray[$car->id][$i*6+$j]))
-                                    <div class="durationSize" style="background-color:{{$timeSheetArray[$car->id][$i*6+$j]}};" ></div>
-                                @else
-                                    <div class="durationSize"></div>
-                                @endif
-                            @endfor
-                        </div>
+                        @if(isset($timeSheetArray[$car->id]))
+                            @forelse($timeSheetArray[$car->id] as $timeSheet)
+                                <div class="p-0 row m-0">
+                                    @for($j=1;$j<=6;$j++)
+                                        @if(isset($timeSheet[$i*6+$j]))
+                                            <div class="durationSize" data-datestart="{{$timeSheet[$i*6+$j]->dateTime}}" title="{{$timeSheet[$i*6+$j]->name}}" style="background-color:{{$timeSheet[$i*6+$j]->color}};" ></div>
+                                        @else
+                                            <div class="durationSize"></div>
+                                        @endif
+                                    @endfor
+                                </div>
+                            @empty
+                            @endforelse
+                        @endif
                     </div>
                 @endfor
             </div>
