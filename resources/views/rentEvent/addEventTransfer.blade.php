@@ -23,7 +23,7 @@
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="dateTimeTransfer" title="Дата приема/передачи">Дата время приема/передачи</label>
-            <input type="datetime-local" name="dateTimeTransfer" id="dateTimeTransfer" class="form-control" value="{{$dateTime->toDateTimeLocalString()}}"/>
+            <input type="datetime-local" name="dateTimeTransfer" id="dateTimeTransfer" class="form-control" step="any" value="{{$dateTime->toDateTimeLocalString()}}"/>
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="typeTransfer" title="Тип операции">Тип операции</label>

@@ -32,10 +32,12 @@ Class TimeSheetService{
             foreach($periodTimeSheet as $dayTimeSheet){
                 //echo $periodDate->getStartDate()->format('Y-m-d H:m');
                 $currentDateTime=Carbon::parse($dayTimeSheet->dateTime);
-                $fromBox=ceil($periodDate->getStartDate()->diffInHours($currentDateTime)/4);
+                $fromBox=ceil($periodDate->getStartDate()->DiffInMinutes($currentDateTime)/240);
+                //$fromBox=$fromBox ??1;
                 $toBox=$fromBox+ceil($dayTimeSheet->duration/4);
                 for($i=$fromBox;$i<=$toBox;$i++){
                     $resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]=$dayTimeSheet;
+                    $resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]->comment=$periodDate->getStartDate()->diffInHours($currentDateTime);
                 }
                 //echo $fromBox." - ".$toBox;
                 //var_dump($dayTimeSheet);
@@ -46,7 +48,7 @@ Class TimeSheetService{
         //$timeSheetCollect=collect(['motorPools'=>$motorPoolsObj,'timeSheets'=>$timeSheetsObj]);
 
         //return $timeSheetCollect;
-        return $resultArray;
+        return $resultArray ?? [];
     }
 
     public function getCarTimeSheets($carId,$date)
