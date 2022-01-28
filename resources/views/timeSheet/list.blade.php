@@ -3,13 +3,28 @@
 
 @section('header')
 
-    <h6 class="m-0 mr-3">Табель</h6>
+    <h6 class="m-0 mr-3">Табель</h6><br/>
+
 
 
 @endsection
 
 
 @section('content')
+
+    <form type="GET" action="">
+        <div class="form-row text-center">
+            <div class="form-group col-md-2 input-group-sm">
+                <input type="date"  class="form-control" name="currentDate" value="{{$currentDate->format('Y-m-d')}}"/>
+            </div>
+            <div class="form-group col-md-2 input-group-sm">
+                <input type="submit" class="btn btn-sm btn-primary" value="Показать"/>
+            </div>
+        </div>
+
+    </form>
+
+
 
     <div class="container-fluid overflow-auto" id="scrollTimeSheet">
 

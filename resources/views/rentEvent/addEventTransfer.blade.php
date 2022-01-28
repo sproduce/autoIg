@@ -3,12 +3,15 @@
     <input name="eventId" value="{{$eventObj->id}}" hidden/>
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
-            <label for="contractText" title="Автомобиль">
-                Машина
-                <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
-            </label>
+            <label for="contractText" title="Автомобиль">Машина</label>
+            <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+            @if($carObj->id)
             <input id="carText" class="form-control" value="{{$carObj->nickName}}" disabled />
-            <input id="carId" name="carId" class="form-control" value="{{$carObj->id}}" hidden />
+            <input id="carId" name="carId" class="form-control" value="{{$carObj->id}}" hidden/>
+            @else
+                <input id="carText" class="form-control" value="" disabled />
+                <input id="carId" name="carId" class="form-control" value=""/>
+            @endif
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Договор">

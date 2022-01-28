@@ -34,7 +34,7 @@ class EventTransferController extends Controller
      */
     public function create(MotorPoolService $motorPoolServ)
     {
-        $inputData=$this->request->validate(['carId'=>'integer|required','date'=>'required']);
+        $inputData=$this->request->validate(['carId'=>'','date'=>'required']);
         if ($inputData['date']){
             $dateTime=new Carbon($inputData['date']);
         } else{
@@ -54,6 +54,7 @@ class EventTransferController extends Controller
      */
     public function store(EventTransferService $eventTransferServ)
     {
+
         $inputData=$this->request->validate([
             'eventId'=>'required',
             'carId'=>'integer|required',

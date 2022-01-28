@@ -42,10 +42,11 @@ class TimeSheetController extends Controller
 
     public function addEvent(RentEventService $rentEventServ,MotorPoolService $motorPoolServ)
     {
-        $validate=$this->request->validate(['carId'=>'required|integer',
+        $validate=$this->request->validate(['carId'=>'',
             'date'=>'required'
         ]);
-        $carObj=$motorPoolServ->getCar($validate['carId']);
+        $carId=$validate['carId'] ??0;
+        $carObj=$motorPoolServ->getCar( $carId);
         $date=new Carbon($validate['date']);
         $rentEventsObj=$rentEventServ->getRentEvents();
         return view('rentEvent.addEvent',['carObj'=>$carObj,'dateTime'=>$date,'rentEvents'=>$rentEventsObj]);

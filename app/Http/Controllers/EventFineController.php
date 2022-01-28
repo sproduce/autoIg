@@ -35,7 +35,7 @@ class EventFineController extends Controller
     public function create(MotorPoolService $motorPoolServ)
     {
         $inputData=$this->request->validate([
-            'carId'=>'integer|required',
+            'carId'=>'',
             'date'=>'required']);
 
         if ($inputData['date']){
