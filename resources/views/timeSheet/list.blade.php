@@ -60,7 +60,7 @@
                                 <div class="p-0 row m-0">
                                     @for($j=1;$j<=6;$j++)
                                         @if(isset($timeSheet[$i*6+$j]))
-                                            <div class="durationSize" data-datestart="{{$timeSheet[$i*6+$j]->dateTime}}" title="{{$timeSheet[$i*6+$j]->name}}" style="background-color:{{$timeSheet[$i*6+$j]->color}};" ></div>
+                                            <div class="durationSize border-right" data-datestart="{{$timeSheet[$i*6+$j]->dateTime}}" title="{{$timeSheet[$i*6+$j]->name}}" style="background-color:{{$timeSheet[$i*6+$j]->color}};" ></div>
                                         @else
                                             <div class="durationSize"></div>
                                         @endif

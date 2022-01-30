@@ -25,16 +25,17 @@
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="start" title="Начало аренда">Начало аренды</label>
-            <input type="datetime-local" name="start" id="start" class="form-control" value="{{$dateTime->toDateTimeLocalString()}}"/>
+            <input type="datetime-local" step="any" name="start" id="start" class="form-control" value="{{$dateTime->toDateTimeLocalString()}}"/>
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="finish" title="Окончание аренды">Окончание аренды</label>
-            <input type="datetime-local" name="finish" id="finish" class="form-control"/>
+            <input type="datetime-local" step="any" name="finish" id="finish" class="form-control"/>
         </div>
     </div>
 
         <div class="form-row text-center inputLine">
             <input type="datetime-local" class="dateTimeSheet" step="any" name="dateTimeSheet[]" hidden/>
+            <input type="number" class="duration" name="duration[]" hidden/>
             <div class="col-1">
                 <label></label>
             </div>
@@ -67,7 +68,7 @@
         var end = new Date($('#finish').val());
         var millisBetween = start.getTime() - end.getTime();
         var days = millisBetween / (1000 * 3600 * 24);
-        var kolDays=Math.round(Math.abs(days));
+        var kolDays=Math.ceil(Math.abs(days));
         var copyLine=$('.inputLine:first').clone(true);
         $('#formSubmit').prop('disabled', false);
         $('.inputLine').remove();

@@ -33,6 +33,9 @@ Class TimeSheetService{
                 //echo $periodDate->getStartDate()->format('Y-m-d H:m');
                 $currentDateTime=Carbon::parse($dayTimeSheet->dateTime);
                 $fromBox=ceil($periodDate->getStartDate()->DiffInMinutes($currentDateTime)/240);
+                if ($fromBox==$periodDate->getStartDate()->DiffInMinutes($currentDateTime)/240){
+                    $fromBox++;
+                }
                 //$fromBox=$fromBox ??1;
                 $toBox=$fromBox+ceil($dayTimeSheet->duration/4);
                 for($i=$fromBox;$i<=$toBox;$i++){
