@@ -10,7 +10,7 @@
             <input id="carId" name="carId" class="form-control" value="{{$carObj->id}}" hidden/>
             @else
                 <input id="carText" class="form-control" value="" disabled />
-                <input id="carId" name="carId" class="form-control" value=""/>
+                <input id="carId" name="carId" class="form-control" value="" hidden/>
             @endif
         </div>
         <div class="form-group col-md-3 input-group-sm">
@@ -24,11 +24,15 @@
     </div>
 
     <div class="form-row text-center">
-        <div class="form-group col-md-3 input-group-sm">
-            <label for="dateTimeTransfer" title="Дата приема/передачи">Дата время приема/передачи</label>
-            <input type="datetime-local" name="dateTimeTransfer" id="dateTimeTransfer" class="form-control" step="any" value="{{$dateTime->toDateTimeLocalString()}}"/>
+        <div class="form-group col-md-2 input-group-sm">
+            <label for="dateTransfer" title="Дата приема/передачи">Дата приема/передачи</label>
+            <input type="date" name="dateTransfer" id="dateTransfer" class="form-control" step="any" value="{{$dateTime->format('Y-m-d')}}"/>
         </div>
-        <div class="form-group col-md-3 input-group-sm">
+        <div class="form-group col-md-2 input-group-sm">
+            <label for="timeTransfer" title="Время приема/передачи">Время приема/передачи</label>
+            <input type="time" step="60" name="timeTransfer" id="timeTransfer" class="form-control" step="any" value="{{$dateTime->format('H:i')}}"/>
+        </div>
+        <div class="form-group col-md-2 input-group-sm">
             <label for="typeTransfer" title="Тип операции">Тип операции</label>
             <select name="typeTransfer" id="typeTransfer"  class="form-control" >
                 <option value="0">Передача</option>

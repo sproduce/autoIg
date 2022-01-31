@@ -59,7 +59,8 @@ class EventTransferController extends Controller
             'eventId'=>'required',
             'carId'=>'integer|required',
             'typeTransfer'=>'required',
-            'dateTimeTransfer'=>'required',
+            'dateTransfer'=>'required',
+            'timeTransfer'=>'required',
             'contractId'=>'']);
 
         $inputData['eventId']= $this->eventObj->id;

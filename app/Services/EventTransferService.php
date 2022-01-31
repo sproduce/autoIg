@@ -27,8 +27,8 @@ Class EventTransferService{
         $timesheetData['dataId']=$eventTransferObj->id;
         $timesheetData['color']=$dataArray['color'];
         $timesheetData['duration']=$dataArray['duration'] ?? 1;
-
-        $timesheetData['dateTime']=date("Y-m-d H:i:s",strtotime($dataArray['dateTimeTransfer']));
+        $dateTime=$dataArray['dateTransfer'].' '.$dataArray['timeTransfer'];
+        $timesheetData['dateTime']=date("Y-m-d H:i:00",strtotime($dateTime));
         $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
     }
 

@@ -12,13 +12,16 @@
                 @endforeach
             </select>
         </div>
-        <div class="p-2">Машина: {{$carObj->nickName}}</div>
+        @if($carObj->id)
+            <div class="p-2">Машина: {{$carObj->nickName}}</div>
+        @endif
+
         <div class="p-2">Дата: {{$dateTime->format('d-m-Y')}}</div>
     </div>
 
     <input value="{{$dateTime->format('d-m-Y')}}" name="dateTime" id="dateTime" hidden/>
 
-    <input name="carId" value="{{$carObj->id}}" id="carId" hidden/>
+    <input name="currentCarId" value="{{$carObj->id}}" id="currentCarId" hidden/>
 
 @endsection
 
@@ -37,7 +40,7 @@
     $( "#eventId" ).change(function() {
         $("#placeholderSelect").remove();
 
-        $("#eventForm").load('/'+$("#eventId").val()+'/create?carId='+$("#carId").val()+'&date='+$("#dateTime").val(),function(){
+        $("#eventForm").load('/'+$("#eventId").val()+'/create?carId='+$("#currentCarId").val()+'&date='+$("#dateTime").val(),function(){
             initDialogWindow();
         });
     });

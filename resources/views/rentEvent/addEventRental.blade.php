@@ -7,7 +7,7 @@
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Автомобиль">
                 Машина
-                <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                <a href="/contract/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
             </label>
             <input id="carText" class="form-control" value="{{$carObj->nickName}}" disabled />
             <input id="carId" name="carId" class="form-control" value="{{$carObj->id}}" hidden />
@@ -25,7 +25,7 @@
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="start" title="Начало аренда">Начало аренды</label>
-            <input type="datetime-local" step="any" name="start" id="start" class="form-control" value="{{$dateTime->toDateTimeLocalString()}}"/>
+            <input type="datetime-local" step="60" name="start" id="start" class="form-control" value="{{$dateTime->toDateTimeLocalString()}}"/>
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="finish" title="Окончание аренды">Окончание аренды</label>
@@ -35,7 +35,7 @@
 
         <div class="form-row text-center inputLine">
             <input type="datetime-local" class="dateTimeSheet" step="any" name="dateTimeSheet[]" hidden/>
-            <input type="number" class="duration" name="duration[]" hidden/>
+
             <div class="col-1">
                 <label></label>
             </div>
