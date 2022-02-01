@@ -37,10 +37,21 @@ Class TimeSheetService{
                     $fromBox++;
                 }
                 //$fromBox=$fromBox ??1;
-                $toBox=$fromBox+ceil($dayTimeSheet->duration/4);
+                $toBox=$fromBox+ceil($dayTimeSheet->duration/240);
                 for($i=$fromBox;$i<=$toBox;$i++){
-                    $resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]=$dayTimeSheet;
-                    $resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]->comment=$periodDate->getStartDate()->diffInHours($currentDateTime);
+                    $resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]['data']=$dayTimeSheet;
+                    if ($i==$fromBox){
+                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]['first']=true;
+                    } else {
+                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]['first']=false;
+                    }
+                    if ($i==$toBox){
+                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]['last']=true;
+                    } else {
+                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]['last']=false;
+                    }
+
+                    //$resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]->comment=$periodDate->getStartDate()->diffInHours($currentDateTime);
                 }
                 //echo $fromBox." - ".$toBox;
                 //var_dump($dayTimeSheet);
