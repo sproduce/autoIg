@@ -17,6 +17,7 @@ Class EventFineService{
 
     public function addEvent($dataArray)
     {
+        $dateTime=$dataArray['dateFine'].' '.$dataArray['timeFine'];
         $eventFineData['contractId']=$dataArray['contractId'];
         $eventFineData['dateTimeOrder']=$dataArray['dateOrder'];
         $eventFineData['uin']=$dataArray['uin'];
@@ -24,7 +25,7 @@ Class EventFineService{
         $eventFineData['datePayMax']=$dataArray['datePayMax'];
         $eventFineData['sum']=$dataArray['sum'];
         $eventFineData['sumSale']=$dataArray['sumSale'];
-        $eventFineData['dateTimeFine']=$dataArray['dateTimeFine'];
+        $eventFineData['dateTimeFine']=date("Y-m-d H:i:00",strtotime($dateTime));//remove
 
         $eventFineObj=$this->eventFineRep->addEventFine($eventFineData);
         $timesheetData['carId']=$dataArray['carId'];
@@ -33,7 +34,10 @@ Class EventFineService{
         $timesheetData['dataId']=$eventFineObj->id;
         $timesheetData['color']=$dataArray['color'];
         $timesheetData['duration']=$dataArray['duration'] ?? 1;
-        $timesheetData['dateTime']=date("Y-m-d H:i:s",strtotime($dataArray['dateTimeFine']));
+
+        $dateTime=$dataArray['dateFine'].' '.$dataArray['timeFine'];
+        $timesheetData['dateTime']=date("Y-m-d H:i:00",strtotime($dateTime));
+
 
         $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
 

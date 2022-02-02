@@ -23,13 +23,17 @@
 
 
     <div class="form-row text-center">
-        <div class="form-group col-md-3 input-group-sm">
+        <div class="form-group col-md-2 input-group-sm">
             <label for="dateOrder" title="Дата постановления">Дата постановления</label>
-            <input type="date" name="dateOrder" id="dateOrder" class="form-control"/>
+            <input type="date" name="dateOrder" id="dateOrder" class="form-control" required/>
         </div>
-        <div class="form-group col-md-3 input-group-sm">
-            <label for="dateTimeFine" title="Дата нарушения">Дата нарушения</label>
-            <input type="datetime-local" name="dateTimeFine" id="dateTimeFine" class="form-control" value="{{$dateTime->toDateTimeLocalString()}}"/>
+        <div class="form-group col-md-2 input-group-sm">
+            <label for="dateFine" title="Дата нарушения">Дата нарушения</label>
+            <input type="datetime" name="dateFine" id="dateFine" class="form-control" value="{{$dateTime->toDateString()}}"/>
+        </div>
+        <div class="form-group col-md-2 input-group-sm">
+            <label for="timeFine" title="Время нарушения">Время нарушения</label>
+            <input type="time" name="timeFine" id="timeFine" class="form-control" value="{{$dateTime->format('H:i')}}"/>
         </div>
     </div>
     <div class="form-row text-center">

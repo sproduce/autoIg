@@ -26,11 +26,6 @@ Class EventRentalService{
         $colIteration=floor($diffMinutes/$dataArray['duration']);
         $deltaMinutes=$diffMinutes-$colIteration*$dataArray['duration'];
 
-        //echo $colIteration.' '.$deltaMinutes;
-        //echo $startCarbon->toDateTimeString();
-        //echo $startCarbon->diffInMinutes($finishDateText);
-
-
         $eventRentalData['contractId']=$dataArray['contractId'];
         $eventRentalObj=$this->eventRentalRep->addEventRental($eventRentalData);
 

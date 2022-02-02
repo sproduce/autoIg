@@ -59,7 +59,8 @@ class EventFineController extends Controller
         $inputData=$this->request->validate([
             'carId'=>'integer|required',
             'dateOrder'=>'required',
-            'dateTimeFine'=>'required',
+            'dateFine'=>'required',
+            'timeFine'=>'required',
             'uin'=>'',
             'datePaySale'=>'',
             'datePayMax'=>'',
