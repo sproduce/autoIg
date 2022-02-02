@@ -9,7 +9,7 @@
                 Машина
                 <a href="/contract/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
             </label>
-            <input id="carText" class="form-control" value="{{$carObj->nickName}}" disabled />
+            <input id="carText" class="form-control" value="{{$carObj->nickName}}" readonly required />
             <input id="carId" name="carId" class="form-control" value="{{$carObj->id}}" hidden />
         </div>
         <div class="form-group col-md-3 input-group-sm">
@@ -34,16 +34,16 @@
         <div class="form-group col-md-3 input-group-sm">
             <div class="form-row">
                 <div class="form-group col-md-6 input-group-sm">
-                <label for="timeDuration" title="Количество суток">Количество суток</label>
-                <input type="number" name="timeDuration" id="timeDuration" step="1" class="form-control"/>
+                    <label for="timeDuration" title="Количество суток">Количество суток</label>
+                    <input type="number" name="timeDuration" id="timeDuration" step="1" class="form-control" value="0"/>
                 </div>
                 <div class="form-group col-md-2 input-group-sm">
                     <label>+1</label>
-                    <div class="btn btn-outline-primary btn-ssm form-control">+1</div>
+                    <div class="btn btn-outline-primary btn-ssm form-control" id="addDay">+1</div>
                 </div>
                 <div class="form-group col-md-2 input-group-sm">
                     <label>+7</label>
-                    <div class="btn btn-outline-primary btn-ssm form-control">+7</div>
+                    <div class="btn btn-outline-primary btn-ssm form-control" id="add7Day">+7</div>
                 </div>
             </div>
 
@@ -56,7 +56,7 @@
     <div class="form-row text-center">
         <div class="form-group col-md-2 input-group-sm">
             <label for="dateFinish" title="Окончание аренды">Дата окончания аренды</label>
-            <input type="date" name="dateFinish" id="dateFinish" class="form-control" disabled/>
+            <input type="date" name="dateFinish" id="dateFinish" class="form-control" readonly/>
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="timeFinish" title="Окончание аренды">Время окончания аренды</label>
@@ -65,17 +65,10 @@
     </div>
 
         <div class="form-row text-center inputLine">
-            <input type="datetime-local" class="dateTimeSheet" step="any" name="dateTimeSheet[]" hidden/>
-
             <div class="col-1">
                 <label></label>
             </div>
             <div class="input-group col-3 mb-3">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <input type="checkbox" name="sumCheck[]" checked>
-                    </div>
-                </div>
                 <input type="text" name="sum[]" class="form-control form-control-sm inputLineSum" autocomplete="off">
             </div>
         </div>
@@ -92,36 +85,6 @@
         $('#formSubmit').prop('disabled', true);
     });
 
-
-    $("#finish").change(function(){
-        var start = new Date($('#start').val());
-
-        var end = new Date($('#finish').val());
-        var millisBetween = start.getTime() - end.getTime();
-        var days = millisBetween / (1000 * 3600 * 24);
-        var kolDays=Math.ceil(Math.abs(days));
-
-        var dateFrom,dateTo;
-
-        for(i=0;i<kolDays;i++){
-            dateFrom=start.getDate();
-
-            var userTimezoneOffset = start.getTimezoneOffset() * 60000;
-            var tmpDate=new Date(start.getTime() - userTimezoneOffset);
-            var dateTimeFormat=tmpDate.toISOString();
-
-            copyLine.find(".dateTimeSheet").val(dateTimeFormat.substring(0,dateTimeFormat.length-1));
-            start.setDate(start.getDate()+1);
-            dateTo=start.getDate();
-            copyLine.find("label").text(dateFrom+' - '+dateTo);
-
-            copyLine.insertBefore("#last-row");
-            copyLine=$('.inputLine:first').clone(true);
-        }
-
-    });
-
-
     $("#contractId").change(function(){
         $.get( "/api/getContractInfo/"+ $("#contractId").val(), function( data ) {
             $('.inputLineSum').val(data.sum);
@@ -133,27 +96,47 @@
     });
 
     $("#timeDuration").change(function(){
-        var start = new Date($('#dateStart').val());
+        var startDate = new Date($('#dateStart').val());
         var copyLine=$('.inputLine:first').clone(true);
         var kolDay=parseInt($("#timeDuration").val());
         $('#formSubmit').prop('disabled', false);
-        $('.inputLine').remove();
+        if (kolDay){$('.inputLine').remove();}
         for(var i=0;i<kolDay;i++){
-            var dayFrom=start.getDate();
-                start.setDate(start.getDate()+1);
-            var dayTo=start.getDate();
-
+            var dayFrom=startDate.getDate();
+            startDate.setDate(startDate.getDate()+1);
+            var dayTo=startDate.getDate();
             copyLine.find("label").text(dayFrom+' - '+dayTo);
-
             copyLine.insertBefore("#last-row");
             copyLine=$('.inputLine:first').clone(true);
         }
 
-        $('#dateFinish').val(start.toISOString().split('T')[0]);
-        console.log(start.toISOString());
-        console.log($("#timeDuration").val());
+        $('#dateFinish').val(startDate.toISOString().split('T')[0]);
+        $("#timeFinish").val($("#timeStart").val());
     });
 
+
+
+    $("#addDay").click(function(){
+        $("#timeDuration").val(parseInt($("#timeDuration").val())+1);
+        $("#timeDuration").change();
+    });
+    $("#add7Day").click(function(){
+        $("#timeDuration").val(parseInt($("#timeDuration").val())+7);
+        $("#timeDuration").change();
+    });
+
+    $("#timeFinish").change(function(){
+        var timeFrom= new Date(),timeTo=new Date(),dateTo=new Date($('#dateFinish').val());
+        timeTo.setHours(parseInt($("#timeFinish").val().split(':')[0]),parseInt($("#timeFinish").val().split(':')[1]) );
+        timeFrom.setHours(parseInt($("#timeStart").val().split(':')[0]),parseInt($("#timeStart").val().split(':')[1]) );
+        var deltaminute=(timeTo-timeFrom)/60/1000;
+        if (timeTo-timeFrom>0){
+            var copyLine=$('.inputLine:first').clone(true);
+            copyLine.find("label").text(dateTo.getDate()+" ("+deltaminute+")m");
+            copyLine.find("input").addClass("border border-danger");
+            copyLine.insertBefore("#last-row");
+        }
+    });
 
 
 </script>

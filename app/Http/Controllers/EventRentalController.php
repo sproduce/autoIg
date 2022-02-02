@@ -59,16 +59,18 @@ class EventRentalController extends Controller
     {
         $inputData=$this->request->validate([
             'carId'=>'integer|required',
-            'dateTimeSheet'=>'array|min:1',
+            'dateStart'=>'required',
+            'timeStart'=>'required',
+            'dateFinish'=>'required',
+            'timeFinish'=>'required',
             'sum'=>'array',
-            'duration'=>'',
             'contractId'=>'']);
 
         $inputData['eventId']= $this->eventObj->id;
         $inputData['color']=$this->eventObj->color;
+        $inputData['duration']=$this->eventObj->duration;
         $eventRentalServ->addEvent($inputData);
         return redirect('/timesheet/list');
-
     }
 
     /**

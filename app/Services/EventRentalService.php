@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Repositories\Interfaces\EventRentalRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 
+use Carbon\Carbon;
+
 Class EventRentalService{
     private $eventRentalRep,$timeSheetRep;
 
@@ -17,8 +19,21 @@ Class EventRentalService{
 
     public function addEvent($dataArray)
     {
+        $startDateText=$dataArray['dateStart'].' '.$dataArray['timeStart'];
+        $finishDateText=$dataArray['dateFinish'].' '.$dataArray['timeFinish'];
+        $startCarbon=new Carbon($startDateText);
+        $diffMinutes=$startCarbon->diffInMinutes($finishDateText);
+        $colIteration=floor($diffMinutes/$dataArray['duration']);
+        $deltaMinutes=$diffMinutes-$colIteration*$dataArray['duration'];
+
+        //echo $colIteration.' '.$deltaMinutes;
+        //echo $startCarbon->toDateTimeString();
+        //echo $startCarbon->diffInMinutes($finishDateText);
+
+
         $eventRentalData['contractId']=$dataArray['contractId'];
         $eventRentalObj=$this->eventRentalRep->addEventRental($eventRentalData);
+
         $timesheetData['carId']=$dataArray['carId'];
         $timesheetData['eventId']=$dataArray['eventId'];
         $timesheetData['comment']='';
@@ -26,17 +41,22 @@ Class EventRentalService{
         $timesheetData['color']=$dataArray['color'];
         $timesheetData['duration']=$dataArray['duration'];
 
-        foreach($dataArray['dateTimeSheet'] as $key=>$dateTime){
-            $timesheetData['dateTime']=date("Y-m-d H:i:s",strtotime($dateTime));
-            $timesheetData['sum']=$dataArray['sum'][$key];
+        for($i=0;$i<$colIteration;$i++)
+        {
+            $timesheetData['dateTime']=$startCarbon->toDateTimeString();
+            $timesheetData['sum']=$dataArray['sum'][$i]??0;
+            $startCarbon->addDays(1);
             $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
-            //$timeSheetObj->dd();
+        }
+        if ($deltaMinutes){
+            $timesheetData['dateTime']=$startCarbon->toDateTimeString();
+            $timesheetData['sum']=$dataArray['sum'][$colIteration]??0;
+            $timesheetData['duration']=$deltaMinutes;
+            $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
         }
 
+
+
     }
-
-
-
-
 
 }
