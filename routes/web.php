@@ -12,7 +12,8 @@ use App\Http\Controllers\CarOwnerController;
 use App\Http\Controllers\EventRentalController;
 use App\Http\Controllers\EventFineController;
 use App\Http\Controllers\EventTransferController;
-
+use App\Http\Controllers\EventPhotocontrolController;
+use App\Http\Controllers\EventCrashController1;
 
 /*
 |--------------------------------------------------------------------------
@@ -149,3 +150,5 @@ Route::get('/carOwner/search',[CarOwnerController::class,'search']);
 Route::resource('eventRental', EventRentalController::class);
 Route::resource('eventTransfer', EventTransferController::class);
 Route::resource('eventFine', EventFineController::class);
+Route::resource('eventPhotocontrol', EventPhotocontrolController::class);
+Route::resource('eventCrash', EventCrashController1::class);
