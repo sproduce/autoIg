@@ -9,7 +9,7 @@ class EventRentalRepository implements EventRentalRepositoryInterface
 {
 public function getEventRental($id)
 {
-    // TODO: Implement getEventRental() method.
+    return rentEventRental::find($id)?? new rentEventRental;
 }
 
 public function addEventRental($dataArray)

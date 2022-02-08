@@ -9,7 +9,7 @@ class EventTransferRepository implements EventTransferRepositoryInterface
 {
 public function getEventTransfer($id)
 {
-    // TODO: Implement getEventRental() method.
+    return rentEventTransfer::find($id)?? new rentEventTransfer;
 }
 
 public function addEventTransfer($dataArray)

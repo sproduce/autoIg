@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRentEventPhotocontrolsTable extends Migration
+class CreatePhotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateRentEventPhotocontrolsTable extends Migration
      */
     public function up()
     {
-        Schema::create('rent_event_photocontrols', function (Blueprint $table) {
+        Schema::create('photos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-            $table->unsignedBigInteger('personId')->nullable();
-            $table->uuid('uuid')->nullable();
-            $table->string('comment')->nullable();
+            $table->uuid('uuid');
+            $table->binary('photo');
         });
     }
 
@@ -30,6 +29,6 @@ class CreateRentEventPhotocontrolsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rent_event_photocontrols');
+        Schema::dropIfExists('photos');
     }
 }

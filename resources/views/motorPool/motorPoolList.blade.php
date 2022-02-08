@@ -47,6 +47,9 @@
                     {{$car->nickName}}
                 </div>
                 <div class="col-2">
+                    <a href="/timesheet/add?carId={{$car->id}}" title="Добавить события" class="btn btn-ssm btn-outline-primary">
+                        <i class="fas fa-calendar-alt"></i>
+                    </a>
                     <a href="" title="Документы" class="btn btn-ssm btn-outline-success">
                         <i class="far fa-file-alt"></i>
                     </a>

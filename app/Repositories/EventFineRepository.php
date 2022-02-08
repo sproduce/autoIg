@@ -9,7 +9,7 @@ class EventFineRepository implements EventFineRepositoryInterface
 {
 public function getEventFine($id)
 {
-    // TODO: Implement getEventRental() method.
+    return rentEventFine::find($id)?? new rentEventFine;
 }
 
 public function addEventFine($dataArray)

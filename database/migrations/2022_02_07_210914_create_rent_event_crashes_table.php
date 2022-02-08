@@ -16,6 +16,11 @@ class CreateRentEventCrashesTable extends Migration
         Schema::create('rent_event_crashes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
+            $table->unsignedBigInteger('personId')->nullable();
+            $table->string('comment')->nullable();
+            $table->boolean('culprit')->nullable();
+            $table->unsignedInteger('sum')->nullable();
         });
     }
 

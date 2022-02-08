@@ -22,7 +22,9 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     {
         $finish = date('Y-m-d', strtotime($date . ' +1 day'));
 
-        return timeSheet::query()->whereBetween('dateTime',[$date,$finish])->where('carId','=',$carId)->orderBy('dateTime')->get();
+        return timeSheet::query()->
+                whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and carId=?',[$date,$finish,$carId])->
+                orWhereBetween('dateTime',[$date,$finish])->where('carId','=',$carId)->orderBy('dateTime')->get();
     }
 
 
