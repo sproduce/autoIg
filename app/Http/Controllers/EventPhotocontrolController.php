@@ -8,6 +8,7 @@ use App\Services\PhotoService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+
 class EventPhotocontrolController extends Controller
 {
 
