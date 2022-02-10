@@ -19,13 +19,14 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         return DB::table('time_sheets')->leftJoin('rent_events','time_sheets.eventId','=','rent_events.id')->get(['time_sheets.*','rent_events.priority','rent_events.name']);
     }
 
-    public function getCarTimeSheetByDate($carId, $date)
+    public function getCarTimeSheetByDate($carId, $datePeriod)
     {
-        $finish = date('Y-m-d', strtotime($date . ' +1 day'));
+        $startDate=$datePeriod->getStartDate()->format('Y-m-d');
+        $finishDate=$datePeriod->getEndDate()->format('Y-m-d');
 
         return timeSheet::query()->
-                whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and carId=?',[$date,$finish,$carId])->
-                orWhereBetween('dateTime',[$date,$finish])->where('carId','=',$carId)->orderBy('dateTime')->get();
+                whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and carId=?',[$startDate,$finishDate,$carId])->
+                orWhereBetween('dateTime',[$startDate,$finishDate])->where('carId','=',$carId)->orderBy('dateTime')->get();
     }
 
 
@@ -50,11 +51,10 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         // TODO: Implement updateTimeSheet() method.
     }
 
-    public function getCarTimeSheetByPeriod($carId,CarbonPeriod $periodDate)
+
+    public function getCarSpanTimeSheet($carId, CarbonPeriod $periodDate)
     {
-        $fromDate=$periodDate->getStartDate()->format('Y-m-d');
-        $toDate=$periodDate->getEndDate()->format('Y-m-d');
-        return timeSheet::query()->whereBetween('dateTime',$fromDate,$toDate)->where('carId',$carId)->get();
+        //select min(dateTime),max(dateTime),eventId,dataId,duration from time_sheets where carId=12 group by eventId,dataId order by dateTime
     }
 
 

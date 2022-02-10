@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DateSpan;
-use App\Repositories\MotorPoolRepository;
-use App\Services\MotorPoolService;
+use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Services\RentEventService;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
@@ -15,15 +14,16 @@ use App\Services\TimeSheetService;
 
 class TimeSheetController extends Controller
 {
-    private $request;
+    private $request,$motorPoolRep;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request,MotorPoolRepositoryInterface $motorPoolRep)
     {
         $this->request=$request;
+        $this->motorPoolRep=$motorPoolRep;
     }
 
 
-    public function show(TimeSheetService $timeSheetServ,MotorPoolRepository $motorPoolRep)
+    public function show(TimeSheetService $timeSheetServ)
     {
         $validate=$this->request->validate(['currentDate'=>'date']);
 
@@ -37,20 +37,20 @@ class TimeSheetController extends Controller
         $periodDate=CarbonPeriod::create($dateFrom,$dateTo);
 
         $timeSheetArray = $timeSheetServ->getCarsTimeSheets($periodDate);
-        $motorPoolObj=$motorPoolRep->getCars();
+        $motorPoolObj=$this->motorPoolRep->getCars();
         return view('timeSheet.list', ['timeSheetArray' => $timeSheetArray, 'periodDate' => $periodDate,'currentDate'=> $currentDate,'motorPoolObj'=>$motorPoolObj]);
     }
 
 
 
-    public function addEvent(RentEventService $rentEventServ,MotorPoolService $motorPoolServ)
+    public function addEvent(RentEventService $rentEventServ)
     {
         $validate=$this->request->validate(['carId'=>'',
             'date'=>''
         ]);
         $carId=$validate['carId'] ??0;
         $selectDate=$validate['date'] ?? '';
-        $carObj=$motorPoolServ->getCar( $carId);
+        $carObj=$this->motorPoolRep->getCar($carId);
         $date=new Carbon($selectDate);
         $rentEventsObj=$rentEventServ->getRentEvents();
         return view('rentEvent.addEvent',['carObj'=>$carObj,'dateTime'=>$date,'rentEvents'=>$rentEventsObj]);
@@ -61,7 +61,11 @@ class TimeSheetController extends Controller
         $validate=$this->request->validate(['carId'=>'required|integer',
             'date'=>'required'
         ]);
-        $timeSheetsObj=$timeSheetServ->getCarTimeSheets($validate['carId'],$validate['date']);
+        $datePeriod=new CarbonPeriod($validate['date']);
+        $datePeriod->setEndDate($datePeriod->getStartDate()->addDay(1));
+
+        $carObj=$this->motorPoolRep->getCar($validate['carId']);
+        $timeSheetsObj=$timeSheetServ->getCarTimeSheets($carObj,$datePeriod);
         return view('dialog.TimeSheet.infoTimeSheet',['timeSheets'=>$timeSheetsObj]);
     }
 
@@ -85,27 +89,15 @@ class TimeSheetController extends Controller
 
 
 
-    public function showCarTimeSheet(MotorPoolRepository $motorPoolRep,DateSpan $datePeriod)
+    public function showCarTimeSheet(DateSpan $dateSpan,TimeSheetService $timeSheetServ)
     {
-        var_dump($datePeriod->validated());
-        $validate=$this->request->validate(['carId'=>'required|integer',
-            'fromDate'=>'',
-            'toDate'=>'']);
-        if (isset($validate['toDate'])){
-            $toDate=CarbonImmutable::create($validate['toDate']);
-        }else{
-            $toDate=CarbonImmutable::today();
-        }
+        $dateFromTo=$dateSpan->validated();
+        $periodDate=new CarbonPeriod($dateFromTo['fromDate'],$dateFromTo['toDate']);
+        $validate=$this->request->validate(['carId'=>'required|integer']);
+        $carObj=$this->motorPoolRep->getCar($validate['carId']);
+        $timeSheetsObj=$timeSheetServ->getCarTimeSheets($carObj,$periodDate);
 
-        if (isset($validate['fromDate'])){
-            $fromDate=new Carbon($validate['fromDate']);
-        } else {
-            $fromDate=$toDate->subMonth(1);
-        }
-        $periodDate=CarbonPeriod::create($fromDate,$toDate);
-        $carObj=$motorPoolRep->getCar($validate['carId']);
-
-        return view('timeSheet.car',['carObj'=>$carObj]);
+        return view('timeSheet.car',['carObj' => $carObj,'periodDate' => $periodDate,'timeSheetsObj'=>$timeSheetsObj]);
     }
 
 }

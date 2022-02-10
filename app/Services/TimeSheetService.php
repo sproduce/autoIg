@@ -42,10 +42,15 @@ Class TimeSheetService{
         return $resultArray ?? [];
     }
 
-    public function getCarTimeSheets($carId,$date)
+    public function getCarTimeSheets($carObj,$datePeriod)
     {
-             $result=$this->timeSheetRep->getCarTimeSheetByDate($carId,$date);
+        $result=$this->timeSheetRep->getCarTimeSheetByDate($carObj->id,$datePeriod);
         return $result;
+    }
+
+    public function getCarSpanTimeSheets($carObj,$datePeriod)
+    {
+
     }
 
 

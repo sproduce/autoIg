@@ -51,7 +51,7 @@
         @foreach($motorPoolObj as $car)
             <div class="row flex-nowrap carInfo" data-carid="{{$car->id}}">
                 <div class="col p-0 text-left border carInfoSize">
-                    <div class="p-0">{{$car->nickName}}</div>
+                    <div class="p-0"><a href="/timesheet/car?carId={{$car->id}}">{{$car->nickName}}</a></div>
                 </div>
                 @for($i=0;$i<21;$i++)
                     <div class="col p-0 daySize border timeClickable" data-datetime="{{$periodDate->getStartDate()->addDays($i)->format('Y-m-d')}}">

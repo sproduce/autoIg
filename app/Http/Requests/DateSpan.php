@@ -23,8 +23,8 @@ class DateSpan extends FormRequest
     {
         $input=parent::all();
         if (empty($input['fromDate'])||empty($input['toDate'])){
-            $fromDate=CarbonImmutable::today();
-            $toDate=$fromDate->subMonth(1);
+            $toDate=CarbonImmutable::today();
+            $fromDate=$toDate->subMonth(1);
             $this->merge(['fromDate'=>$fromDate->format('Y-m-d'),
                 'toDate'=>$toDate->format('Y-m-d')]
             );
@@ -42,6 +42,7 @@ class DateSpan extends FormRequest
      */
     public function rules()
     {
+
         return [
             'fromDate' => 'date',
             'toDate' => 'date'
