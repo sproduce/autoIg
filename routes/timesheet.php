@@ -13,3 +13,4 @@ Route::post('/add',[TimeSheetController::class,'add']);
 
 Route::get('/edit',[TimeSheetController::class,'editEventDialog']);
 
+Route::get('/car',[TimeSheetController::class,'showCarTimeSheet']);

@@ -3,6 +3,8 @@
 namespace App\Repositories\Interfaces;
 
 
+use Carbon\CarbonPeriod;
+
 interface TimeSheetRepositoryInterface
 {
     public function getTimeSheets($dateFrom,$dateTo);
@@ -12,4 +14,5 @@ interface TimeSheetRepositoryInterface
     public function addTimeSheet($dataArray);
     public function updateTimeSheet($id,$dataArray);
     public function getCarTimeSheetByDate($carId,$date);
+    public function getCarTimeSheetByPeriod($carId,CarbonPeriod  $periodDate);
 }

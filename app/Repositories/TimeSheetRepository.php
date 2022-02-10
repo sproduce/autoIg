@@ -3,6 +3,7 @@
 namespace App\Repositories;
 use App\Models\timeSheet;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
 
 
@@ -48,6 +49,14 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     {
         // TODO: Implement updateTimeSheet() method.
     }
+
+    public function getCarTimeSheetByPeriod($carId,CarbonPeriod $periodDate)
+    {
+        $fromDate=$periodDate->getStartDate()->format('Y-m-d');
+        $toDate=$periodDate->getEndDate()->format('Y-m-d');
+        return timeSheet::query()->whereBetween('dateTime',$fromDate,$toDate)->where('carId',$carId)->get();
+    }
+
 
 }
 

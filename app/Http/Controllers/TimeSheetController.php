@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DateSpan;
 use App\Repositories\MotorPoolRepository;
 use App\Services\MotorPoolService;
 use App\Services\RentEventService;
@@ -10,6 +11,7 @@ use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Services\TimeSheetService;
+
 
 class TimeSheetController extends Controller
 {
@@ -24,6 +26,7 @@ class TimeSheetController extends Controller
     public function show(TimeSheetService $timeSheetServ,MotorPoolRepository $motorPoolRep)
     {
         $validate=$this->request->validate(['currentDate'=>'date']);
+
         if (isset($validate['currentDate'])){
             $currentDate=CarbonImmutable::create($validate['currentDate']);
         } else {
@@ -80,5 +83,29 @@ class TimeSheetController extends Controller
         return  redirect()->back();
     }
 
+
+
+    public function showCarTimeSheet(MotorPoolRepository $motorPoolRep,DateSpan $datePeriod)
+    {
+        var_dump($datePeriod->validated());
+        $validate=$this->request->validate(['carId'=>'required|integer',
+            'fromDate'=>'',
+            'toDate'=>'']);
+        if (isset($validate['toDate'])){
+            $toDate=CarbonImmutable::create($validate['toDate']);
+        }else{
+            $toDate=CarbonImmutable::today();
+        }
+
+        if (isset($validate['fromDate'])){
+            $fromDate=new Carbon($validate['fromDate']);
+        } else {
+            $fromDate=$toDate->subMonth(1);
+        }
+        $periodDate=CarbonPeriod::create($fromDate,$toDate);
+        $carObj=$motorPoolRep->getCar($validate['carId']);
+
+        return view('timeSheet.car',['carObj'=>$carObj]);
+    }
 
 }
