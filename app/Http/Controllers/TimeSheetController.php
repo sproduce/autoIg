@@ -14,31 +14,48 @@ use App\Services\TimeSheetService;
 
 class TimeSheetController extends Controller
 {
-    private $request,$motorPoolRep;
+    private $request,$motorPoolRep,$timeSheetServ;
 
-    public function __construct(Request $request,MotorPoolRepositoryInterface $motorPoolRep)
+    public function __construct(Request $request,MotorPoolRepositoryInterface $motorPoolRep,TimeSheetService $timeSheetServ)
     {
         $this->request=$request;
         $this->motorPoolRep=$motorPoolRep;
+        $this->timeSheetServ=$timeSheetServ;
     }
 
 
-    public function show(TimeSheetService $timeSheetServ)
+    public function show()
     {
-        $validate=$this->request->validate(['currentDate'=>'date']);
+        $validate=$this->request->validate(['currentDate'=>'date','subDays'=>'','addDays'=>'']);
 
         if (isset($validate['currentDate'])){
             $currentDate=CarbonImmutable::create($validate['currentDate']);
         } else {
             $currentDate = CarbonImmutable::today();
         }
-        $dateFrom=$currentDate->subDays(12);
-        $dateTo=$currentDate->addDays(8);
+        if (isset($validate['subDays'])){
+            $subDays=$validate['subDays'];
+        } else {
+            $subDays=12;
+        }
+        if (isset($validate['addDays'])){
+            $addDays=$validate['addDays'];
+        } else {
+            $addDays=7;
+        }
+
+        $dateFrom=$currentDate->subDays($subDays);
+        $dateTo=$currentDate->addDays($addDays);
         $periodDate=CarbonPeriod::create($dateFrom,$dateTo);
 
-        $timeSheetArray = $timeSheetServ->getCarsTimeSheets($periodDate);
+        $timeSheetArray = $this->timeSheetServ->getCarsTimeSheets($periodDate);
         $motorPoolObj=$this->motorPoolRep->getCars();
-        return view('timeSheet.list', ['timeSheetArray' => $timeSheetArray, 'periodDate' => $periodDate,'currentDate'=> $currentDate,'motorPoolObj'=>$motorPoolObj]);
+        return view('timeSheet.list', ['timeSheetArray' => $timeSheetArray,
+                                            'periodDate' => $periodDate,
+                                            'currentDate'=> $currentDate,
+                                            'motorPoolObj'=>$motorPoolObj,
+                                            'subDays'=>$subDays,
+                                            'addDays'=>$addDays]);
     }
 
 
@@ -56,7 +73,7 @@ class TimeSheetController extends Controller
         return view('rentEvent.addEvent',['carObj'=>$carObj,'dateTime'=>$date,'rentEvents'=>$rentEventsObj]);
     }
 
-    public function infoDialog(TimeSheetService $timeSheetServ)
+    public function infoDialog()
     {
         $validate=$this->request->validate(['carId'=>'required|integer',
             'date'=>'required'
@@ -65,39 +82,60 @@ class TimeSheetController extends Controller
         $datePeriod->setEndDate($datePeriod->getStartDate()->addDay(1));
 
         $carObj=$this->motorPoolRep->getCar($validate['carId']);
-        $timeSheetsObj=$timeSheetServ->getCarTimeSheets($carObj,$datePeriod);
+        $timeSheetsObj=$this->timeSheetServ->getCarTimeSheets($carObj,$datePeriod);
         return view('dialog.TimeSheet.infoTimeSheet',['timeSheets'=>$timeSheetsObj]);
     }
 
 
-    public function editEventDialog(TimeSheetService $timeSheetServ)
+    public function editEventDialog()
     {
-        //$validate=$this->request->validate(['carId'=>'required|integer']);
-        //$timeSheetsObj=$timeSheetServ->getCarTimeSheets();
-        //return view('dialog.TimeSheet.editEvent',['carId'=>$validate['carId'],'timeSheets'=>$timeSheetsObj]);
+        $validate=$this->request->validate(['timeSheetId'=>'required|integer']);
+        $timeSheetsObj=$this->timeSheetServ->getTimeSheetInfo($validate['timeSheetId']);
+        return view('dialog.TimeSheet.editEvent',['timeSheet'=>$timeSheetsObj]);
     }
 
 
 
 
 
-    public function add(TimeSheetService $timeSheetServ)
+
+
+    public function add()
     {
-        $timeSheetServ->addEvent();
+        $this->timeSheetServ->addEvent();
         return  redirect()->back();
     }
 
 
 
-    public function showCarTimeSheet(DateSpan $dateSpan,TimeSheetService $timeSheetServ)
+    public function showCarTimeSheet(DateSpan $dateSpan)
     {
         $dateFromTo=$dateSpan->validated();
         $periodDate=new CarbonPeriod($dateFromTo['fromDate'],$dateFromTo['toDate']);
         $validate=$this->request->validate(['carId'=>'required|integer']);
         $carObj=$this->motorPoolRep->getCar($validate['carId']);
-        $timeSheetsObj=$timeSheetServ->getCarTimeSheets($carObj,$periodDate);
+        $timeSheetsObj=$this->timeSheetServ->getCarTimeSheets($carObj,$periodDate);
 
-        return view('timeSheet.car',['carObj' => $carObj,'periodDate' => $periodDate,'timeSheetsObj'=>$timeSheetsObj]);
+        $timeSheetSpan=$this->timeSheetServ->getCarSpanTimeSheets($carObj,$periodDate);
+        //$timeSheetSpan->dd();
+        return view('timeSheet.car',['carObj' => $carObj,'periodDate' => $periodDate,
+            'timeSheetsObj'=>$timeSheetsObj,
+            'timeSheetSpan'=>$timeSheetSpan
+            ]);
     }
+
+    public function updateTimeSheet()
+    {
+        $validate=$this->request->validate(['timeSheetId'=>'required|integer',
+            'date'=>'',
+            'time'=>'',
+            'sum'=>'',
+            'mileage'=>'',
+            'duration'=>'']);
+        $this->timeSheetServ->updateTimeSheet($validate);
+        return  redirect()->back();
+
+    }
+
 
 }

@@ -10,6 +10,8 @@ class timeSheet extends Model
     use HasFactory;
     protected $fillable = ['carId', 'eventId','dateTime','sum','comment','mileage','pId','color','duration','dataId'];
 
+    protected $dates=['dateTime','fromDate','toDate'];
+
     protected static function boot()
     {
         parent::boot();

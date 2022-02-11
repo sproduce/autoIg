@@ -8,6 +8,7 @@ use Carbon\CarbonPeriod;
 interface TimeSheetRepositoryInterface
 {
     public function getTimeSheets($dateFrom,$dateTo);
+    public function getTimeSheet($timeSheetId);
     public function getTimeSheetsArray($dateFrom,$dateTo);
     public function getTimeSheetByDate($date);
     public function getTimeSheetById($id);

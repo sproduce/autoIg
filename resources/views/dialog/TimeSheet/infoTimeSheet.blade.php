@@ -17,7 +17,7 @@
         @foreach($timeSheets as $timeSheet)
         <div class="row row-table">
             <div class="col-3" style="background-color:{{$timeSheet->event->color}}">{{$timeSheet->event->name}}</div>
-            <div class="col-3" title="{{$timeSheet->comment}}">{{$timeSheet->dateTime}}</div>
+            <div class="col-3" title="{{$timeSheet->comment}}">{{$timeSheet->dateTime->format('d-m-Y h:i')}}</div>
             <div class="col-2">{{$timeSheet->duration}}</div>
             <div class="col-1">{{$timeSheet->sum}}</div>
             <div class="col-1"></div>

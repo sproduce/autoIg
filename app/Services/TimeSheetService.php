@@ -48,19 +48,28 @@ Class TimeSheetService{
         return $result;
     }
 
+    public function getTimeSheetInfo($timeSheetId)
+    {
+        return $this->timeSheetRep->getTimeSheet($timeSheetId);
+    }
+
+
+
     public function getCarSpanTimeSheets($carObj,$datePeriod)
     {
-
+        return $this->timeSheetRep->getCarSpanTimeSheet($carObj->id,$datePeriod);
     }
 
-
-    public function addEvent()
+    public function updateTimeSheet($timeSheetArray)
     {
-
-
+        $timeSheetId=$timeSheetArray['timeSheetId'];
+        $dateTime=$timeSheetArray['date'].' '.$timeSheetArray['time'];
+        $timesheetData['dateTime']=date("Y-m-d H:i:00",strtotime($dateTime));
+        $timesheetData['duration']=$timeSheetArray['duration'];
+        $timesheetData['sum']=$timeSheetArray['sum'];
+        $timesheetData['mileage']=$timeSheetArray['mileage'];
+        $this->timeSheetRep->updateTimeSheet($timeSheetId,$timesheetData);
     }
-
-
 
 
 }

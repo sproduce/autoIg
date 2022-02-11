@@ -14,8 +14,14 @@
 
     <form type="GET" action="">
         <div class="form-row text-center">
+            <div class="form-group col-md-1 input-group-sm">
+                <input type="number" class="form-control" name="subDays" value="{{$subDays}}"/>
+            </div>
             <div class="form-group col-md-2 input-group-sm">
                 <input type="date"  class="form-control" name="currentDate" value="{{$currentDate->format('Y-m-d')}}"/>
+            </div>
+            <div class="form-group col-md-1 input-group-sm">
+                <input type="number" class="form-control" name="addDays" value="{{$addDays}}"/>
             </div>
             <div class="form-group col-md-2 input-group-sm">
                 <input type="submit" class="btn btn-sm btn-primary" value="Показать"/>
@@ -40,7 +46,7 @@
                 @else
                     <div class="col daySize p-0 text-center border">
                         <div class="p-0">{{$date->isoFormat('ddd')}}<br/>
-                            <a href="?currentDate={{$date->format('Y-m-d')}}">{{$date->isoFormat('D')}}</a>
+                            <a href="?currentDate={{$date->format('Y-m-d')}}&subDays={{$subDays}}&addDays={{$addDays}}">{{$date->isoFormat('D')}}</a>
                         </div>
                     </div>
                 @endif
@@ -53,9 +59,12 @@
                 <div class="col p-0 text-left border carInfoSize">
                     <div class="p-0"><a href="/timesheet/car?carId={{$car->id}}">{{$car->nickName}}</a></div>
                 </div>
-                @for($i=0;$i<21;$i++)
+                @for($i=0;$i<$periodDate->count();$i++)
                     <div class="col p-0 daySize border timeClickable" data-datetime="{{$periodDate->getStartDate()->addDays($i)->format('Y-m-d')}}">
                         @if(isset($timeSheetArray[$car->id]))
+                            @php
+                                ksort($timeSheetArray[$car->id]);
+                            @endphp
                             @forelse($timeSheetArray[$car->id] as $timeSheet)
                                 <div class="p-0 row m-0">
                                     @for($j=1;$j<=6;$j++)

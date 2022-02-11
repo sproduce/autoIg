@@ -14,6 +14,12 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     {
         return timeSheet::query()->whereBetween('dateTime',[$dateFrom,$dateTo])->get();
     }
+
+    public function getTimeSheet($timeSheetId)
+    {
+        return timeSheet::find($timeSheetId);
+    }
+
     public function getTimeSheetsArray($dateFrom, $dateTo)
     {
         return DB::table('time_sheets')->leftJoin('rent_events','time_sheets.eventId','=','rent_events.id')->get(['time_sheets.*','rent_events.priority','rent_events.name']);
@@ -48,12 +54,14 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
 
     public function updateTimeSheet($id, $dataArray)
     {
-        // TODO: Implement updateTimeSheet() method.
+        timeSheet::where('id',$id)->update($dataArray);
     }
 
 
     public function getCarSpanTimeSheet($carId, CarbonPeriod $periodDate)
     {
+        //echo timeSheet::query()->selectRaw('min(dateTime),max(dateTime)') ->groupBy(['eventId','dataId'])->orderBy('dateTime')->toSql();
+       return timeSheet::query()->selectRaw('min(dateTime) as fromDate,max(dateTime) as toDate')->groupBy(['eventId','dataId'])->where('carId',$carId)->orderBy('dateTime')->get();
         //select min(dateTime),max(dateTime),eventId,dataId,duration from time_sheets where carId=12 group by eventId,dataId order by dateTime
     }
 
