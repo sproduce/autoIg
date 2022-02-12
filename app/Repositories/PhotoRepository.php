@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Repositories\Interfaces\PhotoRepositoryInterface;
-
+use App\Models\photo;
 
 class PhotoRepository implements PhotoRepositoryInterface
 {
@@ -15,7 +15,12 @@ class PhotoRepository implements PhotoRepositoryInterface
 
     public function isExistPhoto($hash)
     {
-    // TODO: Implement isExistPhoto() method.
+        return photo::where('photo',$hash)->first();
+    }
+
+    public function addPhoto($hash)
+    {
+        return photo::create(['photo'=>$hash]);
     }
 
 }

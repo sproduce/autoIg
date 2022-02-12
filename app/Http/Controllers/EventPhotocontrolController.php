@@ -67,7 +67,7 @@ class EventPhotocontrolController extends Controller
     {
         $file=$this->request->file('photo');
         //$path = $file[1]->storeAs('photo/12/12','test');
-        $photoServ->savePhoto($file);
+        $photoServ->savePhoto($file,'uuid');
         //$file[0]->
         //echo $file[1]->hashName();
         //echo sha1($file[1]->get());
