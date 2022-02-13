@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Repositories\RentEventRepository;
 use App\Services\MotorPoolService;
-use App\Services\PhotoService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use App\Services\EventPhotocontrolService;
 
 class EventPhotocontrolController extends Controller
 {
@@ -63,16 +62,18 @@ class EventPhotocontrolController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PhotoService $photoServ)
+    public function store(EventPhotocontrolService $eventPhotocontrolServ)
     {
         $file=$this->request->file('photo');
-        //$path = $file[1]->storeAs('photo/12/12','test');
-        $photoServ->savePhoto($file,'uuid');
-        //$file[0]->
-        //echo $file[1]->hashName();
-        //echo sha1($file[1]->get());
-        //var_dump($path);
-        //var_dump($this->request->validate(['photo'=>'']));
+        $inputData=$this->request->validate([
+            'carId'=>'integer|required',
+            'contractId'=>'',
+            'comment'=>'']);
+        $inputData['eventId']= $this->eventObj->id;
+        $inputData['color']=$this->eventObj->color;
+        $inputData['duration']=$this->eventObj->duration;
+        $eventPhotocontrolServ->addEvent($file,$inputData);
+        //$photoServ->savePhoto($file,$inputData);
     }
 
     /**

@@ -12,7 +12,7 @@
         <!-- Styles -->
         <link href="/css/app.css" rel="stylesheet">
         <link href="/css/dashboard.css" rel="stylesheet">
-        <link href="/css/style.css?version=1" rel="stylesheet">
+        <link href="/css/style.css?version=1.0" rel="stylesheet">
     </head>
 
     <body class="antialiased">

@@ -7,7 +7,6 @@
 @endsection
 
 @section('content')
-
     @if($carDrivers->count())
         <div class="row align-items-center font-weight-bold border">
             <div class="col-3">

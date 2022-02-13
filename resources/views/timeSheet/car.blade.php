@@ -11,7 +11,7 @@
 @section('content')
     <form type="GET" action="">
         <input name="carId" value="{{$carObj->id}}" hidden/>
-        <div class="form-row text-center">
+        <div class="row text-center">
             <div class="form-group col-md-2 input-group-sm">
                 <input class="form-control" type="date" name="fromDate" value="{{$periodDate->getStartDate()->format('Y-m-d')}}"/>
             </div>
@@ -25,7 +25,6 @@
                 <a class="btn btn-ssm btn-outline-success mr-3" title="Добавить событие" href="/timesheet/add?carId={{$carObj->id}}"><i class="far fa-plus-square"></i></a>
             </div>
         </div>
-
     </form>
 
     @if($timeSheetsObj->count())
@@ -38,6 +37,8 @@
             <div class="col-2"></div>
         </div>
 
+
+
         @foreach($timeSheetsObj as $timeSheet)
             <div class="row row-table">
                 <div class="col-3" style="background-color:{{$timeSheet->event->color}}">{{$timeSheet->event->name}}</div>
@@ -48,6 +49,8 @@
                 <div class="col-2"><a class="btn btn-ssm btn-outline-warning DialogUserMin" href="/timesheet/edit?timeSheetId={{$timeSheet->id}}" title="Редактировать"> <i class="far fa-edit"></i></a></div>
             </div>
         @endforeach
+
+
 
         <div class="row align-items-center font-weight-bold border m-3">
             <div class="col-3">Событие</div>

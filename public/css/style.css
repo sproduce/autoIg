@@ -10,7 +10,7 @@
 }
 
 
-.row-table:nth-child(odd){
+.row-table:nth-of-type(odd){
     background-color: rgba(0,0,0,.05);
 }
 
@@ -32,7 +32,6 @@
 .displayNone {
     display: none;
 }
-
 div.daySize{
     min-width: 62px;
     width: 62px;
@@ -50,4 +49,3 @@ div.carInfoSize{
 td.partSize{
     width: 10px;
 }
-

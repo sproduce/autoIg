@@ -23,12 +23,20 @@
         </div>
     </div>
 
+
+    <div class="form-row text-center">
+        <div class="form-group col-md-6 input-group-sm">
+            <label for="comment" title="Фотографии">Комментарий</label>
+            <input type="text" name="comment" id="comment" class="form-control">
+        </div>
+    </div>
+
+
     <div class="form-row text-center">
         <div class="form-group col-md-4 input-group-sm">
-            <label for="dateTransfer" title="Фотографии">Фотографии</label>
-            <input type="file" accept="image/*"  multiple="true" name="photo[]" class="form-control-file" required>
+            <label for="photo" title="Фотографии">Фотографии</label>
+            <input type="file" accept="image/*"  multiple="true" name="photo[]" class="form-control-file" id="photo" required>
         </div>
-
     </div>
 
 

@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class rentEventPhotocontrol extends Model
 {
     use HasFactory;
+    protected $fillable =['uuid','comment'];
 }
