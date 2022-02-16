@@ -15,7 +15,7 @@
             </div>
             <div class="col-2 col-form-label">Время</div>
             <div class="col-4">
-                <input type="time" class="form-control form-control-sm" value="{{$timeSheet->dateTime->format('h:i')}}" name="time"/>
+                <input type="time" class="form-control form-control-sm" value="{{$timeSheet->dateTime->format('H:i')}}" name="time"/>
             </div>
         </div>
         <div class="row form-group">

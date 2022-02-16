@@ -1,6 +1,5 @@
 <form method="POST" action="/eventTransfer">
     @csrf
-    <input name="eventId" value="{{$eventObj->id}}" hidden/>
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Автомобиль">Машина</label>
@@ -41,6 +40,12 @@
         </div>
     </div>
 
+    <div class="form-row text-center">
+        <div class="form-group col-md-2 input-group-sm">
+            <label for="mileage" title="Пробег">Пробег</label>
+            <input type="number" name="mileage" id="mileage" class="form-control"/>
+        </div>
+    </div>
 
     <div class="form-row text-center" id="last-row">
         <div class="input-group col-1">

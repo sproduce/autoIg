@@ -23,6 +23,21 @@
         </div>
     </div>
 
+    <div class="form-row text-center">
+        <div class="form-group col-md-2 input-group-sm">
+            <label for="datePhoto" title="Дата фотографии">Дата фотографии</label>
+            <input type="date" name="datePhoto" id="datePhoto" class="form-control" value="{{$dateTime->toDateString()}}"/>
+        </div>
+        <div class="form-group col-md-2 input-group-sm">
+            <label for="timePhoto" title="Время">Время</label>
+            <input type="time" name="timePhoto" id="timePhoto" class="form-control" value="{{$dateTime->format('H:i')}}"/>
+        </div>
+        <div class="form-group col-md-2 input-group-sm">
+            <label for="mileage" title="Пробег">Пробег</label>
+            <input type="number" name="mileage" id="mileage" class="form-control"/>
+        </div>
+    </div>
+
 
     <div class="form-row text-center">
         <div class="form-group col-md-6 input-group-sm">

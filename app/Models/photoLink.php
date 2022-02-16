@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class photoLink extends Model
 {
     use HasFactory;
+    protected $fillable = ['photoId','linkUuid'];
 }

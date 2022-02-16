@@ -42,7 +42,7 @@
         @foreach($timeSheetsObj as $timeSheet)
             <div class="row row-table">
                 <div class="col-3" style="background-color:{{$timeSheet->event->color}}">{{$timeSheet->event->name}}</div>
-                <div class="col-3" title="{{$timeSheet->comment}}">{{$timeSheet->dateTime->format('d-m-Y h:i')}}</div>
+                <div class="col-3" title="{{$timeSheet->comment}}">{{$timeSheet->dateTime->format('d-m-Y H:i')}}</div>
                 <div class="col-2">{{$timeSheet->duration}}</div>
                 <div class="col-1">{{$timeSheet->sum}}</div>
                 <div class="col-1">{{$timeSheet->mileage}}</div>
@@ -52,20 +52,20 @@
 
 
 
-        <div class="row align-items-center font-weight-bold border m-3">
+        <div class="row align-items-center font-weight-bold border mt-5">
             <div class="col-3">Событие</div>
             <div class="col-3">Начало</div>
             <div class="col-3">Завершение</div>
             <div class="col-2">Сумма</div>
         </div>
-{{--        @foreach($timeSheetSpan as $span)--}}
-{{--            <div class="row row-table align-items-center font-weight-bold">--}}
-{{--                <div class="col-3">Событие</div>--}}
-{{--                <div class="col-3">{{$span->fromDate}}</div>--}}
-{{--                <div class="col-3">{{$span->toDate}}</div>--}}
-{{--                <div class="col-2">Сумма</div>--}}
-{{--            </div>--}}
-{{--        @endforeach--}}
+        @foreach($timeSheetSpan as $span)
+            <div class="row row-table">
+                <div class="col-3">{{$span->event->name}}</div>
+                <div class="col-3">{{$span->fromDate->format('d-m-Y H:i')}}</div>
+                <div class="col-3">{{$span->toDate->format('d-m-Y H:i')}}</div>
+                <div class="col-2"></div>
+            </div>
+        @endforeach
         @else
         За выбранный период событий не найдено
     @endif

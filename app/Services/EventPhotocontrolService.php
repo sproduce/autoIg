@@ -23,9 +23,19 @@ Class EventPhotocontrolService{
 
         $photocontrolArray['uuid']=Str::uuid();
         $photocontrolArray['comment']=$dataArray['comment'];
-        $this->eventPhotocontrolRep->addEventPhotocontrol($photocontrolArray);
-//        $eventPhotocontrolObj=$this->photo
+        $photocontrolObj=$this->eventPhotocontrolRep->addEventPhotocontrol($photocontrolArray);
+        $this->photoServ->savePhoto($file,$photocontrolArray['uuid']);
+        $dateTime=$dataArray['datePhoto'].' '.$dataArray['timePhoto'];
 
+        $timeSheetData['dateTime']=date("Y-m-d H:i:00",strtotime($dateTime));
+        $timeSheetData['eventId']=$dataArray['eventId'];
+        $timeSheetData['dataId']=$photocontrolObj->id;
+        $timeSheetData['carId']=$dataArray['carId'];
+        $timeSheetData['duration']=$dataArray['duration']??1;
+        $timeSheetData['mileage']=$dataArray['mileage'];
+        $timeSheetData['color']=$dataArray['color'];
+        $timeSheetData['contractId']=$dataArray['contractId'];
+        $this->timeSheetRep->addTimeSheet($timeSheetData);
 
     }
 

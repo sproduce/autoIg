@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\RentEventRepository;
+use App\Services\EventCrashService;
+use App\Services\MotorPoolService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EventCrashController extends Controller
@@ -34,9 +37,21 @@ class EventCrashController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(MotorPoolService $motorPoolServ)
     {
-        //
+        $inputData=$this->request->validate([
+            'carId'=>'',
+            'date'=>'']);
+
+        if ($inputData['date']){
+            $dateTime=new Carbon($inputData['date']);
+        } else{
+            $dateTime =new Carbon();
+        }
+        $dateTime->setTimeFrom(Carbon::now());
+
+        $carObj=$motorPoolServ->getCar($inputData['carId']);
+        return view('rentEvent.addEventCrash',['carObj'=>$carObj,'dateTime'=>$dateTime,'eventObj'=>$this->eventObj]);
     }
 
     /**
@@ -45,9 +60,25 @@ class EventCrashController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EventCrashService $eventCrashServ)
     {
-        //
+        $inputData=$this->request->validate([
+            'carId'=>'integer|required',
+            'contractId'=>'',
+            'dateCrash'=>'required',
+            'timeCrash'=>'required',
+            'culprit'=>'',
+            'sum'=>'',
+            'comment'=>'',
+            'mileage'=>''
+            ]);
+
+        $inputData['eventId']= $this->eventObj->id;
+        $inputData['color']=$this->eventObj->color;
+        $inputData['duration']=$this->eventObj->duration;
+        $eventCrashServ->addEvent($inputData);
+
+        //return redirect('/timesheet/list');
     }
 
     /**

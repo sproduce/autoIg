@@ -1,6 +1,5 @@
-<form method="POST" action="/eventTransfer">
+<form method="POST" action="/eventCrash">
     @csrf
-    <input name="eventId" value="{{$eventObj->id}}" hidden/>
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Автомобиль">Машина</label>
@@ -25,21 +24,38 @@
 
     <div class="form-row text-center">
         <div class="form-group col-md-2 input-group-sm">
-            <label for="dateTransfer" title="Дата приема/передачи">Дата приема/передачи</label>
-            <input type="date" name="dateTransfer" id="dateTransfer" class="form-control" step="any" value="{{$dateTime->format('Y-m-d')}}"/>
+            <label for="dateCrash" title="Дата ДТП">Дата ДТП</label>
+            <input type="date" name="dateCrash" id="dateCrash" class="form-control" step="any" value="{{$dateTime->format('Y-m-d')}}"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
-            <label for="timeTransfer" title="Время приема/передачи">Время приема/передачи</label>
-            <input type="time" step="60" name="timeTransfer" id="timeTransfer" class="form-control" step="any" value="{{$dateTime->format('H:i')}}"/>
+            <label for="timeCrash" title="Время ДТП">Время ДТП</label>
+            <input type="time" step="60" name="timeCrash" id="timeCrash" class="form-control" step="any" value="{{$dateTime->format('H:i')}}"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
-            <label for="typeTransfer" title="Тип операции">Тип операции</label>
-            <select name="typeTransfer" id="typeTransfer"  class="form-control" >
-                <option value="0">Передача</option>
-                <option value="1">Прием</option>
-            </select>
+            <label for="mileage" title="Пробег">Пробег</label>
+            <input type="number" name="mileage" id="mileage" class="form-control"/>
         </div>
     </div>
+    <div class="form-row text-center">
+        <div class="form-group col-md-2 input-group-sm">
+            <label for="culprit" title="Виновник ДТП">Виновник ДТП</label>
+            <select name="culprit" id="culprit"  class="form-control" >
+                <option value="1">Водитель</option>
+                <option value="0">3-я сторона</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2 input-group-sm">
+            <label for="sum" title="Сумма убытка">Сумма убытка</label>
+            <input type="number" name="sum" id="sum" class="form-control"/>
+        </div>
+    </div>
+    <div class="form-row text-center">
+        <div class="form-group col-md-6 input-group-sm">
+            <label for="comment" title="Комментарий">Комментарий</label>
+            <input type="text" name="comment" id="comment" class="form-control"/>
+        </div>
+    </div>
+
 
 
     <div class="form-row text-center" id="last-row">

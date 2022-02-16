@@ -108,7 +108,7 @@
                     $(location).prop('href','/timesheet/add?carId='+carId+'&date='+dateTime);
                     break;
                 case e.altKey:
-                    DialogUser('/timesheet/edit?carId='+carId+'&date='+dateTime);
+                    $(location).prop('href','/timesheet/car?carId='+carId+'&fromDate='+dateTime+'&toDate='+dateTime);
                     break;
                 default:
                     DialogUser('/timesheet/info?carId='+carId+'&date='+dateTime);

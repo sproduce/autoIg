@@ -36,7 +36,7 @@ class EventFineController extends Controller
     {
         $inputData=$this->request->validate([
             'carId'=>'',
-            'date'=>'required']);
+            'date'=>'']);
 
         if ($inputData['date']){
             $dateTime=new Carbon($inputData['date']);

@@ -28,7 +28,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     public function getCarTimeSheetByDate($carId, $datePeriod)
     {
         $startDate=$datePeriod->getStartDate()->format('Y-m-d');
-        $finishDate=$datePeriod->getEndDate()->format('Y-m-d');
+        $finishDate=$datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
 
         return timeSheet::query()->
                 whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and carId=?',[$startDate,$finishDate,$carId])->

@@ -16,7 +16,7 @@
             <div class="form-row text-center">
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="start" title="Начало договора">Начало договора</label>
-                    <input type="datetime-local" name="start" id="start" class="form-control" value="{{date('Y-m-d')}}T{{date('h:i')}}"/>
+                    <input type="datetime-local" name="start" id="start" class="form-control" value="{{date('Y-m-d')}}T{{date('H:i')}}"/>
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="finish" title="Окончание договора">Окончание договора</label>

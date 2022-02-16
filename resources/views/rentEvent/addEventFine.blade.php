@@ -29,7 +29,7 @@
         </div>
         <div class="form-group col-md-2 input-group-sm">
             <label for="dateFine" title="Дата нарушения">Дата нарушения</label>
-            <input type="datetime" name="dateFine" id="dateFine" class="form-control" value="{{$dateTime->toDateString()}}"/>
+            <input type="date" name="dateFine" id="dateFine" class="form-control" value="{{$dateTime->toDateString()}}"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
             <label for="timeFine" title="Время нарушения">Время нарушения</label>

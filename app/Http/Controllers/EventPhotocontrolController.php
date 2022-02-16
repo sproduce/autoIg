@@ -43,7 +43,7 @@ class EventPhotocontrolController extends Controller
     {
         $inputData=$this->request->validate([
             'carId'=>'',
-            'date'=>'required']);
+            'date'=>'']);
 
         if ($inputData['date']){
             $dateTime=new Carbon($inputData['date']);
@@ -67,13 +67,16 @@ class EventPhotocontrolController extends Controller
         $file=$this->request->file('photo');
         $inputData=$this->request->validate([
             'carId'=>'integer|required',
+            'datePhoto'=>'required',
+            'timePhoto'=>'required',
+            'mileage'=>'',
             'contractId'=>'',
             'comment'=>'']);
         $inputData['eventId']= $this->eventObj->id;
         $inputData['color']=$this->eventObj->color;
         $inputData['duration']=$this->eventObj->duration;
         $eventPhotocontrolServ->addEvent($file,$inputData);
-        //$photoServ->savePhoto($file,$inputData);
+        return redirect('/timesheet/list');
     }
 
     /**

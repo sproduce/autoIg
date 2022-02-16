@@ -26,14 +26,15 @@ Class PhotoService
 
     private function saveFile(UploadedFile $photo){
         $hash=sha1($photo->get());
-        if (!isset($this->photoRep->isExistPhoto($hash)->id)){
-            $this->photoRep->addPhoto($hash);
+        $photoObj=$this->photoRep->getPhotoByHash($hash);
+        if (!$photoObj){
+            $photoObj=$this->photoRep->addPhoto($hash);
             $path=$this->getPathByHash($hash);
             Storage::disk('photo')->makeDirectory($path);
             $extension = $photo->getClientOriginalExtension();
             $photo->storeAs($path,$hash.'.'.$extension,'photo');
         }
-
+    return $photoObj;
     }
 
 
@@ -41,10 +42,12 @@ Class PhotoService
     {
         if (is_iterable($fileObj)){
             foreach($fileObj as $file){
-                $this->saveFile($file);
+                $photoObj=$this->saveFile($file);
+                $this->photoRep->saveLink($photoObj->id,$uuid);
             }
         } else {
-            $this->saveFile($fileObj);
+            $photoObj=$this->saveFile($fileObj);
+            $this->photoRep->saveLink($photoObj->id,$uuid);
         }
     }
 

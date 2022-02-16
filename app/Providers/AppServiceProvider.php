@@ -19,6 +19,7 @@ use App\Repositories\RentEventRepository;
 use App\Repositories\EventRentalRepository;
 use App\Repositories\EventTransferRepository;
 use App\Repositories\EventFineRepository;
+use App\Repositories\EventCrashRepository;
 use App\Repositories\PhotoRepository;
 
 use App\Repositories\Interfaces\BrandRepositoryInterface;
@@ -34,6 +35,7 @@ use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use App\Repositories\Interfaces\EventRentalRepositoryInterface;
 use App\Repositories\Interfaces\EventTransferRepositoryInterface;
 use App\Repositories\Interfaces\EventFineRepositoryInterface;
+use App\Repositories\Interfaces\EventCrashRepositoryInterface;
 use App\Repositories\Interfaces\PhotoRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
@@ -58,6 +60,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(EventRentalRepositoryInterface::class,EventRentalRepository::class);
         $this->app->bind(EventTransferRepositoryInterface::class,EventTransferRepository::class);
         $this->app->bind(EventFineRepositoryInterface::class,EventFineRepository::class);
+        $this->app->bind(EventCrashRepositoryInterface::class,EventCrashRepository::class);
         $this->app->bind(PhotoRepositoryInterface::class,PhotoRepository::class);
     }
 

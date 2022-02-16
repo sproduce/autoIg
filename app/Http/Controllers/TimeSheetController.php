@@ -79,7 +79,7 @@ class TimeSheetController extends Controller
             'date'=>'required'
         ]);
         $datePeriod=new CarbonPeriod($validate['date']);
-        $datePeriod->setEndDate($datePeriod->getStartDate()->addDay(1));
+        $datePeriod->setEndDate($datePeriod->getStartDate());
 
         $carObj=$this->motorPoolRep->getCar($validate['carId']);
         $timeSheetsObj=$this->timeSheetServ->getCarTimeSheets($carObj,$datePeriod);

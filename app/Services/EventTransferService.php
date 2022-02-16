@@ -29,6 +29,7 @@ Class EventTransferService{
         $timesheetData['duration']=$dataArray['duration'] ?? 1;
         $dateTime=$dataArray['dateTransfer'].' '.$dataArray['timeTransfer'];
         $timesheetData['dateTime']=date("Y-m-d H:i:00",strtotime($dateTime));
+        $timesheetData['mileage']=$dataArray['mileage'];
         $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
     }
 

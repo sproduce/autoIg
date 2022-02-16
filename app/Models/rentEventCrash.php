@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class rentEventCrash extends Model
 {
     use HasFactory;
+    protected $fillable = ['comment','culprit','sum'];
 }
