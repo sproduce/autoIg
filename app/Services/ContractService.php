@@ -1,6 +1,8 @@
 <?php
 namespace App\Services;
+use App\Http\Requests\DateSpan;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 
 Class ContractService{
@@ -12,20 +14,18 @@ Class ContractService{
         $this->request=$request;
     }
 
-    public function getContracts()
+    public function getContracts(CarbonPeriod $periodDate,$typeId)
     {
-            $currentContractFilter=$this->request->validate(['typeId'=>'integer']);
-
-            if (empty($currentContractFilter['typeId'])){
-                $currentContractFilter['typeId']=$this->contractRep->getContractTypeFirst();
+            if ($typeId){
+                $currentTypeObj=$this->contractRep->getContractType($typeId);
             } else {
-                $currentContractFilter['typeId']=$this->contractRep->getContractType($currentContractFilter['typeId']);
+                $currentTypeObj=$this->contractRep->getContractTypeFirst();
             }
 
             $contractTypesObj=$this->contractRep->getContractTypes();
-            $contractsObj=$this->contractRep->getContracts($currentContractFilter['typeId']->id);
+            $contractsObj=$this->contractRep->getContracts($currentTypeObj->id);
 
-            $contractsCollect=collect(['contractTypes'=>$contractTypesObj,'contracts'=>$contractsObj,'currentContractFilter'=>$currentContractFilter]);
+            $contractsCollect=collect(['contractTypes'=>$contractTypesObj,'contracts'=>$contractsObj,'currentContractType'=>$currentTypeObj]);
         return $contractsCollect;
     }
 

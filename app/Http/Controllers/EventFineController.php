@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CarIdDate;
 use App\Repositories\RentEventRepository;
 use App\Services\EventFineService;
 use App\Services\MotorPoolService;
@@ -32,20 +33,13 @@ class EventFineController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(MotorPoolService $motorPoolServ)
+    public function create(CarIdDate $carIdDate,MotorPoolService $motorPoolServ)
     {
-        $inputData=$this->request->validate([
-            'carId'=>'',
-            'date'=>'']);
+        $inputData=$carIdDate->validated();
 
-        if ($inputData['date']){
-            $dateTime=new Carbon($inputData['date']);
-        } else{
-            $dateTime =new Carbon();
-        }
-        $dateTime->setTimeFrom(Carbon::now());
+
         $carObj=$motorPoolServ->getCar($inputData['carId']);
-        return view('rentEvent.addEventFine',['carObj'=>$carObj,'dateTime'=>$dateTime,'eventObj'=>$this->eventObj]);
+        return view('rentEvent.addEventFine',['carObj'=>$carObj,'dateTime'=> $inputData['date'],'eventObj'=>$this->eventObj]);
     }
 
     /**

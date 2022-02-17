@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DateSpan;
 use App\Services\ContractService;
 use App\Services\MotorPoolService;
 use App\Services\CarDriverService;
 
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 
 
@@ -31,10 +33,15 @@ class ContractController extends Controller
         return view('contract.ContractCompletedList');
     }
 
-    public function show()
+    public function show(DateSpan $dateSpan)
     {
-        $contractsCollect=$this->contractServ->getContracts();
-        return view('contract.ContractList', ['contractsCollect' => $contractsCollect]);
+        $dateFromTo=$dateSpan->validated();
+        $periodDate=new CarbonPeriod($dateFromTo['fromDate'],$dateFromTo['toDate']);
+        $currentContractFilter=$this->request->validate(['typeId'=>'nullable|integer']);
+        $typeId=$currentContractFilter['typeId'] ?? null;
+        $contractsCollect=$this->contractServ->getContracts($periodDate,$typeId);
+        return view('contract.ContractList', ['contractsCollect' => $contractsCollect,
+                                                    'periodDate' => $periodDate]);
     }
 
 

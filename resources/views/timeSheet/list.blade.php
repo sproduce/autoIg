@@ -40,11 +40,11 @@
             </div>
             @foreach($periodDate as $date)
                 @if($date==$currentDate)
-                    <div class="col daySize p-0 text-center border bg-primary">
+                    <div class="col daySize4h p-0 text-center border bg-primary">
                         <div class="p-0">{{$date->isoFormat('ddd')}}<br/>{{$date->isoFormat('D')}}</div>
                     </div>
                 @else
-                    <div class="col daySize p-0 text-center border">
+                    <div class="col daySize4h p-0 text-center border">
                         <div class="p-0">{{$date->isoFormat('ddd')}}<br/>
                             <a href="?currentDate={{$date->format('Y-m-d')}}&subDays={{$subDays}}&addDays={{$addDays}}">{{$date->isoFormat('D')}}</a>
                         </div>
@@ -60,7 +60,7 @@
                     <div class="p-0"><a href="/timesheet/car?carId={{$car->id}}">{{$car->nickName}}</a></div>
                 </div>
                 @for($i=0;$i<$periodDate->count();$i++)
-                    <div class="col p-0 daySize border timeClickable" data-datetime="{{$periodDate->getStartDate()->addDays($i)->format('Y-m-d')}}">
+                    <div class="col p-0 daySize4h border timeClickable" data-datetime="{{$periodDate->getStartDate()->addDays($i)->format('Y-m-d')}}">
                         @if(isset($timeSheetArray[$car->id]))
                             @php
                                 ksort($timeSheetArray[$car->id]);

@@ -4,6 +4,7 @@ use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\RentEventRepository;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 Class TimeSheetService{
     private $timeSheetRep;
@@ -13,18 +14,19 @@ Class TimeSheetService{
         $this->timeSheetRep=$timeSheetRep;
     }
 
-    public function getCarsTimeSheets($periodDate)
+    public function getCarsTimeSheets($periodDate,$accuracyH)
     {
+        $accuracyMin=$accuracyH*60;
         $timeSheetsArray=$this->timeSheetRep->getTimeSheetsArray($periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d'));
         $timeSheetsCollection=collect($timeSheetsArray);
         $periodTimeSheet=$timeSheetsCollection->whereBetween('dateTime',[$periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d')])->sortBy('dateTime');
             foreach($periodTimeSheet as $dayTimeSheet){
                 $currentDateTime=Carbon::parse($dayTimeSheet->dateTime);
-                $fromBox=ceil($periodDate->getStartDate()->DiffInMinutes($currentDateTime)/240);
-                if ($fromBox==$periodDate->getStartDate()->DiffInMinutes($currentDateTime)/240){
+                $fromBox=ceil($periodDate->getStartDate()->DiffInMinutes($currentDateTime)/$accuracyMin);
+                if ($fromBox==$periodDate->getStartDate()->DiffInMinutes($currentDateTime)/$accuracyMin){
                     $fromBox++;
                 }
-                $toBox=$fromBox+ceil($dayTimeSheet->duration/240);
+                $toBox=$fromBox+ceil($dayTimeSheet->duration/$accuracyMin);
                 for($i=$fromBox;$i<$toBox;$i++){
                     $resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]['data']=$dayTimeSheet;
                     if ($i==$fromBox){
@@ -47,6 +49,12 @@ Class TimeSheetService{
         $result=$this->timeSheetRep->getCarTimeSheetByDate($carObj->id,$datePeriod);
         return $result;
     }
+
+    public function getContractTimeSheets($contractId,CarbonPeriod $datePeriod)
+    {
+
+    }
+
 
     public function getTimeSheetInfo($timeSheetId)
     {

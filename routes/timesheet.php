@@ -15,3 +15,4 @@ Route::get('/edit',[TimeSheetController::class,'editEventDialog']);
 Route::post('/edit',[TimeSheetController::class,'updateTimeSheet']);
 
 Route::get('/car',[TimeSheetController::class,'showCarTimeSheet']);
+Route::get('/contract',[TimeSheetController::class,'showContractTimeSheet']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CarIdDate;
 use App\Repositories\RentEventRepository;
 use App\Services\MotorPoolService;
 use App\Services\EventTransferService;
@@ -32,18 +33,13 @@ class EventTransferController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(MotorPoolService $motorPoolServ)
+    public function create(CarIdDate $carIdDate,MotorPoolService $motorPoolServ)
     {
-        $inputData=$this->request->validate(['carId'=>'','date'=>'']);
-        if ($inputData['date']){
-            $dateTime=new Carbon($inputData['date']);
-        } else{
-            $dateTime =new Carbon();
-        }
-        $dateTime->setTimeFrom(Carbon::now());
+        $inputData=$carIdDate->validated();
+
         $carObj=$motorPoolServ->getCar($inputData['carId']);
 
-        return view('rentEvent.addEventTransfer',['carObj'=>$carObj,'dateTime'=>$dateTime,'eventObj'=>$this->eventObj]);
+        return view('rentEvent.addEventTransfer',['carObj'=>$carObj,'dateTime'=> $inputData['date'],'eventObj'=>$this->eventObj]);
     }
 
     /**

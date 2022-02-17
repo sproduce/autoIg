@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DateSpan;
+use App\Repositories\ContractRepository;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Services\RentEventService;
 use Carbon\Carbon;
@@ -47,13 +48,14 @@ class TimeSheetController extends Controller
         $dateFrom=$currentDate->subDays($subDays);
         $dateTo=$currentDate->addDays($addDays);
         $periodDate=CarbonPeriod::create($dateFrom,$dateTo);
-
-        $timeSheetArray = $this->timeSheetServ->getCarsTimeSheets($periodDate);
+        $accuracy=4;
+        $timeSheetArray = $this->timeSheetServ->getCarsTimeSheets($periodDate,$accuracy);
         $motorPoolObj=$this->motorPoolRep->getCars();
         return view('timeSheet.list', ['timeSheetArray' => $timeSheetArray,
                                             'periodDate' => $periodDate,
                                             'currentDate'=> $currentDate,
                                             'motorPoolObj'=>$motorPoolObj,
+                                            'accuracy'=>$accuracy,
                                             'subDays'=>$subDays,
                                             'addDays'=>$addDays]);
     }
@@ -104,6 +106,17 @@ class TimeSheetController extends Controller
     {
         $this->timeSheetServ->addEvent();
         return  redirect()->back();
+    }
+
+
+    public function showCOntractTimeSheet(DateSpan $dateSpan,ContractRepository $contractRep)
+    {
+        $dateFromTo=$dateSpan->validated();
+        $periodDate=new CarbonPeriod($dateFromTo['fromDate'],$dateFromTo['toDate']);
+        $contractIdValidate=$this->request->validate(['contractId'=>'required|integer']);
+        $contractRep->getContract($contractIdValidate['contractId']);
+        $this->timeSheetServ->getContractTimeSheets($contractIdValidate['contractId'],$periodDate);
+
     }
 
 

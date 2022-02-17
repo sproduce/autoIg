@@ -32,11 +32,22 @@
 .displayNone {
     display: none;
 }
-div.daySize{
+div.daySize4h{
     min-width: 62px;
     width: 62px;
     max-width: 62px;
 }
+
+
+div.daySize1h{
+    min-width: 242px;
+    width: 242px;
+    max-width: 242px;
+}
+
+
+
+
 div.durationSize{
     width: 10px;
     height: 10px;

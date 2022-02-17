@@ -3,10 +3,7 @@
 @php
     $contracts=$contractsCollect->get('contracts');
     $contractTypes=$contractsCollect->get('contractTypes');
-    $currentContractFilter=$contractsCollect->get('currentContractFilter');
-    //Заменить на коллекции
-    $currentContractType=$currentContractFilter['typeId'];
-
+    $currentContractType=$contractsCollect->get('currentContractType');
 @endphp
 
 @section('header')
@@ -16,19 +13,21 @@
 
 @section('content')
     <form method="GET" action="">
-        <div class="row">
+        <input type="number" name="typeId" value="{{$currentContractType->id}}" hidden/>
+            <div class="form-group row">
+                <label for="fromDate" class="col-form-label">От: </label>
+                <div class="col-sm-2 input-group-sm">
+                    <input type="date" class="form-control" id="fromDate" name="fromDate" value="{{$periodDate->getStartDate()->format('Y-m-d')}}"/>
+                </div>
 
-            <div class="col-2">
-                От: <input type="date" name="filterStart"/>
+                <label for="toDate" class="col-form-label">До: </label>
+                <div class="col-sm-2 input-group-sm">
+                    <input type="date" class="form-control" id="toDate" name="toDate" value="{{$periodDate->getEndDate()->format('Y-m-d')}}"/>
+                </div>
+                <div class="col-sm-2 input-group-sm">
+                    <button class="btn btn-sm btn-success" type="submit">Показать</button>
+                </div>
             </div>
-            <div class="col-2">
-                До: <input type="date" name="filterFinish"/>
-            </div>
-            <div class="col-2">
-                <button class="btn btn-ssm btn-success" type="submit">Показать</button>
-            </div>
-
-        </div>
     </form>
 
     <div class="card text-center mt-3">
@@ -36,7 +35,7 @@
             <ul class="nav nav-tabs card-header-tabs">
                 @foreach($contractTypes as $contractType)
                     <li class="nav-item">
-                        <a class="nav-link @if( $currentContractType->id==$contractType->id) active @endif" href="/contract/list?typeId={{$contractType->id}}">{{$contractType->name}}</a>
+                        <a class="nav-link @if( $currentContractType->id==$contractType->id) active @endif" href="/contract/list?typeId={{$contractType->id}}&fromDate={{$periodDate->getStartDate()->format('Y-m-d')}}&toDate={{$periodDate->getEndDate()->format('Y-m-d')}}">{{$contractType->name}}</a>
                     </li>
                 @endforeach
 
@@ -73,24 +72,24 @@
                 @foreach($contracts as $contract)
                     <div class="row row-table">
                         <div class="col-12">
-                    <div class="row">
-                        <div class="col-1 text-left pl-0">
-                            {{$loop->iteration}}.
-                        </div>
-                        <div class="col-2">{{$contract->start}}</div>
-                        <div class="col-2">{{$contract->car->generation->model->brand->name}}</div>
-                        <div class="col-2">{{$contract->driver->surname}}</div>
-                        <div class="col-1 text-right">{{$contract->deposit}}</div>
-                        <div class="col-1 text-right">{{$contract->balance}}</div>
-                        <div class="col-2">{{$contract->status->name}}</div>
-                        <div class="col-1 p-0">
-                            <a class="btn btn-ssm btn-outline-info DialogUser" href="/dialog/carInfo?carId={{$contract->carId}}" title="Информация о машине"><i class="fas fa-car"></i></a>
-                            <a class="btn btn-ssm btn-outline-info DialogUser" href="/dialog/carDriverInfo?carDriverId={{$contract->driverId}}"  title="Информация о водителе"><i class="fas fa-user-tie"></i></a>
-                            <div class="float-right">
-                                <a class="btn btn-ssm btn-outline-warning" href="/contract/edit?contractId={{$contract->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                            <div class="row">
+                                <div class="col-1 text-left pl-0">
+                                    {{$loop->iteration}}.
+                                </div>
+                                <div class="col-2">{{$contract->start}}</div>
+                                <div class="col-2">{{$contract->car->generation->model->brand->name}}</div>
+                                <div class="col-2">{{$contract->driver->surname}}</div>
+                                <div class="col-1 text-right">{{$contract->deposit}}</div>
+                                <div class="col-1 text-right">{{$contract->balance}}</div>
+                                <div class="col-2">{{$contract->status->name}}</div>
+                                <div class="col-1 p-0 text-center">
+                                    <a href="/timesheet/contract?contractId={{$contract->carId}}" title="События" class="btn btn-ssm btn-outline-primary">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </a>
+                                    <a class="btn btn-ssm btn-outline-info DialogUser" href="/dialog/carInfo?carId={{$contract->carId}}" title="Информация о машине"><i class="fas fa-car"></i></a>
+                                    <a class="btn btn-ssm btn-outline-info DialogUser" href="/dialog/carDriverInfo?carDriverId={{$contract->driverId}}"  title="Информация о водителе"><i class="fas fa-user-tie"></i></a>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
                     <div class="row">
                         <div class="col-1 p-0"><a href="/payment/listByContract?contractId={{$contract->id}}" title="Платежи по договору">{{$contract->number}}</a></div>
@@ -100,7 +99,7 @@
                         <div class="col-1 text-right"></div>
                         <div class="col-1 text-right"></div>
                         <div class="col-2">{{$contract->tariff->name}}</div>
-                        <div class="col-1"></div>
+                        <div class="col-1 text-center p-0 pt-1"><a class="btn btn-ssm btn-outline-warning" href="/contract/edit?contractId={{$contract->id}}" title="Редактировать"> <i class="far fa-edit"></i></a></div>
                     </div>
                     <div class="row">
                         <div class="col-1 p-0"></div>
