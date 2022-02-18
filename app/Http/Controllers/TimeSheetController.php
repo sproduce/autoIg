@@ -62,17 +62,24 @@ class TimeSheetController extends Controller
 
 
 
-    public function addEvent(RentEventService $rentEventServ)
+    public function addEvent(RentEventService $rentEventServ,ContractRepository $contractRep)
     {
         $validate=$this->request->validate(['carId'=>'',
-            'date'=>''
+            'date'=>'',
+            'contractId' => ''
         ]);
         $carId=$validate['carId'] ??0;
         $selectDate=$validate['date'] ?? '';
+        $contractId=$validate['contractId'] ??0;
         $carObj=$this->motorPoolRep->getCar($carId);
+
+        $contractObj=$contractRep->getContract($contractId);
         $date=new Carbon($selectDate);
         $rentEventsObj=$rentEventServ->getRentEvents();
-        return view('rentEvent.addEvent',['carObj'=>$carObj,'dateTime'=>$date,'rentEvents'=>$rentEventsObj]);
+        return view('rentEvent.addEvent',['carObj' => $carObj,
+                                               'dateTime' => $date,
+                                               'contractObj' => $contractObj,
+                                               'rentEvents'=>$rentEventsObj]);
     }
 
     public function infoDialog()
@@ -109,14 +116,14 @@ class TimeSheetController extends Controller
     }
 
 
-    public function showCOntractTimeSheet(DateSpan $dateSpan,ContractRepository $contractRep)
+    public function showContractTimeSheet(ContractRepository $contractRep)
     {
-        $dateFromTo=$dateSpan->validated();
-        $periodDate=new CarbonPeriod($dateFromTo['fromDate'],$dateFromTo['toDate']);
         $contractIdValidate=$this->request->validate(['contractId'=>'required|integer']);
-        $contractRep->getContract($contractIdValidate['contractId']);
-        $this->timeSheetServ->getContractTimeSheets($contractIdValidate['contractId'],$periodDate);
+        $contractObj=$contractRep->getContract($contractIdValidate['contractId']);
 
+        $timeSheetsObj=$this->timeSheetServ->getContractTimeSheets($contractIdValidate['contractId']);
+        return view('timeSheet.contract',['timeSheetsObj' =>  $timeSheetsObj,
+                                                'contractObj' => $contractObj]);
     }
 
 

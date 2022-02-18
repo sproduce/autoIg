@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CarIdDate;
+use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\RentEventRepository;
 use App\Services\EventRentalService;
 use App\Services\MotorPoolService;
@@ -39,12 +40,19 @@ class EventRentalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(CarIdDate $carIdDate,MotorPoolService $motorPoolServ)
+    public function create(CarIdDate $carIdDate,MotorPoolService $motorPoolServ,ContractRepositoryInterface $contractRep)
     {
         $inputData=$carIdDate->validated();
-        $carObj=$motorPoolServ->getCar($inputData['carId']);
-
-        return view('rentEvent.addEventRental',['carObj'=>$carObj,'dateTime'=> $inputData['date'],'eventObj'=>$this->eventObj]);
+        $contractObj=$contractRep->getContract($inputData['contractId']);
+        if ($contractObj->carId){
+            $carObj=$motorPoolServ->getCar($contractObj->carId);
+        } else{
+            $carObj=$motorPoolServ->getCar($inputData['carId']);
+        }
+        return response()->view('rentEvent.addEventRental',['carObj' => $carObj,
+                                                                 'contractObj' => $contractObj,
+                                                                 'dateTime'=> $inputData['date'],
+                                                                 'eventObj'=>$this->eventObj]);
     }
 
 

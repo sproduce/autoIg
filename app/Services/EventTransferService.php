@@ -24,6 +24,7 @@ Class EventTransferService{
         $timesheetData['carId']=$dataArray['carId'];
         $timesheetData['eventId']=$dataArray['eventId'];
         $timesheetData['comment']='';
+        $timesheetData['contractId']=$dataArray['contractId'];
         $timesheetData['dataId']=$eventTransferObj->id;
         $timesheetData['color']=$dataArray['color'];
         $timesheetData['duration']=$dataArray['duration'] ?? 1;

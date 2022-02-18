@@ -83,7 +83,7 @@
                                 <div class="col-1 text-right">{{$contract->balance}}</div>
                                 <div class="col-2">{{$contract->status->name}}</div>
                                 <div class="col-1 p-0 text-center">
-                                    <a href="/timesheet/contract?contractId={{$contract->carId}}" title="События" class="btn btn-ssm btn-outline-primary">
+                                    <a href="/timesheet/contract?contractId={{$contract->id}}" title="События" class="btn btn-ssm btn-outline-primary">
                                         <i class="fas fa-calendar-alt"></i>
                                     </a>
                                     <a class="btn btn-ssm btn-outline-info DialogUser" href="/dialog/carInfo?carId={{$contract->carId}}" title="Информация о машине"><i class="fas fa-car"></i></a>

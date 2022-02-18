@@ -35,6 +35,11 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
                 orWhereBetween('dateTime',[$startDate,$finishDate])->where('carId','=',$carId)->orderBy('dateTime')->get();
     }
 
+    public function getContractTimeSheets($contractId)
+    {
+        return timeSheet::query()->where('contractId',$contractId)->get();
+    }
+
 
     public function getTimeSheetByDate($date)
     {

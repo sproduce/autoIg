@@ -47,8 +47,7 @@ class ContractRepository implements ContractRepositoryInterface
 
     public function getContract($id)
     {
-
-        return rentContract::find($id) ?? new rentContract();
+        return rentContract::find($id) ?? new rentContract;
     }
 
 

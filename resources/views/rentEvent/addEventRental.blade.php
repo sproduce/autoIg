@@ -17,8 +17,13 @@
                 Договор
                 <a href="/payment/addContract" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
             </label>
-            <input id="contractText" name="contractText"  class="form-control" disabled />
-            <input name="contractId" id="contractId" value=""  hidden/>
+            @if ($contractObj->id)
+                <input id="contractText" name="contractText"  class="form-control" value="{{$contractObj->number}}" disabled />
+                <input name="contractId" id="contractId" value="{{$contractObj->id}}"  hidden/>
+            @else
+                <input id="contractText" name="contractText"  class="form-control" disabled />
+                <input name="contractId" id="contractId" value=""  hidden/>
+            @endif
         </div>
     </div>
 

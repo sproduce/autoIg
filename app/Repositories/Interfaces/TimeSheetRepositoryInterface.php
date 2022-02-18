@@ -14,6 +14,7 @@ interface TimeSheetRepositoryInterface
     public function getTimeSheetById($id);
     public function addTimeSheet($dataArray);
     public function updateTimeSheet($id,$dataArray);
-    public function getCarTimeSheetByDate($carId,CarbonPeriod  $periodDate);
+    public function getCarTimeSheetByDate($carId,CarbonPeriod  $datePeriod);
     public function getCarSpanTimeSheet($carId,CarbonPeriod  $periodDate);
+    public function getContractTimeSheets($contractId);
 }

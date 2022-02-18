@@ -50,9 +50,9 @@ Class TimeSheetService{
         return $result;
     }
 
-    public function getContractTimeSheets($contractId,CarbonPeriod $datePeriod)
+    public function getContractTimeSheets($contractId)
     {
-
+        return $this->timeSheetRep->getContractTimeSheets($contractId);
     }
 
 
