@@ -8,20 +8,22 @@
         <div class="row align-items-center font-weight-bold">
             <div class="col-3">Событие</div>
             <div class="col-3">Дата</div>
-            <div class="col-2">Продолж.</div>
+            <div class="col-1">Прод.</div>
             <div class="col-1">Сумма</div>
-            <div class="col-1"></div>
             <div class="col-1">Пробег</div>
+            <div class="col-2">Договор</div>
+
         </div>
 
         @foreach($timeSheets as $timeSheet)
         <div class="row row-table">
             <div class="col-3" style="background-color:{{$timeSheet->event->color}}">{{$timeSheet->event->name}}</div>
             <div class="col-3" title="{{$timeSheet->comment}}">{{$timeSheet->dateTime->format('d-m-Y H:i')}}</div>
-            <div class="col-2">{{$timeSheet->duration}}</div>
+            <div class="col-1">{{$timeSheet->duration/60}}</div>
             <div class="col-1">{{$timeSheet->sum}}</div>
-            <div class="col-1"></div>
             <div class="col-1">{{$timeSheet->mileage}}</div>
+            <div class="col-2">{{$timeSheet->contract->number}}</div>
+
         </div>
         @endforeach
     </div>

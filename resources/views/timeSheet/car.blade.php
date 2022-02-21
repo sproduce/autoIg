@@ -29,10 +29,10 @@
         <div class="row align-items-center font-weight-bold border">
             <div class="col-3">Событие</div>
             <div class="col-2">Дата</div>
-            <div class="col-2">Продолж.</div>
+            <div class="col-1">Прод.</div>
             <div class="col-1">Сумма</div>
             <div class="col-1">Пробег</div>
-            <div class="col-1">Контракт</div>
+            <div class="col-1">Договор</div>
             <div class="col-2"></div>
         </div>
 
@@ -42,10 +42,10 @@
             <div class="row row-table">
                 <div class="col-3" style="background-color:{{$timeSheet->event->color}}">{{$timeSheet->event->name}}</div>
                 <div class="col-2" title="{{$timeSheet->comment}}">{{$timeSheet->dateTime->format('d-m-Y H:i')}}</div>
-                <div class="col-2">{{$timeSheet->duration}}</div>
+                <div class="col-1">{{$timeSheet->duration/60}}</div>
                 <div class="col-1">{{$timeSheet->sum}}</div>
                 <div class="col-1">{{$timeSheet->mileage}}</div>
-                <div class="col-1">{{$timeSheet->contractId}}</div>
+                <div class="col-1">{{$timeSheet->contract->number}}</div>
                 <div class="col-2">
                     <a class="btn btn-ssm btn-outline-warning DialogUserMin" href="/timesheet/edit?timeSheetId={{$timeSheet->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
                 </div>
