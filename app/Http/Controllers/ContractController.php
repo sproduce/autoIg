@@ -124,5 +124,13 @@ class ContractController extends Controller
         return response()->json($contractObj);
     }
 
+    public function contractToPay()
+    {
+        $validate=$this->request->validate(['contractId'=>'required|integer']);
+        $contractObj=$this->contractServ->getContract($validate['contractId']);
+        return view('contract.toPay',['contractObj'=>$contractObj]);
+    }
+
+
 
 }
