@@ -43,7 +43,7 @@ class EventFineController extends Controller
         } else{
             $carObj=$motorPoolServ->getCar($inputData['carId']);
         }
-
+                
         return response()->view('rentEvent.addEventFine',['carObj' => $carObj,
                                                                'contractObj' => $contractObj,
                                                                'dateTime' => $inputData['date'],

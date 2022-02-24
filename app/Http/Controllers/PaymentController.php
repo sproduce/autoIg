@@ -85,6 +85,11 @@ class PaymentController extends Controller
         return view('payment.paymentByContractList',['payments'=>$paymentsObj]);
     }
 
+    public function listToPays()
+    {
+        return view('payment.toPay');
+    }
+
 
 
 }

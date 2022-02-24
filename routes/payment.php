@@ -21,5 +21,5 @@ Route::get('/addCarGroup',[PaymentController::class,'addCarGroupDialog']);
 Route::get('/addContract',[PaymentController::class,'addContractDialog']);
 
 Route::get('/listByContract',[PaymentController::class,'listByContract']);
-
+Route::get('/toPay',[PaymentController::class,'listToPays']);
 
