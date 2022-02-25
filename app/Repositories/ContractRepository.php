@@ -90,4 +90,10 @@ class ContractRepository implements ContractRepositoryInterface
     }
 
 
+    public function getContractsByCarId($carId)
+    {
+        return rentContract::query()->where('carId',$carId)->whereNull('finishFact')->get();
+    }
+
+
 }

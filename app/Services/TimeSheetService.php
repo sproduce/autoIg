@@ -44,6 +44,12 @@ Class TimeSheetService{
         return $resultArray ?? [];
     }
 
+
+    public function addTimeSheet()
+    {
+
+    }
+
     public function getCarTimeSheets($carObj,$datePeriod)
     {
         $result=$this->timeSheetRep->getCarTimeSheetByDate($carObj->id,$datePeriod);

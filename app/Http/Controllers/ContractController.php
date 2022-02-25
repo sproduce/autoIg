@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DateSpan;
+use App\Repositories\ContractRepository;
 use App\Services\ContractService;
 use App\Services\MotorPoolService;
 use App\Services\CarDriverService;
@@ -131,6 +132,14 @@ class ContractController extends Controller
         return view('contract.toPay',['contractObj'=>$contractObj]);
     }
 
+
+    public function dialogCarContract(ContractRepository $contractRep)
+    {
+        $validate=$this->request->validate(['carId'=>'required|integer']);
+        $contractsObj=$contractRep->getContractsByCarId($validate['carId']);
+
+        return view('dialog.Contract.carContracts',['contractsObj' =>$contractsObj]);
+    }
 
 
 }

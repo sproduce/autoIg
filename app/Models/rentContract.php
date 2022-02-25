@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class rentContract extends Model
 {
     use HasFactory;
-
+    protected $dates=['start'];
     private $start,$finish,$finishFact,$typeId,$driverId,$carId,$statusId,$tariffId,$balance,$deposit,$number,$comment,$sum;
     protected $fillable =['start','finish','finishFact','typeId','driverId','carId','statusId','tariffId','balance','deposit','number','comment','sum'];
 

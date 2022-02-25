@@ -25,5 +25,8 @@ public function getLastContracts($kol);
 
 public function search($text);
 
+public function getContractsByCarId($carId);
+
+
 
 }

@@ -50,9 +50,6 @@ Class EventRentalService{
             $timesheetData['duration']=$deltaMinutes;
             $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
         }
-
-
-
     }
 
 }
