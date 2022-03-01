@@ -22,10 +22,6 @@
         <div class="p-2">Дата: {{$dateTime->format('d-m-Y')}}</div>
     </div>
 
-
-
-
-
 @endsection
 
 

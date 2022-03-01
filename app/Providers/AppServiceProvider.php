@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 
+
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,6 +22,7 @@ use App\Repositories\EventTransferRepository;
 use App\Repositories\EventFineRepository;
 use App\Repositories\EventCrashRepository;
 use App\Repositories\PhotoRepository;
+use App\Repositories\ToPaymentRepository;
 
 use App\Repositories\Interfaces\BrandRepositoryInterface;
 use App\Repositories\Interfaces\ModelRepositoryInterface;
@@ -37,6 +39,7 @@ use App\Repositories\Interfaces\EventTransferRepositoryInterface;
 use App\Repositories\Interfaces\EventFineRepositoryInterface;
 use App\Repositories\Interfaces\EventCrashRepositoryInterface;
 use App\Repositories\Interfaces\PhotoRepositoryInterface;
+use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -62,6 +65,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(EventFineRepositoryInterface::class,EventFineRepository::class);
         $this->app->bind(EventCrashRepositoryInterface::class,EventCrashRepository::class);
         $this->app->bind(PhotoRepositoryInterface::class,PhotoRepository::class);
+        $this->app->bind(ToPaymentRepositoryInterface::class,ToPaymentRepository::class);
     }
 
     /**

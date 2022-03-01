@@ -4,14 +4,12 @@
 
 @endphp
 @section('header')
-    <a class="btn btn-ssm btn-outline-success mr-3" title="Добавить событие" href="/timesheet/add?carId={{$carObj->id}}"><i class="far fa-plus-square"></i></a>
-            <h6 class="m-0 mr-3">События машины {{$carObj->nickName}}</h6>
+
 @endsection
 
 
 @section('content')
     <form type="GET" action="">
-        <input name="carId" value="{{$carObj->id}}" hidden/>
         <div class="row text-center">
             <div class="form-group col-md-2 input-group-sm">
                 <input class="form-control" type="date" name="fromDate" value="{{$periodDate->getStartDate()->format('Y-m-d')}}"/>

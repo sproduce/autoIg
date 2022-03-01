@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DateSpan;
 use App\Repositories\ContractRepository;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
+use App\Repositories\RentEventRepository;
+use App\Repositories\TimeSheetRepository;
 use App\Services\RentEventService;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
@@ -144,6 +146,15 @@ class TimeSheetController extends Controller
             ]);
     }
 
+    public function showDaysTimeSheet(DateSpan $dateSpan)
+    {
+        $dateFromTo=$dateSpan->validated();
+        $periodDate=new CarbonPeriod($dateFromTo['fromDate'],$dateFromTo['toDate']);
+        return view('timeSheet.days',['periodDate' => $periodDate]);
+    }
+
+
+
     public function updateTimeSheet()
     {
         $validate=$this->request->validate(['timeSheetId'=>'required|integer',
@@ -156,6 +167,36 @@ class TimeSheetController extends Controller
         return  redirect()->back();
 
     }
+
+    public function carContractDialog(ContractRepository $contractRep,TimeSheetRepository $timeSheetRep)
+    {
+        $validate=$this->request->validate(['timeSheetId'=>'required|integer']);
+        $timeSheetObj=$timeSheetRep->getTimeSheet($validate['timeSheetId']);
+        $contractsObj=$contractRep->getContractsByCarId($timeSheetObj->carId);
+
+        return view('dialog.TimeSheet.carContracts',['contractsObj' => $contractsObj,
+                                                         'timeSheetObj' => $timeSheetObj]);
+    }
+
+
+    public function addContractTimeSheet()
+    {
+        $validate=$this->request->validate(['timeSheetId'=>'required|integer',
+                                            'contractId' => 'required|integer']);
+        $this->timeSheetServ->addTimeSheetContract($validate['timeSheetId'],$validate['contractId']);
+        var_dump($validate);
+    }
+
+
+    public function listByEvent(RentEventRepository $rentEventRep,DateSpan $dateSpan)
+    {
+        $dateFromTo=$dateSpan->validated();
+        $periodDate=new CarbonPeriod($dateFromTo['fromDate'],$dateFromTo['toDate']);
+        $rentEvents=$rentEventRep->getEvents();
+        return view('timeSheet.events',['rentEvents' => $rentEvents,
+                                              'periodDate' => $periodDate]);
+    }
+
 
 
 }

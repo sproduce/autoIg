@@ -133,13 +133,13 @@ class ContractController extends Controller
     }
 
 
-    public function dialogCarContract(ContractRepository $contractRep)
-    {
-        $validate=$this->request->validate(['carId'=>'required|integer']);
-        $contractsObj=$contractRep->getContractsByCarId($validate['carId']);
-
-        return view('dialog.Contract.carContracts',['contractsObj' =>$contractsObj]);
-    }
+//    public function dialogCarContract(ContractRepository $contractRep)
+//    {
+//        $validate=$this->request->validate(['carId'=>'required|integer']);
+//        $contractsObj=$contractRep->getContractsByCarId($validate['carId']);
+//
+//        return view('dialog.Contract.carContracts',['contractsObj' =>$contractsObj]);
+//    }
 
 
 }

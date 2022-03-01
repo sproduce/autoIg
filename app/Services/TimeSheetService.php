@@ -3,15 +3,17 @@ namespace App\Services;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\RentEventRepository;
+use App\Repositories\ToPaymentRepository;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
 Class TimeSheetService{
-    private $timeSheetRep;
+    private $timeSheetRep,$toPaymentRep;
 
-    function __construct(TimeSheetRepositoryInterface $timeSheetRep)
+    function __construct(TimeSheetRepositoryInterface $timeSheetRep,ToPaymentRepository $toPaymentRep)
     {
         $this->timeSheetRep=$timeSheetRep;
+        $this->toPaymentRep=$toPaymentRep;
     }
 
     public function getCarsTimeSheets($periodDate,$accuracyH)
@@ -56,6 +58,11 @@ Class TimeSheetService{
         return $result;
     }
 
+    public function getDaysTimeSheet(CarbonPeriod $datePeriod)
+    {
+
+    }
+
     public function getContractTimeSheets($contractId)
     {
         return $this->timeSheetRep->getContractTimeSheets($contractId);
@@ -85,5 +92,11 @@ Class TimeSheetService{
         $this->timeSheetRep->updateTimeSheet($timeSheetId,$timesheetData);
     }
 
+
+    public function addTimeSheetContract($timeSheetId,$contractId)
+    {
+        $timeSheetObj=$this->timeSheetRep->getTimeSheet($timeSheetId);
+
+    }
 
 }

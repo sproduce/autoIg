@@ -46,7 +46,7 @@
                 @else
                     <div class="col daySize4h p-0 text-center border">
                         <div class="p-0">{{$date->isoFormat('ddd')}}<br/>
-                            <a href="?currentDate={{$date->format('Y-m-d')}}&subDays={{$subDays}}&addDays={{$addDays}}">{{$date->isoFormat('D')}}</a>
+                            <a href="/timesheet/days">{{$date->isoFormat('D')}}</a>
                         </div>
                     </div>
                 @endif
