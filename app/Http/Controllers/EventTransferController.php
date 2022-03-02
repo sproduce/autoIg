@@ -26,7 +26,7 @@ class EventTransferController extends Controller
 
     public function index()
     {
-
+        return view('rentEvent.listEventsTransfer');
     }
 
     /**

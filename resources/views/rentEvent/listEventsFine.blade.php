@@ -1,0 +1,22 @@
+@if($eventsObj->count())
+
+    <div class="row align-items-center font-weight-bold border">
+        <div class="col-2">Дата</div>
+        <div class="col-2">Машина</div>
+        <div class="col-2">Договор</div>
+        <div class="col-2">До</div>
+        <div class="col-2">Скидка</div>
+        <div class="col-2">Комментарий</div>
+    </div>
+    @foreach($eventsObj as $event)
+        <div class="row row-table">
+            <div class="col-2">{{$event->dateTime}}</div>
+            <div class="col-2">{{$event->nickName}}</div>
+            <div class="col-2">{{$event->number}}</div>
+            <div class="col-2"></div>
+            <div class="col-2"></div>
+            <div class="col-2">{{$event->comment}}</div>
+        </div>
+    @endforeach
+
+@endif

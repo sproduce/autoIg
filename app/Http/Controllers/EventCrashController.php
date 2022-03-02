@@ -31,7 +31,7 @@ class EventCrashController extends Controller
      */
     public function index()
     {
-        //
+        return response()->view('rentEvent.listEventsCrash');
     }
 
     /**

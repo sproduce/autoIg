@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CarIdDate;
+use App\Http\Requests\DateSpan;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
-use App\Repositories\RentEventRepository;
+use App\Repositories\Interfaces\EventFineRepositoryInterface;
+use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use App\Services\EventFineService;
 use App\Services\MotorPoolService;
-use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 
 class EventFineController extends Controller
 {
     protected $rentEventRep,$request,$eventObj;
 
-    public function __construct(RentEventRepository $rentEventRep,Request $request)
+    public function __construct(RentEventRepositoryInterface $rentEventRep,Request $request)
     {
         $this->rentEventRep = $rentEventRep;
         $this->request=$request;
@@ -24,9 +26,12 @@ class EventFineController extends Controller
     }
 
 
-    public function index()
+    public function index(DateSpan $dateSpan,EventFineService $eventFineServ)
     {
-        //
+        $dateFromTo=$dateSpan->validated();
+        $periodDate=new CarbonPeriod($dateFromTo['fromDate'],$dateFromTo['toDate']);
+        $eventsObj=$eventFineServ->getEvents($periodDate,$this->eventObj->id);
+        return view('rentEvent.listEventsFine',['eventsObj' => $eventsObj]);
     }
 
     /**
@@ -43,7 +48,7 @@ class EventFineController extends Controller
         } else{
             $carObj=$motorPoolServ->getCar($inputData['carId']);
         }
-                
+
         return response()->view('rentEvent.addEventFine',['carObj' => $carObj,
                                                                'contractObj' => $contractObj,
                                                                'dateTime' => $inputData['date'],

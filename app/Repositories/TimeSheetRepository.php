@@ -71,6 +71,15 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         //select min(dateTime),max(dateTime),eventId,dataId,duration from time_sheets where carId=12 group by eventId,dataId order by dateTime
     }
 
+    public function getTimeSheetsByEvent($eventId, CarbonPeriod $datePeriod)
+    {
+        $startDate=$datePeriod->getStartDate()->format('Y-m-d');
+        $finishDate=$datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
+
+        return timeSheet::query()->
+        whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])->
+        orWhereBetween('dateTime',[$startDate,$finishDate])->where('eventId','=',$eventId)->orderBy('dateTime')->get();
+    }
 
 }
 

@@ -32,7 +32,7 @@ class EventRentalController extends Controller
      */
     public function index()
     {
-
+        return response()->view('rentEvent.listEventsRental');
     }
 
     /**

@@ -33,7 +33,7 @@ class EventPhotocontrolController extends Controller
      */
     public function index()
     {
-        //
+        return response()->view('rentEvent.listEventsPhotocontrol');
     }
 
     /**
