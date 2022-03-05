@@ -2,23 +2,29 @@
 
 
 @section('header')
-
     <h6 class="m-0 mr-3">Табель</h6><br/>
-
-
-
 @endsection
 
 
 @section('content')
 
-    <form type="GET" action="">
+    <form type="GET" action="" id="filterForm">
         <div class="form-row text-center">
             <div class="form-group col-md-1 input-group-sm">
                 <input type="number" class="form-control" name="subDays" value="{{$subDays}}"/>
             </div>
+            <div class="form-group col-md-2 input-group-sm text-right">
+                <div class="btn btn-outline-primary btn-ssm changeDate">-30</div>
+                <div class="btn btn-outline-primary btn-ssm ml-3 mr-3 changeDate">-14</div>
+                <div class="btn btn-outline-primary btn-ssm changeDate">-7</div>
+            </div>
             <div class="form-group col-md-2 input-group-sm">
-                <input type="date"  class="form-control" name="currentDate" value="{{$currentDate->format('Y-m-d')}}"/>
+                <input type="date"  id="currentDate" class="form-control" name="currentDate" value="{{$currentDate->format('Y-m-d')}}"/>
+            </div>
+            <div class="form-group col-md-2 input-group-sm text-left">
+                <div class="btn btn-outline-primary btn-ssm changeDate">+7</div>
+                <div class="btn btn-outline-primary btn-ssm ml-3 mr-3 changeDate">+14</div>
+                <div class="btn btn-outline-primary btn-ssm changeDate">+30</div>
             </div>
             <div class="form-group col-md-1 input-group-sm">
                 <input type="number" class="form-control" name="addDays" value="{{$addDays}}"/>
@@ -114,5 +120,15 @@
                     DialogUser('/timesheet/info?carId='+carId+'&date='+dateTime);
             }
         });
+
+        $(".changeDate").click(function(){
+            var currentDate = new Date($('#currentDate').val()), kolday=parseInt($(this).text());
+            currentDate.setDate(currentDate.getDate()+kolday);
+            $("#currentDate").val(currentDate.toISOString().split('T')[0]);
+            $('#filterForm').submit();
+        });
+
+
+
     </script>
 @endsection

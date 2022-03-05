@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CarIdDate;
+use App\Http\Requests\DateSpan;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\RentEventRepository;
 use App\Services\EventRentalService;
 use App\Services\MotorPoolService;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 
 class EventRentalController extends Controller
@@ -30,9 +32,12 @@ class EventRentalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(DateSpan $dateSpan,EventRentalService $eventRentalServ)
     {
-        return response()->view('rentEvent.listEventsRental');
+        $dateSpan->validated();
+        $periodDate=$dateSpan->getCarbonPeriod();
+        $eventsObj=$eventRentalServ->getEvents($periodDate,$this->eventObj->id);
+        return response()->view('rentEvent.listEventsRental',['eventsObj' => $eventsObj]);
     }
 
     /**

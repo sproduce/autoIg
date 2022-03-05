@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Carbon\CarbonImmutable;
+use Carbon\CarbonPeriod;
 use Illuminate\Foundation\Http\FormRequest;
 
 
@@ -21,7 +22,8 @@ class DateSpan extends FormRequest
 
     protected function prepareForValidation()
     {
-        $input=parent::all();
+        $input=parent::all(['fromDate','toDate']);
+
         if (empty($input['fromDate'])||empty($input['toDate'])){
             $toDate=CarbonImmutable::today();
             $fromDate=$toDate->subMonth(1);
@@ -32,7 +34,12 @@ class DateSpan extends FormRequest
 
     }
 
-
+    public function getCarbonPeriod(): CarbonPeriod
+    {
+        $input=parent::all(['fromDate','toDate']);
+        $periodDate=new CarbonPeriod($input['fromDate'],$input['toDate']);
+        return  $periodDate;
+    }
 
 
     /**
@@ -42,7 +49,6 @@ class DateSpan extends FormRequest
      */
     public function rules()
     {
-
         return [
             'fromDate' => 'date',
             'toDate' => 'date'

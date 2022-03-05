@@ -6,6 +6,7 @@ use App\Repositories\Interfaces\EventRentalRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 Class EventRentalService{
     private $eventRentalRep,$timeSheetRep;
@@ -51,5 +52,17 @@ Class EventRentalService{
             $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
         }
     }
+
+    public function getEvents(CarbonPeriod $periodDate,$eventId)
+    {
+        $eventsObj=$this->eventRentalRep->getEventRentals($eventId,$periodDate);
+        $eventsObj->each(function ($item, $key) {
+            $item->dateTime=Carbon::parse($item->dateTime);
+        });
+        //$eventsObj->dd();
+        //$eventsObj=$this->timeSheetRep->getTimeSheetsByEvent($eventId,$periodDate);
+        return $eventsObj;
+    }
+
 
 }

@@ -33,6 +33,7 @@ public function getEventFinesByContract($contractId)
             ->leftJoin('rent_contracts','rent_contracts.id', '=', 'time_sheets.contractId')
             ->where('time_sheets.eventId','=',$eventId)
             ->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])
+            ->orderBy('time_sheets.dateTime')
             ->get();
 
     }

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\Interfaces\EventCrashRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
+use Carbon\Carbon;
 
 Class EventCrashService{
     private $eventCrashRep,$timeSheetRep;
@@ -52,7 +53,14 @@ Class EventCrashService{
 
     }
 
-
+    public function getEvents($periodDate,$eventId)
+    {
+        $eventsObj=$this->eventCrashRep->getEventCrashes($eventId,$periodDate);
+        $eventsObj->each(function ($item, $key) {
+            $item->dateTime=Carbon::parse($item->dateTime);
+        });
+        return $eventsObj;
+    }
 
 
 

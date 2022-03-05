@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Repositories\Interfaces\EventTransferRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 Class EventTransferService{
     private $eventTransferRep,$timeSheetRep;
@@ -35,7 +37,14 @@ Class EventTransferService{
     }
 
 
-
+    public function getEvents(CarbonPeriod $periodDate,$eventId)
+    {
+        $eventsObj=$this->eventTransferRep->getEventTransfers($eventId,$periodDate);
+        $eventsObj->each(function ($item, $key) {
+            $item->dateTime=Carbon::parse($item->dateTime);
+        });
+        return $eventsObj;
+    }
 
 
 }

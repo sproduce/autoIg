@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\Interfaces\EventFineRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
+use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
 Class EventFineService{
@@ -48,8 +49,9 @@ Class EventFineService{
     public function getEvents(CarbonPeriod $periodDate,$eventId)
     {
         $eventsObj=$this->eventFineRep->getEventFines($eventId,$periodDate);
-        //$eventsObj->dump();
-        //$eventsObj=$this->timeSheetRep->getTimeSheetsByEvent($eventId,$periodDate);
+        $eventsObj->each(function ($item, $key) {
+            $item->dateTime=Carbon::parse($item->dateTime);
+        });
         return $eventsObj;
     }
 

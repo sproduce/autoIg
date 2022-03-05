@@ -28,8 +28,8 @@ class EventFineController extends Controller
 
     public function index(DateSpan $dateSpan,EventFineService $eventFineServ)
     {
-        $dateFromTo=$dateSpan->validated();
-        $periodDate=new CarbonPeriod($dateFromTo['fromDate'],$dateFromTo['toDate']);
+        $dateSpan->validated();
+        $periodDate=$dateSpan->getCarbonPeriod();
         $eventsObj=$eventFineServ->getEvents($periodDate,$this->eventObj->id);
         return view('rentEvent.listEventsFine',['eventsObj' => $eventsObj]);
     }
@@ -43,16 +43,18 @@ class EventFineController extends Controller
     {
         $inputData=$carIdDate->validated();
         $contractObj=$contractRep->getContract($inputData['contractId']);
-        if ($contractObj->carId){
+        if ($contractObj->carId) {
             $carObj=$motorPoolServ->getCar($contractObj->carId);
         } else{
             $carObj=$motorPoolServ->getCar($inputData['carId']);
         }
 
-        return response()->view('rentEvent.addEventFine',['carObj' => $carObj,
-                                                               'contractObj' => $contractObj,
-                                                               'dateTime' => $inputData['date'],
-                                                               'eventObj' => $this->eventObj]);
+        return response()->view('rentEvent.addEventFine',[
+            'carObj' => $carObj,
+            'contractObj' => $contractObj,
+            'dateTime' => $inputData['date'],
+            'eventObj' => $this->eventObj
+        ]);
     }
 
     /**
