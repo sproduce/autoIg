@@ -2,6 +2,7 @@
 
 
 @section('header')
+    <a class="btn btn-ssm btn-outline-success DialogUser mr-3" title="Добавить машину" href="/motorPool/add"><i class="far fa-plus-square"></i></a>
             <h6 class="m-0">Машины </h6>
     <input type="text" class="h-50 ml-3" name="queryText" id="queryText" title="быстрый поиск"/>
 @endsection
@@ -72,13 +73,6 @@
             </div>
         </div>
     @endif
-
-    <div class="row mt-4">
-        <div class="col-12">
-            <a class="btn btn-ssm btn-outline-success DialogUser" title="Добавить машину" href="/motorPool/add"><i class="far fa-plus-square"></i></a>
-        </div>
-    </div>
-
 
 
 

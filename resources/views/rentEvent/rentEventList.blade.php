@@ -13,9 +13,11 @@
     <div class="row font-weight-bold">
         <div class="col-2">Название </div>
         <div class="col-2">Поведение </div>
-        <div class="col-2">Приоритет </div>
+        <div class="col-1">Приоритет </div>
         <div class="col-2">Продолжительность </div>
-        <div class="col-2">Иконка </div>
+        <div class="col-1">Иконка</div>
+        <div class="col-1">К оплате</div>
+        <div class="col-2">Тип платежа</div>
     </div>
 
 
@@ -23,9 +25,11 @@
         <div class="row row-table">
             <div class="col-2" style="background-color:{{$rentEvent->color}}">{{$rentEvent->name}}</div>
             <div class="col-2">{{$rentEvent->action}}</div>
-            <div class="col-2"></div>
+            <div class="col-1">{{$rentEvent->priority}}</div>
             <div class="col-2">{{$rentEvent->duration}}</div>
-            <div class="col-2"></div>
+            <div class="col-1"></div>
+            <div class="col-1">К оплате</div>
+            <div class="col-2">Тип платежа</div>
         </div>
     @endforeach
 @endsection

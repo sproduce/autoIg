@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CarIdDate;
+use App\Http\Requests\DateSpan;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\RentEventRepository;
 use App\Services\MotorPoolService;
@@ -31,9 +32,12 @@ class EventPhotocontrolController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(DateSpan $dateSpan,EventPhotocontrolService $eventPhotocontrolServ)
     {
-        return response()->view('rentEvent.listEventsPhotocontrol');
+        $dateSpan->validated();
+        $periodDate=$dateSpan->getCarbonPeriod();
+        $eventsObj=$eventPhotocontrolServ->getEvents($periodDate,$this->eventObj->id);
+        return response()->view('rentEvent.listEventsPhotocontrol',['eventsObj' => $eventsObj]);
     }
 
     /**
