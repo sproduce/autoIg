@@ -4,15 +4,17 @@ namespace App\Services;
 
 use App\Repositories\Interfaces\EventCrashRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
+use App\Repositories\ToPaymentRepository;
 use Carbon\Carbon;
 
 Class EventCrashService{
-    private $eventCrashRep,$timeSheetRep;
+    private $eventCrashRep,$timeSheetRep,$toPaymentRep;
 
-    function __construct(EventCrashRepositoryInterface $eventCrashRep,TimeSheetRepositoryInterface $timeSheetRep)
+    function __construct(EventCrashRepositoryInterface $eventCrashRep,TimeSheetRepositoryInterface $timeSheetRep,ToPaymentRepository $toPaymentRep)
     {
         $this->eventCrashRep=$eventCrashRep;
         $this->timeSheetRep=$timeSheetRep;
+        $this->toPaymentRep=$toPaymentRep;
     }
 
 
@@ -34,22 +36,13 @@ Class EventCrashService{
         $timesheetData['color']=$dataArray['color'];
         $timesheetData['duration']=$dataArray['duration'] ?? 1;
         $timesheetData['dateTime']=date("Y-m-d H:i:00",strtotime($dateTime));
-        $this->timeSheetRep->addTimeSheet($timesheetData);
-
-//        $eventFineObj=$this->eventFineRep->addEventFine($eventFineData);
-//        $timesheetData['carId']=$dataArray['carId'];
-//        $timesheetData['eventId']=$dataArray['eventId'];
-//        $timesheetData['comment']='';
-//        $timesheetData['dataId']=$eventFineObj->id;
-//        $timesheetData['color']=$dataArray['color'];
-//        $timesheetData['duration']=$dataArray['duration'] ?? 1;
-//
-//        $dateTime=$dataArray['dateFine'].' '.$dataArray['timeFine'];
-//        $timesheetData['dateTime']=date("Y-m-d H:i:00",strtotime($dateTime));
-//
-//
-//        $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
-
+        $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
+        if ($dataArray['isToPay']){
+            $toPaymentArray['sum']=$dataArray['sum'] ??0;
+            $toPaymentArray['timeSheetId']=$timeSheetObj->id;
+            $toPaymentArray['contractId']=$dataArray['contractId'];
+            $this->toPaymentRep->addToPayment($toPaymentArray);
+        }
 
     }
 

@@ -43,6 +43,9 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         $toPayment->delete();
     }
 
-
+    public function getToPayments()
+    {
+        return toPayment::all();
+    }
 }
 

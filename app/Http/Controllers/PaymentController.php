@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ToPaymentRepository;
 use App\Services\ContractService;
 use App\Services\PaymentService;
 use App\Services\MotorPoolService;
@@ -85,9 +86,11 @@ class PaymentController extends Controller
         return view('payment.paymentByContractList',['payments'=>$paymentsObj]);
     }
 
-    public function listToPays()
+    public function listToPays(ToPaymentRepository $toPaymentRep)
     {
-        return view('payment.toPay');
+        $toPaymentsObj=$toPaymentRep->getToPayments();
+
+        return view('payment.toPay',['toPayments' => $toPaymentsObj]);
     }
 
 

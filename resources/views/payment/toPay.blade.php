@@ -10,6 +10,10 @@
 
 @section('content')
 
+    @forelse($toPayments as $toPayment)
+        {{$toPayment->sum}}<br/>
+    @empty
+    @endforelse
 
 @endsection
 

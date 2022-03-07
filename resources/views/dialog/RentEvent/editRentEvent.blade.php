@@ -5,6 +5,7 @@
         </button>
     </div>
 <form method="POST" action="/rentEvent/edit">
+    <input type="number" name="id" value="{{$rentEventObj->id}}" hidden/>
     @csrf
     <div class="row">
         <div class="col-4">Название</div>
@@ -18,10 +19,17 @@
         <div class="col-4">Поведение</div>
         <div class="col-8"><input type="text" name="action" value="{{$rentEventObj->action}}" id="action" autocomplete="off"/></div>
     </div>
-
+    <div class="row">
+        <div class="col-4">Продолжительность</div>
+        <div class="col-8"><input type="number" name="duration" value="{{$rentEventObj->duration}}" id="action" autocomplete="off"/></div>
+    </div>
+    <div class="row">
+        <div class="col-4">Приоритет</div>
+        <div class="col-8"><input type="number" name="priority" value="{{$rentEventObj->priority}}" id="priority" autocomplete="off"/></div>
+    </div>
     <div class="row">
         <div class="col-4">К оплате</div>
-        <div class="col-8"> <input type="checkbox" name="isToPay"
+        <div class="col-8"> <input type="checkbox" value="1" name="isToPay"
                                    @if($rentEventObj->isToPay)
                                         checked
                                    @endif/>
@@ -29,11 +37,17 @@
     </div>
     <div class="row">
         <div class="col-4">Тип платежа</div>
-        <div class="col-8"><input type="text" name="action" id="action" autocomplete="off"/></div>
+        <div class="col-8">
+            <select name="payOperationTypeId">
+                @foreach($paymentTypes as $paymentType)
+                    <option value="{{$paymentType->id}}">{{$paymentType->name}}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
 
     <div class="modal-footer d-flex justify-content-center">
-        <input type="submit" class="btn btn-primary" value="Добавить">
+        <input type="submit" class="btn btn-primary" value="Сохранить">
     </div>
 </form>
 

@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Repositories\EventPhotocontrolRepository;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
+use App\Repositories\ToPaymentRepository;
 use App\Services\PhotoService;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -10,13 +11,14 @@ use Illuminate\Support\Str;
 
 
 Class EventPhotocontrolService{
-    private $timeSheetRep,$photoServ,$eventPhotocontrolRep;
+    private $timeSheetRep,$photoServ,$eventPhotocontrolRep,$toPaymentRep;
 
-    function __construct(EventPhotocontrolRepository $eventPhotocontrolRep,TimeSheetRepositoryInterface $timeSheetRep,PhotoService $photoServ)
+    function __construct(EventPhotocontrolRepository $eventPhotocontrolRep,TimeSheetRepositoryInterface $timeSheetRep,PhotoService $photoServ,ToPaymentRepository $toPaymentRep)
     {
         $this->eventPhotocontrolRep=$eventPhotocontrolRep;
         $this->timeSheetRep=$timeSheetRep;
         $this->photoServ=$photoServ;
+        $this->toPaymentRep=$toPaymentRep;
     }
 
 
@@ -37,7 +39,13 @@ Class EventPhotocontrolService{
         $timeSheetData['mileage']=$dataArray['mileage'];
         $timeSheetData['color']=$dataArray['color'];
         $timeSheetData['contractId']=$dataArray['contractId'];
-        $this->timeSheetRep->addTimeSheet($timeSheetData);
+        $timeSheetObj=$this->timeSheetRep->addTimeSheet($timeSheetData);
+        if ($dataArray['isToPay']){
+            $toPaymentArray['sum']=$dataArray['sum'] ??0;
+            $toPaymentArray['timeSheetId']=$timeSheetObj->id;
+            $toPaymentArray['contractId']=$dataArray['contractId'];
+            $this->toPaymentRep->addToPayment($toPaymentArray);
+        }
 
     }
 

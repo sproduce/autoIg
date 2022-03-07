@@ -5,16 +5,18 @@ namespace App\Services;
 use App\Repositories\Interfaces\EventRentalRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 
+use App\Repositories\ToPaymentRepository;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
 Class EventRentalService{
-    private $eventRentalRep,$timeSheetRep;
+    private $eventRentalRep,$timeSheetRep,$toPaymentRep;
 
-    function __construct(EventRentalRepositoryInterface $eventRentalRep,TimeSheetRepositoryInterface $timeSheetRep)
+    function __construct(EventRentalRepositoryInterface $eventRentalRep,TimeSheetRepositoryInterface $timeSheetRep,ToPaymentRepository $toPaymentRep)
     {
         $this->eventRentalRep=$eventRentalRep;
         $this->timeSheetRep=$timeSheetRep;
+        $this->toPaymentRep=$toPaymentRep;
     }
 
 

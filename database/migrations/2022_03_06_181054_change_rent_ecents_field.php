@@ -15,7 +15,7 @@ class ChangeRentEcentsField extends Migration
     {
         Schema::table('rent_events', function (Blueprint $table) {
             $table->boolean('isToPay')->default(true);
-            $table->unsignedBigInteger('payOperationTypes')->nullable();
+            $table->unsignedBigInteger('payOperationTypeId')->nullable();
         });
     }
 
@@ -27,7 +27,7 @@ class ChangeRentEcentsField extends Migration
     public function down()
     {
         Schema::table('rent_events', function (Blueprint $table) {
-            $table->dropColumn(['isToPay','payOperationTypes']);
+            $table->dropColumn(['isToPay','payOperationTypeId']);
         });
     }
 }

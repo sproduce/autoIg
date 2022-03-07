@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\PaymentRepository;
+use App\Repositories\RentEventRepository;
 use App\Services\RentEventService;
 use Illuminate\Http\Request;
 
@@ -36,17 +38,30 @@ class RentEventController extends Controller
     }
 
 
-    public function editDialog()
+    public function editDialog(PaymentRepository $paymentRep)
     {
         $event=$this->request->validate(['eventId'=>'required']);
         $rentEventObj=$this->rentEventServ->getRentEvent($event['eventId']);
-        return view('dialog.RentEvent.editRentEvent',['rentEventObj'=>$rentEventObj]);
+        $paymentTypes=$paymentRep->getOperationTypes();
+        return view('dialog.RentEvent.editRentEvent',['rentEventObj' => $rentEventObj,
+            'paymentTypes' => $paymentTypes]);
     }
 
 
     public function update()
     {
+        $eventArray=$this->request->validate(['id' => 'required',
+            'name' => '',
+            'color' => '',
+            'action' =>'',
+            'priority' => 'nullable|integer',
+            'duration' => 'nullable|integer',
+            'isToPay' => 'nullable',
+            'payOperationTypeId' => 'integer'
+            ]);
+        $this->rentEventServ->updateRentEvent($eventArray);
 
+        return  redirect()->back();
     }
 
 }

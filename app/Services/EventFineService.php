@@ -4,16 +4,18 @@ namespace App\Services;
 
 use App\Repositories\Interfaces\EventFineRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
+use App\Repositories\ToPaymentRepository;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
 Class EventFineService{
-    private $eventFineRep,$timeSheetRep;
+    private $eventFineRep,$timeSheetRep,$toPaymentRep;
 
-    function __construct(EventFineRepositoryInterface $eventFineRep,TimeSheetRepositoryInterface $timeSheetRep)
+    function __construct(EventFineRepositoryInterface $eventFineRep,TimeSheetRepositoryInterface $timeSheetRep,ToPaymentRepository $toPaymentRep)
     {
         $this->eventFineRep=$eventFineRep;
         $this->timeSheetRep=$timeSheetRep;
+        $this->toPaymentRep=$toPaymentRep;
     }
 
 
@@ -43,7 +45,12 @@ Class EventFineService{
 
         $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
 
-
+        if ($dataArray['isToPay']){
+            $toPaymentArray['sum']=$dataArray['sum'] ??0;
+            $toPaymentArray['timeSheetId']=$timeSheetObj->id;
+            $toPaymentArray['contractId']=$dataArray['contractId'];
+            $this->toPaymentRep->addToPayment($toPaymentArray);
+        }
     }
 
     public function getEvents(CarbonPeriod $periodDate,$eventId)
