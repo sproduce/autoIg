@@ -18,6 +18,7 @@
         <div class="col-1">Иконка</div>
         <div class="col-1">К оплате</div>
         <div class="col-2">Тип платежа</div>
+        <div class="col-1"></div>
     </div>
 
 
@@ -28,8 +29,15 @@
             <div class="col-1">{{$rentEvent->priority}}</div>
             <div class="col-2">{{$rentEvent->duration}}</div>
             <div class="col-1"></div>
-            <div class="col-1">К оплате</div>
-            <div class="col-2">Тип платежа</div>
+            <div class="col-1">
+                @if ($rentEvent->isToPay)
+                    <input type="checkbox"  onclick="return false;" checked/>
+                @else
+                    <input type="checkbox" onclick="return false;"/>
+                @endif
+            </div>
+            <div class="col-2"></div>
+            <div class="col-1"><a class="btn btn-ssm btn-outline-warning DialogUserMin" href="/rentEvent/edit?eventId={{$rentEvent->id}}" title="Редактировать"> <i class="far fa-edit"></i></a></div>
         </div>
     @endforeach
 @endsection

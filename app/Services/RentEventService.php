@@ -19,6 +19,13 @@ Class RentEventService{
         return $rentEventsObj;
     }
 
+    public function getRentEvent($eventId)
+    {
+        $rentEventObj=$this->rentEventRep->getEvent($eventId);
+        return $rentEventObj;
+    }
+
+
     public function addRentEvent()
     {
         $validate=$this->request->validate(['name'=>'required',

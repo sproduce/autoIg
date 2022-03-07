@@ -3,13 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Services\RentEventService;
+use Illuminate\Http\Request;
 
 
 class RentEventController extends Controller
 {
-    public function show(RentEventService $rentEventServ)
+    private $request,$rentEventServ;
+    public function __construct(Request $request,RentEventService $rentEventServ)
     {
-        $rentEventsObj=$rentEventServ->getRentEvents();
+        $this->request=$request;
+        $this->rentEventServ=$rentEventServ;
+    }
+
+
+
+    public function show()
+    {
+        $rentEventsObj=$this->rentEventServ->getRentEvents();
         return view('rentEvent.rentEventList',['rentEvents'=>$rentEventsObj]);
     }
 
@@ -19,16 +29,18 @@ class RentEventController extends Controller
         return view('dialog.RentEvent.addRentEvent');
     }
 
-    public function add(RentEventService $rentEventServ)
+    public function add()
     {
-        $rentEventServ->addRentEvent();
+        $this->rentEventServ->addRentEvent();
         return  redirect()->back();
     }
 
 
     public function editDialog()
     {
-
+        $event=$this->request->validate(['eventId'=>'required']);
+        $rentEventObj=$this->rentEventServ->getRentEvent($event['eventId']);
+        return view('dialog.RentEvent.editRentEvent',['rentEventObj'=>$rentEventObj]);
     }
 
 
