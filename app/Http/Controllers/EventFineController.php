@@ -95,7 +95,7 @@ class EventFineController extends Controller
      */
     public function show($id)
     {
-        //
+        echo "FullInfo";
     }
 
     /**

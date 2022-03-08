@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DateSpan;
 use App\Repositories\ToPaymentRepository;
 use App\Services\ContractService;
 use App\Services\PaymentService;
@@ -86,11 +87,14 @@ class PaymentController extends Controller
         return view('payment.paymentByContractList',['payments'=>$paymentsObj]);
     }
 
-    public function listToPays(ToPaymentRepository $toPaymentRep)
+    public function listToPays(ToPaymentRepository $toPaymentRep,DateSpan $dateSpan)
     {
-        $toPaymentsObj=$toPaymentRep->getToPayments();
+        $dateSpan->validated();
+        $periodDate=$dateSpan->getCarbonPeriod();
 
-        return view('payment.toPay',['toPayments' => $toPaymentsObj]);
+        $toPaymentsCollect=$toPaymentRep->getToPaymentsByDate($periodDate);
+        //$toPaymentsCollect->dump();
+        return view('payment.toPay',['toPayments' => $toPaymentsCollect,'periodDate' => $periodDate]);
     }
 
 
