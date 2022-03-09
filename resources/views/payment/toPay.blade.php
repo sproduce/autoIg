@@ -28,7 +28,7 @@
             <div class="col-2">Машина</div>
             <div class="col-2">Событие</div>
             <div class="col-1 text-center">Сумма</div>
-            <div class="col-1 text-center">Оплачен</div>
+            <div class="col-1 text-center">Оплачено</div>
             <div class="col-1 text-center">Платеж</div>
         </div>
 
@@ -38,7 +38,7 @@
                 <div class="col-2">{{$toPayment->nickName}}</div>
                 <div class="col-2">
                     {{$toPayment->name}}
-                    <a href="/{{$toPayment->action}}/{{$toPayment->dataId}}" class="btn btn-ssm btn-outline-info DialogUserMin" title="Подробно о событии"><i class="fas fa-info-circle"></i></a>
+                    <a href="/{{$toPayment->action}}/{{$toPayment->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробно о событии"><i class="fas fa-info-circle"></i></a>
                 </div>
                 <div class="col-1 text-right">{{$toPayment->sumToPay}}</div>
             </div>

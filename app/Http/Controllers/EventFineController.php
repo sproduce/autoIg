@@ -93,9 +93,11 @@ class EventFineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,EventFineRepositoryInterface $eventFineRep)
     {
-        echo "FullInfo";
+        $eventFineObj=$eventFineRep->getEventFine($id);
+
+        return response()->view('dialog.RentEvent.infoEventFine',['eventFineObj' => $eventFineObj]);
     }
 
     /**
