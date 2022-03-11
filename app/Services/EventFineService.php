@@ -11,7 +11,9 @@ use Carbon\CarbonPeriod;
 Class EventFineService{
     private $eventFineRep,$timeSheetRep,$toPaymentRep;
 
-    function __construct(EventFineRepositoryInterface $eventFineRep,TimeSheetRepositoryInterface $timeSheetRep,ToPaymentRepository $toPaymentRep)
+    function __construct(EventFineRepositoryInterface $eventFineRep,
+                         TimeSheetRepositoryInterface $timeSheetRep,
+                         ToPaymentRepository $toPaymentRep)
     {
         $this->eventFineRep=$eventFineRep;
         $this->timeSheetRep=$timeSheetRep;

@@ -63,6 +63,10 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/rentEvent.php'));
+            Route::prefix('additional')
+                ->middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/additional.php'));
         });
     }
 

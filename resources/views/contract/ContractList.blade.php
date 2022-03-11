@@ -94,7 +94,7 @@
                     <div class="row">
                         <div class="col-1 p-0">
                             <a href="/payment/listByContract?contractId={{$contract->id}}" title="Платежи по договору">{{$contract->number}}</a>
-                            <a href="/contract/toPay?contractId={{$contract->id}}" title="К оплате по договору"><i class="fas fa-hand-holding-usd"></i></a>
+
                         </div>
                         <div class="col-2">{{$contract->finish}}</div>
                         <div class="col-2">{{$contract->car->generation->model->name}}</div>
@@ -105,7 +105,10 @@
                         <div class="col-1 text-center p-0 pt-1"><a class="btn btn-ssm btn-outline-warning" href="/contract/edit?contractId={{$contract->id}}" title="Редактировать"> <i class="far fa-edit"></i></a></div>
                     </div>
                     <div class="row">
-                        <div class="col-1 p-0"></div>
+                        <div class="col-1 p-0">
+                            <a href="/contract/toPay?contractId={{$contract->id}}" title="К оплате по договору"><i class="fas fa-hand-holding-usd"></i></a>
+                            <a href="/additional/contractAdditional?contractId={{$contract->id}}" title="Услуги по договору"><i class="fas fa-tags"></i></a>
+                        </div>
                         <div class="col-2">{{$contract->finishFact}}</div>
                         <div class="col-2">{{$contract->car->nickName}}</div>
                         <div class="col-2">{{$contract->driver->nickname}}</div>

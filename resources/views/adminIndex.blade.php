@@ -46,6 +46,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link"  href="/additional/list">
+                                <i class="fas fa-tags"></i>
+                                Услуги
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/motorPool/list">
                                 <i class="fas fa-taxi"></i>
                                 Автопарк
