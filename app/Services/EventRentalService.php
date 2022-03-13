@@ -42,19 +42,26 @@ Class EventRentalService{
         $timesheetData['dataId']=$eventRentalObj->id;
         $timesheetData['color']=$dataArray['color'];
         $timesheetData['duration']=$dataArray['duration'];
-
+        $additionalArray['contractId']=$dataArray['contractId'];
         for($i=0;$i<$colIteration;$i++)
         {
             $timesheetData['dateTime']=$startCarbon->toDateTimeString();
             $timesheetData['sum']=$dataArray['sum'][$i]??0;
             $startCarbon->addDays(1);
             $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
+
+            $additionalArray['timeSheetId']=$timeSheetObj->id;
+            $additionalArray['sum']=$timesheetData['sum'];
+            $this->additionalRep->addAdditional($additionalArray);
         }
         if ($deltaMinutes){
             $timesheetData['dateTime']=$startCarbon->toDateTimeString();
             $timesheetData['sum']=$dataArray['sum'][$colIteration]??0;
             $timesheetData['duration']=$deltaMinutes;
             $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
+            $additionalArray['timeSheetId']=$timeSheetObj->id;
+            $additionalArray['sum']=$timesheetData['sum'];
+            $this->additionalRep->addAdditional($additionalArray);
         }
     }
 

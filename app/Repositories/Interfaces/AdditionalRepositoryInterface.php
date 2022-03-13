@@ -9,6 +9,6 @@ interface AdditionalRepositoryInterface
     public function getAdditionals();
     public function getAdditionalsByDate(CarbonPeriod $datePeriod);
 
-    public function addAdditional();
+    public function addAdditional($additionalArray);
 
 }

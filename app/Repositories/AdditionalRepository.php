@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\rentAdditional;
-use App\Models\toPayment;
+
 use App\Repositories\Interfaces\AdditionalRepositoryInterface;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -27,9 +27,9 @@ class AdditionalRepository implements AdditionalRepositoryInterface
         return $additionalsCollection;
     }
 
-    public function addAdditional()
+    public function addAdditional($additionalArray)
     {
-        // TODO: Implement addAdditional() method.
+       return rentAdditional::create($additionalArray);
     }
 
 }

@@ -76,7 +76,7 @@ class EventRentalController extends Controller
         $inputData['color']=$this->eventObj->color;
         $inputData['duration']=$this->eventObj->duration;
         $eventRentalServ->addEvent($inputData);
-        return redirect('/timesheet/list');
+        //return redirect('/timesheet/list');
     }
 
     /**
