@@ -1,16 +1,25 @@
 <?php
 namespace App\Services;
-use App\Http\Requests\DateSpan;
-use App\Repositories\Interfaces\ContractRepositoryInterface;
+
+
+use App\Repositories\AdditionalRepository;
 use Carbon\CarbonPeriod;
-use Illuminate\Http\Request;
+
 
 Class ContractAdditionalService{
-    private $request;
+    private $additionalRep;
 
-    function __construct(Request $request)
+    function __construct(AdditionalRepository $additionalRep)
     {
-        $this->request=$request;
+        $this->additionalRep=$additionalRep;
+    }
+
+
+    public function getAdditionals(CarbonPeriod $datePeriod)
+    {
+        $additionalsObj = $this->additionalRep->getAdditionalsByDate($datePeriod);
+        //$additionalsObj->dd();
+        return $additionalsObj;
     }
 
 

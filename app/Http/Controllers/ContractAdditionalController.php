@@ -3,22 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DateSpan;
+use App\Services\ContractAdditionalService;
 use Illuminate\Http\Request;
 
 class ContractAdditionalController extends Controller
 {
-    private $request;
+    private $request,$additioonalServ;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request,ContractAdditionalService $additioonalServ)
     {
         $this->request=$request;
+        $this->additioonalServ=$additioonalServ;
     }
 
     public function show(DateSpan $dateSpan)
     {
         $dateSpan->validated();
         $periodDate=$dateSpan->getCarbonPeriod();
-       return view('contract.ContractAdditionalList',['periodDate' => $periodDate]);
+        $additionalsObj = $this->additioonalServ->getAdditionals($periodDate);
+        return view('contract.ContractAdditionalList',['periodDate' => $periodDate,
+            'additionals' => $additionalsObj]);
     }
 
 

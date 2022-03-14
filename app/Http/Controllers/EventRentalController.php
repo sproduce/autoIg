@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CarIdDate;
 use App\Http\Requests\DateSpan;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
+use App\Repositories\Interfaces\EventRentalRepositoryInterface;
 use App\Repositories\RentEventRepository;
 use App\Services\EventRentalService;
 use App\Services\MotorPoolService;
@@ -70,13 +71,13 @@ class EventRentalController extends Controller
             'dateFinish'=>'required',
             'timeFinish'=>'required',
             'sum'=>'array',
-            'contractId'=>'']);
+            'contractId'=>'required']);
 
         $inputData['eventId']= $this->eventObj->id;
         $inputData['color']=$this->eventObj->color;
         $inputData['duration']=$this->eventObj->duration;
         $eventRentalServ->addEvent($inputData);
-        //return redirect('/timesheet/list');
+        return redirect('/timesheet/list');
     }
 
     /**
@@ -85,7 +86,7 @@ class EventRentalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,EventRentalRepositoryInterface $eventRentalRep)
     {
         echo $id;
     }
