@@ -33,12 +33,25 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->join('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
             ->join('car_configurations','car_configurations.id','=','time_sheets.carId')
             ->join('rent_events','rent_events.id','=','time_sheets.eventId')
-            ->select(['rent_events.*','time_sheets.*','car_configurations.*','to_payments.sum as sumToPay'])
+            ->leftJoin('rent_additionals','rent_additionals.toPaymentsId','=','to_payments.id')
+            ->select([
+                'rent_events.name as eventName',
+                'rent_events.action as eventAction',
+                'rent_events.id as eventId',
+                'time_sheets.id as timeSheetId',
+                'time_sheets.dateTime as timeSheetDateTime',
+                'time_sheets.dataId as timeSheetDataId',
+                'car_configurations.nickName as carNickName',
+                'car_configurations.id as carId',
+                'to_payments.sum as toPaymentSum',
+                'to_payments.id as toPaymentId',
+                'rent_additionals.id as rentAdditionalId',
+            ])
             ->whereBetween('dateTime',[$startDate,$finishDate])
             ->get();
-
+        //$resultCollection->dump();
         $resultCollection->each(function ($item, $key) {
-            $item->dateTime=Carbon::parse($item->dateTime);
+            $item->timeSheetDateTime=Carbon::parse($item->timeSheetDateTime);
         });
         return $resultCollection;
     }

@@ -22,5 +22,14 @@ Class ContractAdditionalService{
         return $additionalsObj;
     }
 
+    public function getAdditionalFullInfo($additionalId)
+    {
+        $additionalFullInfo = $this->additionalRep->getAdditionalFullInfo($additionalId);
+        return $additionalFullInfo;
+    }
+
+
+
+
 
 }

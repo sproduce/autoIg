@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 Class RentEventService{
     private $rentEventRep,$request;
 
-    function __construct(RentEventRepositoryInterface $rentEventRep,Request $request)
-    {
+    function __construct(
+        RentEventRepositoryInterface $rentEventRep,
+        Request $request
+    ) {
         $this->rentEventRep=$rentEventRep;
         $this->request=$request;
     }

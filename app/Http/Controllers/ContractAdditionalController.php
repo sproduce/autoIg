@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DateSpan;
+use App\Repositories\ContractRepository;
 use App\Services\ContractAdditionalService;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,36 @@ class ContractAdditionalController extends Controller
         $additionalsObj = $this->additioonalServ->getAdditionals($periodDate);
         return view('contract.ContractAdditionalList',['periodDate' => $periodDate,
             'additionals' => $additionalsObj]);
+    }
+
+
+
+    public function addContractAdditionalDialog(ContractRepository $contractRep)
+    {
+        $validate = $this->request->validate(['toPayId'=>'required|integer']);
+        $additionalFullInfo = $this->additioonalServ->getAdditionalFullInfo($validate['toPayId']);
+        $contractsObj = $contractRep->getContractsByCarId($additionalFullInfo->carId);
+
+        return view('contract.AddContractAdditional',['additionalFullInfo' => $additionalFullInfo,
+            'contractsObj' => $contractsObj,
+        ]);
+    }
+
+
+    public function addContractAdditional(ContractRepository $contractRep)
+    {
+        $validate = $this->request->validate(['toPayId'=>'required|integer']);
+        $additionalFullInfo = $this->additioonalServ->getAdditionalFullInfo($validate['toPayId']);
+        $contractsObj = $contractRep->getContractsByCarId($additionalFullInfo->carId);
+
+        return view('contract.AddContractAdditional',['additionalFullInfo' => $additionalFullInfo,
+            'contractsObj' => $contractsObj,
+            ]);
+    }
+
+    public function storeContractAdditional()
+    {
+
     }
 
 

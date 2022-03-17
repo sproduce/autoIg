@@ -11,4 +11,6 @@ interface AdditionalRepositoryInterface
 
     public function addAdditional($additionalArray);
 
+    public function getAdditionalFullInfo($additionalId);
+
 }

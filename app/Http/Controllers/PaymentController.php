@@ -93,8 +93,13 @@ class PaymentController extends Controller
         $periodDate=$dateSpan->getCarbonPeriod();
 
         $toPaymentsCollect=$toPaymentRep->getToPaymentsByDate($periodDate);
+        $grouped = $toPaymentsCollect->groupBy('nickname');
+        //$grouped->dump();
         //$toPaymentsCollect->dump();
-        return view('payment.toPay',['toPayments' => $toPaymentsCollect,'periodDate' => $periodDate]);
+        return view('payment.toPay',[
+            'toPayments' => $toPaymentsCollect,
+            'periodDate' => $periodDate,
+        ]);
     }
 
 
