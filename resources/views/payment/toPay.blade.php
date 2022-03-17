@@ -40,7 +40,7 @@
             </div>
             <div class="col-1 text-center">Сумма</div>
             <div class="col-2 text-center">Платеж</div>
-            <div class="col-1 text-center">Услуги</div>
+            <div class="col-1 text-center"></div>
         </div>
 
         @foreach($toPayments as $toPayment)
@@ -48,15 +48,15 @@
                 <div class="col-2">{{$toPayment->timeSheetDateTime->format('d-m-Y H:i')}}</div>
                 <div class="col-2">{{$toPayment->carNickName}}</div>
                 <div class="col-2">
-                    {{$toPayment->eventName}}
                     <a href="/{{$toPayment->eventAction}}/{{$toPayment->timeSheetDataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробно о событии"><i class="fas fa-info-circle"></i></a>
+                    {{$toPayment->eventName}}
                 </div>
                 <div class="col-1 text-right">{{$toPayment->toPaymentSum}}</div>
                 <div class="col-2"></div>
                 <div class="col-1 text-center">
-                    @if (!$toPayment->rentAdditionalId)
-                        <a href="/additional/addContractAdditional?toPayId={{$toPayment->toPaymentId}}" class="btn btn-ssm btn-outline-success" title="Добавить в услуги по договору">
-                            <i class="fas fa-user-tag"></i>
+                    @if ($toPayment->toPaymentSum<=0 && !$toPayment->toPaymentChild)
+                        <a href="/payment/copyToPayClientDialog?toPayId={{$toPayment->toPaymentId}}" class="btn btn-ssm btn-outline-success DialogUserMin" title="Добавить к оплате">
+                            <i class="fas fa-user-plus"></i>
                         </a>
                     @endif
                 </div>

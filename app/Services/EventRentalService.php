@@ -2,24 +2,24 @@
 namespace App\Services;
 
 
-use App\Repositories\AdditionalRepository;
-use App\Repositories\Interfaces\AdditionalRepositoryInterface;
+
 use App\Repositories\Interfaces\EventRentalRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 
+use App\Repositories\ToPaymentRepository;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
 Class EventRentalService{
-    private $eventRentalRep,$timeSheetRep,$additionalRep;
+    private $eventRentalRep,$timeSheetRep,$toPaymentRep;
 
     function __construct(EventRentalRepositoryInterface $eventRentalRep,
                          TimeSheetRepositoryInterface $timeSheetRep,
-                         AdditionalRepositoryInterface $additionalRep)
+                         ToPaymentRepository $toPaymentRep)
     {
         $this->eventRentalRep=$eventRentalRep;
         $this->timeSheetRep=$timeSheetRep;
-        $this->additionalRep=$additionalRep;
+        $this->toPaymentRep=$toPaymentRep;
     }
 
 
@@ -42,26 +42,25 @@ Class EventRentalService{
         $timesheetData['dataId']=$eventRentalObj->id;
         $timesheetData['color']=$dataArray['color'];
         $timesheetData['duration']=$dataArray['duration'];
-        $additionalArray['contractId']=$dataArray['contractId'];
+        $toPaymentArray['contractId']=$dataArray['contractId'];
+        $toPaymentArray['carId']=$dataArray['carId'];
         for($i=0;$i<$colIteration;$i++)
         {
             $timesheetData['dateTime']=$startCarbon->toDateTimeString();
-            $timesheetData['sum']=$dataArray['sum'][$i]??0;
             $startCarbon->addDays(1);
             $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
-
-            $additionalArray['timeSheetId']=$timeSheetObj->id;
-            $additionalArray['sum']=$timesheetData['sum'];
-            $this->additionalRep->addAdditional($additionalArray);
+            $toPaymentArray['sum']= $dataArray['sum'][$i]??0;;
+            $toPaymentArray['timeSheetId']=$timeSheetObj->id;
+            $this->toPaymentRep->addToPayment($toPaymentArray);
         }
         if ($deltaMinutes){
             $timesheetData['dateTime']=$startCarbon->toDateTimeString();
             $timesheetData['sum']=$dataArray['sum'][$colIteration]??0;
             $timesheetData['duration']=$deltaMinutes;
             $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
-            $additionalArray['timeSheetId']=$timeSheetObj->id;
-            $additionalArray['sum']=$timesheetData['sum'];
-            $this->additionalRep->addAdditional($additionalArray);
+            $toPaymentArray['sum']= $dataArray['sum'][$i]??0;;
+            $toPaymentArray['timeSheetId']=$timeSheetObj->id;
+            $this->toPaymentRep->addToPayment($toPaymentArray);
         }
     }
 

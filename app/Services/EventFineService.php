@@ -24,7 +24,7 @@ Class EventFineService{
     public function addEvent($dataArray)
     {
         $dateTime=$dataArray['dateFine'].' '.$dataArray['timeFine'];
-        $eventFineData['contractId']=$dataArray['contractId'];
+        //$eventFineData['contractId']=$dataArray['contractId'];
         $eventFineData['dateTimeOrder']=$dataArray['dateOrder'];
         $eventFineData['uin']=$dataArray['uin'];
         $eventFineData['datePaySale']=$dataArray['datePaySale'];
@@ -41,18 +41,15 @@ Class EventFineService{
         $timesheetData['color']=$dataArray['color'];
         $timesheetData['duration']=$dataArray['duration'] ?? 1;
 
-        $dateTime=$dataArray['dateFine'].' '.$dataArray['timeFine'];
         $timesheetData['dateTime']=date("Y-m-d H:i:00",strtotime($dateTime));
-
 
         $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
 
-        if ($dataArray['isToPay']){
-            $toPaymentArray['sum']=$dataArray['sum'] ??0;
-            $toPaymentArray['timeSheetId']=$timeSheetObj->id;
-            $toPaymentArray['contractId']=$dataArray['contractId'];
-            $this->toPaymentRep->addToPayment($toPaymentArray);
-        }
+        $toPaymentArray['sum']= ($dataArray['sum'] ??0)*-1;
+        $toPaymentArray['timeSheetId']=$timeSheetObj->id;
+        $toPaymentArray['contractId']=$dataArray['contractId'];
+        $toPaymentArray['carId']=$dataArray['carId'];
+        $this->toPaymentRep->addToPayment($toPaymentArray);
     }
 
     public function getEvents(CarbonPeriod $periodDate,$eventId)

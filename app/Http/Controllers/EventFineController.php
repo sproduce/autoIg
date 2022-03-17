@@ -78,7 +78,6 @@ class EventFineController extends Controller
             'contractId'=>'']);
 
         $inputData['eventId'] = $this->eventObj->id;
-        $inputData['isToPay'] = $this->eventObj->isToPay;
         $inputData['color'] = $this->eventObj->color;
         $inputData['duration'] = $this->eventObj->duration;
 

@@ -23,3 +23,5 @@ Route::get('/addContract',[PaymentController::class,'addContractDialog']);
 Route::get('/listByContract',[PaymentController::class,'listByContract']);
 Route::get('/toPay',[PaymentController::class,'listToPays']);
 
+
+Route::get('/copyToPayClientDialog',[PaymentController::class,'copyToPayClientDialog']);

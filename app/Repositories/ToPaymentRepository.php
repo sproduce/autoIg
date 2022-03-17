@@ -33,7 +33,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->join('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
             ->join('car_configurations','car_configurations.id','=','time_sheets.carId')
             ->join('rent_events','rent_events.id','=','time_sheets.eventId')
-            ->leftJoin('rent_additionals','rent_additionals.toPaymentsId','=','to_payments.id')
+            ->leftJoin('to_payments as tp','to_payments.id','=','tp.pId')
             ->select([
                 'rent_events.name as eventName',
                 'rent_events.action as eventAction',
@@ -45,9 +45,10 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
                 'car_configurations.id as carId',
                 'to_payments.sum as toPaymentSum',
                 'to_payments.id as toPaymentId',
-                'rent_additionals.id as rentAdditionalId',
+                'tp.id as toPaymentChild',
             ])
             ->whereBetween('dateTime',[$startDate,$finishDate])
+            ->orderBy('time_sheets.dateTime')
             ->get();
         //$resultCollection->dump();
         $resultCollection->each(function ($item, $key) {
