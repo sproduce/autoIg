@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DateSpan;
+use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\ToPaymentRepository;
 use App\Services\ContractService;
 use App\Services\PaymentService;
 use App\Services\MotorPoolService;
+use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    private $paymentServ;
+    private $paymentServ,$request;
 
-    function __construct(PaymentService $paymentServ)
+    function __construct(Request $request,PaymentService $paymentServ)
     {
+        $this->request=$request;
         $this->paymentServ = $paymentServ;
     }
 
@@ -103,10 +106,12 @@ class PaymentController extends Controller
     }
 
 
-    public function copyToPayClientDialog()
+    public function copyToPayClientDialog(MotorPoolRepositoryInterface $motorPoolRep)
     {
-
-        echo "contract list";
+        $validate=$this->request->validate(['toPayId'=>'required|integer']);
+        $toPayDataCol = $this->paymentServ->getInfoToPayment($validate['toPayId'],$motorPoolRep);
+        //$toPayDataCol->dump();
+        return view('dialog.Payment.copyToPayClient',['toPayDataCol' => $toPayDataCol]);
     }
 
 

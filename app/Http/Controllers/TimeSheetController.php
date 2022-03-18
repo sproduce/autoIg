@@ -19,8 +19,11 @@ class TimeSheetController extends Controller
 {
     private $request,$motorPoolRep,$timeSheetServ;
 
-    public function __construct(Request $request,MotorPoolRepositoryInterface $motorPoolRep,TimeSheetService $timeSheetServ)
-    {
+    public function __construct(
+        Request $request,
+        MotorPoolRepositoryInterface $motorPoolRep,
+        TimeSheetService $timeSheetServ
+    ){
         $this->request=$request;
         $this->motorPoolRep=$motorPoolRep;
         $this->timeSheetServ=$timeSheetServ;

@@ -1,13 +1,25 @@
 <?php
 namespace App\Services;
+use App\Repositories\ContractRepository;
+use App\Repositories\Interfaces\ContractRepositoryInterface;
+use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
+use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
+use App\Repositories\ToPaymentRepository;
 use Illuminate\Http\Request;
 
 Class PaymentService{
-    private $paymentRep,$request;
+    private $paymentRep,$request,$toPaymentRep,$contractRep;
 
-    function __construct(PaymentRepositoryInterface $paymentRep,Request $request)
+    function __construct(
+        Request $request,
+        PaymentRepositoryInterface $paymentRep,
+        ToPaymentRepositoryInterface $toPaymentRep,
+        ContractRepositoryInterface $contractRep
+    )
     {
+        $this->toPaymentRep=$toPaymentRep;
+        $this->contractRep=$contractRep;
         $this->paymentRep=$paymentRep;
         $this->request=$request;
     }
@@ -117,6 +129,21 @@ Class PaymentService{
         $validateId=$this->request->validate(['contractId'=>'required|integer']);
         return $this->paymentRep->getPaymentsByContract($validateId['contractId']);
     }
+
+
+    public function getInfoToPayment($toPaymentId,MotorPoolRepositoryInterface $motorPool)
+    {
+        $toPaymentObj = $this->toPaymentRep->getToPayment($toPaymentId);
+        $toPaymentObj->sum = $toPaymentObj->sum*-1;
+        $contractsObj = $this->contractRep->getContractsByCarId($toPaymentObj->carId);
+        $carObj = $motorPool->getCar($toPaymentObj->carId);
+        $toPayDataCol = collect([
+            'car' => $carObj,
+            'contracts' => $contractsObj,
+            'toPayment' => $toPaymentObj]);
+        return $toPayDataCol;
+    }
+
 
 
 }

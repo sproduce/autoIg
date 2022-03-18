@@ -41,6 +41,7 @@
             <div class="col-1 text-center">Сумма</div>
             <div class="col-2 text-center">Платеж</div>
             <div class="col-1 text-center"></div>
+            <div class="col-2 text-center">Комментарий</div>
         </div>
 
         @foreach($toPayments as $toPayment)
@@ -54,7 +55,7 @@
                 <div class="col-1 text-right">{{$toPayment->toPaymentSum}}</div>
                 <div class="col-2"></div>
                 <div class="col-1 text-center">
-                    @if ($toPayment->toPaymentSum<=0 && !$toPayment->toPaymentChild)
+                    @if ($toPayment->toPaymentSum<=0)
                         <a href="/payment/copyToPayClientDialog?toPayId={{$toPayment->toPaymentId}}" class="btn btn-ssm btn-outline-success DialogUserMin" title="Добавить к оплате">
                             <i class="fas fa-user-plus"></i>
                         </a>
