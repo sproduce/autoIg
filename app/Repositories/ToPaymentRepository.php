@@ -30,9 +30,11 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         $finishDate=$datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
 
         $resultCollection= DB::table('to_payments')
-            ->join('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
-            ->join('car_configurations','car_configurations.id','=','time_sheets.carId')
-            ->join('rent_events','rent_events.id','=','time_sheets.eventId')
+            ->join('car_configurations','car_configurations.id','=','to_payments.carId')
+            ->leftJoin('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
+            ->leftJoin('rent_events','rent_events.id','=','time_sheets.eventId')
+
+
             //->leftJoin('to_payments as tp','to_payments.id','=','tp.pId')
             ->select([
                 'rent_events.name as eventName',
@@ -45,9 +47,10 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
                 'car_configurations.id as carId',
                 'to_payments.sum as toPaymentSum',
                 'to_payments.id as toPaymentId',
+                'to_payments.comment as toPaymentComment',
                 //'tp.id as toPaymentChild',
             ])
-            ->whereBetween('dateTime',[$startDate,$finishDate])
+            //->whereBetween('dateTime',[$startDate,$finishDate])
             ->orderBy('time_sheets.dateTime')
             ->get();
         //$resultCollection->dump();

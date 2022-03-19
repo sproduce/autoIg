@@ -14,37 +14,47 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-
-<div class="modal-body">
-    <div class="container-fluid">
-        <div class="form-group row">
-            <label for="car" class="col-sm-2 col-form-label form-control-sm">Машина</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control form-control-sm" id="car" name="car" autocomplete="off" value="{{$car->nickName}}" readonly />
+<form action="/payment/copyToPayClient" method="POST">
+    @csrf
+    <input type="number" name="carId" value="{{$car->id}}" hidden/>
+    <input type="number" name="timeSheetId" value="{{$toPayment->timeSheetId}}" hidden/>
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="form-group row">
+                <label for="car" class="col-sm-2 col-form-label form-control-sm">Машина</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-sm" id="car" name="car" autocomplete="off" value="{{$car->nickName}}" readonly />
+                </div>
+                <label for="sum" class="col-sm-2 col-form-label form-control-sm">Сумма</label>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control form-control-sm" id="sum" name="sum" autocomplete="off" value="{{$toPayment->sum}}" required/>
+                </div>
             </div>
-            <label for="sum" class="col-sm-2 col-form-label form-control-sm">Сумма</label>
-            <div class="col-sm-4">
-                <input type="number" class="form-control form-control-sm" id="sum" name="sum" autocomplete="off" value="{{$toPayment->sum}}" required/>
-            </div>
-        </div>
-        @if (isset($contracts[0]))
-        <div class="form-group row ">
-            <label for="contract" class="col-sm-2 col-form-label form-control-sm">Договор</label>
-            {{$contracts[0]->number}}
-        </div>
-        @endif
 
-        <div class="form-group row ">
-            <label for="comment" class="col-sm-2 col-form-label form-control-sm">Комментарий</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="comment" name="comment" autocomplete="off"/>
-            </div>
-        </div>
+            @forelse ($contracts as $contract)
+                <div class="form-group row">
+                    <div class="col-1">
+                        <input type="radio" name="contractId" value="{{$contract->id}}"/>
+                    </div>
+                    <div>{{$contract->number}}</div>
+                </div>
+            @empty
+                <div class="form-group row">
+                    Договора не найдены
+                </div>
+            @endforelse
 
+            <div class="form-group row ">
+                <label for="comment" class="col-sm-2 col-form-label form-control-sm">Комментарий</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="comment" name="comment" value="{{$toPayment->comment}}" autocomplete="off"/>
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
 
-<div class="modal-footer">
-    <button type="button" class="btn btn-primary">Добавить</button>
-</div>
-
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Добавить</button>
+    </div>
+</form>

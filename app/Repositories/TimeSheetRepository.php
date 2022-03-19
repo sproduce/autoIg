@@ -81,5 +81,12 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         orWhereBetween('dateTime',[$startDate,$finishDate])->where('eventId','=',$eventId)->orderBy('dateTime')->get();
     }
 
+
+    public function getTimeSheetPeriod()
+    {
+        // TODO: Implement getTimeSheetPeriod() method.
+    }
+
+
 }
 

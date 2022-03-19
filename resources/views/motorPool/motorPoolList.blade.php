@@ -57,6 +57,10 @@
                     <a href="/contract/add?carId={{$car->id}}" title="Добавить договор" class="btn btn-ssm btn-outline-secondary">
                         <i class="fas fa-file-contract"></i>
                     </a>
+                    <a href="/payment/addToPay?carId={{$car->id}}" title="Добавить к оплате" class="btn btn-ssm btn-outline-success DialogUserMin">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </a>
+
                     <div class="float-right">
                         <a class="btn btn-ssm btn-outline-warning" href="/motorPool/edit?carId={{$car->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
                     </div>

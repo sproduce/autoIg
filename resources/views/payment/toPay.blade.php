@@ -49,8 +49,10 @@
                 <div class="col-2">{{$toPayment->timeSheetDateTime->format('d-m-Y H:i')}}</div>
                 <div class="col-2">{{$toPayment->carNickName}}</div>
                 <div class="col-2">
-                    <a href="/{{$toPayment->eventAction}}/{{$toPayment->timeSheetDataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробно о событии"><i class="fas fa-info-circle"></i></a>
-                    {{$toPayment->eventName}}
+                    @if ($toPayment->timeSheetDataId)
+                        <a href="/{{$toPayment->eventAction}}/{{$toPayment->timeSheetDataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробно о событии"><i class="fas fa-info-circle"></i></a>
+                        {{$toPayment->eventName}}
+                    @endif
                 </div>
                 <div class="col-1 text-right">{{$toPayment->toPaymentSum}}</div>
                 <div class="col-2"></div>
@@ -60,6 +62,9 @@
                             <i class="fas fa-user-plus"></i>
                         </a>
                     @endif
+                </div>
+                <div class="col-2">
+                        {{$toPayment->toPaymentComment}}
                 </div>
             </div>
 

@@ -10,7 +10,7 @@ class toPayment extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['contractId','timeSheetId','sum','carId','paymentId','pId'];
+    protected $fillable = ['contractId','timeSheetId','sum','carId','paymentId','pId','comment'];
 
     public function contract()
     {

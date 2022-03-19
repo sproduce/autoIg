@@ -114,6 +114,40 @@ class PaymentController extends Controller
         return view('dialog.Payment.copyToPayClient',['toPayDataCol' => $toPayDataCol]);
     }
 
+    public function addToPayDialog(MotorPoolRepositoryInterface $motorPoolRep)
+    {
+        $validate=$this->request->validate(['carId'=>'required|integer']);
+        $carObj=$motorPoolRep->getCar($validate['carId']);
+        return view('dialog.Payment.addToPay',['carObj' => $carObj]);
+    }
+
+    public function addToPay()
+    {
+        $validate=$this->request->validate([
+            'sum' => 'required|integer',
+            'carId' => 'required|integer',
+            'comment' => '',
+        ]);
+
+        $validate['timeSheetId']=null;
+
+        $this->paymentServ->addToPayment($validate);
+        return redirect('/payment/toPay');
+    }
+
+    public function copyToPayClient()
+    {
+        $validate=$this->request->validate([
+            'contractId' => 'required|integer',
+            'timeSheetId' => '',
+            'sum' => 'required|integer',
+            'carId' => 'required|integer',
+            'comment' => '',
+        ]);
+
+        $this->paymentServ->addToPayment($validate);
+        return redirect('/payment/toPay');
+    }
 
 
 }

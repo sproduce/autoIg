@@ -134,7 +134,7 @@ Class PaymentService{
     public function getInfoToPayment($toPaymentId,MotorPoolRepositoryInterface $motorPool)
     {
         $toPaymentObj = $this->toPaymentRep->getToPayment($toPaymentId);
-        $toPaymentObj->sum = $toPaymentObj->sum*-1;
+        $toPaymentObj->sum = abs($toPaymentObj->sum);
         $contractsObj = $this->contractRep->getContractsByCarId($toPaymentObj->carId);
         $carObj = $motorPool->getCar($toPaymentObj->carId);
         $toPayDataCol = collect([
@@ -142,6 +142,12 @@ Class PaymentService{
             'contracts' => $contractsObj,
             'toPayment' => $toPaymentObj]);
         return $toPayDataCol;
+    }
+
+
+    public function addToPayment($dataArray)
+    {
+        $this->toPaymentRep->addToPayment($dataArray);
     }
 
 
