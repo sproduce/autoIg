@@ -36,7 +36,9 @@
                     <div class="col-1">
                         <input type="radio" name="contractId" value="{{$contract->id}}"/>
                     </div>
-                    <div>{{$contract->number}}</div>
+                    <div class="col-4">{{$contract->number}}</div>
+                    <div class="col-4">{{$contract->driver->surname}}</div>
+                    <div class="col-3">{{$contract->car->nickName}}</div>
                 </div>
             @empty
                 <div class="form-group row">

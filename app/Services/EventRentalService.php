@@ -75,5 +75,13 @@ Class EventRentalService{
         return $eventsObj;
     }
 
+    public function getEventRentalInfo($eventId,$eventRentalId)
+    {
+        $eventRentalObj = $this->eventRentalRep->getEventRentalFullInfo($eventId,$eventRentalId);
+        $eventRentalObj->dump();
+        return $eventRentalObj;
+    }
+
+
 
 }

@@ -39,5 +39,16 @@ public function getEventRentalsByContract($contractId)
     }
 
 
+    public function getEventRentalFullInfo($eventId,$eventRentalId)
+    {
+
+        return DB::table('rent_event_rentals')
+            ->join('time_sheets','time_sheets.dataId','=','rent_event_rentals.id')
+            ->where('time_sheets.eventId','=',$eventId)
+            ->where('time_sheets.dataId','=',$eventRentalId)
+            ->selectRaw('MIN(time_sheets.dateTime) as  minDateTime')
+            ->selectRaw('MAX(DATE_ADD(time_sheets.dateTime,INTERVAL duration MINUTE)) as maxDateTime')
+            ->get();
+    }
 }
 

@@ -86,9 +86,11 @@ class EventRentalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id,EventRentalRepositoryInterface $eventRentalRep)
+    public function show($id,EventRentalService $eventRentalServ)
     {
-        echo $id;
+        $eventRentalObj = $eventRentalServ->getEventRentalInfo($this->eventObj->id,$id);
+        return response()->view('dialog.RentEvent.infoEventRental',['eventRentalObj' => $eventRentalObj]);
+        //echo $id;
     }
 
     /**
