@@ -7,6 +7,25 @@
 
 <div class="modal-body">
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-3"><strong>Начало аренды</strong></div>
+            <div class="col-3">
+                {{$eventRentalObj->minDateTime->format('d-m-Y h:i')}}
+            </div>
+            <div class="col-3"><strong>Завершение аренды</strong></div>
+            <div class="col-3">
+                {{$eventRentalObj->maxDateTime->format('d-m-Y h:i')}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3"><strong> Договор</strong> </div>
+            <div class="col-3">
 
+            </div>
+            <div class="col-3"><strong> Оплачено</strong> </div>
+            <div class="col-3">
+
+            </div>
+        </div>
     </div>
 </div>

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 use App\Models\rentEventRental;
 use App\Repositories\Interfaces\EventRentalRepositoryInterface;
+use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
 
@@ -42,13 +43,17 @@ public function getEventRentalsByContract($contractId)
     public function getEventRentalFullInfo($eventId,$eventRentalId)
     {
 
-        return DB::table('rent_event_rentals')
+           $rentalPeriod = DB::table('rent_event_rentals')
             ->join('time_sheets','time_sheets.dataId','=','rent_event_rentals.id')
             ->where('time_sheets.eventId','=',$eventId)
             ->where('time_sheets.dataId','=',$eventRentalId)
             ->selectRaw('MIN(time_sheets.dateTime) as  minDateTime')
             ->selectRaw('MAX(DATE_ADD(time_sheets.dateTime,INTERVAL duration MINUTE)) as maxDateTime')
-            ->get();
+            ->first();
+
+            $rentalPeriod->minDateTime = Carbon::parse($rentalPeriod->minDateTime);
+            $rentalPeriod->maxDateTime = Carbon::parse($rentalPeriod->maxDateTime);
+            return $rentalPeriod;
     }
 }
 
