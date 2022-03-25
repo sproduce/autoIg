@@ -147,6 +147,7 @@ Class PaymentService{
 
     public function addToPayment($dataArray)
     {
+        $dataArray['sum'] = abs($dataArray['sum'])*-1;
         $this->toPaymentRep->addToPayment($dataArray);
     }
 

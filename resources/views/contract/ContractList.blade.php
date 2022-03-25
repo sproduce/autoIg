@@ -107,7 +107,7 @@
                     <div class="row">
                         <div class="col-1 p-0">
                             <a href="/contract/toPay?contractId={{$contract->id}}" title="К оплате по договору"><i class="fas fa-hand-holding-usd"></i></a>
-                            <a href="/additional/contractAdditional?contractId={{$contract->id}}" title="Услуги по договору"><i class="fas fa-tags"></i></a>
+{{--                            <a href="/additional/contractAdditional?contractId={{$contract->id}}" title="Услуги по договору"><i class="fas fa-tags"></i></a>--}}
                         </div>
                         <div class="col-2">{{$contract->finishFact}}</div>
                         <div class="col-2">{{$contract->car->nickName}}</div>

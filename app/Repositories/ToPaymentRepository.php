@@ -48,6 +48,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
                 'to_payments.sum as toPaymentSum',
                 'to_payments.id as toPaymentId',
                 'to_payments.comment as toPaymentComment',
+                'to_payments.paymentId as paymentId',
                 //'tp.id as toPaymentChild',
             ])
             //->whereBetween('dateTime',[$startDate,$finishDate])
@@ -55,7 +56,10 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->get();
         //$resultCollection->dump();
         $resultCollection->each(function ($item, $key) {
-            $item->timeSheetDateTime=Carbon::parse($item->timeSheetDateTime);
+            if ($item->timeSheetDateTime){
+                $item->timeSheetDateTime=Carbon::parse($item->timeSheetDateTime);
+            }
+
         });
         return $resultCollection;
     }

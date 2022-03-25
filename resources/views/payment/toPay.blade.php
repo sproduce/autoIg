@@ -46,7 +46,11 @@
 
         @foreach($toPayments as $toPayment)
             <div class="row row row-table">
-                <div class="col-2">{{$toPayment->timeSheetDateTime->format('d-m-Y H:i')}}</div>
+                <div class="col-2">
+                    @if($toPayment->timeSheetDateTime)
+                        {{$toPayment->timeSheetDateTime->format('d-m-Y H:i')}}
+                    @endif
+                </div>
                 <div class="col-2">{{$toPayment->carNickName}}</div>
                 <div class="col-2">
                     @if ($toPayment->timeSheetDataId)
@@ -55,7 +59,14 @@
                     @endif
                 </div>
                 <div class="col-1 text-right">{{$toPayment->toPaymentSum}}</div>
-                <div class="col-2"></div>
+                <div class="col-2 text-center">
+                    @if($toPayment->paymentId)
+                        @else
+                        <a href="/payment/addPaymentId?toPayId={{$toPayment->toPaymentId}}" class="btn btn-ssm btn-outline-success" title="К платежу">
+                            <i class="fas fa-ruble-sign"></i>
+                        </a>
+                    @endif
+                </div>
                 <div class="col-1 text-center">
                     @if ($toPayment->toPaymentSum<=0)
                         <a href="/payment/copyToPayClientDialog?toPayId={{$toPayment->toPaymentId}}" class="btn btn-ssm btn-outline-success DialogUserMin" title="Добавить к оплате">
