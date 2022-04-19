@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-3"></div>
+            <div class="col-3"><strong>Договор</strong></div>
             <div class="col-3">
                 {{$eventRentalObj->contractNumber}}
             </div>

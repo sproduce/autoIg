@@ -154,6 +154,7 @@ class TimeSheetController extends Controller
     {
         $dateFromTo=$dateSpan->validated();
         $periodDate=new CarbonPeriod($dateFromTo['fromDate'],$dateFromTo['toDate']);
+
         return view('timeSheet.days',['periodDate' => $periodDate]);
     }
 

@@ -2,11 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CarIdDate;
 use App\Models\rentEventOther;
+use App\Repositories\Interfaces\ContractRepositoryInterface;
+use App\Repositories\RentEventRepository;
+use App\Services\MotorPoolService;
 use Illuminate\Http\Request;
 
 class EventOtherController extends Controller
 {
+    protected $rentEventRep,$request,$eventObj;
+
+    public function __construct(RentEventRepository $rentEventRep,Request $request)
+    {
+        $this->rentEventRep = $rentEventRep;
+        $this->request=$request;
+        $rc= new \ReflectionClass($this);
+        $eventObj=$rentEventRep->getEventByAction($rc->getShortName());
+        $this->eventObj=$eventObj;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +38,15 @@ class EventOtherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(CarIdDate $carIdDate,MotorPoolService $motorPoolServ,ContractRepositoryInterface $contractRep)
     {
-        //
+        $inputData = $carIdDate->validated();
+        $carObj = $motorPoolServ->getCar($inputData['carId']);
+
+        return response()->view('rentEvent.addEventOther',['carObj' => $carObj,
+            'dateTime'=> $inputData['date'],
+            'eventObj'=>$this->eventObj,
+        ]);
     }
 
     /**
