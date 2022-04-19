@@ -7,7 +7,7 @@ use App\Http\Controllers\MotorPoolController;
 use App\Http\Controllers\CarDriverController;
 use App\Http\Controllers\CarGroupController;
 use App\Http\Controllers\CarOwnerController;
-
+use App\Http\Controllers\EventOtherController;
 
 use App\Http\Controllers\EventRentalController;
 use App\Http\Controllers\EventFineController;
@@ -152,3 +152,4 @@ Route::resource('eventTransfer', EventTransferController::class);
 Route::resource('eventFine', EventFineController::class);
 Route::resource('eventPhotocontrol', EventPhotocontrolController::class);
 Route::resource('eventCrash', EventCrashController::class);
+Route::resource('eventOther', EventOtherController::class);
