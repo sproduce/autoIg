@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\PaymentRepository;
-use App\Repositories\RentEventRepository;
 use App\Services\RentEventService;
 use Illuminate\Http\Request;
 
@@ -16,7 +15,6 @@ class RentEventController extends Controller
         $this->request=$request;
         $this->rentEventServ=$rentEventServ;
     }
-
 
 
     public function show()
@@ -33,7 +31,12 @@ class RentEventController extends Controller
 
     public function add()
     {
-        $this->rentEventServ->addRentEvent();
+        $validate=$this->request->validate(['name'=>'required',
+            'color'=>'required',
+            'action'=>'required'
+        ]);
+
+        $this->rentEventServ->addRentEvent($validate);
         return  redirect()->back();
     }
 

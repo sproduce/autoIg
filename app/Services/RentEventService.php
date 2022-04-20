@@ -4,16 +4,19 @@ use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use Illuminate\Http\Request;
 
 Class RentEventService{
-    private $rentEventRep,$request;
+    private $rentEventRep;
 
     function __construct(
-        RentEventRepositoryInterface $rentEventRep,
-        Request $request
+        RentEventRepositoryInterface $rentEventRep
     ) {
         $this->rentEventRep=$rentEventRep;
-        $this->request=$request;
     }
 
+
+    public function getTest()
+    {
+        return 1;
+    }
 
     public function getRentEvents()
     {
@@ -28,13 +31,8 @@ Class RentEventService{
     }
 
 
-    public function addRentEvent()
+    public function addRentEvent($validate)
     {
-        $validate=$this->request->validate(['name'=>'required',
-            'color'=>'required',
-            'action'=>'required'
-        ]);
-
         $this->rentEventRep->addEvent($validate);
     }
 

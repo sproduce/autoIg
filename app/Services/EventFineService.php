@@ -47,7 +47,6 @@ Class EventFineService{
 
         $toPaymentArray['sum']= ($dataArray['sum'] ??0)*-1;
         $toPaymentArray['timeSheetId']=$timeSheetObj->id;
-        $toPaymentArray['contractId']=$dataArray['contractId'];
         $toPaymentArray['carId']=$dataArray['carId'];
         $this->toPaymentRep->addToPayment($toPaymentArray);
     }
