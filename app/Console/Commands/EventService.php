@@ -39,7 +39,6 @@ class EventService extends Command
      */
     public function handle(RentEventService $rentEventServ,RentEventRepositoryInterface $rentEventRep)
     {
-        
         $this->info('Display this on the screen');
         return Command::SUCCESS;
     }

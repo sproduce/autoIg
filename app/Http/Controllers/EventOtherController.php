@@ -8,15 +8,15 @@ use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\RentEventRepository;
 use App\Services\MotorPoolService;
 use Illuminate\Http\Request;
+use App\Http\Requests\Event\OtherRequest;
 
 class EventOtherController extends Controller
 {
     protected $rentEventRep,$request,$eventObj;
 
-    public function __construct(RentEventRepository $rentEventRep,Request $request)
+    public function __construct(RentEventRepository $rentEventRep)
     {
         $this->rentEventRep = $rentEventRep;
-        $this->request=$request;
         $rc= new \ReflectionClass($this);
         $eventObj=$rentEventRep->getEventByAction($rc->getShortName());
         $this->eventObj=$eventObj;
@@ -55,9 +55,9 @@ class EventOtherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OtherRequest $otherForm)
     {
-        //
+        var_dump($otherForm->validated());
     }
 
     /**
