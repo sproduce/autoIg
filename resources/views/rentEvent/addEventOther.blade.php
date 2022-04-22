@@ -16,23 +16,23 @@
     </div>
     <div class="form-row text-center">
         <div class="form-group col-md-2 input-group-sm">
-            <label for="otherSum" title="Сумма">Сумма</label>
-            <input type="number" name="otherSum" id="otherSum" class="form-control"/>
+            <label for="sumOther" title="Сумма">Сумма</label>
+            <input type="number" name="sumOther" id="sumOther" class="form-control"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
-            <label for="dateFine" title="Дата нарушения">Дата события</label>
-            <input type="date" name="dateFine" id="dateFine" class="form-control" value="{{$dateTime->toDateString()}}"/>
+            <label for="dateOther" title="Дата события">Дата события</label>
+            <input type="date" name="dateOther" id="dateOther" class="form-control" value="{{$dateTime->toDateString()}}"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
-            <label for="timeFine" title="Время нарушения">Время события</label>
-            <input type="time" name="timeFine" id="timeFine" class="form-control" value="{{$dateTime->format('H:i')}}"/>
+            <label for="timeOther" title="Время нарушения">Время события</label>
+            <input type="time" name="timeOther" id="timeOther" class="form-control" value="{{$dateTime->format('H:i')}}"/>
         </div>
     </div>
 
     <div class="form-row text-center">
         <div class="form-group col-md-6 input-group-sm">
-            <label for="otherComment" title="Комментарий">Комментарий</label>
-            <input type="text" name="otherComment" id="otherComment" class="form-control"/>
+            <label for="commentOther" title="Комментарий">Комментарий</label>
+            <input type="text" name="commentOther" id="commentOther" class="form-control"/>
         </div>
     </div>
 

@@ -18,7 +18,12 @@ class OtherRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        $this->merge(['foo' => 'asdasd']);
+        $input=parent::all();
+        if (!$input['sumOther']){
+            $this->merge(['sumOther' => 0,]);
+        }
+        $dateTime = date("Y-m-d H:i:00",strtotime($input['dateOther'].' '.$input['timeOther']));
+        $this->merge(['dateTimeOther' => $dateTime,]);
     }
 
 
@@ -31,7 +36,12 @@ class OtherRequest extends FormRequest
     public function rules()
     {
         return [
-            'foo' => '',
+            'carId' => 'integer|required',
+            'sumOther' => 'integer',
+            'dateOther' => 'date|required',
+            'timeOther' => 'date_format:H:i|required',
+            'commentOther' => 'string|nullable',
+            'dateTimeOther' => ''
         ];
     }
 }

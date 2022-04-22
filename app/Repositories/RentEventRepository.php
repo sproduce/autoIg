@@ -13,7 +13,7 @@ class RentEventRepository implements RentEventRepositoryInterface
         return rentEvent::all();
     }
 
-    public function getEvent($id)
+    public function getEvent($id):rentEvent
     {
         return RentEvent::find($id);
     }
@@ -35,10 +35,11 @@ class RentEventRepository implements RentEventRepositoryInterface
         // TODO: Implement delEvent() method.
     }
 
-    public function getEventByAction($action)
+    public function getEventByAction($action):rentEvent
     {
         $action=str_replace('Controller','',$action);
-        return rentEvent::query()->where('action',$action)->first();
+
+        return rentEvent::where('action',$action)->first();
     }
 
 

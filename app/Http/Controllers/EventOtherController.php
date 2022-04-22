@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CarIdDate;
 use App\Models\rentEventOther;
+use App\Models\timeSheet;
+use App\Models\toPayment;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\RentEventRepository;
+use App\Services\EventOtherService;
 use App\Services\MotorPoolService;
 use Illuminate\Http\Request;
 use App\Http\Requests\Event\OtherRequest;
@@ -55,8 +58,10 @@ class EventOtherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(OtherRequest $otherForm)
+    public function store(EventOtherService $otherServ,OtherRequest $otherForm,toPayment $toPaymentModel,timeSheet $timeSheetModel)
     {
+        $otherForm->validated();
+        $otherServ->addEvent($otherForm,$this->eventObj,$this->eventObj);
         var_dump($otherForm->validated());
     }
 
