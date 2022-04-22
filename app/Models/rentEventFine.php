@@ -6,6 +6,11 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ */
+
+
 class rentEventFine extends Model
 {
     use HasFactory;

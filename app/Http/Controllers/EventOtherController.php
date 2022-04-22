@@ -36,33 +36,23 @@ class EventOtherController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(CarIdDate $carIdDate,MotorPoolService $motorPoolServ,ContractRepositoryInterface $contractRep)
+       public function create(CarIdDate $carIdDate,MotorPoolService $motorPoolServ,ContractRepositoryInterface $contractRep)
     {
         $inputData = $carIdDate->validated();
         $carObj = $motorPoolServ->getCar($inputData['carId']);
 
-        return response()->view('rentEvent.addEventOther',['carObj' => $carObj,
+        return view('rentEvent.addEventOther',['carObj' => $carObj,
             'dateTime'=> $inputData['date'],
             'eventObj'=>$this->eventObj,
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(EventOtherService $otherServ,OtherRequest $otherForm,toPayment $toPaymentModel,timeSheet $timeSheetModel)
     {
         $otherForm->validated();
         $otherServ->addEvent($otherForm,$this->eventObj,$this->eventObj);
-        var_dump($otherForm->validated());
+        return redirect('/timesheet/list');
     }
 
     /**

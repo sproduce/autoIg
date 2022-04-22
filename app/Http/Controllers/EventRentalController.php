@@ -5,13 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CarIdDate;
 use App\Http\Requests\DateSpan;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
-use App\Repositories\Interfaces\EventRentalRepositoryInterface;
 use App\Repositories\RentEventRepository;
 use App\Services\EventRentalService;
 use App\Services\MotorPoolService;
-use Carbon\Carbon;
-use Carbon\CarbonImmutable;
-use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 
 class EventRentalController extends Controller
@@ -28,24 +24,15 @@ class EventRentalController extends Controller
     }
 
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(DateSpan $dateSpan,EventRentalService $eventRentalServ)
+      public function index(DateSpan $dateSpan,EventRentalService $eventRentalServ)
     {
         $dateSpan->validated();
         $periodDate=$dateSpan->getCarbonPeriod();
         $eventsObj=$eventRentalServ->getEvents($periodDate,$this->eventObj->id);
-        return response()->view('rentEvent.listEventsRental',['eventsObj' => $eventsObj]);
+        return view('rentEvent.listEventsRental',['eventsObj' => $eventsObj]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create(CarIdDate $carIdDate,MotorPoolService $motorPoolServ,ContractRepositoryInterface $contractRep)
     {
         $inputData=$carIdDate->validated();
@@ -55,7 +42,7 @@ class EventRentalController extends Controller
         } else{
             $carObj=$motorPoolServ->getCar($inputData['carId']);
         }
-        return response()->view('rentEvent.addEventRental',['carObj' => $carObj,
+        return view('rentEvent.addEventRental',['carObj' => $carObj,
                                                                  'contractObj' => $contractObj,
                                                                  'dateTime'=> $inputData['date'],
                                                                  'eventObj'=>$this->eventObj]);
@@ -80,48 +67,27 @@ class EventRentalController extends Controller
         return redirect('/timesheet/list');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id,EventRentalService $eventRentalServ)
     {
         $eventRentalObj = $eventRentalServ->getEventRentalInfo($this->eventObj->id,$id);
-        return response()->view('dialog.RentEvent.infoEventRental',['eventRentalObj' => $eventRentalObj]);
+        return view('dialog.RentEvent.infoEventRental',['eventRentalObj' => $eventRentalObj]);
         //echo $id;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update($id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         //

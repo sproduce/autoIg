@@ -25,7 +25,7 @@ Class EventOtherService{
 
     public function addEvent(Event\OtherRequest $eventOther,rentEvent $eventObj)
     {
-        $this->timeSheetModel->carId =
+        $this->timeSheetModel->carId = $eventOther->get('carId');
         $this->timeSheetModel->eventId = $eventObj->id;
         $this->timeSheetModel->dateTime = $eventOther->get('dateTimeOther');
         $this->timeSheetModel->comment = $eventOther->get('commentOther');
@@ -34,8 +34,8 @@ Class EventOtherService{
         $this->timeSheetModel->save();
 
         $this->toPaymentModel->timeSheetId = $this->timeSheetModel->id;
-        $this->toPaymentModel->carId=$eventOther->get('carId');;
-        $this->toPaymentModel->sum=$eventOther->get('sumOther');;
+        $this->toPaymentModel->carId=$eventOther->get('carId');
+        $this->toPaymentModel->sum=$eventOther->get('sumOther');
         $this->toPaymentModel->save();
     }
 
