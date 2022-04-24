@@ -8,6 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property $dateTimeOrder
+ * @property $dateTimeFine
+ * @property $datePaySale
+ * @property $datePayMax
+ * @property int $sum
+ * @property int $sumSale
+ * @property $uin
+ *
  */
 
 

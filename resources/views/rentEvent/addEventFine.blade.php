@@ -57,6 +57,12 @@
         </div>
     </div>
 
+    <div class="form-row text-center">
+        <div class="form-group col-md-6 input-group-sm">
+            <label for="comment" title="Комментарий">Комментарий</label>
+            <input type="text" name="comment" id="comment" class="form-control"/>
+        </div>
+    </div>
     <div class="form-row text-center" id="last-row">
         <div class="input-group col-1">
             <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Добавить"/>

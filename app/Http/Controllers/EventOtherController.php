@@ -48,7 +48,7 @@ class EventOtherController extends Controller
     }
 
 
-    public function store(EventOtherService $otherServ,OtherRequest $otherForm,toPayment $toPaymentModel,timeSheet $timeSheetModel)
+    public function store(EventOtherService $otherServ,OtherRequest $otherForm)
     {
         $otherForm->validated();
         $otherServ->addEvent($otherForm,$this->eventObj,$this->eventObj);

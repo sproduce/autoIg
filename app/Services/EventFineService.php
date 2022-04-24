@@ -2,53 +2,47 @@
 namespace App\Services;
 
 
-use App\Repositories\Interfaces\EventFineRepositoryInterface;
-use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
-use App\Repositories\ToPaymentRepository;
+use App\Models\rentEvent;
+use App\Models\rentEventFine;
+use App\Models\timeSheet;
+use App\Models\toPayment;
+use App\Http\Requests\Event;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
 Class EventFineService{
-    private $eventFineRep,$timeSheetRep,$toPaymentRep;
+    private $timeSheetModel,$toPaymentModel,$rentEventFineModel;
 
-    function __construct(EventFineRepositoryInterface $eventFineRep,
-                         TimeSheetRepositoryInterface $timeSheetRep,
-                         ToPaymentRepository $toPaymentRep)
+    function __construct(timeSheet $timeSheetModel,toPayment $toPaymentModel,rentEventFine $rentEventFineModel)
     {
-        $this->eventFineRep=$eventFineRep;
-        $this->timeSheetRep=$timeSheetRep;
-        $this->toPaymentRep=$toPaymentRep;
+        $this->timeSheetModel = $timeSheetModel;
+        $this->toPaymentModel = $toPaymentModel;
+        $this->rentEventFineModel = $rentEventFineModel;
     }
 
 
-    public function addEvent($dataArray)
+    public function addEvent(Event\FineRequest $fineRequest,rentEvent $eventObj)
     {
-        $dateTime=$dataArray['dateFine'].' '.$dataArray['timeFine'];
-        //$eventFineData['contractId']=$dataArray['contractId'];
-        $eventFineData['dateTimeOrder']=$dataArray['dateOrder'];
-        $eventFineData['uin']=$dataArray['uin'];
-        $eventFineData['datePaySale']=$dataArray['datePaySale'];
-        $eventFineData['datePayMax']=$dataArray['datePayMax'];
-        $eventFineData['sum']=$dataArray['sum'];
-        $eventFineData['sumSale']=$dataArray['sumSale'];
-        $eventFineData['dateTimeFine']=date("Y-m-d H:i:00",strtotime($dateTime));//remove
+        $this->rentEventFineModel->dateTimeOrder = $fineRequest->get('dateOrder');
+        $this->rentEventFineModel->datePayMax = $fineRequest->get('datePayMax');
+        $this->rentEventFineModel->datePaySale = $fineRequest->get('datePaySale');
+        $this->rentEventFineModel->dateTimeFine = $fineRequest->get('dateTimeFine');
+        $this->rentEventFineModel->sum = $fineRequest->get('sum');
+        $this->rentEventFineModel->sumSale = $fineRequest->get('sumSale');
+        $this->rentEventFineModel->save();
 
-        $eventFineObj=$this->eventFineRep->addEventFine($eventFineData);
-        $timesheetData['carId']=$dataArray['carId'];
-        $timesheetData['eventId']=$dataArray['eventId'];
-        $timesheetData['comment']='';
-        $timesheetData['dataId']=$eventFineObj->id;
-        $timesheetData['color']=$dataArray['color'];
-        $timesheetData['duration']=$dataArray['duration'] ?? 1;
+        $this->timeSheetModel->carId = $fineRequest->get('carId');
+        $this->timeSheetModel->dataId = $this->rentEventFineModel->id;
+        $this->timeSheetModel->eventId = $eventObj->id;
+        $this->timeSheetModel->dateTime = $fineRequest->get('dateTimeFine');
+        $this->timeSheetModel->duration = $eventObj->duration;
+        $this->timeSheetModel->color = $eventObj->color;
+        $this->timeSheetModel->save();
 
-        $timesheetData['dateTime']=date("Y-m-d H:i:00",strtotime($dateTime));
-
-        $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
-
-        $toPaymentArray['sum']= ($dataArray['sum'] ??0)*-1;
-        $toPaymentArray['timeSheetId']=$timeSheetObj->id;
-        $toPaymentArray['carId']=$dataArray['carId'];
-        $this->toPaymentRep->addToPayment($toPaymentArray);
+        $this->toPaymentModel->sum = $fineRequest->get('sumSale');
+        $this->toPaymentModel->timeSheetId =  $this->timeSheetModel->id;
+        $this->toPaymentModel->carId = $fineRequest->get('carId');
+        $this->toPaymentModel->save();
     }
 
     public function getEvents(CarbonPeriod $periodDate,$eventId)

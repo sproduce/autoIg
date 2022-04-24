@@ -13,8 +13,24 @@ class FineRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
+
+    protected function prepareForValidation()
+    {
+        $input=parent::all();
+        if (!$input['sumSale']){
+            $this->merge(['sumSale' => 0,]);
+        }
+        if (!$input['sum']){
+            $this->merge(['sum' => 0,]);
+        }
+        $dateTime = date("Y-m-d H:i:00",strtotime($input['dateFine'].' '.$input['timeFine']));
+        $this->merge(['dateTimeFine' => $dateTime,]);
+    }
+
+
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -24,7 +40,17 @@ class FineRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'carId' => 'integer|required',
+            'dateOrder' => 'date|required',
+            'dateFine' => 'date|required',
+            'timeFine' => 'date_format:H:i|required',
+            'uin' => 'string|nullable',
+            'datePaySale' => 'date|nullable',
+            'datePayMax' => 'date|nullable',
+            'sumSale' => 'integer',
+            'sum' => 'integer',
+            'comment' => 'string|nullable',
+            'dateTimeFine' => 'required',
         ];
     }
 }

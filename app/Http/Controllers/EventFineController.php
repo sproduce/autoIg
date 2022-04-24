@@ -11,15 +11,15 @@ use App\Services\EventFineService;
 use App\Services\MotorPoolService;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
+use App\Http\Requests\Event;
 
 class EventFineController extends Controller
 {
-    protected $rentEventRep,$request,$eventObj;
+    protected $rentEventRep,$eventObj;
 
-    public function __construct(RentEventRepositoryInterface $rentEventRep,Request $request)
+    public function __construct(RentEventRepositoryInterface $rentEventRep)
     {
         $this->rentEventRep = $rentEventRep;
-        $this->request=$request;
         $rc= new \ReflectionClass($this);
         $eventObj=$rentEventRep->getEventByAction($rc->getShortName());
         $this->eventObj=$eventObj;
@@ -63,27 +63,11 @@ class EventFineController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EventFineService $eventFineServ)
+    public function store(Event\FineRequest $fineRequest,EventFineService $eventFineServ)
     {
-        $inputData=$this->request->validate([
-            'carId'=>'integer|required',
-            'dateOrder'=>'required',
-            'dateFine'=>'required',
-            'timeFine'=>'required',
-            'uin'=>'',
-            'datePaySale'=>'',
-            'datePayMax'=>'',
-            'sum'=>'',
-            'sumSale'=>'',
-            'contractId'=>'']);
+              $eventFineServ->addEvent($fineRequest,$this->eventObj);
 
-        $inputData['eventId'] = $this->eventObj->id;
-        $inputData['color'] = $this->eventObj->color;
-        $inputData['duration'] = $this->eventObj->duration;
-
-        $eventFineServ->addEvent($inputData);
-
-        return redirect('/timesheet/list');
+        //return redirect('/timesheet/list');
     }
 
     /**

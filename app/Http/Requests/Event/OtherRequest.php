@@ -41,7 +41,7 @@ class OtherRequest extends FormRequest
             'dateOther' => 'date|required',
             'timeOther' => 'date_format:H:i|required',
             'commentOther' => 'string|nullable',
-            'dateTimeOther' => ''
+            'dateTimeOther' => 'required',
         ];
     }
 }
