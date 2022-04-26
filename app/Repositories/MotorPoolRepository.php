@@ -43,9 +43,9 @@ public function getCars()
     return carConfiguration::all();
 }
 
-public function getCar($carId)
+public function getCar($carId):carConfiguration
 {
-    return carConfiguration::find($carId)?? new carConfiguration;
+    return carConfiguration::find($carId) ?? new carConfiguration;
 }
 
 

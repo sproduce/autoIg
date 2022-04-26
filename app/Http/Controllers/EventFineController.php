@@ -67,7 +67,7 @@ class EventFineController extends Controller
     {
               $eventFineServ->addEvent($fineRequest,$this->eventObj);
 
-        //return redirect('/timesheet/list');
+        return redirect('/timesheet/list');
     }
 
     /**

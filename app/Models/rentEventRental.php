@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property int $personId
+ * @property int $contractId
+ * @property int $sum
+ * @property bool $isFinish
  *
  */
 

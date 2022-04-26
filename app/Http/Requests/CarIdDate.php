@@ -41,8 +41,8 @@ class CarIdDate extends FormRequest
     {
         return [
             'carId'=>'nullable|integer',
-            'date'=>'date',
-            'contractId'=>'nullable|integer'
+            'date' => 'date',
+            'contractId' => 'nullable|integer'
         ];
     }
 }

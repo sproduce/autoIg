@@ -13,8 +13,18 @@ class TransferRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
+
+
+    protected function prepareForValidation()
+    {
+        $input=parent::all();
+
+        $dateTime = date("Y-m-d H:i:00",strtotime($input['dateTransfer'].' '.$input['timeTransfer']));
+        $this->merge(['dateTimeTransfer' => $dateTime,]);
+    }
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -24,7 +34,13 @@ class TransferRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'carId' => 'integer|required',
+            'mileage' => 'integer|nullable',
+            'typeTransfer' => 'integer|required',
+            'commentTransfer' => 'string|nullable',
+            'dateTransfer' => 'date|required',
+            'timeTransfer' => 'date_format:H:i|required',
+            'dateTimeTransfer' => 'required',
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CarIdDate;
 use App\Http\Requests\DateSpan;
 use App\Repositories\ContractRepository;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
@@ -87,8 +88,11 @@ class TimeSheetController extends Controller
                                                'rentEvents'=>$rentEventsObj]);
     }
 
-    public function infoDialog()
+    public function infoDialog(CarIdDate $carIdDateRequest,RentEventRepository $rentEventRep)
     {
+
+        $rentEventObjs = $rentEventRep->getEvents();
+
         $validate=$this->request->validate(['carId'=>'required|integer',
             'date'=>'required'
         ]);
@@ -97,7 +101,9 @@ class TimeSheetController extends Controller
 
         $carObj=$this->motorPoolRep->getCar($validate['carId']);
         $timeSheetsObj=$this->timeSheetServ->getCarTimeSheets($carObj,$datePeriod);
-        return view('dialog.TimeSheet.infoTimeSheet',['timeSheets'=>$timeSheetsObj]);
+        return view('dialog.TimeSheet.infoTimeSheet',['timeSheets' => $timeSheetsObj,
+            'rentEventObjs' => $rentEventObjs,
+            ]);
     }
 
 

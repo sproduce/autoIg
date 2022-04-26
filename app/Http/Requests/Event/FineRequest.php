@@ -16,9 +16,15 @@ class FineRequest extends FormRequest
         return true;
     }
 
-    protected function prepareForValidation()
+
+    /**
+     *  set default value sumSale and sum
+     *
+     * @return void
+     */
+    protected function prepareForValidation(): void
     {
-        $input=parent::all();
+        $input = parent::all();
         if (!$input['sumSale']){
             $this->merge(['sumSale' => 0,]);
         }
