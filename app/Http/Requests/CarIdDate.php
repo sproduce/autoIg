@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Carbon\CarbonPeriod;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CarIdDate extends FormRequest
@@ -21,16 +23,21 @@ class CarIdDate extends FormRequest
     {
         $input=parent::all();
         if (empty($input['date'])) {
-            $date = Carbon::today();
+            $date = CarbonImmutable::today();
         } else{
-            $date = new Carbon($input['date']);
+            $date = new CarbonImmutable($input['date']);
         }
         $date->setTimeFrom(Carbon::now());
         $this->merge(['date'=>$date]);
 
     }
 
-
+    public function getCarbonPeriodDay(): CarbonPeriod
+    {
+        $input=parent::all(['date']);
+        $periodDate = new CarbonPeriod($input['date']->startOfDay(),$input['date']->addDay(1));
+        return  $periodDate;
+    }
 
     /**
      * Get the validation rules that apply to the request.

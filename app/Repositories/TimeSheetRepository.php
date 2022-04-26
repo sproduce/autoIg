@@ -5,18 +5,19 @@ namespace App\Repositories;
 use App\Models\timeSheet;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use Carbon\CarbonPeriod;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
 
 class TimeSheetRepository implements TimeSheetRepositoryInterface
 {
 
-    public function getTimeSheets($dateFrom, $dateTo)
+    public function getTimeSheets($dateFrom, $dateTo):Collection
     {
         return timeSheet::query()->whereBetween('dateTime',[$dateFrom,$dateTo])->get();
     }
 
-    public function getTimeSheet($timeSheetId)
+    public function getTimeSheet($timeSheetId):timeSheet
     {
         return timeSheet::find($timeSheetId);
     }
@@ -26,10 +27,10 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         return DB::table('time_sheets')->leftJoin('rent_events','time_sheets.eventId','=','rent_events.id')->get(['time_sheets.*','rent_events.priority','rent_events.name']);
     }
 
-    public function getCarTimeSheetByDate($carId, $datePeriod)
+    public function getCarTimeSheetByDate($carId,CarbonPeriod $datePeriod)
     {
         $startDate=$datePeriod->getStartDate()->format('Y-m-d');
-        $finishDate=$datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
+        $finishDate=$datePeriod->getEndDate()->format('Y-m-d');
 
         return timeSheet::query()->
                 whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and carId=?',[$startDate,$finishDate,$carId])->

@@ -43,8 +43,10 @@ class EventCrashController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(CarIdDate $carIdDate,MotorPoolService $motorPoolServ,ContractRepositoryInterface $contractRep)
-    {
+    public function create(CarIdDate $carIdDate,
+                           MotorPoolService $motorPoolServ,
+                           ContractRepositoryInterface $contractRep
+    ){
         $inputData=$carIdDate->validated();
 
         $contractObj=$contractRep->getContract($inputData['contractId']);

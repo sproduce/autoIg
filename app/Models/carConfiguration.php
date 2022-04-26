@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+
+/**
+ * @property int $id
+ * @property $nickName
+ * @property $regNumber
+ */
+
+
 class carConfiguration extends Model
 {
     use HasFactory;

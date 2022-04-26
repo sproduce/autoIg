@@ -3,14 +3,16 @@
 namespace App\Repositories\Interfaces;
 
 
+use App\Models\timeSheet;
 use Carbon\CarbonPeriod;
+use Illuminate\Database\Eloquent\Collection;
 
 interface TimeSheetRepositoryInterface
 {
-    public function getTimeSheets($dateFrom,$dateTo);
+    public function getTimeSheets($dateFrom,$dateTo):Collection;
 
     public function getTimeSheetsByEvent($eventId,CarbonPeriod  $datePeriod);
-    public function getTimeSheet($timeSheetId);
+    public function getTimeSheet($timeSheetId):timeSheet;
     public function getTimeSheetsArray($dateFrom,$dateTo);
     public function getTimeSheetByDate($date);
     public function getTimeSheetById($id);

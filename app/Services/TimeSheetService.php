@@ -1,5 +1,6 @@
 <?php
 namespace App\Services;
+use App\Models\carConfiguration;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\RentEventRepository;
@@ -52,7 +53,7 @@ Class TimeSheetService{
 
     }
 
-    public function getCarTimeSheets($carObj,$datePeriod)
+    public function getCarTimeSheets(carConfiguration $carObj,CarbonPeriod $datePeriod)
     {
         $result=$this->timeSheetRep->getCarTimeSheetByDate($carObj->id,$datePeriod);
         return $result;
