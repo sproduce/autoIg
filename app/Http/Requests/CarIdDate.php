@@ -22,6 +22,10 @@ class CarIdDate extends FormRequest
     protected function prepareForValidation()
     {
         $input=parent::all();
+        if (empty($input['contractId'])){
+            $this->merge(['contractId' => null]);
+        }
+
         if (empty($input['date'])) {
             $date = CarbonImmutable::today();
         } else{
@@ -47,7 +51,7 @@ class CarIdDate extends FormRequest
     public function rules()
     {
         return [
-            'carId'=>'nullable|integer',
+            'carId'=>'required|integer',
             'date' => 'date',
             'contractId' => 'nullable|integer'
         ];

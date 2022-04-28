@@ -21,7 +21,7 @@ class NeedParent extends FormRequest
     {
         $input = parent::all();
         if (empty($input['needParent'])) {
-            $this->merge(['needParent' => 0]);
+            $this->merge(['needParent' => false]);
         }
     }
 
@@ -36,7 +36,7 @@ class NeedParent extends FormRequest
     public function rules()
     {
         return [
-            'needParent' => 'boolean|required',
+            'needParent' => 'boolean',
         ];
     }
 }

@@ -1,4 +1,8 @@
+{{$needParent}}
+@if($needParent)
+    asdasdasdsa
 
+@endif
 <form method="POST" action="/eventRental">
     @csrf
     <input name="eventId" value="{{$eventObj->id}}" hidden/>

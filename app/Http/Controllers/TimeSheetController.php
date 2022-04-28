@@ -96,6 +96,7 @@ class TimeSheetController extends Controller
         $carObj=$this->motorPoolRep->getCar($carIdDate['carId']);
         $timeSheetsObj=$this->timeSheetServ->getCarTimeSheets($carObj,$carIdDateRequest->getCarbonPeriodDay());
         return view('dialog.TimeSheet.infoTimeSheet',['timeSheets' => $timeSheetsObj,
+            'carObj' => $carObj,
             'rentEventObjs' => $rentEventObjs,
             ]);
     }

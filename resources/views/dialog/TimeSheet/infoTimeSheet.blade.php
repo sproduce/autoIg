@@ -29,7 +29,9 @@
     </div>
 
     <div class="modal-footer d-flex justify-content-center">
-add
+        @foreach($rentEventObjs as $rentEventObj)
+            <a href="/{{$rentEventObj->action}}/create?carId={{$carObj->id}}&needParent=1" class="btn btn-sm" style="color:{{$rentEventObj->color}}"><i class="far fa-plus-square"></i> {{$rentEventObj->name}}</a>
+        @endforeach
     </div>
 
 
