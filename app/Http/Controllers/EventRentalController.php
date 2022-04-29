@@ -13,15 +13,16 @@ use Illuminate\Http\Request;
 
 class EventRentalController extends Controller
 {
-    protected $rentEventRep,$request,$eventObj;
+    protected $rentEventRep,$request,$eventObj,$eventRentalServ;
 
-    public function __construct(RentEventRepository $rentEventRep,Request $request)
+    public function __construct(RentEventRepository $rentEventRep,Request $request,EventRentalService $eventRentalServ)
     {
         $this->rentEventRep = $rentEventRep;
-        $this->request=$request;
-        $rc= new \ReflectionClass($this);
-        $eventObj=$rentEventRep->getEventByAction($rc->getShortName());
-        $this->eventObj=$eventObj;
+        $this->request = $request;
+        $rc = new \ReflectionClass($this);
+        $eventObj = $rentEventRep->getEventByAction($rc->getShortName());
+        $this->eventObj = $eventObj;
+        $this->eventRentalServ = $eventRentalServ;
     }
 
 
@@ -47,6 +48,8 @@ class EventRentalController extends Controller
         } else{
             $carObj=$motorPoolServ->getCar($inputData['carId']);
         }
+
+        //$lastEventObj = $this->eventRentalServ->getLastEvent($carObj,$this->eventObj->id);
 
         return view('rentEvent.addEventRental',[
             'carObj' => $carObj,

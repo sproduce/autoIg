@@ -3,6 +3,8 @@
 namespace App\Repositories\Interfaces;
 
 
+use App\Models\carConfiguration;
+use App\Models\rentEvent;
 use App\Models\timeSheet;
 use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Collection;
@@ -23,4 +25,8 @@ interface TimeSheetRepositoryInterface
     public function getContractTimeSheets($contractId);
 
     public function getTimeSheetPeriod();
+
+
+    public function getLastTimeSheet(carConfiguration $carObj,rentEvent $eventObj):timeSheet;
+
 }

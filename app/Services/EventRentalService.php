@@ -3,6 +3,7 @@ namespace App\Services;
 
 
 
+use App\Models\carConfiguration;
 use App\Repositories\Interfaces\EventRentalRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 

@@ -40,11 +40,12 @@ class EventFineController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(NeedParent $needParent,
-                           CarIdDate $carIdDate,
-                           MotorPoolService $motorPoolServ,
-                           ContractRepositoryInterface $contractRep)
-    {
+    public function create(
+        NeedParent $needParent,
+        CarIdDate $carIdDate,
+        MotorPoolService $motorPoolServ,
+        ContractRepositoryInterface $contractRep
+    ){
         $inputData=$carIdDate->validated();
         $nP = $needParent->validated();
         $contractObj=$contractRep->getContract($inputData['contractId']);
@@ -63,12 +64,6 @@ class EventFineController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Event\FineRequest $fineRequest,EventFineService $eventFineServ)
     {
               $eventFineServ->addEvent($fineRequest,$this->eventObj);

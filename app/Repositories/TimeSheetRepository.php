@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Models\carConfiguration;
+use App\Models\rentEvent;
 use App\Models\timeSheet;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use Carbon\CarbonPeriod;
@@ -86,6 +88,12 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     public function getTimeSheetPeriod()
     {
         // TODO: Implement getTimeSheetPeriod() method.
+    }
+
+
+    public function getLastTimeSheet(carConfiguration $carObj, rentEvent $eventObj):timeSheet
+    {
+        // TODO: Implement getLastTimeSheet() method.
     }
 
 

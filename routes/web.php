@@ -14,6 +14,9 @@ use App\Http\Controllers\EventFineController;
 use App\Http\Controllers\EventTransferController;
 use App\Http\Controllers\EventPhotocontrolController;
 use App\Http\Controllers\EventCrashController;
+use App\Http\Controllers\EventWashController;
+use App\Http\Controllers\EventServiceController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -153,3 +156,5 @@ Route::resource('eventFine', EventFineController::class);
 Route::resource('eventPhotocontrol', EventPhotocontrolController::class);
 Route::resource('eventCrash', EventCrashController::class);
 Route::resource('eventOther', EventOtherController::class);
+Route::resource('eventWash', EventWashController::class);
+Route::resource('eventService', EventServiceController::class);

@@ -7,17 +7,23 @@ use App\Models\rentEventFine;
 use App\Models\timeSheet;
 use App\Models\toPayment;
 use App\Http\Requests\Event;
+use App\Repositories\EventFineRepository;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
 Class EventFineService{
-    private $timeSheetModel,$toPaymentModel,$rentEventFineModel;
+    private $timeSheetModel,$toPaymentModel,$rentEventFineModel,$eventFineRep;
 
-    function __construct(timeSheet $timeSheetModel,toPayment $toPaymentModel,rentEventFine $rentEventFineModel)
-    {
+    function __construct(
+        timeSheet $timeSheetModel,
+        toPayment $toPaymentModel,
+        rentEventFine $rentEventFineModel,
+        EventFineRepository $eventFineRep
+    ){
         $this->timeSheetModel = $timeSheetModel;
         $this->toPaymentModel = $toPaymentModel;
         $this->rentEventFineModel = $rentEventFineModel;
+        $this->eventFineRep = $eventFineRep;
     }
 
 

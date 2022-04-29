@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Models\carConfiguration;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 
@@ -21,7 +22,7 @@ Class MotorPoolService{
     }
 
 
-    public function getCar($carId)
+    public function getCar($carId):carConfiguration
     {
         return $this->motorPoolRep->getCar($carId);
     }
