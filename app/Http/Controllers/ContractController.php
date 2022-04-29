@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContractRequest;
 use App\Http\Requests\DateSpan;
 use App\Repositories\ContractRepository;
 use App\Services\ContractService;
@@ -82,9 +83,10 @@ class ContractController extends Controller
         return view('dialog.Contract.addCarContract',['cars'=>$carsObj]);
     }
 
-    public function saveContract()
+    public function saveContract(ContractRequest $contractRequest)
     {
-        $this->contractServ->addContract();
+        $contractRequest->validated();
+        $this->contractServ->addContract($contractRequest);
         return redirect('/contract/list');
     }
 

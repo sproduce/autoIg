@@ -1,3 +1,5 @@
+@extends( ($needParent) ? '../adminIndex' : '../cleanIndex')
+@section('content')
 <form method="POST" action="/eventPhotocontrol" enctype="multipart/form-data">
     @csrf
     <input name="eventId" value="{{$eventObj->id}}" hidden/>
@@ -11,19 +13,6 @@
             @else
                 <input id="carText" class="form-control" value="" disabled />
                 <input id="carId" name="carId" class="form-control" value="" hidden/>
-            @endif
-        </div>
-        <div class="form-group col-md-3 input-group-sm">
-            <label for="contractText" title="Договор">
-                Договор
-                <a href="/payment/addContract" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
-            </label>
-            @if ($contractObj->id)
-                <input id="contractText" name="contractText"  class="form-control" value="{{$contractObj->number}}" disabled />
-                <input name="contractId" id="contractId" value="{{$contractObj->id}}"  hidden/>
-            @else
-                <input id="contractText" name="contractText"  class="form-control" disabled />
-                <input name="contractId" id="contractId" value=""  hidden/>
             @endif
         </div>
     </div>
@@ -66,3 +55,4 @@
         </div>
     </div>
 </form>
+@endsection

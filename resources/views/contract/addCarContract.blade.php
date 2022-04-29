@@ -3,7 +3,6 @@
 @php
     $contractTypes=$contractObj->get('type');
     $contractStatuses=$contractObj->get('status');
-    $contractTariffs=$contractObj->get('tariff');
 @endphp
 @section('header')
     <h6 class="m-0">Добавить договор</h6>
@@ -77,12 +76,8 @@
 
             <div class="form-row text-center mt-3">
                 <div class="form-group col-md-3 input-group-sm">
-                    <label for="tariffId" title="Тариф договора">Тариф договора</label>
-                    <select name="tariffId" id="tariffId" class="form-control">
-                        @foreach($contractTariffs as $contractTariff)
-                            <option value="{{$contractTariff->id}}">{{$contractTariff->name}}</option>
-                        @endforeach
-                    </select>
+                    <label for="price" title="Тариф договора">Тариф договора</label>
+                    <input type="number" name="price" id="price" class="form-control"/>
                 </div>
                 <div class="form-group col-md-2 input-group-sm">
                     <label for="balance" title="Баланс договора">Баланс договора</label>

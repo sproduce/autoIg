@@ -1,3 +1,6 @@
+@extends( ($needParent) ? '../adminIndex' : '../cleanIndex')
+
+@section('content')
 <form method="POST" action="/eventCrash">
     @csrf
     <div class="form-row text-center">
@@ -56,3 +59,4 @@
         </div>
     </div>
 </form>
+@endsection

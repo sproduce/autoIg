@@ -35,7 +35,8 @@ class EventRentalController extends Controller
 
 
     public function create(NeedParent $needParent,
-        CarIdDate $carIdDate,MotorPoolService $motorPoolServ,
+                           CarIdDate $carIdDate,
+                           MotorPoolService $motorPoolServ,
                            ContractRepositoryInterface $contractRep
     ){
         $inputData = $carIdDate->validated();
@@ -47,11 +48,13 @@ class EventRentalController extends Controller
             $carObj=$motorPoolServ->getCar($inputData['carId']);
         }
 
-        return view('rentEvent.addEventRental',['carObj' => $carObj,
-                                                                 'needParent' => $nP['needParent'],
-                                                                 'contractObj' => $contractObj,
-                                                                 'dateTime'=> $inputData['date'],
-                                                                 'eventObj'=>$this->eventObj]);
+        return view('rentEvent.addEventRental',[
+            'carObj' => $carObj,
+            'needParent' => $nP['needParent'],
+            'contractObj' => $contractObj,
+            'dateTime'=> $inputData['date'],
+            'eventObj'=>$this->eventObj
+        ]);
     }
 
 

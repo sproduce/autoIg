@@ -1,3 +1,5 @@
+@extends( ($needParent) ? '../adminIndex' : '../cleanIndex')
+@section('content')
 <form method="POST" action="/eventFine">
     @csrf
     <input name="eventId" value="{{$eventObj->id}}" hidden/>
@@ -69,3 +71,4 @@
         </div>
     </div>
 </form>
+@endsection

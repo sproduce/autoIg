@@ -101,7 +101,7 @@
                         <div class="col-2">{{$contract->driver->name}}</div>
                         <div class="col-1 text-right"></div>
                         <div class="col-1 text-right"></div>
-                        <div class="col-2">{{$contract->tariff->name}}</div>
+                        <div class="col-2">{{$contract->price}}</div>
                         <div class="col-1 text-center p-0 pt-1"><a class="btn btn-ssm btn-outline-warning" href="/contract/edit?contractId={{$contract->id}}" title="Редактировать"> <i class="far fa-edit"></i></a></div>
                     </div>
                     <div class="row">

@@ -1,8 +1,7 @@
-{{$needParent}}
-@if($needParent)
-    asdasdasdsa
 
-@endif
+@extends( ($needParent) ? '../adminIndex' : '../cleanIndex')
+
+@section('content')
 <form method="POST" action="/eventRental">
     @csrf
     <input name="eventId" value="{{$eventObj->id}}" hidden/>
@@ -88,6 +87,8 @@
         </div>
     </div>
 </form>
+@endsection
+@section('js')
 <script>
 
     $(function() {
@@ -149,3 +150,4 @@
 
 
 </script>
+@endsection

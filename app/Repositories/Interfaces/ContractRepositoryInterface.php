@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Repositories\Interfaces;
+use App\Models\rentContract;
+
 interface ContractRepositoryInterface
 {
 public function addContractType();
@@ -12,13 +14,12 @@ public function getContractTypeFirst();
 public function addContractStatus();
 public function getContractStatuses();
 
-public function getContractTariffs();
 public function addContractTariff();
 
 
 public function addContract($contractArray);
 public function getContracts($typeId);
-public function getContract($id);
+public function getContract($id):rentContract;
 public function updateContract($contractId,$dataArray);
 
 public function getLastContracts($kol);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CarIdDate;
 use App\Http\Requests\DateSpan;
+use App\Http\Requests\NeedParent;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\RentEventRepository;
 use App\Services\EventCrashService;
@@ -43,12 +44,13 @@ class EventCrashController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(CarIdDate $carIdDate,
+    public function create(NeedParent $needParent,
+                           CarIdDate $carIdDate,
                            MotorPoolService $motorPoolServ,
                            ContractRepositoryInterface $contractRep
     ){
         $inputData=$carIdDate->validated();
-
+        $nP = $needParent->validated();
         $contractObj=$contractRep->getContract($inputData['contractId']);
         if ($contractObj->carId){
             $carObj=$motorPoolServ->getCar($contractObj->carId);
@@ -56,10 +58,13 @@ class EventCrashController extends Controller
             $carObj=$motorPoolServ->getCar($inputData['carId']);
         }
 
-        return response()->view('rentEvent.addEventCrash',['carObj' => $carObj,
-                                                                'contractObj' => $contractObj,
-                                                                'dateTime' => $inputData['date'],
-                                                                'eventObj' => $this->eventObj]);
+        return response()->view('rentEvent.addEventCrash',[
+            'carObj' => $carObj,
+            'needParent' => $nP['needParent'],
+            'contractObj' => $contractObj,
+            'dateTime' => $inputData['date'],
+            'eventObj' => $this->eventObj,
+        ]);
     }
 
     /**

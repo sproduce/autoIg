@@ -175,13 +175,8 @@
                 @endif
                 <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
                     @yield('header')
-
-
-
                 </div>
                 @yield('content')
-
-
             </main>
         </div>
     </div>

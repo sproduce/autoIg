@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CarIdDate;
+use App\Http\Requests\NeedParent;
 use App\Models\rentEventOther;
 use App\Models\timeSheet;
 use App\Models\toPayment;
@@ -36,12 +37,18 @@ class EventOtherController extends Controller
         //
     }
 
-       public function create(CarIdDate $carIdDate,MotorPoolService $motorPoolServ,ContractRepositoryInterface $contractRep)
+       public function create(NeedParent $needParent,
+                              CarIdDate $carIdDate,
+                              MotorPoolService $motorPoolServ,
+                              ContractRepositoryInterface $contractRep)
     {
         $inputData = $carIdDate->validated();
+        $nP = $needParent->validated();
         $carObj = $motorPoolServ->getCar($inputData['carId']);
 
-        return view('rentEvent.addEventOther',['carObj' => $carObj,
+        return view('rentEvent.addEventOther',[
+            'carObj' => $carObj,
+            'needParent' => $nP['needParent'],
             'dateTime'=> $inputData['date'],
             'eventObj'=>$this->eventObj,
         ]);
