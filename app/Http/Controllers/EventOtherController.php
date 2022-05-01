@@ -34,7 +34,7 @@ class EventOtherController extends Controller
      */
     public function index()
     {
-        //
+        return view('rentEvent.listEventsOther',['eventsObj' => $eventsObj]);
     }
 
        public function create(NeedParent $needParent,

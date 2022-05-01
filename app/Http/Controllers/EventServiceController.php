@@ -3,10 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\rentEventService;
+use App\Repositories\RentEventRepository;
 use Illuminate\Http\Request;
 
 class EventServiceController extends Controller
 {
+
+    protected $rentEventRep,$request,$eventObj;
+
+    public function __construct(RentEventRepository $rentEventRep)
+    {
+        $this->rentEventRep = $rentEventRep;
+        $rc= new \ReflectionClass($this);
+        $eventObj=$rentEventRep->getEventByAction($rc->getShortName());
+        $this->eventObj=$eventObj;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +27,7 @@ class EventServiceController extends Controller
      */
     public function index()
     {
-        //
+        return view('rentEvent.listEventsService',['eventsObj' => $eventsObj]);
     }
 
     /**

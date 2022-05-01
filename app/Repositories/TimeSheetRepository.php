@@ -93,7 +93,10 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
 
     public function getLastTimeSheet(carConfiguration $carObj, rentEvent $eventObj):timeSheet
     {
-        // TODO: Implement getLastTimeSheet() method.
+        return timeSheet::where('carId',$carObj->id)
+            ->where('eventId',$eventObj->id)
+            ->orderBy('dateTime','DESC')
+            ->first();
     }
 
 

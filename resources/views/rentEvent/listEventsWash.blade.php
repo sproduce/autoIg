@@ -5,7 +5,7 @@
     </div>
     @foreach($eventsObj as $event)
         <div class="row row-table">
-      
+      wash
         </div>
     @endforeach
 

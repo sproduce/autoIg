@@ -2,6 +2,13 @@
 @extends( ($needParent) ? '../adminIndex' : '../cleanIndex')
 
 @section('content')
+    <div class="row mb-3">
+        <div class="col-4">
+            Последнее событие  {{$lastTimeSheet->dateTime->addMinute($lastTimeSheet->duration)->format('d-m-Y H:i')}}
+        </div>
+
+    </div>
+
 <form method="POST" action="/eventRental">
     @csrf
     <input name="eventId" value="{{$eventObj->id}}" hidden/>
