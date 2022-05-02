@@ -38,6 +38,9 @@ Class ContractService{
 
     public function addContract(ContractRequest $contractData)
     {
+        if ($contractData->get('id')){
+            $this->contractModel = $this->contractModel->find($contractData->get('id'));
+        }
 
         $this->contractModel->start =$contractData->get('start');
         $this->contractModel->finish =$contractData->get('finish');
@@ -46,7 +49,7 @@ Class ContractService{
         $this->contractModel->comment =$contractData->get('comment');
         $this->contractModel->typeId =$contractData->get('typeId');
         $this->contractModel->driverId = $contractData->get('driverId');
-        $this->contractModel->carId = $contractData->get('carId');
+        $this->contractModel->carGroupId = $contractData->get('carGroupId');
         $this->contractModel->statusId = $contractData->get('statusId');
         $this->contractModel->balance = $contractData->get('balance');
         $this->contractModel->deposit = $contractData->get('deposit');

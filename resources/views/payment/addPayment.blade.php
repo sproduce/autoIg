@@ -17,7 +17,7 @@
 
         <div class="row pb-3 mb-3 border-bottom">
             <div class="col-1">Дата</div>
-            <div class="col-3"><input type="datetime-local" name="dateTime"/></div>
+            <div class="col-3"><input type="datetime-local" name="dateTime" required/></div>
             <div class="col-1">Сумма</div>
             <div class="col-3"><input type="number" name="payment" required/></div>
             <div class="col-1">Комиссия</div>

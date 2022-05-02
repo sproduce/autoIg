@@ -3,7 +3,6 @@
 @php
     $contractTypes=$directory->get('type');
     $contractStatuses=$directory->get('status');
-    $contractTariffs=$directory->get('tariff');
 @endphp
 @section('header')
     <h6 class="m-0">Редактировать договор</h6>

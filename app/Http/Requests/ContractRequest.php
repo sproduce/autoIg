@@ -51,7 +51,7 @@ class ContractRequest extends FormRequest
             'finishFact' => '',
             'typeId' => 'required|integer',
             'driverId' => 'integer|nullable',
-            'carId' => 'integer|nullable',
+            'carGroupId' => 'integer|nullable',
             'statusId' => 'required|integer',
             'balance' => 'integer',
             'deposit' => 'integer',

@@ -9,7 +9,7 @@ use App\Models\rentCarGroupLink;
 
 class CarGroupRepository implements CarGroupRepositoryInterface
 {
-    public function getCarGroup($id)
+    public function getCarGroup($id): rentCarGroup
     {
         return rentCarGroup::find($id);
     }

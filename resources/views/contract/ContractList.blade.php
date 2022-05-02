@@ -62,7 +62,7 @@
                 <div class="row align-items-center font-weight-bold border">
                     <div class="col-1 p-0">Номер</div>
                     <div class="col-2 p-0">Даты</div>
-                    <div class="col-2 p-0">Автомобиль</div>
+                    <div class="col-2 p-0">Группа</div>
                     <div class="col-2 p-0">Водитель</div>
                     <div class="col-1 p-0">Депозит</div>
                     <div class="col-1 p-0">Баланс</div>
@@ -77,7 +77,7 @@
                                     {{$loop->iteration}}.
                                 </div>
                                 <div class="col-2">{{$contract->start}}</div>
-                                <div class="col-2">{{$contract->car->generation->model->brand->name}}</div>
+                                <div class="col-2">{{$contract->carGroup->nickName}}</div>
                                 <div class="col-2">{{$contract->driver->surname}}</div>
                                 <div class="col-1 text-right">{{$contract->deposit}}</div>
                                 <div class="col-1 text-right">{{$contract->balance}}</div>
@@ -97,7 +97,7 @@
 
                         </div>
                         <div class="col-2">{{$contract->finish}}</div>
-                        <div class="col-2">{{$contract->car->generation->model->name}}</div>
+                        <div class="col-2"></div>
                         <div class="col-2">{{$contract->driver->name}}</div>
                         <div class="col-1 text-right"></div>
                         <div class="col-1 text-right"></div>
@@ -110,7 +110,7 @@
 {{--                            <a href="/additional/contractAdditional?contractId={{$contract->id}}" title="Услуги по договору"><i class="fas fa-tags"></i></a>--}}
                         </div>
                         <div class="col-2">{{$contract->finishFact}}</div>
-                        <div class="col-2">{{$contract->car->nickName}}</div>
+                        <div class="col-2"></div>
                         <div class="col-2">{{$contract->driver->nickname}}</div>
                         <div class="col-1 text-right"></div>
                         <div class="col-1 text-right"></div>
