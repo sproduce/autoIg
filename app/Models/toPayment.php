@@ -33,6 +33,11 @@ class toPayment extends Model
     }
 
 
+    public function rentEvent()
+    {
+        return $this->hasOne(rentEvent::class,'id','contractId')->withDefault();
+    }
+
 
 
 

@@ -11,7 +11,7 @@ Route::get('/ContractTypes',[ContractController::class,'showContractTypes']);
 Route::get('/add',[ContractController::class,'addContract']);
 Route::post('/add',[ContractController::class,'saveContract']);
 Route::get('/edit',[ContractController::class,'editContract']);
-Route::post('/edit',[ContractController::class,'updateContract']);
+//Route::post('/edit',[ContractController::class,'updateContract']);
 
 
 Route::get('/addDriver',[ContractController::class,'addDriverDialog']);
@@ -22,5 +22,6 @@ Route::get('/search',[ContractController::class,'search']);
 Route::get('/info',[ContractController::class,'dialogInfo']);
 
 Route::get('/toPay',[ContractController::class,'contractToPay']);
+Route::get('/contractFullInfo',[ContractController::class,'contractFullInfo']);
 //Route::get('/carContracts',[ContractController::class,'dialogCarContract']);
 

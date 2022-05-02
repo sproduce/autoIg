@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContractIdRequest;
 use App\Http\Requests\ContractRequest;
 use App\Http\Requests\DateSpan;
 use App\Models\rentContract;
 use App\Repositories\ContractRepository;
 use App\Repositories\Interfaces\CarGroupRepositoryInterface;
+use App\Repositories\Interfaces\PaymentRepositoryInterface;
+use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
+use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
+use App\Repositories\ToPaymentRepository;
 use App\Services\ContractService;
 use App\Services\MotorPoolService;
 use App\Services\CarDriverService;
@@ -57,12 +62,10 @@ class ContractController extends Controller
     }
 
 
-    public function addContract(CarGroupRepositoryInterface $carGroupRep,CarDriverService $carDriverServ,rentContract $rentContractObj)
+    public function addContract(CarGroupRepositoryInterface $carGroupRep,rentContract $rentContractObj)
     {
         $directory = $this->contractServ->getContractDirectory();
         $carGroupObjs = $carGroupRep->getCarGroups();
-
-        //$driverObj = $carDriverServ->getCarDriver();
 
         return view('contract.CarContract',[
             'directoryObj' => $directory,
@@ -95,6 +98,26 @@ class ContractController extends Controller
     }
 
 
+    public function contractFullInfo(
+        ContractIdRequest $contractIdRequest,
+        PaymentRepositoryInterface $paymentRep,
+        TimeSheetRepositoryInterface $timeSheetRep,
+        ToPaymentRepositoryInterface $toPaymentRep
+    ){
+        $contractValidate = $contractIdRequest->validated();
+        $contractId = $contractValidate['contractId'];
+        $contractPayments = $paymentRep->getPaymentsByContract($contractId);
+        //$contractTimeSheets = $timeSheetRep->getContractTimeSheets($contractId);
+        $contractService = $toPaymentRep->getToPaymentsByContract($contractId);
+        return view('contract.ContractFullInfo',[
+            'contractPayments' => $contractPayments,
+            //'contractTimeSheets' => $contractTimeSheets,
+            'contractService' => $contractService,
+        ]);
+    }
+
+
+
     public function addCarDialog(MotorPoolService $motorPoolServ)
     {
         $carsObj=$motorPoolServ->getLastCars(7);
@@ -108,13 +131,6 @@ class ContractController extends Controller
         return redirect('/contract/list');
     }
 
-    public function updateContract(ContractRequest $contractRequest)
-    {
-        $contractRequest->validated();
-        $this->contractServ->addContract($contractRequest);
-        //$this->contractServ->editContract();
-        return redirect('/contract/list');
-    }
 
     public function search()
     {

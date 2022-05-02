@@ -12,12 +12,9 @@
     @endif
 @endsection
 @section('content')
-
+    <form method="POST" action="/contract/add">
     @if ($rentContractObj->id)
-        <form method="POST" action="/contract/edit">
-            <input type="number" name="id" id="id" value="{{$rentContractObj->id}}" hidden/>
-    @else
-        <form method="POST" action="/contract/add">
+        <input type="number" name="id" id="id" value="{{$rentContractObj->id}}" hidden/>
     @endif
 
     @csrf
