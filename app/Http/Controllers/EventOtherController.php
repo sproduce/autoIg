@@ -21,9 +21,9 @@ class EventOtherController extends Controller
     public function __construct(RentEventRepository $rentEventRep)
     {
         $this->rentEventRep = $rentEventRep;
-        $rc= new \ReflectionClass($this);
-        $eventObj=$rentEventRep->getEventByAction($rc->getShortName());
-        $this->eventObj=$eventObj;
+        $rc = new \ReflectionClass($this);
+        $eventObj = $rentEventRep->getEventByAction($rc->getShortName());
+        $this->eventObj = $eventObj;
     }
 
 
@@ -37,11 +37,12 @@ class EventOtherController extends Controller
         return view('rentEvent.listEventsOther',['eventsObj' => $eventsObj]);
     }
 
-       public function create(NeedParent $needParent,
-                              CarIdDate $carIdDate,
-                              MotorPoolService $motorPoolServ,
-                              ContractRepositoryInterface $contractRep)
-    {
+       public function create(
+           NeedParent $needParent,
+           CarIdDate $carIdDate,
+           MotorPoolService $motorPoolServ,
+           ContractRepositoryInterface $contractRep
+       ) {
         $inputData = $carIdDate->validated();
         $nP = $needParent->validated();
         $carObj = $motorPoolServ->getCar($inputData['carId']);

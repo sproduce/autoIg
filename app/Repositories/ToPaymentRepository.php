@@ -13,9 +13,29 @@ use Illuminate\Support\Collection;
 class ToPaymentRepository implements ToPaymentRepositoryInterface
 {
 
-    public function getToPaymentsByContract($contractId)
+    public function getToPaymentsByContract($contractId): Collection
     {
-        return toPayment::query()->where('contractId',$contractId)->get();
+        $resultCollection = DB::table('to_payments')
+            ->join('time_sheets','time_sheets.id', '=' ,'to_payments.timeSheetId')
+            ->join('rent_events','rent_events.id','=','time_sheets.eventId')
+            ->select([
+                'to_payments.sum as paymentsSum',
+                'to_payments.paymentId as paymentsPaymentId',
+                'time_sheets.dateTime as sheetsDateTime',
+                'rent_events.name as eventsName',
+                'rent_events.color as eventsColor',
+                'rent_events.action as eventsAction',
+            ])
+            ->where('to_payments.contractId','=',$contractId)
+            ->orderBy('time_sheets.dateTime')
+            ->get();
+
+        $resultCollection->each(function ($item, $key) {
+            $item->sheetsDateTime=Carbon::parse($item->sheetsDateTime);
+        });
+
+        return $resultCollection;
+        //return toPayment::query()->where('contractId',$contractId)->get();
     }
 
     public function getToPayment($toPaymentId)
@@ -29,7 +49,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         $startDate=$datePeriod->getStartDate()->format('Y-m-d');
         $finishDate=$datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
 
-        $resultCollection= DB::table('to_payments')
+        $resultCollection = DB::table('to_payments')
             ->join('car_configurations','car_configurations.id','=','to_payments.carId')
             ->leftJoin('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
             ->leftJoin('rent_events','rent_events.id','=','time_sheets.eventId')

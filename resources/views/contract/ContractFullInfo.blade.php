@@ -102,9 +102,9 @@
 
             @foreach($contractService as $service)
                 <div class="row row-table">
-                    <div class="col-2"></div>
-                    <div class="col-3"></div>
-                    <div class="col-2">{{$service->sum}}</div>
+                    <div class="col-2">{{$service->sheetsDateTime->format('d-m-Y H:i')}}</div>
+                    <div class="col-3">{{$service->eventsName}}</div>
+                    <div class="col-2">{{$service->paymentsSum}}</div>
                 </div>
             @endforeach
 
