@@ -29,6 +29,6 @@ interface TimeSheetRepositoryInterface
     public function getTimeSheetPeriod();
 
 
-    public function getLastTimeSheet(carConfiguration $carObj,rentEvent $eventObj):timeSheet;
+    public function getLastTimeSheet(carConfiguration $carObj,rentEvent $eventObj): ?timeSheet;
 
 }

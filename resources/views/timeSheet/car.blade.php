@@ -68,7 +68,7 @@
         </div>
         @foreach($timeSheetSpan as $span)
             <div class="row row-table">
-                <div class="col-3">{{$span->event->name}}</div>
+                <div class="col-3">{{$span->name}}</div>
                 <div class="col-3">{{$span->fromDate->format('d-m-Y H:i')}}</div>
                 <div class="col-3">{{$span->toDate->format('d-m-Y H:i')}}</div>
                 <div class="col-2"></div>

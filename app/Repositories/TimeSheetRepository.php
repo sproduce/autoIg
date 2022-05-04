@@ -6,9 +6,8 @@ use App\Models\carConfiguration;
 use App\Models\rentEvent;
 use App\Models\timeSheet;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
-use Carbon\CarbonImmutable;
-use Carbon\CarbonPeriod;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +20,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         return timeSheet::query()->whereBetween('dateTime',[$dateFrom,$dateTo])->get();
     }
 
-    public function getTimeSheet($timeSheetId):timeSheet
+    public function getTimeSheet($timeSheetId): timeSheet
     {
         return timeSheet::find($timeSheetId);
     }
@@ -78,6 +77,22 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         $startDate = $datePeriod->getStartDate()->format('Y-m-d H:i');
         $finishDate = $datePeriod->getEndDate()->subMinute(1)->format('Y-m-d H:i');
 
+
+//        $resultCollection = DB::table('time_sheets')
+//            ->groupBy(['time_sheets.eventId','time_sheets.dataId','rent_events.id'])
+//            ->join('rent_events','time_sheets.eventId','=','rent_events.id')
+//            ->whereBetween('time_sheets.dateTime',[$startDate,$finishDate])
+//
+//            ->where('time_sheets.carId',$carId)
+//            ->selectRaw('min(time_sheets.dateTime) as fromDate,max(DATE_ADD(time_sheets.dateTime,INTERVAL time_sheets.duration MINUTE)) as toDate,sum(time_sheets.sum)')
+//            ->select(['rent_events.*'])
+//            ->orderBy('time_sheets.dateTime')
+//            ->get();
+//        $resultCollection->dd();
+//        $resultCollection->each(function ($item, $key) {
+//            $item->fromDate = Carbon::parse($item->fromDate);
+//            $item->toDate = Carbon::parse($item->toDate);
+//        });
         $result = timeSheet::query()
             ->selectRaw('min(dateTime) as fromDate,max(DATE_ADD(dateTime,INTERVAL duration MINUTE)) as toDate')
             ->whereBetween('dateTime',[$startDate,$finishDate])
@@ -86,8 +101,12 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
             ->orderBy('dateTime')
             ->get();
 
-       return $result;
+       return  $result;
     }
+
+
+
+
 
     public function getTimeSheetsByEvent($eventId, CarbonPeriod $datePeriod)
     {
@@ -109,12 +128,13 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     }
 
 
-    public function getLastTimeSheet(carConfiguration $carObj, rentEvent $eventObj):timeSheet
+    public function getLastTimeSheet(carConfiguration $carObj, rentEvent $eventObj): ?timeSheet
     {
-        return timeSheet::where('carId',$carObj->id)
+        $timeSheetResult = timeSheet::where('carId',$carObj->id)
             ->where('eventId',$eventObj->id)
             ->orderBy('dateTime','DESC')
             ->first();
+        return $timeSheetResult;
     }
 
 
