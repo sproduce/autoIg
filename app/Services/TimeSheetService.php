@@ -53,9 +53,9 @@ Class TimeSheetService{
 
     }
 
-    public function getCarTimeSheets(carConfiguration $carObj,CarbonPeriod $datePeriod)
+    public function getCarTimeSheets(carConfiguration $carObj,CarbonPeriod $date)
     {
-        $result=$this->timeSheetRep->getCarTimeSheetByDate($carObj->id,$datePeriod);
+        $result = $this->timeSheetRep->getCarTimeSheetByDate($carObj->id,$date);
         return $result;
     }
 

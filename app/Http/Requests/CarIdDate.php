@@ -43,6 +43,20 @@ class CarIdDate extends FormRequest
         return  $periodDate;
     }
 
+    public function getCarbonPeriodMonth() :CarbonPeriod
+    {
+        $input=parent::all(['date']);
+        $periodDate = new CarbonPeriod($input['date']->subMonth(1),$input['date']->startOfDay());
+        return  $periodDate;
+    }
+
+
+    public function getCarId()
+    {
+        $input = parent::all(['carId']);
+        return $input['carId'];
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

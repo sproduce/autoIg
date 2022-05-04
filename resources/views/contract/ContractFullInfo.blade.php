@@ -15,7 +15,7 @@
                         <div class="col-7">
                             Дата/Время
                         </div>
-                        <div class="5">
+                        <div class="col-5">
                             Сумма <br/>(Комиссия)
                         </div>
                     </div>

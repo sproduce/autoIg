@@ -6,7 +6,9 @@ use App\Models\carConfiguration;
 use App\Models\rentEvent;
 use App\Models\timeSheet;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 class TimeSheetRepository implements TimeSheetRepositoryInterface
 {
 
-    public function getTimeSheets($dateFrom, $dateTo):Collection
+    public function getTimeSheets($dateFrom, $dateTo): Collection
     {
         return timeSheet::query()->whereBetween('dateTime',[$dateFrom,$dateTo])->get();
     }
@@ -26,17 +28,21 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
 
     public function getTimeSheetsArray($dateFrom, $dateTo)
     {
-        return DB::table('time_sheets')->leftJoin('rent_events','time_sheets.eventId','=','rent_events.id')->get(['time_sheets.*','rent_events.priority','rent_events.name']);
+        return DB::table('time_sheets')
+            ->leftJoin('rent_events','time_sheets.eventId','=','rent_events.id')
+            ->get(['time_sheets.*','rent_events.priority','rent_events.name']);
     }
 
     public function getCarTimeSheetByDate($carId,CarbonPeriod $datePeriod)
     {
-        $startDate=$datePeriod->getStartDate()->format('Y-m-d');
-        $finishDate=$datePeriod->getEndDate()->format('Y-m-d');
-
-        return timeSheet::query()->
-                whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and carId=?',[$startDate,$finishDate,$carId])->
-                orWhereBetween('dateTime',[$startDate,$finishDate])->where('carId','=',$carId)->orderBy('dateTime')->get();
+        $startDate = $datePeriod->getStartDate()->format('Y-m-d H:i');
+        $finishDate = $datePeriod->getEndDate()->subMinute(1)->format('Y-m-d H:i');
+        return timeSheet::query()
+            ->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and carId=?',[$startDate,$finishDate,$carId])
+            ->orWhereBetween('dateTime',[$startDate,$finishDate])
+            ->where('carId','=',$carId)
+            ->orderBy('dateTime')
+            ->get();
     }
 
     public function getContractTimeSheets($contractId)
@@ -67,11 +73,20 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     }
 
 
-    public function getCarSpanTimeSheet($carId, CarbonPeriod $periodDate)
+    public function getCarSpanTimeSheet($carId, CarbonPeriod $datePeriod)
     {
-        //echo timeSheet::query()->selectRaw('min(dateTime),max(dateTime)') ->groupBy(['eventId','dataId'])->orderBy('dateTime')->toSql();
-       return timeSheet::query()->selectRaw('min(dateTime) as fromDate,max(dateTime) as toDate')->groupBy(['eventId','dataId'])->where('carId',$carId)->orderBy('dateTime')->get();
-        //select min(dateTime),max(dateTime),eventId,dataId,duration from time_sheets where carId=12 group by eventId,dataId order by dateTime
+        $startDate = $datePeriod->getStartDate()->format('Y-m-d H:i');
+        $finishDate = $datePeriod->getEndDate()->subMinute(1)->format('Y-m-d H:i');
+
+        $result = timeSheet::query()
+            ->selectRaw('min(dateTime) as fromDate,max(DATE_ADD(dateTime,INTERVAL duration MINUTE)) as toDate')
+            ->whereBetween('dateTime',[$startDate,$finishDate])
+            ->groupBy(['eventId','dataId'])
+            ->where('carId',$carId)
+            ->orderBy('dateTime')
+            ->get();
+
+       return $result;
     }
 
     public function getTimeSheetsByEvent($eventId, CarbonPeriod $datePeriod)
@@ -79,9 +94,12 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         $startDate=$datePeriod->getStartDate()->format('Y-m-d');
         $finishDate=$datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
 
-        return timeSheet::query()->
-        whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])->
-        orWhereBetween('dateTime',[$startDate,$finishDate])->where('eventId','=',$eventId)->orderBy('dateTime')->get();
+        return timeSheet::query()
+            ->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])
+            ->orWhereBetween('dateTime',[$startDate,$finishDate])
+            ->where('eventId','=',$eventId)
+            ->orderBy('dateTime')
+            ->get();
     }
 
 

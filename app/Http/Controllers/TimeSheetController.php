@@ -88,15 +88,19 @@ class TimeSheetController extends Controller
                                                'rentEvents' => $rentEventsObj]);
     }
 
+
     public function infoDialog(CarIdDate $carIdDateRequest,RentEventRepository $rentEventRep)
     {
         $carIdDate = $carIdDateRequest->validated();
         $rentEventObjs = $rentEventRep->getEvents();
 
+        $datePeriod = $carIdDateRequest->getCarbonPeriodDay();
         $carObj=$this->motorPoolRep->getCar($carIdDate['carId']);
-        $timeSheetsObj=$this->timeSheetServ->getCarTimeSheets($carObj,$carIdDateRequest->getCarbonPeriodDay());
-        return view('dialog.TimeSheet.infoTimeSheet',['timeSheets' => $timeSheetsObj,
-            'carObj' => $carObj,
+
+        $timeSheetsObj=$this->timeSheetServ->getCarTimeSheets($carObj,$datePeriod);
+        return view('dialog.TimeSheet.infoTimeSheet',[
+            'timeSheets' => $timeSheetsObj,
+            'carIdDate' => $carIdDate,
             'rentEventObjs' => $rentEventObjs,
             ]);
     }
@@ -135,12 +139,14 @@ class TimeSheetController extends Controller
 
 
 
-    public function showCarTimeSheet(DateSpan $dateSpan)
+    public function showCarTimeSheet(CarIdDate $carIdDate)
     {
-        $dateFromTo=$dateSpan->validated();
-        $periodDate=new CarbonPeriod($dateFromTo['fromDate'],$dateFromTo['toDate']);
-        $validate=$this->request->validate(['carId'=>'required|integer']);
-        $carObj=$this->motorPoolRep->getCar($validate['carId']);
+
+        $carIdDate->validated();
+        //$periodDate = $dateSpan->getCarbonPeriod();
+        //$periodDate=new CarbonPeriod($dateFromTo['fromDate'],$dateFromTo['toDate']);
+        $periodDate = $carIdDate->getCarbonPeriodMonth();
+        $carObj=$this->motorPoolRep->getCar($carIdDate->getCarId());
         $timeSheetsObj=$this->timeSheetServ->getCarTimeSheets($carObj,$periodDate);
 
         $timeSheetSpan=$this->timeSheetServ->getCarSpanTimeSheets($carObj,$periodDate);

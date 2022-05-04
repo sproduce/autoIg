@@ -57,4 +57,16 @@ class timeSheet extends Model
     }
 
 
+    protected function getDateTimeEndAttribute()
+    {
+        if ($this->duration>1){
+            return $this->dateTime->addMinutes($this->duration);
+        } else {
+            return null;
+        }
+
+    }
+
+
+
 }
