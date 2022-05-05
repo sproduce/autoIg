@@ -32,9 +32,9 @@
 
 <script>
 $(".carSearch").click(function(){
-    $("#carId").val($(this).attr("data-carSearchId"));
-    console.log($(this).attr("data-carSearchId"));
-    $("#carText").val($(this).attr("data-carSeachText"));
+    $("#carId").val($(this).attr("data-carSearchId")).change();
+    $("#carText").val($(this).attr("data-carSeachText")).change();
+
     $('#modal').modal('toggle');
 });
 
@@ -42,8 +42,8 @@ $("#search").keyup(function(){
     if($("#search").val().length>0)
 $("#carSearch").load("/car/search?carText="+$("#search").val(),function(){
     $(".carSearch").click(function(){
-        $("#carId").val($(this).attr("data-carSearchId"));
-        $("#carText").val($(this).attr("data-carSeachText"));
+        $("#carId").val($(this).attr("data-carSearchId")).change();
+        $("#carText").val($(this).attr("data-carSeachText")).change();
         $('#modal').modal('toggle');
     });
 });

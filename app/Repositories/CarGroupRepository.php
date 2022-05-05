@@ -64,8 +64,20 @@ class CarGroupRepository implements CarGroupRepositoryInterface
 
     public function searchCarGroup($text)
     {
-        return rentCarGroup::query()->where('name','LIKE','%'.$text.'%')->orWhere('nickName','LIKE','%'.$text.'%')->get();
+        return rentCarGroup::query()
+            ->where('name','LIKE','%'.$text.'%')
+            ->orWhere('nickName','LIKE','%'.$text.'%')
+            ->get();
     }
+
+    public function getCarGroupsByCar($carId)
+    {
+        return rentCarGroup::query()
+            ->join('rent_car_group_links','rent_car_group_links.groupId','=','rent_car_groups.id')
+            ->where('rent_car_group_links.carId','=',$carId)
+            ->get();
+    }
+
 
 }
 

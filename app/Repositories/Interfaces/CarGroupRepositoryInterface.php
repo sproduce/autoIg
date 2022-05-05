@@ -20,4 +20,7 @@ interface CarGroupRepositoryInterface
 
     public function searchCarGroup($text);
 
+    public function getCarGroupsByCar($carId);
+
+
 }

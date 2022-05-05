@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarGroupController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReferenceController;
@@ -28,3 +29,4 @@ Route::get('/getGenerations',[ReferenceController::class,'getGeneration']);
 Route::get('/getCarInfo',[MotorPoolController::class,'getCarInfo']);
 Route::get('/getCarInfo/{carId}',[MotorPoolController::class,'getCarInfo']);
 Route::get('/getContractInfo/{contarctId}',[ContractController::class,'getContractInfo']);
+Route::get('/getCarGroups',[CarGroupController::class,'getCarGroupsApi']);

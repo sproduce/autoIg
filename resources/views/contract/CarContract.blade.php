@@ -46,6 +46,17 @@
 
             <div class="form-row text-center mt-3">
                 <div class="form-group col-md-3 input-group-sm">
+                    <label for="carId" title="Машина">Машина</label>
+                    <a href="/contract/addCar" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+                    @if($rentContractObj->car->id)
+                        <input id="carText" class="form-control" value="{{$rentContractObj->car->nickName}}" disabled />
+                        <input name="carId" id="carId" value="{{$rentContractObj->car->id}}" hidden />
+                    @else
+                        <input id="carText" class="form-control" disabled/>
+                        <input name="carId" id="carId" hidden/>
+                    @endif
+                </div>
+                <div class="form-group col-md-3 input-group-sm">
                     <label for="carGroupId" title="Группа машин">Группа машин</label>
                     <select name="carGroupId" id="carGroupId" class="form-control" required>
                         <option>Выберите группу ...</option>
@@ -55,18 +66,6 @@
                     </select>
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
-                    <label for="carId" title="Машина">Машина</label>
-                    <a href="/contract/addCar" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
-                    @if($rentContractObj->car->id)
-                        <input id="carText" class="form-control" value="{{$rentContractObj->car->nickName}}" disabled />
-                        <input name="carId" id="carId" value="{{$rentContractObj->car->id}}"  hidden />
-                        @else
-                        <input id="carText" class="form-control" value="" disabled />
-                        <input name="carId" id="carId" value=""  hidden />
-                    @endif
-                </div>
-
-                <div class="form-group col-md-3 input-group-sm">
                     <label for="driverId" title="Водитель">Водитель</label>
                     <a href="/contract/addDriver" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
                     @if($rentContractObj->driverId)
@@ -74,23 +73,17 @@
                         <input name="driverId" id="driverId" value="{{$rentContractObj->driverId}}"  hidden />
                     @else
                         <input id="driverText" class="form-control" disabled/>
-                        <input name="driverId" id="driverId"  hidden />
+                        <input name="driverId" id="driverId"  hidden/>
                     @endif
-
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="statusId" title="Статус договора">Статус договора</label>
-
-
                     <select name="statusId" id="statusId" class="form-control">
                         @foreach($contractStatuses as $contractStatus)
                             <option value="{{$contractStatus->id}}" @if ($rentContractObj->statusId == $contractStatus->id) selected @endif>{{$contractStatus->name}}</option>
                         @endforeach
-
                     </select>
                 </div>
-
-
             </div>
 
             <div class="form-row text-center mt-3">
@@ -135,7 +128,20 @@
         </div>
     </div>
 </form>
-
-
-
+@endsection
+@section('js')
+    <script>
+        $('#carId').change(function() {
+            $.get("/api/getCarGroups",{carId:$('#carId').val()}).done(function( data ) {
+                if (data.length){
+                    var html = '';
+                    for (var i = 0; i< data.length; i++) {
+                        html += '<option value="' + data[i].groupId + '">'+ data[i].name +'</option>';
+                    }
+                    $('#carGroupId').empty();
+                    $('#carGroupId').append(html);
+                }
+            });
+        });
+    </script>
 @endsection

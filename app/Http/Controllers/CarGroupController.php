@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CarIdRequest;
+use App\Repositories\CarGroupRepository;
 use App\Services\CarGroupService;
 
 class CarGroupController extends Controller
 {
-    private $carGroupServ;
-    function __construct(CarGroupService $carGroupServ)
+    private $carGroupServ,$carGroupRep;
+    function __construct(CarGroupService $carGroupServ,CarGroupRepository $carGroupRepository)
     {
-        $this->carGroupServ=$carGroupServ;
+        $this->carGroupServ = $carGroupServ;
+        $this->carGroupRep = $carGroupRepository;
     }
 
 
     public function show()
     {
-        $carGroupsObj=$this->carGroupServ->getCarGroups();
-        return view('carGroup.CarGroupList',['carGroups'=>$carGroupsObj]);
+        $carGroupsObj = $this->carGroupServ->getCarGroups();
+        return view('carGroup.CarGroupList',['carGroups' => $carGroupsObj]);
     }
 
 
@@ -34,8 +37,8 @@ class CarGroupController extends Controller
 
     public function info()
     {
-        $carGroupInfoObj=$this->carGroupServ->carGroupInfo();
-        return view('carGroup.CarGroupInfo',['carGroupInfoObj'=>$carGroupInfoObj]);
+        $carGroupInfoObj = $this->carGroupServ->carGroupInfo();
+        return view('carGroup.CarGroupInfo',['carGroupInfoObj' => $carGroupInfoObj]);
     }
 
 
@@ -47,22 +50,35 @@ class CarGroupController extends Controller
 
     public function searchDialog()
     {
-        $carGroupsObj=$this->carGroupServ->getLastCarGroups(5);
+        $carGroupsObj = $this->carGroupServ->getLastCarGroups(5);
 
-        return view('dialog.CarGroup.searchCarGroup',['carGroups'=>$carGroupsObj]);
+        return view('dialog.CarGroup.searchCarGroup',['carGroups' => $carGroupsObj]);
     }
+
+
+
 
     public function search()
     {
-        $carGroupSearchObj=$this->carGroupServ->searchCarGroup();
-        return view('carGroup.carGroupSearchResult',['carGroups'=>$carGroupSearchObj]);
+        $carGroupSearchObj = $this->carGroupServ->searchCarGroup();
+        return view('carGroup.carGroupSearchResult',['carGroups' => $carGroupSearchObj]);
     }
 
 
     public function dialogInfo()
     {
-        $carGroupObj=$this->carGroupServ->getCarGroup();
-        return view('dialog.CarGroup.fullInfoCarGroup',['carGroup'=>$carGroupObj]);
+        $carGroupObj = $this->carGroupServ->getCarGroup();
+        return view('dialog.CarGroup.fullInfoCarGroup',['carGroup' => $carGroupObj]);
+    }
+
+
+    public function getCarGroupsApi(CarIdRequest $carIdRequest)
+    {
+        $carGroups = $this->carGroupRep->getCarGroupsByCar($carIdRequest->getCarId());
+        if (!count($carGroups)){
+            $carGroups = $this->carGroupRep->getCarGroups();
+        }
+        return response()->json($carGroups);
     }
 
 
