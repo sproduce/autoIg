@@ -45,20 +45,38 @@
             </div>
 
             <div class="form-row text-center mt-3">
-                <div class="form-group col-md-4 input-group-sm">
+                <div class="form-group col-md-3 input-group-sm">
                     <label for="carGroupId" title="Группа машин">Группа машин</label>
                     <select name="carGroupId" id="carGroupId" class="form-control" required>
+                        <option>Выберите группу ...</option>
                         @foreach ($carGroupObjs as $carGroupObj)
                             <option value="{{$carGroupObj->id}}"  @if ($rentContractObj->carGroupId == $carGroupObj->id) selected @endif>{{$carGroupObj->name}}</option>
                         @endforeach
                     </select>
                 </div>
+                <div class="form-group col-md-3 input-group-sm">
+                    <label for="carId" title="Машина">Машина</label>
+                    <a href="/contract/addCar" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+                    @if($rentContractObj->car->id)
+                        <input id="carText" class="form-control" value="{{$rentContractObj->car->nickName}}" disabled />
+                        <input name="carId" id="carId" value="{{$rentContractObj->car->id}}"  hidden />
+                        @else
+                        <input id="carText" class="form-control" value="" disabled />
+                        <input name="carId" id="carId" value=""  hidden />
+                    @endif
+                </div>
 
-                <div class="form-group col-md-5 input-group-sm">
+                <div class="form-group col-md-3 input-group-sm">
                     <label for="driverId" title="Водитель">Водитель</label>
                     <a href="/contract/addDriver" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+                    @if($rentContractObj->driverId)
+                        <input id="driverText" class="form-control" value="{{$rentContractObj->driver->surname}} {{$rentContractObj->driver->name}} {{$rentContractObj->driver->patronymic}}" disabled/>
+                        <input name="driverId" id="driverId" value="{{$rentContractObj->driverId}}"  hidden />
+                    @else
                         <input id="driverText" class="form-control" disabled/>
                         <input name="driverId" id="driverId"  hidden />
+                    @endif
+
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="statusId" title="Статус договора">Статус договора</label>

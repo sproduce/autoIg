@@ -98,7 +98,7 @@
                                 <a href="/contract/contractFullInfo?contractId={{$contract->id}}" title="События по договору">{{$contract->number}}</a>
                         </div>
                         <div class="col-2">{{$contract->finish}}</div>
-                        <div class="col-2"></div>
+                        <div class="col-2">{{$contract->car->nickName}}</div>
                         <div class="col-2">{{$contract->driver->name}}</div>
                         <div class="col-1 text-right"></div>
                         <div class="col-1 text-right"></div>

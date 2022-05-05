@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $sum
  * @property int $price
  * @property int $carGroupId
+ * @property int $carId
  *
  */
 
@@ -31,8 +32,8 @@ class rentContract extends Model
 {
     use HasFactory;
     protected $dates=['start','finish','finishFact'];
-    private $start,$finish,$finishFact,$typeId,$driverId,$carGroupId,$statusId,$balance,$deposit,$number,$comment,$sum,$price;
-    protected $fillable =['start','finish','finishFact','typeId','driverId','carGroupId','statusId','tariffId','balance','deposit','number','comment','sum'];
+    private $start,$finish,$finishFact,$typeId,$driverId,$carGroupId,$statusId,$balance,$deposit,$number,$comment,$sum,$price,$carId;
+    protected $fillable =['start','finish','finishFact','typeId','driverId','carGroupId','statusId','tariffId','balance','deposit','number','comment','sum','carId'];
 
     public function driver()
     {
@@ -53,6 +54,12 @@ class rentContract extends Model
     {
         return $this->hasOne(rentCarGroup::class,'id','carGroupId')->withDefault();
     }
+
+    public function car()
+    {
+        return $this->hasOne(carConfiguration::class,'id','carId')->withDefault();
+    }
+
 
 
 }

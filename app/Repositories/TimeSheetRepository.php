@@ -94,7 +94,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
 //            $item->toDate = Carbon::parse($item->toDate);
 //        });
         $result = timeSheet::query()
-            ->selectRaw('min(dateTime) as fromDate,max(DATE_ADD(dateTime,INTERVAL duration MINUTE)) as toDate')
+            ->selectRaw('min(dateTime) as fromDate,max(DATE_ADD(dateTime,INTERVAL duration MINUTE)) as toDate,eventId')
             ->whereBetween('dateTime',[$startDate,$finishDate])
             ->groupBy(['eventId','dataId'])
             ->where('carId',$carId)

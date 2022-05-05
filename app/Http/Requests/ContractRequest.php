@@ -52,6 +52,7 @@ class ContractRequest extends FormRequest
             'typeId' => 'required|integer',
             'driverId' => 'integer|nullable',
             'carGroupId' => 'integer|nullable',
+            'carId' => 'integer|nullable',
             'statusId' => 'required|integer',
             'balance' => 'integer',
             'deposit' => 'integer',
