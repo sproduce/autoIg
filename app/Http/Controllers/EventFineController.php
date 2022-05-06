@@ -16,23 +16,27 @@ use App\Http\Requests\Event;
 
 class EventFineController extends Controller
 {
-    protected $rentEventRep,$eventObj;
+    protected $rentEventRep,$eventObj,$eventFineServ;
 
-    public function __construct(RentEventRepositoryInterface $rentEventRep)
+    public function __construct(RentEventRepositoryInterface $rentEventRep,EventFineService $eventFineServ)
     {
+        $this->eventFineServ = $eventFineServ;
         $this->rentEventRep = $rentEventRep;
-        $rc= new \ReflectionClass($this);
-        $eventObj=$rentEventRep->getEventByAction($rc->getShortName());
-        $this->eventObj=$eventObj;
+        $rc = new \ReflectionClass($this);
+        $eventObj = $rentEventRep->getEventByAction($rc->getShortName());
+        $this->eventObj = $eventObj;
     }
 
 
     public function index(DateSpan $dateSpan,EventFineService $eventFineServ)
     {
-        $dateSpan->validated();
-        $periodDate=$dateSpan->getCarbonPeriod();
-        $eventsObj=$eventFineServ->getEvents($periodDate,$this->eventObj->id);
-        return view('rentEvent.listEventsFine',['eventsObj' => $eventsObj]);
+        $periodDate = $dateSpan->getCarbonPeriod();
+        $listEventsObj = $eventFineServ->getEvents($periodDate,$this->eventObj->id);
+
+        return view('rentEvent.listEventsFine',[
+            'listEventsObj' => $listEventsObj,
+            'eventObj' => $this->eventObj,
+        ]);
     }
 
     /**
@@ -46,20 +50,18 @@ class EventFineController extends Controller
         MotorPoolService $motorPoolServ,
         ContractRepositoryInterface $contractRep
     ){
-        $inputData=$carIdDate->validated();
-        $nP = $needParent->validated();
-        $contractObj=$contractRep->getContract($inputData['contractId']);
+        $contractObj = $contractRep->getContract($carIdDate['contractId']);
         if ($contractObj->carId) {
-            $carObj=$motorPoolServ->getCar($contractObj->carId);
+            $carObj = $motorPoolServ->getCar($contractObj->carId);
         } else{
-            $carObj=$motorPoolServ->getCar($inputData['carId']);
+            $carObj = $motorPoolServ->getCar($carIdDate['carId']);
         }
 
         return response()->view('rentEvent.addEventFine',[
-            'needParent' => $nP['needParent'],
+            'needParent' => $needParent['needParent'],
             'carObj' => $carObj,
             'contractObj' => $contractObj,
-            'dateTime' => $inputData['date'],
+            'dateTime' => $carIdDate['date'],
             'eventObj' => $this->eventObj,
         ]);
     }
@@ -79,7 +81,7 @@ class EventFineController extends Controller
      */
     public function show($id,EventFineRepositoryInterface $eventFineRep)
     {
-        $eventFineObj=$eventFineRep->getEventFine($id);
+        $eventFineObj = $eventFineRep->getEventFine($id);
 
         return response()->view('dialog.RentEvent.infoEventFine',['eventFineObj' => $eventFineObj]);
     }
@@ -92,7 +94,15 @@ class EventFineController extends Controller
      */
     public function edit($id)
     {
-        //
+           $eventFullInfo = $this->eventFineServ->getEventFullInfo($id,$this->eventObj);
+
+        //echo $eventFineObj->timeSheet->carId;
+
+        return response()->view('rentEvent.addEventFine',[
+            'needParent' => '0',
+            'eventObj' => $this->eventObj,
+            'eventFineObj' => $eventFineObj,
+        ]);
     }
 
     /**

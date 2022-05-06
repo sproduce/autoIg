@@ -53,11 +53,18 @@ Class EventFineService{
 
     public function getEvents(CarbonPeriod $periodDate,$eventId)
     {
-        $eventsObj=$this->eventFineRep->getEventFines($eventId,$periodDate);
+        $eventsObj = $this->eventFineRep->getEventFines($eventId,$periodDate);
         $eventsObj->each(function ($item, $key) {
-            $item->dateTime=Carbon::parse($item->dateTime);
+            $item->dateTime = Carbon::parse($item->dateTime);
         });
         return $eventsObj;
+    }
+
+    public function getEventFullInfo($eventId,rentEvent $eventObj)
+    {
+
+        //$toPayObj = $this->toPaymentModel
+
     }
 
 

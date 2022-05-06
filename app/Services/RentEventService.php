@@ -1,22 +1,23 @@
 <?php
 namespace App\Services;
+use App\Models\timeSheet;
+use App\Models\toPayment;
 use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use Illuminate\Http\Request;
 
 Class RentEventService{
-    private $rentEventRep;
+    private $rentEventRep,$toPayment,$timeSheet;
 
     function __construct(
+        toPayment $toPayment,
+        timeSheet $timeSheet,
         RentEventRepositoryInterface $rentEventRep
-    ) {
-        $this->rentEventRep=$rentEventRep;
+    ){
+        $this->toPayment = $toPayment;
+        $this->timeSheet = $timeSheet;
+        $this->rentEventRep = $rentEventRep;
     }
 
-
-    public function getTest()
-    {
-        return 1;
-    }
 
     public function getRentEvents()
     {
@@ -50,6 +51,17 @@ Class RentEventService{
         $this->rentEventRep->updateEvent($rentEventId,$rentEventArray);
     }
 
+
+    public function getEventExtendedObjs($eventId,$dataId)
+    {
+        $timeSheetObj = $this->timeSheet
+            ->where('eventId',$eventId)
+            ->where('dataId',$dataId)
+            ->first();
+        $toPaymentObj = $this->toPayment
+            ->where('');
+
+    }
 
 
 }
