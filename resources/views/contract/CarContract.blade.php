@@ -88,12 +88,8 @@
 
             <div class="form-row text-center mt-3">
                 <div class="form-group col-md-3 input-group-sm">
-                    <label for="price" title="Тариф договора">Тариф договора</label>
+                    <label for="price" title="Тариф договора">Тариф договора в сутки</label>
                     <input type="number" name="price" id="price" class="form-control" @if ($rentContractObj->price) value="{{$rentContractObj->price}}" @endif/>
-                </div>
-                <div class="form-group col-md-2 input-group-sm">
-                    <label for="balance" title="Баланс договора">Баланс договора</label>
-                    <input type="number" name="balance" id="balance" class="form-control" @if ($rentContractObj->balance) value="{{$rentContractObj->balance}}" @endif/>
                 </div>
                 <div class="form-group col-md-2 input-group-sm">
                     <label for="deposit" title="Депозит договора">Депозит договора</label>
@@ -103,11 +99,6 @@
                     <label for="number" title="Номер договора">Номер договора</label>
                     <input type="text" name="number" id="number" class="form-control" autocomplete="off" required @if ($rentContractObj->number) value="{{$rentContractObj->number}}" @endif/>
                 </div>
-                <div class="form-group col-md-2 input-group-sm">
-                    <label for="sum" title="Стоимость">Стоимость</label>
-                    <input type="number" name="sum" id="sum" class="form-control" autocomplete="off" @if ($rentContractObj->sum) value="{{$rentContractObj->sum}}" @endif/>
-                </div>
-
             </div>
             <div class="form-row text-center mt-3">
                 <div class="form-group col-md-12 input-group-sm">
@@ -136,7 +127,7 @@
                 if (data.length){
                     var html = '';
                     for (var i = 0; i< data.length; i++) {
-                        html += '<option value="' + data[i].groupId + '">'+ data[i].name +'</option>';
+                        html += '<option value="' + data[i].id + '">'+ data[i].name +'</option>';
                     }
                     $('#carGroupId').empty();
                     $('#carGroupId').append(html);

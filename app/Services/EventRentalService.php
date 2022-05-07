@@ -4,6 +4,7 @@ namespace App\Services;
 
 
 use App\Models\carConfiguration;
+use App\Models\rentEventRental;
 use App\Repositories\Interfaces\EventRentalRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 
@@ -26,32 +27,35 @@ Class EventRentalService{
 
     public function addEvent($dataArray)
     {
-        $startDateText=$dataArray['dateStart'].' '.$dataArray['timeStart'];
-        $finishDateText=$dataArray['dateFinish'].' '.$dataArray['timeFinish'];
-        $startCarbon=new Carbon($startDateText);
-        $diffMinutes=$startCarbon->diffInMinutes($finishDateText);
-        $colIteration=floor($diffMinutes/$dataArray['duration']);
-        $deltaMinutes=$diffMinutes-$colIteration*$dataArray['duration'];
+        $startDateText = $dataArray['dateStart'].' '.$dataArray['timeStart'];
+        $finishDateText = $dataArray['dateFinish'].' '.$dataArray['timeFinish'];
+        $startCarbon = new Carbon($startDateText);
+        $diffMinutes = $startCarbon->diffInMinutes($finishDateText);
+        $colIteration = floor($diffMinutes/$dataArray['duration']);
+        $deltaMinutes = $diffMinutes-$colIteration*$dataArray['duration'];
 
-        $eventRentalData['contractId']=$dataArray['contractId'];
-        $eventRentalObj=$this->eventRentalRep->addEventRental($eventRentalData);
+        //$eventRentalData['contractId'] = $dataArray['contractId'];
+        //$eventRentalObj = $this->eventRentalRep->addEventRental($eventRentalData);
 
-        $timesheetData['contractId']=$dataArray['contractId'];
-        $timesheetData['carId']=$dataArray['carId'];
-        $timesheetData['eventId']=$dataArray['eventId'];
-        $timesheetData['comment']='';
-        $timesheetData['dataId']=$eventRentalObj->id;
-        $timesheetData['color']=$dataArray['color'];
-        $timesheetData['duration']=$dataArray['duration'];
-        $toPaymentArray['contractId']=$dataArray['contractId'];
-        $toPaymentArray['carId']=$dataArray['carId'];
-        for($i=0;$i<$colIteration;$i++)
+        $timesheetData['contractId'] = $dataArray['contractId'];
+        $timesheetData['carId'] = $dataArray['carId'];
+        $timesheetData['eventId'] = $dataArray['eventId'];
+        $timesheetData['comment'] = '';
+
+        $timesheetData['color'] = $dataArray['color'];
+        $timesheetData['duration'] = $dataArray['duration'];
+        //$toPaymentArray['contractId'] = $dataArray['contractId'];
+        $toPaymentArray['carId'] = $dataArray['carId'];
+        for ($i = 0; $i < $colIteration; $i++)
         {
-            $timesheetData['dateTime']=$startCarbon->toDateTimeString();
+            $rentEventOnj = new rentEventRental();
+            $rentEventOnj->save();
+            $timesheetData['dataId'] = $rentEventOnj->id;
+            $timesheetData['dateTime'] = $startCarbon->toDateTimeString();
             $startCarbon->addDays(1);
             $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
-            $toPaymentArray['sum']= $dataArray['sum'][$i]??0;;
-            $toPaymentArray['timeSheetId']=$timeSheetObj->id;
+            $toPaymentArray['sum'] = $dataArray['sum'][$i]??0;;
+            $toPaymentArray['timeSheetId'] = $timeSheetObj->id;
             $this->toPaymentRep->addToPayment($toPaymentArray);
         }
         if ($deltaMinutes){

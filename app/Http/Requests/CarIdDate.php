@@ -21,31 +21,31 @@ class CarIdDate extends FormRequest
 
     protected function prepareForValidation()
     {
-        $input=parent::all();
+        $input = parent::all();
         if (empty($input['contractId'])){
             $this->merge(['contractId' => null]);
         }
 
-        if (empty($input['date'])) {
+        if (empty($input['date'])){
             $date = CarbonImmutable::today();
         } else{
             $date = new CarbonImmutable($input['date']);
         }
-        $date->setTimeFrom(Carbon::now());
-        $this->merge(['date'=>$date]);
+        $date = $date->setTimeFrom(Carbon::now());
+        $this->merge(['date' => $date]);
 
     }
 
     public function getCarbonPeriodDay(): CarbonPeriod
     {
-        $input=parent::all(['date']);
+        $input = parent::all(['date']);
         $periodDate = new CarbonPeriod($input['date']->startOfDay(),$input['date']->addDay(1));
         return  $periodDate;
     }
 
     public function getCarbonPeriodMonth() :CarbonPeriod
     {
-        $input=parent::all(['date']);
+        $input = parent::all(['date']);
         $periodDate = new CarbonPeriod($input['date']->subMonth(1),$input['date']->startOfDay());
         return  $periodDate;
     }
@@ -67,7 +67,7 @@ class CarIdDate extends FormRequest
         return [
             'carId'=>'required|integer',
             'date' => 'date',
-            'contractId' => 'nullable|integer'
+            'contractId' => 'nullable|integer',
         ];
     }
 }

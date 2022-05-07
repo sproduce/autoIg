@@ -94,7 +94,7 @@ class EventFineController extends Controller
      */
     public function edit($id)
     {
-           $eventFullInfo = $this->eventFineServ->getEventFullInfo($id,$this->eventObj);
+           //$eventFullInfo = $this->eventFineServ->getEventFullInfo($id,$this->eventObj);
 
         //echo $eventFineObj->timeSheet->carId;
 

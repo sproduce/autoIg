@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-
+//use App\Models\rentCarGroupLink;
 
 /**
  * @property int $id
@@ -80,6 +80,11 @@ class carConfiguration extends Model
     public function body()
     {
         return $this->hasOne(carType::class,'id','typeId')->withDefault();
+    }
+
+    public function linkCarGroup()
+    {
+      return $this->hasMany(rentCarGroupLink::class,'carId');
     }
 
     public function timeSheet($date)

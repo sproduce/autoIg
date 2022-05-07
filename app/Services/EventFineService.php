@@ -45,7 +45,7 @@ Class EventFineService{
         $this->timeSheetModel->color = $eventObj->color;
         $this->timeSheetModel->save();
 
-        $this->toPaymentModel->sum = $fineRequest->get('sumSale');
+        $this->toPaymentModel->sum = -1 * abs($fineRequest->get('sumSale'));
         $this->toPaymentModel->timeSheetId =  $this->timeSheetModel->id;
         $this->toPaymentModel->carId = $fineRequest->get('carId');
         $this->toPaymentModel->save();

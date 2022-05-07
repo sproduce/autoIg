@@ -52,9 +52,7 @@ Class ContractService{
         $this->contractModel->carGroupId = $contractData->get('carGroupId');
         $this->contractModel->carId = $contractData->get('carId');
         $this->contractModel->statusId = $contractData->get('statusId');
-        $this->contractModel->balance = $contractData->get('balance');
         $this->contractModel->deposit = $contractData->get('deposit');
-        $this->contractModel->sum = $contractData->get('sum');
         $this->contractModel->price = $contractData->get('price');
         $this->contractModel->save();
     }

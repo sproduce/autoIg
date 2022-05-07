@@ -26,20 +26,9 @@ class timeSheet extends Model
 {
     use HasFactory;
     //private $dateTime,$comment,$dataId,$eventId;
-    protected $fillable = ['carId', 'eventId','dateTime','sum','comment','mileage','pId','color','duration','dataId','contractId'];
+    protected $fillable = ['carId', 'eventId','dateTime','comment','mileage','color','duration','dataId'];
 
     protected $dates=['dateTime','fromDate','toDate'];
-
-    protected static function boot()
-    {
-        parent::boot();
-        static::created(function ($post) {
-            if (!$post->pId) {
-                $post->pId = $post->id;
-                $post->save();
-            }
-        });
-    }
 
     public function event()
     {

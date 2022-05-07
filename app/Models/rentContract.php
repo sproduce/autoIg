@@ -18,9 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $typeId
  * @property int $driverId
  * @property int $statusId
- * @property int $balance
  * @property int $deposit
- * @property int $sum
  * @property int $price
  * @property int $carGroupId
  * @property int $carId
@@ -32,8 +30,8 @@ class rentContract extends Model
 {
     use HasFactory;
     protected $dates=['start','finish','finishFact'];
-    private $start,$finish,$finishFact,$typeId,$driverId,$carGroupId,$statusId,$balance,$deposit,$number,$comment,$sum,$price,$carId;
-    protected $fillable =['start','finish','finishFact','typeId','driverId','carGroupId','statusId','tariffId','balance','deposit','number','comment','sum','carId'];
+    private $start,$finish,$finishFact,$typeId,$driverId,$carGroupId,$statusId,$balance,$deposit,$number,$comment,$price,$carId;
+    protected $fillable =['start','finish','finishFact','typeId','driverId','carGroupId','statusId','tariffId','deposit','number','comment','carId'];
 
     public function driver()
     {
