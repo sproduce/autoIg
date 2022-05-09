@@ -5,33 +5,37 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CarIdDate;
 use App\Http\Requests\DateSpan;
 use App\Http\Requests\NeedParent;
-use App\Repositories\Interfaces\ContractRepositoryInterface;
+use App\Models\rentEventFine;
 use App\Repositories\Interfaces\EventFineRepositoryInterface;
 use App\Repositories\Interfaces\RentEventRepositoryInterface;
+use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Services\EventFineService;
 use App\Services\MotorPoolService;
-use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Http\Requests\Event;
 
 class EventFineController extends Controller
 {
-    protected $rentEventRep,$eventObj,$eventFineServ;
+    protected $rentEventRep,$eventObj,$eventFineServ,$eventFineModel;
 
-    public function __construct(RentEventRepositoryInterface $rentEventRep,EventFineService $eventFineServ)
-    {
+    public function __construct(
+        RentEventRepositoryInterface $rentEventRep,
+        EventFineService $eventFineServ,
+        rentEventFine $eventFineModel
+    ){
         $this->eventFineServ = $eventFineServ;
         $this->rentEventRep = $rentEventRep;
+        $this->eventFineModel = $eventFineModel;
         $rc = new \ReflectionClass($this);
         $eventObj = $rentEventRep->getEventByAction($rc->getShortName());
         $this->eventObj = $eventObj;
     }
 
 
-    public function index(DateSpan $dateSpan,EventFineService $eventFineServ)
+    public function index(DateSpan $dateSpan)
     {
         $periodDate = $dateSpan->getCarbonPeriod();
-        $listEventsObj = $eventFineServ->getEvents($periodDate,$this->eventObj->id);
+        $listEventsObj = $this->eventFineServ->getEvents($periodDate,$this->eventObj->id);
 
         return view('rentEvent.listEventsFine',[
             'listEventsObj' => $listEventsObj,
@@ -47,22 +51,16 @@ class EventFineController extends Controller
     public function create(
         NeedParent $needParent,
         CarIdDate $carIdDate,
-        MotorPoolService $motorPoolServ,
-        ContractRepositoryInterface $contractRep
+        MotorPoolService $motorPoolServ
     ){
-        $contractObj = $contractRep->getContract($carIdDate['contractId']);
-        if ($contractObj->carId) {
-            $carObj = $motorPoolServ->getCar($contractObj->carId);
-        } else{
-            $carObj = $motorPoolServ->getCar($carIdDate['carId']);
-        }
+
+        $carObj = $motorPoolServ->getCar($carIdDate->getCarId());
 
         return response()->view('rentEvent.addEventFine',[
             'needParent' => $needParent['needParent'],
-            'carObj' => $carObj,
-            'contractObj' => $contractObj,
             'dateTime' => $carIdDate['date'],
-            'eventObj' => $this->eventObj,
+            'carObj' => $carObj,
+            'eventFineObj' => $this->eventFineModel,
         ]);
     }
 
@@ -92,17 +90,18 @@ class EventFineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,TimeSheetRepositoryInterface $timeSheetRep)
     {
-           //$eventFullInfo = $this->eventFineServ->getEventFullInfo($id,$this->eventObj);
-
-        //echo $eventFineObj->timeSheet->carId;
+        $eventFineObj = $this->eventFineModel->find($id);
+        $timeSheetObj = $timeSheetRep->getTimeSheetByEvent($this->eventObj,$id);
 
         return response()->view('rentEvent.addEventFine',[
-            'needParent' => '0',
-            'eventObj' => $this->eventObj,
+            'needParent' => 1,
+            'dateTime' =>  $timeSheetObj->dateTime,
+            'carObj' => $timeSheetObj->car,
             'eventFineObj' => $eventFineObj,
         ]);
+
     }
 
     /**
@@ -112,9 +111,10 @@ class EventFineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Event\FineRequest $fineRequest, $id)
     {
-        //
+        $this->eventFineServ->addEvent($fineRequest,$this->eventObj);
+        return redirect('/timesheet/listByEvent');
     }
 
     /**

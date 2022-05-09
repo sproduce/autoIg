@@ -46,6 +46,7 @@ class FineRequest extends FormRequest
     public function rules()
     {
         return [
+            'id' => 'integer|nullable',
             'carId' => 'integer|required',
             'dateOrder' => 'date|required',
             'dateFine' => 'date|required',

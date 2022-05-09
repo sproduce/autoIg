@@ -2,6 +2,7 @@
 namespace App\Services;
 
 
+use App\Http\Requests\CarIdDate;
 use App\Models\rentEvent;
 use App\Models\rentEventFine;
 use App\Models\timeSheet;
@@ -29,6 +30,13 @@ Class EventFineService{
 
     public function addEvent(Event\FineRequest $fineRequest,rentEvent $eventObj)
     {
+
+        if ($fineRequest->get('id')){
+            $this->rentEventFineModel = $this->rentEventFineModel->find($fineRequest->get('id'));
+            $this->timeSheetModel =  $this->timeSheetModel->where('eventId',$eventObj->id)->where('dataId',$fineRequest->get('id'))->first();
+        }
+
+
         $this->rentEventFineModel->dateTimeOrder = $fineRequest->get('dateOrder');
         $this->rentEventFineModel->datePayMax = $fineRequest->get('datePayMax');
         $this->rentEventFineModel->datePaySale = $fineRequest->get('datePaySale');
@@ -45,11 +53,28 @@ Class EventFineService{
         $this->timeSheetModel->color = $eventObj->color;
         $this->timeSheetModel->save();
 
-        $this->toPaymentModel->sum = -1 * abs($fineRequest->get('sumSale'));
-        $this->toPaymentModel->timeSheetId =  $this->timeSheetModel->id;
-        $this->toPaymentModel->carId = $fineRequest->get('carId');
-        $this->toPaymentModel->save();
+        if (!$fineRequest->get('id')){
+            $this->toPaymentModel->sum = -1 * abs($fineRequest->get('sumSale'));
+            $this->toPaymentModel->timeSheetId =  $this->timeSheetModel->id;
+            $this->toPaymentModel->carId = $fineRequest->get('carId');
+            $this->toPaymentModel->save();
+        }
+
     }
+
+    public function updateEvent(Event\FineRequest $fineRequest,rentEvent $eventObj)
+    {
+
+//        $this->rentEventFineModel->dateTimeOrder = $fineRequest->get('dateOrder');
+//        $this->rentEventFineModel->datePayMax = $fineRequest->get('datePayMax');
+//        $this->rentEventFineModel->datePaySale = $fineRequest->get('datePaySale');
+//        $this->rentEventFineModel->dateTimeFine = $fineRequest->get('dateTimeFine');
+//        $rentEventFineModel->sum = $fineRequest->get('sum');
+//        $rentEventFineModel->sumSale = $fineRequest->get('sumSale');
+//        $rentEventFineModel->save();
+    }
+
+
 
     public function getEvents(CarbonPeriod $periodDate,$eventId)
     {
@@ -60,11 +85,20 @@ Class EventFineService{
         return $eventsObj;
     }
 
-    public function getEventFullInfo($eventId,rentEvent $eventObj)
+    public function getEventFullInfo($eventId,rentEvent $eventObj,CarIdDate $carIdDate)
     {
+        if ($eventId){
 
-        //$toPayObj = $this->toPaymentModel
+        }
 
+        $eventFineFullInfo = collect([
+            'eventObj' => $eventObj,
+            'eventFineObj' => $this->rentEventFineModel,
+            'toPayObj' => $this->toPaymentModel,
+            'timeSheetObj' => $this->timeSheetModel,
+        ]);
+
+        return  $eventFineFullInfo;
     }
 
 

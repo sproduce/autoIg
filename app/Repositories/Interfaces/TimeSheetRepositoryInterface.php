@@ -26,6 +26,8 @@ interface TimeSheetRepositoryInterface
     public function getCarSpanTimeSheet($carId,CarbonPeriod  $periodDate);
     public function getContractTimeSheets($contractId);
 
+    public function getTimeSheetByEvent(rentEvent $eventObj,$eventDataId): ?timeSheet;
+
     public function getTimeSheetPeriod();
 
 

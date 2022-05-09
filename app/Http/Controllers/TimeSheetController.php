@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CarIdDate;
 use App\Http\Requests\DateSpan;
+use App\Http\Requests\EventIdRequest;
 use App\Repositories\ContractRepository;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\RentEventRepository;
@@ -196,11 +197,11 @@ class TimeSheetController extends Controller
         $validate=$this->request->validate(['timeSheetId'=>'required|integer',
                                             'contractId' => 'required|integer']);
         $this->timeSheetServ->addTimeSheetContract($validate['timeSheetId'],$validate['contractId']);
-        var_dump($validate);
+        //var_dump($validate);
     }
 
 
-    public function listByEvent(RentEventRepository $rentEventRep,DateSpan $dateSpan)
+    public function listByEvent(RentEventRepository $rentEventRep,DateSpan $dateSpan,EventIdRequest $eventIdrequest)
     {
         $dateFromTo=$dateSpan->validated();
         $periodDate=new CarbonPeriod($dateFromTo['fromDate'],$dateFromTo['toDate']);
