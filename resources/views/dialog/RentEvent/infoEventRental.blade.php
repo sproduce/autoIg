@@ -17,13 +17,5 @@
                 {{$eventRentalObj->timeSheetMaxDateTime->format('d-m-Y h:i')}}
             </div>
         </div>
-        <div class="row">
-            <div class="col-3"><strong>Договор</strong></div>
-            <div class="col-3">
-                {{$eventRentalObj->contractNumber}}
-            </div>
-            <div class="col-3"><strong>Водитель</strong></div>
-            <div class="col-3">{{$eventRentalObj->driverSurname}} {{$eventRentalObj->driverName}}</div>
-        </div>
     </div>
 </div>

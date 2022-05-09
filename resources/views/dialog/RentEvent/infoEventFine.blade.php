@@ -12,14 +12,18 @@
                 <strong>Дата постановления</strong>
             </div>
             <div class="col-md-2">
-                {{$eventFineObj->dateTimeOrder->format('d-m-Y')}}
+                @if ($eventFineObj->dateTimeOrder)
+                    {{$eventFineObj->dateTimeOrder->format('d-m-Y')}}
+                @endif
             </div>
 
             <div class="col-md-4">
                 <strong>Дата нарушения</strong>
             </div>
             <div class="col-md-2 p-0">
-                {{$eventFineObj->dateTimeFine->format('d-m-Y H:i')}}
+                @if ($eventFineObj->dateTimeFine)
+                    {{$eventFineObj->dateTimeFine->format('d-m-Y H:i')}}
+                @endif
             </div>
         </div>
         <div class="row">
@@ -36,14 +40,20 @@
                 <strong>Срок оплаты со скидкой</strong>
             </div>
             <div class="col-md-2">
-                {{$eventFineObj->datePaySale->format('d-m-Y')}}
+                @if ($eventFineObj->datePaySale)
+                    {{$eventFineObj->datePaySale->format('d-m-Y')}}
+                @endif
+
             </div>
 
             <div class="col-md-4">
                 <strong>Максимальный срок оплаты</strong>
             </div>
             <div class="col-md-2">
-                {{$eventFineObj->datePayMax->format('d-m-Y')}}
+                @if ($eventFineObj->datePayMax)
+                    {{$eventFineObj->datePayMax->format('d-m-Y')}}
+                @endif
+
             </div>
         </div>
         <div class="row">

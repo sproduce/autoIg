@@ -46,15 +46,10 @@ public function getEventRentalsByContract($contractId)
                ->join('time_sheets','time_sheets.dataId','=','rent_event_rentals.id')
                ->where('time_sheets.eventId','=',$eventId)
                ->where('time_sheets.dataId','=',$eventRentalId)
-               ->leftjoin('rent_contracts','rent_contracts.id','=','time_sheets.contractId')
-               ->leftjoin('rent_car_drivers','rent_car_drivers.id','=','rent_contracts.driverId')
-               ->select('rent_car_drivers.surname as driverSurname',
-                   'rent_car_drivers.name as driverName',
-                   'rent_contracts.number as contractNumber',
-               )
+
                ->selectRaw('MIN(time_sheets.dateTime) as timeSheetMinDateTime')
                ->selectRaw('MAX(DATE_ADD(time_sheets.dateTime,INTERVAL duration MINUTE)) as timeSheetMaxDateTime')
-               ->groupBy('time_sheets.dateTime','rent_car_drivers.surname','rent_car_drivers.name','rent_contracts.number')
+               ->groupBy('time_sheets.dateTime')
                ->first();
 
     //var_dump($rentalPeriod);
