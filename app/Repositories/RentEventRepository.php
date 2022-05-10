@@ -15,7 +15,7 @@ class RentEventRepository implements RentEventRepositoryInterface
 
     public function getEvent($id):rentEvent
     {
-        return RentEvent::find($id);
+        return RentEvent::find($id)?? new RentEvent;
     }
 
 

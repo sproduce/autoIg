@@ -15,7 +15,7 @@
             <select name="eventId" id="eventId" class="form-control">
                 <option id="placeholderSelect" selected>Событие ... </option>
                 @foreach($rentEvents as $rentEvent)
-                    <option value="{{$rentEvent->action}}" style="background: {{$rentEvent->color}}">{{$rentEvent->name}}</option>
+                    <option value="{{$rentEvent->action}}" style="background: {{$rentEvent->color}}" @if ($rentEvent->id==$eventObj->id)selected @endif>{{$rentEvent->name}}</option>
                 @endforeach
             </select>
         </div>
@@ -43,6 +43,17 @@
             });
         });
     </script>
+
+    @if ($eventObj->id)
+        <script>
+            $(function() {
+                $("#placeholderSelect").remove();
+
+                $("#eventForm").load('/{{$eventObj->action}}?fromDate='+$("#fromDate").val()+'&toDate='+$("#toDate").val(),function(){
+                    initDialogWindow();
+            });});
+        </script>
+        @endif
 @endsection
 
 

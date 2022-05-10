@@ -85,6 +85,10 @@
             <label for="comment" title="Комментарий">Комментарий</label>
             <input type="text" name="comment" id="comment" value="{{$eventFineObj->comment}}" class="form-control"/>
         </div>
+        <div class="form-group col-md-2 input-group-sm">
+            <label for="mileage" title="Пробег">Пробег</label>
+            <input type="number" name="mileage" id="mileage" class="form-control" value=""/>
+        </div>
     </div>
     <div class="form-row text-center" id="last-row">
         <div class="input-group col-1">

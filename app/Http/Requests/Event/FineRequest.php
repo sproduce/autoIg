@@ -57,6 +57,7 @@ class FineRequest extends FormRequest
             'sumSale' => 'integer',
             'sum' => 'integer',
             'comment' => 'string|nullable',
+            'mileage' => 'integer|nullable',
             'dateTimeFine' => 'required',
         ];
     }

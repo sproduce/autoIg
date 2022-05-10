@@ -39,6 +39,12 @@
                 <input name="contractId" id="contractId" value=""  hidden/>
             @endif
         </div>
+
+
+        <div class="form-group col-md-2 input-group-sm">
+            <label for="mileage" title="Пробег">Пробег</label>
+            <input type="number" name="mileage" id="mileage" class="form-control" value=""/>
+        </div>
     </div>
 
     <div class="form-row text-center">
@@ -108,7 +114,7 @@
 
     $("#contractId").change(function(){
         $.get( "/api/getContractInfo/"+ $("#contractId").val(), function( data ) {
-            $('.inputLineSum').val(data.sum);
+            $('.inputLineSum').val(data.price);
         });
     });
 

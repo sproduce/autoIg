@@ -7,6 +7,7 @@ use App\Http\Requests\DateSpan;
 use App\Http\Requests\EventIdRequest;
 use App\Repositories\ContractRepository;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
+use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use App\Repositories\RentEventRepository;
 use App\Repositories\TimeSheetRepository;
 use App\Services\RentEventService;
@@ -201,13 +202,18 @@ class TimeSheetController extends Controller
     }
 
 
-    public function listByEvent(RentEventRepository $rentEventRep,DateSpan $dateSpan,EventIdRequest $eventIdrequest)
+    public function listByEvent(RentEventRepositoryInterface  $rentEventRep,DateSpan $dateSpan,EventIdRequest $eventIdrequest)
     {
-        $dateFromTo=$dateSpan->validated();
-        $periodDate=new CarbonPeriod($dateFromTo['fromDate'],$dateFromTo['toDate']);
+        //$dateFromTo=$dateSpan->validated();
+        $periodDate = $dateSpan->getCarbonPeriod();
+        $eventId = $eventIdrequest->getEventId();
+        $eventObj = $rentEventRep->getEvent($eventId);
         $rentEvents=$rentEventRep->getEvents();
-        return view('timeSheet.events',['rentEvents' => $rentEvents,
-                                              'periodDate' => $periodDate]);
+        return view('timeSheet.events',[
+            'eventObj' => $eventObj,
+            'rentEvents' => $rentEvents,
+            'periodDate' => $periodDate,
+        ]);
     }
 
 

@@ -114,7 +114,7 @@ class EventFineController extends Controller
     public function update(Event\FineRequest $fineRequest, $id)
     {
         $this->eventFineServ->addEvent($fineRequest,$this->eventObj);
-        return redirect('/timesheet/listByEvent');
+        return redirect('/timesheet/listByEvent?eventId='.$this->eventObj->id);
     }
 
     /**
