@@ -65,6 +65,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link"  href="/subjects/list">
+                                <i class="fas fa-user-tie"></i>
+                                Субьекты
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link"  href="/timesheet/list">
                                 <i class="fas fa-calendar-alt"></i>
                                 Табель
