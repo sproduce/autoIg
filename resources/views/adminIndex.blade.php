@@ -58,14 +58,14 @@
                             </a>
                         </li>
 
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link"  href="/carDriver/list">--}}
+{{--                                <i class="fas fa-user-tie"></i>--}}
+{{--                                Водители--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
                         <li class="nav-item">
-                            <a class="nav-link"  href="/carDriver/list">
-                                <i class="fas fa-user-tie"></i>
-                                Водители
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link"  href="/subjects/list">
+                            <a class="nav-link"  href="/subject/list">
                                 <i class="fas fa-user-tie"></i>
                                 Субьекты
                             </a>

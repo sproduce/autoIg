@@ -4,6 +4,8 @@ namespace App\Providers;
 
 
 
+use App\Repositories\Interfaces\SubjectRepositoryInterface;
+use App\Repositories\SubjectRepository;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 
@@ -56,7 +58,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(BrandRepositoryInterface::class,BrandRepository::class);
         $this->app->bind(ModelRepositoryInterface::class,ModelRepository::class);
         $this->app->bind(MotorPoolRepositoryInterface::class,MotorPoolRepository::class);
-        $this->app->bind(CarDriverRepositoryInterface::class,CarDriverRepository::class);
         $this->app->bind(ContractRepositoryInterface::class,ContractRepository::class);
         $this->app->bind(PaymentRepositoryInterface::class,PaymentRepository::class);
         $this->app->bind(CarGroupRepositoryInterface::class,CarGroupRepository::class);
@@ -70,6 +71,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PhotoRepositoryInterface::class,PhotoRepository::class);
         $this->app->bind(ToPaymentRepositoryInterface::class,ToPaymentRepository::class);
         $this->app->bind(AdditionalRepositoryInterface::class,AdditionalRepository::class);
+
+        $this->app->bind(CarDriverRepositoryInterface::class,CarDriverRepository::class);
+        $this->app->bind(SubjectRepositoryInterface::class,SubjectRepository::class);
+
+
     }
 
     /**

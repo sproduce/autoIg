@@ -24,7 +24,20 @@ class SubjectRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'payAccountId' => '',
+            'regionId' => '',
+            'surname' => '',
+            'name' => '',
+            'patronymic' => '',
+            'companyName' => '',
+            'nickname' => '',
+            'birthday' => '',
+            'comment' => '',
+            'male' => '',
+            'individual' => '',
+            'client' => '',
+            'carOwner' => '',
+            'accessible' => '',
         ];
     }
 }
