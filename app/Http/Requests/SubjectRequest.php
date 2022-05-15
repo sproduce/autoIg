@@ -13,7 +13,7 @@ class SubjectRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,7 +26,7 @@ class SubjectRequest extends FormRequest
         return [
             'payAccountId' => '',
             'regionId' => '',
-            'surname' => '',
+            'surname' => 'required',
             'name' => '',
             'patronymic' => '',
             'companyName' => '',
