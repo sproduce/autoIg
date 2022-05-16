@@ -73,6 +73,7 @@
         <div class="form-group col-md-3 input-group-sm">
             <label for="payAccountId" title="Платежные реквизиты">Реквизиты платежа</label>
             <select class="form-control" name="payAccountId" id="payAccountId">
+                <option value="">Выберите реквизиты</option>
                 @foreach($payAccountsObj as $payAccountObj)
                     <option value="{{$payAccountObj->id}}" @if($payAccountObj->id==old('payAccountId',$subjectObj->payAccountId)) selected @endif>{{$payAccountObj->name}}</option>
                 @endforeach

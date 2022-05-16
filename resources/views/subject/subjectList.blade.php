@@ -35,6 +35,9 @@
                 <div class="col-3">
                     <a href="{{$subject->id}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
                     {{$subject->surname}}  {{$subject->name}} {{$subject->patronymic}}
+                    @if($subject->companyName)
+                      <b>/ {{$subject->companyName}}</b>
+                    @endif
                 </div>
                 <div class="col-2">
                     @if ($subject->birthday)

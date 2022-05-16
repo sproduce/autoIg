@@ -26,7 +26,7 @@ class SubjectRequest extends FormRequest
         return [
             'payAccountId' => '',
             'regionId' => '',
-            'surname' => 'required',
+            'surname' => '',
             'name' => '',
             'patronymic' => '',
             'companyName' => '',
