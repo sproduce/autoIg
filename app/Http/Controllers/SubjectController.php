@@ -23,6 +23,7 @@ class SubjectController extends Controller
         $regionsObj = $regionModel->all();
         $payAccountsObj = $payAccountModel->all();
         $subjectObj->male = 1;
+        $subjectObj->individual = 1;
         return view('subject.addSubject',[
             'subjectObj' => $subjectObj,
             'regionsObj' => $regionsObj,
