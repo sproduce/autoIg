@@ -23,8 +23,19 @@ Class SubjectService{
         return $this->subjectRep->getSubjects();
     }
 
+    public function getSubject($subjectId)
+    {
+        return $this->subjectRep->getSubject($subjectId);
+    }
+
+
+
+
     public function addSubject(SubjectRequest $subjectReq)
     {
+        if ($subjectReq->get('id')){
+            $this->subjectModel = $this->subjectRep->getSubject($subjectReq->get('id'));
+        }
         $this->subjectModel->payAccountId = $subjectReq->get('payAccountId');
         $this->subjectModel->regionId = $subjectReq->get('regionId');
         $this->subjectModel->surname = $subjectReq->get('surname');

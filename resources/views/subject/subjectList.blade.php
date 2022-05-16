@@ -69,7 +69,7 @@
 {{--                        <i class="fas fa-file-contract"></i>--}}
 {{--                    </a>--}}
                     <div class="float-right">
-                        <a class="btn btn-ssm btn-outline-warning DialogUserMin" href="/subject/edit?subjectId={{$subject->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                        <a class="btn btn-ssm btn-outline-warning" href="/subject/edit?subjectId={{$subject->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
                         <a href="/subject/delete?subjectId={{$subject->id}}" class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить субьекта?')"><i class="fas fa-trash"></i> </a>
                     </div>
                 </div>

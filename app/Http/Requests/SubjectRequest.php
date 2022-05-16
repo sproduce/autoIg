@@ -16,6 +16,13 @@ class SubjectRequest extends FormRequest
         return true;
     }
 
+
+    public function getSubjectId()
+    {
+        $input = parent::all(['id']);
+        return $input['id'];
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,6 +31,7 @@ class SubjectRequest extends FormRequest
     public function rules()
     {
         return [
+            'id' =>'',
             'payAccountId' => '',
             'regionId' => '',
             'surname' => '',

@@ -3,8 +3,12 @@
 
 @section('content')
 
-<form method="POST" action="/subject/add">
-    @csrf
+
+
+    <form method="POST" action="/subject/add">
+        <input name="id" type="number" value="{{$subjectObj->id}}" hidden/>
+        @csrf
+
     <div class="form-row text-center">
         <div class="form-check">
             <input class="form-check-input" type="checkbox" id="individual" name="individual" value="1" @if(old('individual',$subjectObj->individual)) checked @endif>
@@ -112,7 +116,7 @@
 
     <div class="form-row text-center" id="last-row">
         <div class="input-group col-1">
-            <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Добавить"/>
+            <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Записать"/>
         </div>
     </div>
 </form>

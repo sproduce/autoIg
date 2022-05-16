@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EventIdRequest extends FormRequest
+class SubjectIdRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,11 +16,12 @@ class EventIdRequest extends FormRequest
         return true;
     }
 
-    public function getEventId()
+    public function getSubjectId()
     {
-        $input = parent::all(['eventId']);
-        return $input['eventId'];
+        $input = parent::all(['subjectId']);
+        return $input['subjectId'];
     }
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -30,7 +31,7 @@ class EventIdRequest extends FormRequest
     public function rules()
     {
         return [
-            'eventId' => 'integer|nullable',
+            'subjectId' => 'int|required',
         ];
     }
 }

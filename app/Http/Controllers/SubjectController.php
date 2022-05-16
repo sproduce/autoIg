@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubjectIdRequest;
 use App\Http\Requests\SubjectRequest;
 use App\Models\payAccount;
 use App\Models\rentSubject;
@@ -21,6 +22,7 @@ class SubjectController extends Controller
     {
         $regionsObj = $regionModel->all();
         $payAccountsObj = $payAccountModel->all();
+        $subjectObj->male = 1;
         return view('subject.addSubject',[
             'subjectObj' => $subjectObj,
             'regionsObj' => $regionsObj,
@@ -32,7 +34,20 @@ class SubjectController extends Controller
     public function save(SubjectRequest $subjectReq,SubjectService $subjectServ)
     {
         $subjectServ->addSubject($subjectReq);
-        return redirect()->back();
+        return redirect('/subject/list');
+    }
+
+
+    public function edit(SubjectIdRequest $subjectIdRequest,rentSubjectRegion $regionModel,payAccount $payAccountModel,SubjectService $subjectServ)
+    {
+        $subjectObj = $subjectServ->getSubject($subjectIdRequest->getSubjectId());
+        $regionsObj = $regionModel->all();
+        $payAccountsObj = $payAccountModel->all();
+        return view('subject.addSubject',[
+        'subjectObj' => $subjectObj,
+        'regionsObj' => $regionsObj,
+        'payAccountsObj' => $payAccountsObj,
+    ]);
     }
 
 
