@@ -1,7 +1,10 @@
 <?php
 namespace App\Services;
+use App\Http\Requests\SubjectContactRequest;
 use App\Http\Requests\SubjectRequest;
+use App\Models\payAccount;
 use App\Models\rentSubject;
+use App\Models\rentSubjectContact;
 use App\Models\rentSubjectRegion;
 use App\Repositories\Interfaces\CarDriverRepositoryInterface;
 use App\Repositories\Interfaces\SubjectRepositoryInterface;
@@ -9,12 +12,17 @@ use Illuminate\Http\Request;
 
 Class SubjectService{
 
-    private $subjectRep,$subjectModel;
+    private $subjectRep,$subjectModel,$subjectContactModel,$payAccountModel;
 
-    function __construct(SubjectRepositoryInterface $subjectRep,rentSubject $subjectModel)
-    {
+    function __construct(
+        SubjectRepositoryInterface $subjectRep,
+        rentSubject $subjectModel,
+        rentSubjectContact  $subjectContactModel,
+        payAccount $payAccountModel
+    ){
         $this->subjectRep = $subjectRep;
         $this->subjectModel = $subjectModel;
+        $this->subjectContactModel = $subjectContactModel;
     }
 
 
@@ -54,6 +62,13 @@ Class SubjectService{
         $this->subjectRep->addSubject($this->subjectModel);
 
     }
+
+
+    public function addSubjectContact(SubjectContactRequest $subjContactRequest)
+    {
+
+    }
+
 
 
 }

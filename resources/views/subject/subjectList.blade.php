@@ -33,7 +33,7 @@
         @foreach($subjectsObj as $subject)
             <div class="row row-table">
                 <div class="col-3">
-                    <a href="{{$subject->id}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                    <a href="/subject/fullInfo/{{$subject->id}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
                     {{$subject->surname}}  {{$subject->name}} {{$subject->patronymic}}
                     @if($subject->companyName)
                       <b>/ {{$subject->companyName}}</b>
@@ -51,15 +51,6 @@
                         Жен
                     @endif
                 </div>
-{{--                @if($carDriver->contacts->count())--}}
-{{--                <div class="col-2" title="@foreach($carDriver->contacts as $contact) {{$contact->phone}} @endforeach">--}}
-{{--                    @if($carDriver->contacts->count())--}}
-{{--                        {{$carDriver->contacts[0]->phone}}--}}
-{{--                    @endif--}}
-{{--                </div>--}}
-{{--                @else--}}
-{{--                    <div class="col-2"></div>--}}
-{{--                @endif--}}
                 <div class="col-2"></div>
                 <div class="col-2">
                     {{$subject->nickname}}
@@ -69,6 +60,8 @@
 {{--                        <i class="fas fa-file-contract"></i>--}}
 {{--                    </a>--}}
                     <div class="float-right">
+                        <a href="/subject/addContact" class="btn btn-ssm btn-outline-success DialogUserMin" title="Контакты"><i class="fas fa-phone"></i></a>
+
                         <a class="btn btn-ssm btn-outline-warning" href="/subject/edit?subjectId={{$subject->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
                         <a href="/subject/delete?subjectId={{$subject->id}}" class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить субьекта?')"><i class="fas fa-trash"></i> </a>
                     </div>
