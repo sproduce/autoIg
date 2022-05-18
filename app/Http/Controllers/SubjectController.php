@@ -28,7 +28,8 @@ class SubjectController extends Controller
     public function fullInfo($id)
     {
         $subjectObj = $this->subjectServ->getSubject($id);
-        return view('dialog.Subject.infoSubject',['subjectObj' => $subjectObj]);
+        $subjectContactsObj = $this->subjectServ->getSubjectContacts($id);
+        return view('dialog.Subject.infoSubject',['subjectObj' => $subjectObj,'subjectContactsObj' =>$subjectContactsObj]);
     }
 
     public function add(rentSubject $subjectObj,rentSubjectRegion $regionModel,payAccount $payAccountModel)
@@ -45,11 +46,9 @@ class SubjectController extends Controller
     }
 
 
-    public function addContact()
+    public function addContact($id)
     {
-
-
-        return view('dialog.Subject.addContacts');
+        return view('dialog.Subject.addContacts',['subjectId' => $id]);
     }
 
 
@@ -61,8 +60,9 @@ class SubjectController extends Controller
 
     public function saveContact(SubjectContactRequest $subjContactRequest)
     {
-
-
+        //var_dump($subjContactRequest->get('phone'));
+        $this->subjectServ->addSubjectContact($subjContactRequest);
+        return redirect('/subject/list');
     }
 
 

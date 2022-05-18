@@ -13,7 +13,7 @@ class SubjectContactRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class SubjectContactRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'subjectId' => 'integer|required',
+           'phone' => 'array|required',
         ];
     }
 }

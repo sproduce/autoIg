@@ -60,7 +60,7 @@
 {{--                        <i class="fas fa-file-contract"></i>--}}
 {{--                    </a>--}}
                     <div class="float-right">
-                        <a href="/subject/addContact" class="btn btn-ssm btn-outline-success DialogUserMin" title="Контакты"><i class="fas fa-phone"></i></a>
+                        <a href="/subject/addContact/{{$subject->id}}" class="btn btn-ssm btn-outline-success DialogUserMin" title="Контакты"><i class="fas fa-phone"></i></a>
 
                         <a class="btn btn-ssm btn-outline-warning" href="/subject/edit?subjectId={{$subject->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
                         <a href="/subject/delete?subjectId={{$subject->id}}" class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить субьекта?')"><i class="fas fa-trash"></i> </a>

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 use App\Models\rentSubject;
+use App\Models\rentSubjectContact;
 use App\Repositories\Interfaces\SubjectRepositoryInterface;
 
 
@@ -24,5 +25,14 @@ class SubjectRepository implements SubjectRepositoryInterface
         return rentSubject::all();
     }
 
+public function addSubjectContact(rentSubjectContact $subjectContact): rentSubjectContact
+{
+    $subjectContact->save();
+    return $subjectContact;
+}
+public function getSubjectContacts($subjectId)
+{
+    return rentSubjectContact::where('subjectId',$subjectId)->get();
+}
 
 }

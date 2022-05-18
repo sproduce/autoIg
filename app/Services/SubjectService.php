@@ -36,6 +36,10 @@ Class SubjectService{
         return $this->subjectRep->getSubject($subjectId);
     }
 
+    public function getSubjectContacts($subjectId)
+    {
+        return $this->subjectRep->getSubjectContacts($subjectId);
+    }
 
 
 
@@ -66,7 +70,14 @@ Class SubjectService{
 
     public function addSubjectContact(SubjectContactRequest $subjContactRequest)
     {
-
+        $subjectId = $subjContactRequest->get('subjectId');
+        $phoneArray = $subjContactRequest->get('phone');
+        foreach($phoneArray as $phone){
+            $subjectModel = new rentSubjectContact();
+            $subjectModel->subjectId = $subjectId;
+            $subjectModel->phone = $phone;
+            $this->subjectRep->addSubjectContact($subjectModel);
+        }
     }
 
 

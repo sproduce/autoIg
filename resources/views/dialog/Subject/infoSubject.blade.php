@@ -13,7 +13,9 @@
                 Информация
             </div>
             <div class="row">
-                Контакты
+                @foreach($subjectContactsObj as $subjContact)
+                    {{$subjContact->phone}}<br/>
+                @endforeach
             </div>
             <div class="row">
                 Реквизиты

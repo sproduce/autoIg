@@ -5,6 +5,7 @@
         </button>
     </div>
     <form method="POST" action="/subject/addContact">
+        <input name="subjectId" value="{{$subjectId}}" hidden/>
         @csrf
 
     <div class="modal-body">

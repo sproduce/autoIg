@@ -11,7 +11,7 @@ Route::get('/add',[SubjectController::class,'add']);
 Route::get('/edit',[SubjectController::class,'edit']);
 Route::post('/add',[SubjectController::class,'save']);
 
-Route::get('/addContact',[SubjectController::class,'addContact']);
+Route::get('/addContact/{id}',[SubjectController::class,'addContact']);
 Route::post('/addContact',[SubjectController::class,'saveContact']);
 Route::get('/fullInfo/{id}',[SubjectController::class,'fullInfo']);
 
