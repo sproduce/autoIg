@@ -106,6 +106,7 @@
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="subjectIdFrom">Аренда от</label>
                     <select name="subjectIdFrom" id="subjectIdFrom" class="form-control">
+                        <option value=""></option>
                         @foreach($subjectsObj as $subject)
                             <option value="{{$subject->id}}">{{$subject->nickname}}</option>
                         @endforeach
