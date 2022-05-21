@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MotorPoolRequest;
+use App\Services\BrandService;
+use App\Services\ModelService;
 use App\Services\MotorPoolService;
+use App\Services\SubjectService;
 use Illuminate\Http\Request;
 
 
@@ -22,9 +26,23 @@ class MotorPoolController extends Controller
         return view('motorPool.motorPoolList',['carsPool' => $carsPoolObj]);
     }
 
-    public function add()
+    public function addMotorPoolDialog(BrandService $brandServ,ModelService $modelServ,SubjectService $subjectServ)
     {
-        $this->motorPoolServ->addCar();
+        $brandsObj = $brandServ->getBarnds();
+        $typesObj = $modelServ->getTypes();
+        $ownersObj = $subjectServ->getSubjectsCarOwner();
+        $subjectsObj = $subjectServ->getSubjects();
+        return view('dialog.MotorPool.addCar',['brands'=>$brandsObj,
+            'types' => $typesObj,
+            'owners' => $ownersObj,
+            'subjectsObj' => $subjectsObj,
+        ]);
+    }
+
+
+    public function add(MotorPoolRequest $motorPoolRequest)
+    {
+        $this->motorPoolServ->addCar($motorPoolRequest);
         return redirect()->back();
     }
 
@@ -33,6 +51,7 @@ class MotorPoolController extends Controller
     {
         $validated = $this->request->validate(['carId' => 'integer']);
         $carObj = $this->motorPoolServ->getCar($validated['carId']);
+        $carObj->dd();
         return view('dialog.MotorPool.editCar',['car'=>$carObj]);
     }
 

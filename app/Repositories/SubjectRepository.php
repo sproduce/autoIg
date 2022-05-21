@@ -25,6 +25,12 @@ class SubjectRepository implements SubjectRepositoryInterface
         return rentSubject::all();
     }
 
+    public function getSubjectsCarOwner()
+    {
+        return rentSubject::whereNotNull('carOwner')->get();
+    }
+
+
     public function addSubjectContact(rentSubjectContact $subjectContact): rentSubjectContact
     {
         $subjectContact->save();

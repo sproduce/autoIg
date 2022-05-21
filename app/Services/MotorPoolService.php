@@ -1,18 +1,21 @@
 <?php
 namespace App\Services;
 
+use App\Http\Requests\MotorPoolRequest;
 use App\Models\carConfiguration;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
+use Illuminate\Support\Str;
 
 Class MotorPoolService{
 
-    private $motorPoolRep,$request;
+    private $motorPoolRep,$carConfiguration;
 
 
-    function __construct(Request $request,MotorPoolRepositoryInterface $motorPoolRep){
-        $this->request=$request;
-        $this->motorPoolRep=$motorPoolRep;
+    function __construct(MotorPoolRepositoryInterface $motorPoolRep,carConfiguration $carConfiguretion)
+    {
+        $this->carConfiguration = $carConfiguretion;
+        $this->motorPoolRep = $motorPoolRep;
     }
 
 
@@ -33,26 +36,33 @@ Class MotorPoolService{
     }
 
 
-    public function addCar()
+    public function addCar(MotorPoolRequest $motorPoolRequest)
     {
-        $validated = $this->request->validate([
-            'generationId'=>'required|integer',
-            'typeId'=>'integer',
-            'engineTypeId'=>'integer',
-            'transmissionTypeId'=>'integer',
-            'year'=>'required',
-            'displacement'=>'',
-            'hp'=>'',
-            'regNumber'=>'required',
-            'vin'=>'required',
-            'color'=>'',
-            'nickName'=>'',
-            'ownerId'=>'',
-            'dateStart'=>'required',
-            'dateFinish'=>'',
-            'comment'=>''
-        ]);
-        $this->motorPoolRep->addCar($validated);
+
+        $this->carConfiguration->generationId = $motorPoolRequest->get('generationId');
+        $this->carConfiguration->typeId = $motorPoolRequest->get('typeId');
+        $this->carConfiguration->engineTypeId = $motorPoolRequest->get('engineTypeId');
+        $this->carConfiguration->transmissionTypeId = $motorPoolRequest->get('transmissionTypeId');
+        $this->carConfiguration->year = $motorPoolRequest->get('year');
+        $this->carConfiguration->displacement = $motorPoolRequest->get('displacement');
+        $this->carConfiguration->hp = $motorPoolRequest->get('hp');
+        $this->carConfiguration->regNumber = $motorPoolRequest->get('regNumber');
+        $this->carConfiguration->uuid = $motorPoolRequest->get('uuid') ?? Str::uuid();
+        $this->carConfiguration->vin = $motorPoolRequest->get('vin');
+        $this->carConfiguration->color = $motorPoolRequest->get('color');
+        $this->carConfiguration->nickName = $motorPoolRequest->get('nickName');
+        $this->carConfiguration->nickName = $motorPoolRequest->get('nickName');
+        $this->carConfiguration->subjectIdOwner = $motorPoolRequest->get('subjectIdOwner');
+        $this->carConfiguration->subjectIdFrom = $motorPoolRequest->get('subjectIdFrom');
+        $this->carConfiguration->dateStart = $motorPoolRequest->get('dateStart');
+        $this->carConfiguration->dateFinish = $motorPoolRequest->get('dateFinish');
+        $this->carConfiguration->comment = $motorPoolRequest->get('comment');
+
+
+//        $validated = $this->request->validate([
+//
+//        ]);
+        $this->motorPoolRep->addCar($this->carConfiguration);
     }
 
 

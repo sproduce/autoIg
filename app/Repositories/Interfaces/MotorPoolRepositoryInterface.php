@@ -6,7 +6,7 @@ use App\Models\carConfiguration;
 
 interface MotorPoolRepositoryInterface
 {
-public function addCar($carInfoArray);
+public function addCar(carConfiguration $carConfiguration): carConfiguration;
 public function getCars();
 public function getCar($carId):carConfiguration;
 public function getLastCars($kol);

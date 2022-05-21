@@ -9,40 +9,34 @@ use Illuminate\Support\Str;
 
 /**
  * @property int $id
- * @property $nickName
+ * @property int $pid
+ * @property int $subjectIdOwner
+ * @property int $subjectIdFrom
+ * @property $uuid
+ * @property int $generationId
+ * @property int $typeId
+ * @property int $engineTypeId
+ * @property int $transmissionTypeId
+ * @property $hp
+ * @property $dateStart
+ * @property $dateFinish
+ * @property $comment
+ * @property $displacement
  * @property $regNumber
+ * @property $vin
+ * @property $nickName
+ * @property $color
+ * @property $year
  */
 
 
 class carConfiguration extends Model
 {
     use HasFactory;
+    private  $id,$pid,$subjectIdOwner,$subjectIdFrom,$uuid,
+        $generationId,$typeId,$engineTypeId,$transmissionTypeId,$hp,$dateStart,$dateFinish,$comment,$displacement,
+        $regNumber,$vin,$nickName,$color,$year;
 
-    /**
-     * @var mixed
-     */
-    private $generationId;
-
-    protected static function boot()
-    {
-        parent::boot();
-        static::creating(function ($post) {
-            if (!$post->displacement){
-                $post->displacement=0;
-            }
-            if (!$post->hp){
-                $post->hp=0;
-            }
-            $post->uuid = (string) Str::uuid();
-
-        });
-        static::created(function ($post) {
-            if (!$post->pid){
-                $post->pid = $post->id;
-                $post->save();
-            }
-        });
-    }
 
 
     public function generation()
@@ -59,11 +53,6 @@ class carConfiguration extends Model
     public function brand()
     {
 
-    }
-
-    public function owner()
-    {
-        return $this->hasOne(carOwner::class,'id','ownerId')->withDefault();
     }
 
     public function engine()

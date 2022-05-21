@@ -59,18 +59,6 @@ class DialogController extends Controller
         return view('dialog.Car.editGeneration',['generation'=>$generationObj]);
     }
 
-
-
-    public function addMotorPool(BrandService $brandServ,ModelService $modelServ)
-    {
-        $brandsObj=$brandServ->getBarnds();
-        $typesObj=$modelServ->getTypes();
-        $ownersObj=carOwner::all();
-
-        return view('dialog.MotorPool.addCar',['brands'=>$brandsObj,'types'=>$typesObj,'owners'=>$ownersObj]);
-    }
-
-
     public function editEngineType(ModelService $modelServ)
     {
         $engineObj=$modelServ->getEngineType();

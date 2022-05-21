@@ -84,5 +84,12 @@ Class SubjectService{
     }
 
 
+    public function getSubjectsCarOwner()
+    {
+        return $this->subjectRep->getSubjectsCarOwner();
+    }
+
+
+
 
 }

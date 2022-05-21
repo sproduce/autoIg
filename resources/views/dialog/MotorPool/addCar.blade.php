@@ -86,21 +86,29 @@
             </div>
 
             <div class="form-row text-center">
-                <div class="form-group col-md-5 input-group-sm">
+                <div class="form-group col-md-4 input-group-sm">
                     <label for="vin">Вин код</label>
                     <input type="text" name="vin" id="vin" class="form-control" required autocomplete="off"/>
                 </div>
-                <div class="form-group col-md-3 input-group-sm">
+                <div class="form-group col-md-2 input-group-sm">
                     <label for="regNumber">Рег.номер</label>
                     <input type="text" name="regNumber" id="regNumber" class="form-control" required autocomplete="off"/>
                 </div>
 
-                <div class="form-group col-md-4 input-group-sm">
-                    <label for="ownerId">Владелец</label>
-                    <select name="ownerId" id="ownerId" class="form-control">
+                <div class="form-group col-md-3 input-group-sm">
+                    <label for="subjectIdOwner">Владелец</label>
+                    <select name="subjectIdOwner" id="subjectIdOwner" class="form-control">
                     @foreach($owners as $owner)
-                        <option value="{{$owner->id}}">{{$owner->name}}</option>
+                        <option value="{{$owner->id}}">{{$owner->nickname}}</option>
                     @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-3 input-group-sm">
+                    <label for="subjectIdFrom">Аренда от</label>
+                    <select name="subjectIdFrom" id="subjectIdFrom" class="form-control">
+                        @foreach($subjectsObj as $subject)
+                            <option value="{{$subject->id}}">{{$subject->nickname}}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>

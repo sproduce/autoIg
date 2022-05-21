@@ -17,5 +17,5 @@ interface SubjectRepositoryInterface
     public function delSubjectContact($contactId);
     public function getSubjectContacts($subjectId);
 
-
+    public function getSubjectsCarOwner();
 }
