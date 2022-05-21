@@ -48,7 +48,8 @@ class SubjectController extends Controller
 
     public function addContact($id)
     {
-        return view('dialog.Subject.addContacts',['subjectId' => $id]);
+        $subjectContactsObj = $this->subjectServ->getSubjectContacts($id);
+        return view('dialog.Subject.addContacts',['subjectId' => $id,'subjectContactsObj' => $subjectContactsObj]);
     }
 
 
