@@ -10,6 +10,14 @@
 
     <div class="modal-body">
         <div class="container-fluid">
+            @foreach($subjectContactsObj as $subjContact)
+                <div class="form-group row inputLine">
+                    <label for="phone" class="col-sm-2 col-form-label form-control-sm">Телефон</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control form-control-sm phone" name="phone[]" autocomplete="off" value="{{$subjContact->phone}}" required/>
+                    </div>
+                </div>
+            @endforeach
             <div class="form-group row inputLine">
                 <label for="phone" class="col-sm-2 col-form-label form-control-sm">Телефон</label>
                 <div class="col-sm-6">
@@ -39,7 +47,7 @@
     </form>
 
     <script type="text/javascript">
-        var kol_line=1;
+        var kol_line=$('.inputLine').length;
 
         function add_input(){
             var copyLine=$('.inputLine:first').clone(true);

@@ -61,7 +61,6 @@ class SubjectController extends Controller
 
     public function saveContact(SubjectContactRequest $subjContactRequest)
     {
-        //var_dump($subjContactRequest->get('phone'));
         $this->subjectServ->addSubjectContact($subjContactRequest);
         return redirect('/subject/list');
     }
@@ -73,10 +72,10 @@ class SubjectController extends Controller
         $regionsObj = $regionModel->all();
         $payAccountsObj = $payAccountModel->all();
         return view('subject.addSubject',[
-        'subjectObj' => $subjectObj,
-        'regionsObj' => $regionsObj,
-        'payAccountsObj' => $payAccountsObj,
-    ]);
+            'subjectObj' => $subjectObj,
+            'regionsObj' => $regionsObj,
+            'payAccountsObj' => $payAccountsObj,
+        ]);
     }
 
     public function editContact()

@@ -25,14 +25,26 @@ class SubjectRepository implements SubjectRepositoryInterface
         return rentSubject::all();
     }
 
-public function addSubjectContact(rentSubjectContact $subjectContact): rentSubjectContact
-{
-    $subjectContact->save();
-    return $subjectContact;
-}
-public function getSubjectContacts($subjectId)
-{
-    return rentSubjectContact::where('subjectId',$subjectId)->get();
-}
+    public function addSubjectContact(rentSubjectContact $subjectContact): rentSubjectContact
+    {
+        $subjectContact->save();
+        return $subjectContact;
+    }
+    public function getSubjectContacts($subjectId)
+    {
+        return rentSubjectContact::where('subjectId',$subjectId)->get();
+    }
+
+
+    public function delSubjectContact($contactId)
+    {
+        // TODO: Implement delSubjectContact() method.
+    }
+
+    public function delSubjectContacts($subjectId)
+    {
+        rentSubjectContact::where('subjectId',$subjectId)->delete();
+    }
+
 
 }

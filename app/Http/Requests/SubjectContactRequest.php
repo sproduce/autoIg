@@ -25,7 +25,7 @@ class SubjectContactRequest extends FormRequest
     {
         return [
             'subjectId' => 'integer|required',
-           'phone' => 'array|required',
+            'phone' => 'array|required',
         ];
     }
 }

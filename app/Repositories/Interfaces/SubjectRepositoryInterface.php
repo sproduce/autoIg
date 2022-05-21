@@ -13,6 +13,8 @@ interface SubjectRepositoryInterface
 
     public function addSubjectContact(rentSubjectContact $subjectContact):rentSubjectContact;
 
+    public function delSubjectContacts($subjectId);
+    public function delSubjectContact($contactId);
     public function getSubjectContacts($subjectId);
 
 

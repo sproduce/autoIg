@@ -72,6 +72,9 @@ Class SubjectService{
     {
         $subjectId = $subjContactRequest->get('subjectId');
         $phoneArray = $subjContactRequest->get('phone');
+        $this->subjectRep->delSubjectContacts($subjectId);
+
+
         foreach($phoneArray as $phone){
             $subjectModel = new rentSubjectContact();
             $subjectModel->subjectId = $subjectId;
