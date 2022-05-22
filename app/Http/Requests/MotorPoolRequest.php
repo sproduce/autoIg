@@ -35,9 +35,9 @@ class MotorPoolRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'integer',
+            'id' => 'integer|nullable',
             'generationId' => 'required|integer',
-            'typeId' => 'integer',
+            'typeId' => 'integer|required',
             'engineTypeId' => 'integer',
             'transmissionTypeId' => 'integer',
             'year' => 'required',

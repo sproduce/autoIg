@@ -76,14 +76,14 @@ class carConfiguration extends Model
       return $this->hasMany(rentCarGroupLink::class,'carId');
     }
 
-    public function timeSheet($date)
-    {
-        $from=$date->format('Y-m-d');
-        $to=$date->addDays(1)->format('Y-m-d');
-        $result=$this->hasMany(timeSheet::class,'carId')->whereBetween('dateTime',[$from,$to])->get();
-        return $result;
-
-    }
+//    public function timeSheet($date)
+//    {
+//        $from=$date->format('Y-m-d');
+//        $to=$date->addDays(1)->format('Y-m-d');
+//        $result=$this->hasMany(timeSheet::class,'carId')->whereBetween('dateTime',[$from,$to])->get();
+//        return $result;
+//
+//    }
 
 
 

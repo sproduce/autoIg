@@ -81,10 +81,13 @@ Route::post('/reference/editGeneration',[ReferenceController::class,'editGenerat
 
 Route::get('/motorPool/list',[MotorPoolController::class,'show']);
 
+
+
 Route::get('/motorPool/add',[MotorPoolController::class,'addMotorPoolDialog']);
+Route::get('/motorPool/edit',[MotorPoolController::class,'editMotorPoolDialog']);
 Route::post('/motorPool/add',[MotorPoolController::class,'add']);
 
-Route::get('/motorPool/edit',[MotorPoolController::class,'edit']);
+
 
 
 

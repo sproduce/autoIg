@@ -30,6 +30,14 @@ Class MotorPoolService{
         return $this->motorPoolRep->getCar($carId);
     }
 
+
+    public function getCarFullInfo($carId)
+    {
+        return $this->motorPoolRep->getCarFullInfo($carId);
+    }
+
+
+
     public function getLastCars($kol)
     {
         return $this->motorPoolRep->getLastCars($kol);
@@ -58,19 +66,9 @@ Class MotorPoolService{
         $this->carConfiguration->dateFinish = $motorPoolRequest->get('dateFinish');
         $this->carConfiguration->comment = $motorPoolRequest->get('comment');
 
-
-//        $validated = $this->request->validate([
-//
-//        ]);
         $this->motorPoolRep->addCar($this->carConfiguration);
     }
 
-
-    public function edit()
-    {
-
-
-    }
 
     public function del()
     {

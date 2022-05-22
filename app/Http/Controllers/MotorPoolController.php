@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CarIdRequest;
 use App\Http\Requests\MotorPoolRequest;
+use App\Models\carConfiguration;
 use App\Services\BrandService;
 use App\Services\ModelService;
 use App\Services\MotorPoolService;
@@ -26,18 +28,49 @@ class MotorPoolController extends Controller
         return view('motorPool.motorPoolList',['carsPool' => $carsPoolObj]);
     }
 
-    public function addMotorPoolDialog(BrandService $brandServ,ModelService $modelServ,SubjectService $subjectServ)
-    {
+    public function addMotorPoolDialog(
+        BrandService $brandServ,
+        ModelService $modelServ,
+        SubjectService $subjectServ,
+        carConfiguration $carConfigurationObj
+    ){
         $brandsObj = $brandServ->getBarnds();
         $typesObj = $modelServ->getTypes();
         $ownersObj = $subjectServ->getSubjectsCarOwner();
         $subjectsObj = $subjectServ->getSubjects();
-        return view('dialog.MotorPool.addCar',['brands'=>$brandsObj,
+        return view('dialog.MotorPool.addCar',[
+            'brands'=>$brandsObj,
             'types' => $typesObj,
             'owners' => $ownersObj,
             'subjectsObj' => $subjectsObj,
+            'carConfiguration' => $carConfigurationObj,
         ]);
     }
+
+    public function editMotorPoolDialog(
+        BrandService $brandServ,
+        ModelService $modelServ,
+        SubjectService $subjectServ,
+        CarIdRequest $carIdRequest
+    ){
+        //$carConfigurationObj = $this->motorPoolServ->getCar($carIdRequest->getCarId());
+        $carConfigurationObj = $this->motorPoolServ->getCarFullInfo($carIdRequest->getCarId());
+        //$carConfigurationObj->dd();
+        //var_dump($carConfigurationObj);
+        $brandsObj = $brandServ->getBarnds();
+        $typesObj = $modelServ->getTypes();
+        $ownersObj = $subjectServ->getSubjectsCarOwner();
+        $subjectsObj = $subjectServ->getSubjects();
+
+        return view('dialog.MotorPool.addCar',[
+            'brands'=>$brandsObj,
+            'types' => $typesObj,
+            'owners' => $ownersObj,
+            'subjectsObj' => $subjectsObj,
+            'carConfiguration' => $carConfigurationObj,
+        ]);
+    }
+
 
 
     public function add(MotorPoolRequest $motorPoolRequest)
@@ -46,14 +79,6 @@ class MotorPoolController extends Controller
         return redirect()->back();
     }
 
-
-    public function edit()
-    {
-        $validated = $this->request->validate(['carId' => 'integer']);
-        $carObj = $this->motorPoolServ->getCar($validated['carId']);
-        $carObj->dd();
-        return view('dialog.MotorPool.editCar',['car'=>$carObj]);
-    }
 
     public function dialogCarInfo()
     {

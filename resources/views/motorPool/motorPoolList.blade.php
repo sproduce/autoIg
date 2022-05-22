@@ -67,7 +67,7 @@
                     </a>
 
                     <div class="float-right">
-                        <a class="btn btn-ssm btn-outline-warning" href="/motorPool/edit?carId={{$car->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                        <a class="btn btn-ssm btn-outline-warning DialogUser" href="/motorPool/edit?carId={{$car->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
                     </div>
 
                 </div>
