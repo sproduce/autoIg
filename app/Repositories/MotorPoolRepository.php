@@ -48,6 +48,10 @@ class MotorPoolRepository implements MotorPoolRepositoryInterface
             ->join('car_generations','car_generations.id','=','car_configurations.generationId')
             ->join('car_models','car_models.id','=','car_generations.modelId')
             ->join('car_brands','car_brands.id','=','car_models.brandId')
+            ->join('car_transmission_types','car_transmission_types.id','=','car_configurations.transmissionTypeId')
+            ->join('car_engine_types','car_engine_types.id','=','car_configurations.engineTypeId')
+            ->join('car_types','car_types.id','=','car_configurations.typeId')
+            ->join('rent_subjects','rent_subjects.id','=','car_configurations.subjectIdOwner')
             ->select(
                 'car_configurations.*',
                 'car_generations.modelId',
@@ -57,7 +61,12 @@ class MotorPoolRepository implements MotorPoolRepositoryInterface
                 'car_models.name as modelName',
                 'car_brands.id as brandId',
                 'car_brands.name as brandName',
-                'car_models.brandId')
+                'car_models.brandId',
+                'car_engine_types.name as engineTypeName',
+                'car_transmission_types.name as transmissionTypeName',
+                'car_types.name as typeName',
+                'rent_subjects.nickname as subjectNickname',
+            )
             ->first();
         return $result;
     }

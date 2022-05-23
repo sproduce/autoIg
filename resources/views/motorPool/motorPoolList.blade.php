@@ -31,7 +31,7 @@
         @foreach ($carsPool as $car)
             <div class="row row-table">
                 <div class="col-3 pl-0">
-                    <a href="/dialog/carInfo?carId={{$car->id}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                    <a href="/motorPool/carInfo/{{$car->id}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
                     {{$car->generation->model->brand->name}} | {{$car->generation->model->name}}
                     @if ($car->linkCarGroup->count())
                         <div class="float-right">

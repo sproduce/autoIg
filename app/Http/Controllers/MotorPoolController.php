@@ -80,10 +80,9 @@ class MotorPoolController extends Controller
     }
 
 
-    public function dialogCarInfo()
+    public function carInfoDialog($carId)
     {
-        $validated = $this->request->validate(['carId' => 'integer']);
-        $carObj = $this->motorPoolServ->getCar($validated['carId']);
+        $carObj = $this->motorPoolServ->getCarFullInfo($carId);
         return view('dialog.MotorPool.carInfo',['car' => $carObj]);
     }
 

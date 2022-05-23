@@ -68,7 +68,6 @@ Route::post('/reference/models',[ReferenceController::class,'addModels']);
 Route::post('/reference/editModel',[ReferenceController::class,'editModel']);
 
 
-Route::get('/dialog/carInfo',[MotorPoolController::class,'dialogCarInfo']);
 Route::get('/dialog/carDriverInfo',[CarDriverController::class,'dialogInfo']);
 
 Route::get('/reference/generation',[ReferenceController::class,'showGenerations']);
@@ -85,6 +84,8 @@ Route::get('/motorPool/list',[MotorPoolController::class,'show']);
 
 Route::get('/motorPool/add',[MotorPoolController::class,'addMotorPoolDialog']);
 Route::get('/motorPool/edit',[MotorPoolController::class,'editMotorPoolDialog']);
+Route::get('/motorPool/carInfo/{id}',[MotorPoolController::class,'carInfoDialog']);
+
 Route::post('/motorPool/add',[MotorPoolController::class,'add']);
 
 

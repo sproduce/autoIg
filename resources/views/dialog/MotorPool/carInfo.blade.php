@@ -14,14 +14,14 @@
                     <strong>Марка</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->generation->model->brand->name}}
+                    {{$car->generationName}}
                 </div>
 
                 <div class="col-md-2">
                     <strong>Двигатель</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->engine->name}}
+                    {{$car->engineTypeName}}
                 </div>
                 <div class="col-md-2">
                     <strong>Год выпуска</strong>
@@ -37,7 +37,7 @@
                     <strong>Модель</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->generation->model->name}}
+                    {{$car->modelName}}
                 </div>
                 <div class="col-md-2">
                     <strong>Обьем</strong>
@@ -58,7 +58,7 @@
                     <strong>Поколение</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->generation->name}}
+                    {{$car->generationName}}
                 </div>
                 <div class="col-md-2">
                     <strong>Сил</strong>
@@ -79,13 +79,14 @@
                     <strong>Кузов</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->body->name}}
+                    {{$car->typeName}}
                 </div>
+
                 <div class="col-md-2">
                     <strong>Трансмиссия</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->transmission->name}}
+                    {{$car->transmissionTypeName}}
                 </div>
                 <div class="col-md-2">
                     <strong>Nickname</strong>
@@ -105,7 +106,7 @@
                     <strong>Владелец</strong>
                 </div>
                 <div class="col-md-4">
-                    {{$car->owner->name}}
+                    {{$car->subjectNickname}}
                 </div>
             </div>
 
