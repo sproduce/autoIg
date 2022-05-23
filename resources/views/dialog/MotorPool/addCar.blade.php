@@ -14,25 +14,29 @@
                     <label for="manufId" title="Латинские буквы">Марка</label>
                     <select name="manufId" id="manufId" class="form-control">
                         @if ($carConfiguration->brandId)
+                            <option value="{{$carConfiguration->brandId}}">{{$carConfiguration->brandName}}</option>
                         @else
-                        <option value="0" id="firstBrandOption">Выберите марку</option>
+                            <option value="0" id="firstBrandOption">Выберите марку</option>
+                        @endif
                         @foreach($brands as $brand)
                             <option value="{{$brand->id}}">{{$brand->name}}</option>
                         @endforeach
-                        @endif
+
                     </select>
                 </div>
                 <div class="form-group col-md-4 input-group-sm">
                     <label for="modelId" title="Латинские буквы">Модель</label>
                     <select name="modelId" id="modelId" class="form-control" disabled>
                         @if ($carConfiguration->modelId)
+                            <option value="{{$carConfiguration->modelId}}">{{$carConfiguration->modelName}}</option>
                         @endif
                     </select>
                 </div>
                 <div class="form-group col-md-4 input-group-sm">
                     <label for="generationId">Поколение</label>
-                    <select name="generationId"  id="generationId" class="form-control" required disabled>
+                    <select name="generationId"  id="generationId" class="form-control" required readonly>
                         @if ($carConfiguration->generationId)
+                            <option value="{{$carConfiguration->generationId}}">{{$carConfiguration->generationName}}</option>
                         @endif
                     </select>
                 </div>
@@ -137,14 +141,10 @@
     </div>
 
     <div class="modal-footer d-flex justify-content-center">
-        <input type="submit" class="btn btn-primary" value="Добавить">
+        <input type="submit" class="btn btn-primary" value="Сохранить">
     </div>
-    </form>
-
-
+</form>
     <script>
-
-
         $(function()
         {
             $('#manufId').change(function() {

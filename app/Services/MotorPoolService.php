@@ -46,6 +46,9 @@ Class MotorPoolService{
 
     public function addCar(MotorPoolRequest $motorPoolRequest)
     {
+        if ($motorPoolRequest->get('id')){
+            $this->carConfiguration = $this->motorPoolRep->getCar($motorPoolRequest->get('id'));
+        }
 
         $this->carConfiguration->generationId = $motorPoolRequest->get('generationId');
         $this->carConfiguration->typeId = $motorPoolRequest->get('typeId');
