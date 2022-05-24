@@ -2,6 +2,8 @@
 namespace App\Services;
 
 use App\Http\Requests\MotorPoolRequest;
+use App\Http\Requests\SearchText;
+use App\Http\Requests\SearchTextRequest;
 use App\Models\carConfiguration;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
@@ -79,10 +81,9 @@ Class MotorPoolService{
 
     }
 
-    public function search()
+    public function search(SearchTextRequest $searchTextObj)
     {
-        $validate=$this->request->validate(['carText'=>'required']);
-        return $this->motorPoolRep->search($validate['carText']);
+        return $this->motorPoolRep->search($searchTextObj->get('searchText'));
     }
 
 

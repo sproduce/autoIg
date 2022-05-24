@@ -69,5 +69,10 @@ Class CarGroupService{
     }
 
 
+    public function getCarGroupsByCar($carId)
+    {
+        return $this->carGroupRep->getCarGroupsByCar($carId);
+    }
+
 
 }

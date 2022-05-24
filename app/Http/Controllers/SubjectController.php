@@ -46,6 +46,11 @@ class SubjectController extends Controller
     }
 
 
+    public function addSubjectToDialog()
+    {
+
+    }
+
     public function addContact($id)
     {
         $subjectContactsObj = $this->subjectServ->getSubjectContacts($id);

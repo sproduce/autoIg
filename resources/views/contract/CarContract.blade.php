@@ -47,7 +47,7 @@
             <div class="form-row text-center mt-3">
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="carId" title="Машина">Машина</label>
-                    <a href="/contract/addCar" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+                    <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
                     @if($rentContractObj->car->id)
                         <input id="carText" class="form-control" value="{{$rentContractObj->car->nickName}}" disabled />
                         <input name="carId" id="carId" value="{{$rentContractObj->car->id}}" hidden />
@@ -66,8 +66,8 @@
                     </select>
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
-                    <label for="driverId" title="Водитель">Водитель</label>
-                    <a href="/contract/addDriver" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+                    <label for="driverId" title="От кого">От кого</label>
+                    <a href="/subject/addSubjectTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
                     @if($rentContractObj->driverId)
                         <input id="driverText" class="form-control" value="{{$rentContractObj->driver->surname}} {{$rentContractObj->driver->name}} {{$rentContractObj->driver->patronymic}}" disabled/>
                         <input name="driverId" id="driverId" value="{{$rentContractObj->driverId}}"  hidden />
@@ -77,12 +77,15 @@
                     @endif
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
-                    <label for="statusId" title="Статус договора">Статус договора</label>
-                    <select name="statusId" id="statusId" class="form-control">
-                        @foreach($contractStatuses as $contractStatus)
-                            <option value="{{$contractStatus->id}}" @if ($rentContractObj->statusId == $contractStatus->id) selected @endif>{{$contractStatus->name}}</option>
-                        @endforeach
-                    </select>
+                    <label for="driverId" title="Водитель">Клиент</label>
+                    <a href="/subject/addSubjectTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+                    @if($rentContractObj->driverId)
+                        <input id="driverText" class="form-control" value="{{$rentContractObj->driver->surname}} {{$rentContractObj->driver->name}} {{$rentContractObj->driver->patronymic}}" disabled/>
+                        <input name="driverId" id="driverId" value="{{$rentContractObj->driverId}}"  hidden />
+                    @else
+                        <input id="driverText" class="form-control" disabled/>
+                        <input name="driverId" id="driverId"  hidden/>
+                    @endif
                 </div>
             </div>
 
@@ -98,6 +101,14 @@
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="number" title="Номер договора">Номер договора</label>
                     <input type="text" name="number" id="number" class="form-control" autocomplete="off" required @if ($rentContractObj->number) value="{{$rentContractObj->number}}" @endif/>
+                </div>
+                <div class="form-group col-md-3 input-group-sm">
+                    <label for="statusId" title="Статус договора">Статус договора</label>
+                    <select name="statusId" id="statusId" class="form-control">
+                        @foreach($contractStatuses as $contractStatus)
+                            <option value="{{$contractStatus->id}}" @if ($rentContractObj->statusId == $contractStatus->id) selected @endif>{{$contractStatus->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="form-row text-center mt-3">

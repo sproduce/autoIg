@@ -106,10 +106,20 @@
                     <strong>Владелец</strong>
                 </div>
                 <div class="col-md-4">
-                    {{$car->subjectNickname}}
+                    {{$car->subjectOwnerNickname}}
                 </div>
             </div>
-
+            @if ($car->subjectFromNickname)
+                <div class="row">
+                    <div class="col-6"></div>
+                    <div class="col-md-2">
+                        <strong>Сдается от</strong>
+                    </div>
+                    <div class="col-md-4">
+                        {{$car->subjectFromNickname}}
+                    </div>
+                </div>
+            @endif
             <div class="row border-top mt-2 pt-2">
                 <div class="col-md-3">
                     <strong>Начало владения</strong>
@@ -123,12 +133,21 @@
                 <div class="col-md-3">
                     {{$car->dateFinish}}
                 </div>
-
-
             </div>
 
-
-
+            <div class="row border-top mt-2 mb-2 pt-2">
+                <div class="col-12 text-center"> <strong>Участвует в группах </strong></div>
+            </div>
+            @foreach($carGroupsObj as $carGroup)
+                <div class="row">
+                    <div class="col-md-1"><strong>Группа</strong></div>
+                    <div class="col-md-3">{{$carGroup->nickName}}</div>
+                    <div class="col-md-2"><strong>Начало</strong></div>
+                    <div class="col-md-2">@if ($carGroup->linkStart) {{$carGroup->linkStart->format('d-m-Y')}} @endif</div>
+                    <div class="col-md-2"><strong>Окончание</strong></div>
+                    <div class="col-md-2">@if ($carGroup->linkFinish) {{$carGroup->linkFinish->format('d-m-Y')}} @endif</div>
+                </div>
+            @endforeach
 
             <div class="row mt-2 pt-2">
                 <div class="col-md-2">

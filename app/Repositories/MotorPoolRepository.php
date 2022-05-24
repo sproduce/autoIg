@@ -38,7 +38,10 @@ class MotorPoolRepository implements MotorPoolRepositoryInterface
 
     public function search($text)
     {
-        return carConfiguration::query()->where('nickName','LIKE','%'.$text.'%')->orWhere('regNumber','LIKE','%'.$text.'%')->get();
+        return carConfiguration::query()
+            ->where('nickName','LIKE','%'.$text.'%')
+            ->orWhere('regNumber','LIKE','%'.$text.'%')
+            ->get();
     }
 
     public function getCarFullInfo($carId)
@@ -51,10 +54,10 @@ class MotorPoolRepository implements MotorPoolRepositoryInterface
             ->join('car_transmission_types','car_transmission_types.id','=','car_configurations.transmissionTypeId')
             ->join('car_engine_types','car_engine_types.id','=','car_configurations.engineTypeId')
             ->join('car_types','car_types.id','=','car_configurations.typeId')
-            ->join('rent_subjects','rent_subjects.id','=','car_configurations.subjectIdOwner')
+            ->join('rent_subjects as rentSubjectOwner','rentSubjectOwner.id','=','car_configurations.subjectIdOwner')
+            ->leftjoin('rent_subjects as rentSubjectFrom','rentSubjectFrom.id','=','car_configurations.subjectIdFrom')
             ->select(
                 'car_configurations.*',
-                'car_generations.modelId',
                 'car_generations.name as generationName',
                 'car_generations.id as generationId',
                 'car_models.id as modelId',
@@ -65,7 +68,8 @@ class MotorPoolRepository implements MotorPoolRepositoryInterface
                 'car_engine_types.name as engineTypeName',
                 'car_transmission_types.name as transmissionTypeName',
                 'car_types.name as typeName',
-                'rent_subjects.nickname as subjectNickname',
+                'rentSubjectOwner.nickname as subjectOwnerNickname',
+                'rentSubjectFrom.nickname as subjectFromNickname',
             )
             ->first();
         return $result;

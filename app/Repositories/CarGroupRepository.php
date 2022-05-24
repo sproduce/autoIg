@@ -5,6 +5,7 @@ use App\Repositories\Interfaces\CarGroupRepositoryInterface;
 use App\Models\rentCarGroup;
 
 use App\Models\rentCarGroupLink;
+use Illuminate\Support\Carbon;
 
 
 class CarGroupRepository implements CarGroupRepositoryInterface
@@ -65,17 +66,34 @@ class CarGroupRepository implements CarGroupRepositoryInterface
     public function searchCarGroup($text)
     {
         return rentCarGroup::query()
-            ->where('name','LIKE','%'.$text.'%')
+            ->where('name','LIKE','%'.$text.    '%')
             ->orWhere('nickName','LIKE','%'.$text.'%')
             ->get();
     }
 
     public function getCarGroupsByCar($carId)
     {
-        return rentCarGroup::query()
+        $resultCarGroups = rentCarGroup::query()
             ->join('rent_car_group_links','rent_car_group_links.groupId','=','rent_car_groups.id')
             ->where('rent_car_group_links.carId','=',$carId)
+            ->select(
+                'rent_car_groups.*',
+                'rent_car_group_links.start as linkStart',
+                'rent_car_group_links.finish as linkFinish',
+            )
             ->get();
+        $resultCarGroups->each(function ($item, $key) {
+            if ($item->linkStart){
+                $item->linkStart = Carbon::parse($item->linkStart);
+            }
+
+            if ($item->linkFinish){
+                $item->linkFinish = Carbon::parse($item->linkFinish);
+            }
+
+        });
+
+        return  $resultCarGroups;
     }
 
 

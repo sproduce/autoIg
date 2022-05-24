@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CarIdRequest;
 use App\Http\Requests\MotorPoolRequest;
+use App\Http\Requests\SearchTextRequest;
 use App\Models\carConfiguration;
 use App\Services\BrandService;
+use App\Services\CarGroupService;
 use App\Services\ModelService;
 use App\Services\MotorPoolService;
 use App\Services\SubjectService;
@@ -53,10 +55,7 @@ class MotorPoolController extends Controller
         SubjectService $subjectServ,
         CarIdRequest $carIdRequest
     ){
-        //$carConfigurationObj = $this->motorPoolServ->getCar($carIdRequest->getCarId());
         $carConfigurationObj = $this->motorPoolServ->getCarFullInfo($carIdRequest->getCarId());
-        //$carConfigurationObj->dd();
-        //var_dump($carConfigurationObj);
         $brandsObj = $brandServ->getBarnds();
         $typesObj = $modelServ->getTypes();
         $ownersObj = $subjectServ->getSubjectsCarOwner();
@@ -80,16 +79,24 @@ class MotorPoolController extends Controller
     }
 
 
-    public function carInfoDialog($carId)
+    public function addCarToDialog()
     {
-        $carObj = $this->motorPoolServ->getCarFullInfo($carId);
-        return view('dialog.MotorPool.carInfo',['car' => $carObj]);
+        $carsObj = $this->motorPoolServ->getLastCars(7);
+        return view('dialog.Car.addCarTo',['cars'=>$carsObj]);
     }
 
 
-    public function search()
+    public function carInfoDialog(CarGroupService $carGroupServ,$carId)
     {
-        $carsObj = $this->motorPoolServ->search();
+        $carObj = $this->motorPoolServ->getCarFullInfo($carId);
+        $carGroupsObj = $carGroupServ->getCarGroupsByCar($carId);
+        return view('dialog.MotorPool.carInfo',['car' => $carObj,'carGroupsObj' => $carGroupsObj]);
+    }
+
+
+    public function search(SearchTextRequest $searchTextObj)
+    {
+        $carsObj = $this->motorPoolServ->search($searchTextObj);
         return view('car.carSearchResult',['cars' => $carsObj]);
     }
 

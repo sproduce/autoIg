@@ -120,8 +120,7 @@ class ContractController extends Controller
 
     public function addCarDialog(MotorPoolService $motorPoolServ)
     {
-        $carsObj=$motorPoolServ->getLastCars(7);
-        return view('dialog.Contract.addCarContract',['cars'=>$carsObj]);
+
     }
 
     public function saveContract(ContractRequest $contractRequest)
