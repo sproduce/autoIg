@@ -72,8 +72,8 @@
                         <input id="driverText" class="form-control" value="{{$rentContractObj->driver->surname}} {{$rentContractObj->driver->name}} {{$rentContractObj->driver->patronymic}}" disabled/>
                         <input name="driverId" id="driverId" value="{{$rentContractObj->driverId}}"  hidden />
                     @else
-                        <input id="driverText" class="form-control" disabled/>
-                        <input name="driverId" id="driverId"  hidden/>
+                        <input id="subjectText" class="form-control" disabled/>
+                        <input name="subjectId" id="driverId"  hidden/>
                     @endif
                 </div>
                 <div class="form-group col-md-3 input-group-sm">

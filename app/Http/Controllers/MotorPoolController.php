@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CarIdRequest;
 use App\Http\Requests\MotorPoolRequest;
-use App\Http\Requests\SearchTextRequest;
+use App\Http\Requests\Search\SearchCarRequest;
 use App\Models\carConfiguration;
 use App\Services\BrandService;
 use App\Services\CarGroupService;
@@ -94,7 +94,7 @@ class MotorPoolController extends Controller
     }
 
 
-    public function search(SearchTextRequest $searchTextObj)
+    public function search(SearchCarRequest $searchTextObj)
     {
         $carsObj = $this->motorPoolServ->search($searchTextObj);
         return view('car.carSearchResult',['cars' => $carsObj]);

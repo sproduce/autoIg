@@ -14,7 +14,8 @@ Route::post('/add',[SubjectController::class,'save']);
 Route::get('/addContact/{id}',[SubjectController::class,'addContact']);
 Route::post('/addContact',[SubjectController::class,'saveContact']);
 Route::get('/fullInfo/{id}',[SubjectController::class,'fullInfo']);
-Route::get('/addSubjectTo',[SubjectController::class,'addSubjectToDialog']);
 
+Route::get('/addSubjectTo',[SubjectController::class,'addSubjectToDialog']);
+Route::get('/search',[SubjectController::class,'search']);
 
 

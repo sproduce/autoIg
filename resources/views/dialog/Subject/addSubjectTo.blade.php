@@ -14,13 +14,13 @@
                 </div>
             </div>
         </div>
-    <div id="carSearch">
-    @foreach($cars as $car)
+    <div id="subjectSearch">
+    @foreach($subjectsObj as $subject)
         <div class="row row-table">
-            <div class="col-6">{{$car->nickName}} {{$car->regNumber}}</div>
+            <div class="col-6">{{$subject->nickname}}</div>
             <div class="col-4"></div>
             <div class="col-2">
-                <button class="btn btn-ssm btn-outline-success carSearch" data-carSeachText="{{$car->nickName}} {{$car->generation->model->brand->name}} {{$car->generation->model->name}} {{$car->generation->name}} {{$car->regNumber}} {{$car->color}}" data-carSearchId="{{$car->id}}">
+                <button class="btn btn-ssm btn-outline-success subjectSearch" data-subjectSearchText="{{$subject->nickname}}" data-subjectSearchId="{{$subject->id}}">
                     <i class="fas fa-user-plus" ></i>
                 </button>
             </div>
@@ -31,19 +31,19 @@
 
 
 <script>
-$(".carSearch").click(function(){
-    $("#carId").val($(this).attr("data-carSearchId")).change();
-    $("#carText").val($(this).attr("data-carSeachText")).change();
+$(".subjectSearch").click(function(){
+    $("#subjectId").val($(this).attr("data-subjectSearchId")).change();
+    $("#subjectText").val($(this).attr("data-subjectSearchText")).change();
 
     $('#modal').modal('toggle');
 });
 
 $("#search").keyup(function(){
     if($("#search").val().length>0)
-$("#carSearch").load("/motorPool/search?searchText="+$("#search").val(),function(){
-    $(".carSearch").click(function(){
-        $("#carId").val($(this).attr("data-carSearchId")).change();
-        $("#carText").val($(this).attr("data-carSeachText")).change();
+$("#subjectSearch").load("/subject/search?searchText="+$("#search").val(),function(){
+    $(".subjectSearch").click(function(){
+        $("#subjectId").val($(this).attr("data-subjectSearchId")).change();
+        $("#subjectText").val($(this).attr("data-subjectSearchText")).change();
         $('#modal').modal('toggle');
     });
 });

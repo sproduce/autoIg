@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Search\SearchSubjectRequest;
 use App\Http\Requests\SubjectContactRequest;
 use App\Http\Requests\SubjectIdRequest;
 use App\Http\Requests\SubjectRequest;
@@ -29,7 +30,7 @@ class SubjectController extends Controller
     {
         $subjectObj = $this->subjectServ->getSubject($id);
         $subjectContactsObj = $this->subjectServ->getSubjectContacts($id);
-        return view('dialog.Subject.infoSubject',['subjectObj' => $subjectObj,'subjectContactsObj' =>$subjectContactsObj]);
+        return view('dialog.Subject.infoSubject',['subjectObj' => $subjectObj,'subjectContactsObj' => $subjectContactsObj]);
     }
 
     public function add(rentSubject $subjectObj,rentSubjectRegion $regionModel,payAccount $payAccountModel)
@@ -48,7 +49,8 @@ class SubjectController extends Controller
 
     public function addSubjectToDialog()
     {
-
+        $rentSubjects = $this->subjectServ->getLastSubject(7);
+        return view('dialog.Subject.addSubjectTo',['subjectsObj' => $rentSubjects]);
     }
 
     public function addContact($id)
@@ -98,6 +100,13 @@ class SubjectController extends Controller
     public function deleteContact()
     {
 
+    }
+
+
+    public function search(SearchSubjectRequest $searchSubjectObj)
+    {
+        $subjectsObj = $this->subjectServ->search($searchSubjectObj);
+        return view('subject.subjectSearchResult',['subjectsObj' => $subjectsObj]);
     }
 
 

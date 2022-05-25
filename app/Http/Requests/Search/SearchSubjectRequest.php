@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Search;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SearchTextRequest extends FormRequest
+class SearchSubjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

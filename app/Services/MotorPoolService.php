@@ -2,10 +2,9 @@
 namespace App\Services;
 
 use App\Http\Requests\MotorPoolRequest;
-use App\Http\Requests\SearchText;
-use App\Http\Requests\SearchTextRequest;
+
 use App\Models\carConfiguration;
-use Illuminate\Http\Request;
+use App\Http\Requests\Search\SearchCarRequest;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use Illuminate\Support\Str;
 
@@ -81,7 +80,7 @@ Class MotorPoolService{
 
     }
 
-    public function search(SearchTextRequest $searchTextObj)
+    public function search(SearchCarRequest $searchTextObj)
     {
         return $this->motorPoolRep->search($searchTextObj->get('searchText'));
     }

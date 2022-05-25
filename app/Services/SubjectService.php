@@ -1,5 +1,6 @@
 <?php
 namespace App\Services;
+use App\Http\Requests\Search\SearchSubjectRequest;
 use App\Http\Requests\SubjectContactRequest;
 use App\Http\Requests\SubjectRequest;
 use App\Models\payAccount;
@@ -89,6 +90,16 @@ Class SubjectService{
         return $this->subjectRep->getSubjectsCarOwner();
     }
 
+
+    public function  getLastSubject($kol)
+    {
+        return $this->subjectRep->getLastSubjects($kol);
+    }
+
+    public function search(SearchSubjectRequest $searchSubjectObj)
+    {
+        return $this->subjectRep->searchSubject($searchSubjectObj);
+    }
 
 
 
