@@ -42,18 +42,20 @@ Class ContractService{
             $this->contractModel = $this->contractModel->find($contractData->get('id'));
         }
 
-        $this->contractModel->start =$contractData->get('start');
-        $this->contractModel->finish =$contractData->get('finish');
-        $this->contractModel->finishFact =$contractData->get('finishFact');
-        $this->contractModel->number =$contractData->get('number');
-        $this->contractModel->comment =$contractData->get('comment');
-        $this->contractModel->typeId =$contractData->get('typeId');
-        $this->contractModel->driverId = $contractData->get('driverId');
+        $this->contractModel->start = $contractData->get('start');
+        $this->contractModel->finish = $contractData->get('finish');
+        $this->contractModel->finishFact = $contractData->get('finishFact');
+        $this->contractModel->number = $contractData->get('number');
+        $this->contractModel->comment = $contractData->get('comment');
+        $this->contractModel->typeId = $contractData->get('typeId');
         $this->contractModel->carGroupId = $contractData->get('carGroupId');
         $this->contractModel->carId = $contractData->get('carId');
         $this->contractModel->statusId = $contractData->get('statusId');
         $this->contractModel->deposit = $contractData->get('deposit');
         $this->contractModel->price = $contractData->get('price');
+        $this->contractModel->subjectIdFrom = $contractData->get('subjectIdFrom');
+        $this->contractModel->subjectIdTo = $contractData->get('subjectIdTo');
+
         $this->contractModel->save();
     }
 
@@ -90,9 +92,10 @@ Class ContractService{
 
     public function getContractDirectory()
     {
-    $orderCollection=collect(['type'=>$this->contractRep->getContractTypes(),
-                              'status'=>$this->contractRep->getContractStatuses(),
-                ]);
+    $orderCollection=collect([
+        'type'=>$this->contractRep->getContractTypes(),
+        'status'=>$this->contractRep->getContractStatuses(),
+    ]);
 
     return $orderCollection;
     }
@@ -102,13 +105,5 @@ Class ContractService{
     {
         return $this->contractRep->getLastContracts($kol);
     }
-
-
-    public function search()
-    {
-        $searchText=$this->request->validate(['contractText'=>'']);
-        return $this->contractRep->search($searchText['contractText']);
-    }
-
 
 }

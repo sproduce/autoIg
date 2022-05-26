@@ -23,11 +23,11 @@
             <div class="form-row text-center">
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="start" title="Начало договора">Начало договора</label>
-                    <input type="datetime-local" name="start" id="start" class="form-control" value="@if ($rentContractObj->id){{$rentContractObj->start->format('Y-m-d\TH:i:s')}}@else{{date('Y-m-d')}}T{{date('H:i')}}@endif" required/>
+                    <input type="datetime-local" name="start" id="start" class="form-control" value="{{old('start',$rentContractObj->start ? $rentContractObj->start->format('Y-m-d\TH:i:s') : date('Y-m-d\TH:i:s'))}}" required/>
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="finish" title="Окончание договора">Окончание договора</label>
-                    <input type="datetime-local" name="finish" id="finish" @if ($rentContractObj->finish) value="{{$rentContractObj->finish->format('Y-m-d\TH:i:s')}}" @endif class="form-control"/>
+                    <input type="datetime-local" name="finish" id="finish" value="{{old('finish',$rentContractObj->finish ? $rentContractObj->finish->format('Y-m-d\TH:i:s') : '')}}" class="form-control"/>
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="finishFact" title="Окончание договора">Окончание договора по факту</label>
@@ -46,46 +46,28 @@
 
             <div class="form-row text-center mt-3">
                 <div class="form-group col-md-3 input-group-sm">
-                    <label for="carId" title="Машина">Машина</label>
+                    <label for="carText" title="Машина">Машина</label>
                     <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
-                    @if($rentContractObj->car->id)
-                        <input id="carText" class="form-control" value="{{$rentContractObj->car->nickName}}" disabled />
-                        <input name="carId" id="carId" value="{{$rentContractObj->car->id}}" hidden />
-                    @else
-                        <input id="carText" class="form-control" disabled/>
-                        <input name="carId" id="carId" hidden/>
-                    @endif
+                    <input id="carText" name="carText" class="form-control" value="{{old('carText')}}" readonly/>
+                    <input name="carId" id="carId" value="{{old('carId',$rentContractObj->carId)}}" hidden/>
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
-                    <label for="carGroupId" title="Группа машин">Группа машин</label>
-                    <select name="carGroupId" id="carGroupId" class="form-control" required>
-                        <option>Выберите группу ...</option>
-                        @foreach ($carGroupObjs as $carGroupObj)
-                            <option value="{{$carGroupObj->id}}"  @if ($rentContractObj->carGroupId == $carGroupObj->id) selected @endif>{{$carGroupObj->name}}</option>
-                        @endforeach
-                    </select>
+                    <label for="carGroupText" title="Группа машин">Группа машин</label>
+                    <a href="/carGroup/addCarGroupTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+                    <input id="carGroupText" class="form-control" readonly/>
+                    <input name="carGroupId" id="carGroupId"  hidden/>
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
-                    <label for="driverId" title="От кого">От кого</label>
-                    <a href="/subject/addSubjectTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
-                    @if($rentContractObj->driverId)
-                        <input id="driverText" class="form-control" value="{{$rentContractObj->driver->surname}} {{$rentContractObj->driver->name}} {{$rentContractObj->driver->patronymic}}" disabled/>
-                        <input name="driverId" id="driverId" value="{{$rentContractObj->driverId}}"  hidden />
-                    @else
-                        <input id="subjectText" class="form-control" disabled/>
-                        <input name="subjectId" id="driverId"  hidden/>
-                    @endif
+                    <label for="subjectFromText" title="От кого">От кого</label>
+                    <a href="/subject/addSubjectTo/subjectFrom" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+                        <input id="subjectFromText" class="form-control" readonly/>
+                        <input name="subjectIdFrom" id="subjectFromId"  hidden/>
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
-                    <label for="driverId" title="Водитель">Клиент</label>
-                    <a href="/subject/addSubjectTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
-                    @if($rentContractObj->driverId)
-                        <input id="driverText" class="form-control" value="{{$rentContractObj->driver->surname}} {{$rentContractObj->driver->name}} {{$rentContractObj->driver->patronymic}}" disabled/>
-                        <input name="driverId" id="driverId" value="{{$rentContractObj->driverId}}"  hidden />
-                    @else
-                        <input id="driverText" class="form-control" disabled/>
-                        <input name="driverId" id="driverId"  hidden/>
-                    @endif
+                    <label for="subjectToText" title="Клиент">Клиент</label>
+                    <a href="/subject/addSubjectTo/subjectTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+                        <input id="subjectToText" class="form-control" readonly/>
+                        <input name="subjectIdTo" id="subjectToId"  hidden/>
                 </div>
             </div>
 
@@ -94,10 +76,10 @@
                     <label for="price" title="Тариф договора">Тариф договора в сутки</label>
                     <input type="number" name="price" id="price" class="form-control" @if ($rentContractObj->price) value="{{$rentContractObj->price}}" @endif/>
                 </div>
-                <div class="form-group col-md-2 input-group-sm">
-                    <label for="deposit" title="Депозит договора">Депозит договора</label>
-                    <input type="number" name="deposit" id="deposit" class="form-control" @if ($rentContractObj->deposit) value="{{$rentContractObj->deposit}}" @endif/>
-                </div>
+{{--                <div class="form-group col-md-2 input-group-sm">--}}
+{{--                    <label for="deposit" title="Депозит договора">Депозит договора</label>--}}
+{{--                    <input type="number" name="deposit" id="deposit" class="form-control" @if ($rentContractObj->deposit) value="{{$rentContractObj->deposit}}" @endif/>--}}
+{{--                </div>--}}
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="number" title="Номер договора">Номер договора</label>
                     <input type="text" name="number" id="number" class="form-control" autocomplete="off" required @if ($rentContractObj->number) value="{{$rentContractObj->number}}" @endif/>
@@ -136,12 +118,8 @@
         $('#carId').change(function() {
             $.get("/api/getCarGroups",{carId:$('#carId').val()}).done(function( data ) {
                 if (data.length){
-                    var html = '';
-                    for (var i = 0; i< data.length; i++) {
-                        html += '<option value="' + data[i].id + '">'+ data[i].name +'</option>';
-                    }
-                    $('#carGroupId').empty();
-                    $('#carGroupId').append(html);
+                    $('#carGroupText').val(data[0].nickName);
+                    $('#carGroupId').val(data[0].id);
                 }
             });
         });

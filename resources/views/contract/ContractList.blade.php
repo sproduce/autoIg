@@ -78,9 +78,9 @@
                                 </div>
                                 <div class="col-2">{{$contract->start}}</div>
                                 <div class="col-2">{{$contract->carGroup->nickName}}</div>
-                                <div class="col-2">{{$contract->driver->surname}}</div>
+                                <div class="col-2"></div>
                                 <div class="col-1 text-right">{{$contract->deposit}}</div>
-                                <div class="col-1 text-right">{{$contract->balance}}</div>
+                                <div class="col-1 text-right"></div>
                                 <div class="col-2">{{$contract->status->name}}</div>
                                 <div class="col-1 p-0 text-center">
                                     <a href="/timesheet/contract?contractId={{$contract->id}}" title="События" class="btn btn-ssm btn-outline-primary">
@@ -99,7 +99,7 @@
                         </div>
                         <div class="col-2">{{$contract->finish}}</div>
                         <div class="col-2">{{$contract->car->nickName}}</div>
-                        <div class="col-2">{{$contract->driver->name}}</div>
+                        <div class="col-2"></div>
                         <div class="col-1 text-right"></div>
                         <div class="col-1 text-right"></div>
                         <div class="col-2">{{$contract->price}}</div>
@@ -112,7 +112,7 @@
                         </div>
                         <div class="col-2">{{$contract->finishFact}}</div>
                         <div class="col-2"></div>
-                        <div class="col-2">{{$contract->driver->nickname}}</div>
+                        <div class="col-2"></div>
                         <div class="col-1 text-right"></div>
                         <div class="col-1 text-right"></div>
                         <div class="col-2"></div>

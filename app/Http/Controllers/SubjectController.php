@@ -47,10 +47,10 @@ class SubjectController extends Controller
     }
 
 
-    public function addSubjectToDialog()
+    public function addSubjectToDialog($parameter)
     {
         $rentSubjects = $this->subjectServ->getLastSubject(7);
-        return view('dialog.Subject.addSubjectTo',['subjectsObj' => $rentSubjects]);
+        return view('dialog.Subject.addSubjectTo',['subjectsObj' => $rentSubjects,'parameter' => $parameter]);
     }
 
     public function addContact($id)

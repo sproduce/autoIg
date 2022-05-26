@@ -21,21 +21,13 @@ class ContractRequest extends FormRequest
     protected function prepareForValidation()
     {
         $input=parent::all();
-        if (!isset($input['balance'])){
-            $this->merge(['balance' => 0]);
-        }
         if (!isset($input['deposit'])){
             $this->merge(['deposit' => 0]);
         }
         if (!isset($input['price'])){
             $this->merge(['price' => 0]);
         }
-        if (!isset($input['sum'])){
-            $this->merge(['sum' => 0]);
-        }
     }
-
-
 
     /**
      * Get the validation rules that apply to the request.
@@ -50,14 +42,14 @@ class ContractRequest extends FormRequest
             'finish' => '',
             'finishFact' => '',
             'typeId' => 'required|integer',
-            'driverId' => 'integer|nullable',
             'carGroupId' => 'integer|nullable',
             'carId' => 'integer|nullable',
             'statusId' => 'required|integer',
+            'subjectIdFrom' => 'required|integer',
+            'subjectIdTo' => 'required|integer',
             'deposit' => 'integer',
             'number' => 'required',
             'comment' => 'string|nullable',
-            'sum' => 'integer',
             'price' =>'integer',
         ];
     }

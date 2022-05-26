@@ -17,10 +17,11 @@
     <div id="subjectSearch">
     @foreach($subjectsObj as $subject)
         <div class="row row-table">
-            <div class="col-6">{{$subject->nickname}}</div>
-            <div class="col-4"></div>
-            <div class="col-2">
-                <button class="btn btn-ssm btn-outline-success subjectSearch" data-subjectSearchText="{{$subject->nickname}}" data-subjectSearchId="{{$subject->id}}">
+            <div class="col-3">{{$subject->surname}}</div>
+            <div class="col-3">{{$subject->name}}</div>
+            <div class="col-3">{{$subject->nickname}}</div>
+            <div class="col-1">
+                <button class="btn btn-ssm btn-outline-success subjectSearch" data-subjectSearchText="{{$subject->surname}} {{$subject->name}} {{$subject->nickname}}" data-subjectSearchId="{{$subject->id}}">
                     <i class="fas fa-user-plus" ></i>
                 </button>
             </div>
@@ -32,8 +33,8 @@
 
 <script>
 $(".subjectSearch").click(function(){
-    $("#subjectId").val($(this).attr("data-subjectSearchId")).change();
-    $("#subjectText").val($(this).attr("data-subjectSearchText")).change();
+    $("#{{$parameter}}Id").val($(this).attr("data-subjectSearchId")).change();
+    $("#{{$parameter}}Text").val($(this).attr("data-subjectSearchText")).change();
 
     $('#modal').modal('toggle');
 });
@@ -42,8 +43,8 @@ $("#search").keyup(function(){
     if($("#search").val().length>0)
 $("#subjectSearch").load("/subject/search?searchText="+$("#search").val(),function(){
     $(".subjectSearch").click(function(){
-        $("#subjectId").val($(this).attr("data-subjectSearchId")).change();
-        $("#subjectText").val($(this).attr("data-subjectSearchText")).change();
+        $("#{{$parameter}}Id").val($(this).attr("data-subjectSearchId")).change();
+        $("#{{$parameter}}Text").val($(this).attr("data-subjectSearchText")).change();
         $('#modal').modal('toggle');
     });
 });

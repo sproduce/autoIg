@@ -117,15 +117,8 @@ class ContractController extends Controller
     }
 
 
-
-    public function addCarDialog(MotorPoolService $motorPoolServ)
-    {
-
-    }
-
     public function saveContract(ContractRequest $contractRequest)
     {
-        $contractRequest->validated();
         $this->contractServ->addContract($contractRequest);
         return redirect('/contract/list');
     }

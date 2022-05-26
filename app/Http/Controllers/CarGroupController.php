@@ -48,11 +48,11 @@ class CarGroupController extends Controller
         return redirect()->back();
     }
 
-    public function searchDialog()
+    public function addCarGroupToDialog()
     {
         $carGroupsObj = $this->carGroupServ->getLastCarGroups(5);
 
-        return view('dialog.CarGroup.searchCarGroup',['carGroups' => $carGroupsObj]);
+        return view('dialog.CarGroup.addCarGroupTo',['carGroups' => $carGroupsObj]);
     }
 
 

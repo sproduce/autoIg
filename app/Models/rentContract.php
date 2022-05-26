@@ -16,11 +16,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property $number
  * @property $comment
  * @property int $typeId
- * @property int $driverId
  * @property int $statusId
  * @property int $deposit
  * @property int $price
  * @property int $carGroupId
+ * @property int $subjectIdFrom
+ * @property int $subjectIdTo
  * @property int $carId
  *
  */
@@ -29,16 +30,11 @@ use Illuminate\Database\Eloquent\Model;
 class rentContract extends Model
 {
     use HasFactory;
-    protected $dates=['start','finish','finishFact'];
-    private $start,$finish,$finishFact,$typeId,$driverId,$carGroupId,$statusId,$balance,$deposit,$number,$comment,$price,$carId;
-    protected $fillable =['start','finish','finishFact','typeId','driverId','carGroupId','statusId','tariffId','deposit','number','comment','carId'];
+    protected $dates = ['start','finish','finishFact'];
+    private $start,$finish,$finishFact,$typeId,$carGroupId,$statusId,$deposit,$number,$comment,$price,$carId,$subjectIdFrom,$subjectIdTo;
+    protected $fillable = ['start','finish','finishFact','typeId','carGroupId','statusId','deposit','number','comment','carId','subjectIdFrom','subjectIdTo'];
 
-    public function driver()
-    {
 
-        return $this->hasOne(rentCarDriver::class,'id','driverId')->withDefault();
-
-    }
     public function type()
     {
         return $this->hasOne(rentContractType::class,'id','typeId')->withDefault();
