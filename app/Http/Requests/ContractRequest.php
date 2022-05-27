@@ -47,7 +47,6 @@ class ContractRequest extends FormRequest
             'statusId' => 'required|integer',
             'subjectIdFrom' => 'required|integer',
             'subjectIdTo' => 'required|integer',
-            'deposit' => 'integer',
             'number' => 'required',
             'comment' => 'string|nullable',
             'price' =>'integer',

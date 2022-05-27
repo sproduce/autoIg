@@ -62,30 +62,28 @@ class ContractController extends Controller
     }
 
 
-    public function addContract(CarGroupRepositoryInterface $carGroupRep,rentContract $rentContractObj)
+    public function addContract(rentContract $rentContractObj)
     {
         $directory = $this->contractServ->getContractDirectory();
-        $carGroupObjs = $carGroupRep->getCarGroups();
 
         return view('contract.CarContract',[
             'directoryObj' => $directory,
-            'carGroupObjs' => $carGroupObjs,
             'rentContractObj' => $rentContractObj,
         ]);
     }
 
 
 
-    public function editContract(CarGroupRepositoryInterface $carGroupRep,rentContract $rentContractObj)
+    public function editContract($id)
     {
-        $validate=$this->request->validate(['contractId'=>'required|integer']);
-        //$contractObj=$this->contractServ->getContract($validate['contractId']);
-        $directoryObj=$this->contractServ->getContractDirectory();
+        $directory = $this->contractServ->getContractDirectory();
+        $rentContractObj = $this->contractServ->getContract($id);
 
-        $rentContractObj = $rentContractObj->find($validate['contractId']);
 
-        $carGroupObjs = $carGroupRep->getCarGroups();
-        return view('contract.CarContract',['rentContractObj' => $rentContractObj,'directoryObj' => $directoryObj,'carGroupObjs' => $carGroupObjs]);
+        return view('contract.CarContract',[
+            'directoryObj' => $directory,
+            'rentContractObj' => $rentContractObj,
+        ]);
     }
 
 

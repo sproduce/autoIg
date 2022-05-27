@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property $comment
  * @property int $typeId
  * @property int $statusId
- * @property int $deposit
  * @property int $price
  * @property int $carGroupId
  * @property int $subjectIdFrom
@@ -31,8 +30,8 @@ class rentContract extends Model
 {
     use HasFactory;
     protected $dates = ['start','finish','finishFact'];
-    private $start,$finish,$finishFact,$typeId,$carGroupId,$statusId,$deposit,$number,$comment,$price,$carId,$subjectIdFrom,$subjectIdTo;
-    protected $fillable = ['start','finish','finishFact','typeId','carGroupId','statusId','deposit','number','comment','carId','subjectIdFrom','subjectIdTo'];
+    private $start,$finish,$finishFact,$typeId,$carGroupId,$statusId,$number,$comment,$price,$carId,$subjectIdFrom,$subjectIdTo;
+    protected $fillable = ['start','finish','finishFact','typeId','carGroupId','statusId','number','comment','carId','subjectIdFrom','subjectIdTo'];
 
 
     public function type()
@@ -54,6 +53,15 @@ class rentContract extends Model
         return $this->hasOne(carConfiguration::class,'id','carId')->withDefault();
     }
 
+    public function subjectFrom()
+    {
+        return $this->hasOne(rentSubject::class,'id','subjectIdFrom')->withDefault();
+    }
 
+
+    public function subjectTo()
+    {
+        return $this->hasOne(rentSubject::class,'id','subjectIdTo')->withDefault();
+    }
 
 }

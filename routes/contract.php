@@ -10,7 +10,7 @@ Route::get('/ContractTypes',[ContractController::class,'showContractTypes']);
 
 Route::get('/add',[ContractController::class,'addContract']);
 Route::post('/add',[ContractController::class,'saveContract']);
-Route::get('/edit',[ContractController::class,'editContract']);
+Route::get('/edit/{id}',[ContractController::class,'editContract']);
 //Route::post('/edit',[ContractController::class,'updateContract']);
 
 

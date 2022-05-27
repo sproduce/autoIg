@@ -1,11 +1,10 @@
 <?php
 namespace App\Services;
 use App\Http\Requests\ContractRequest;
-use App\Http\Requests\DateSpan;
 use App\Models\rentContract;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use Carbon\CarbonPeriod;
-use Illuminate\Http\Request;
+
 
 Class ContractService{
     private $contractRep,$contractModel;
@@ -31,7 +30,7 @@ Class ContractService{
         return $contractsCollect;
     }
 
-    public function getContract($id)
+    public function getContract($id): rentContract
     {
         return $this->contractRep->getContract($id);
     }
@@ -51,7 +50,6 @@ Class ContractService{
         $this->contractModel->carGroupId = $contractData->get('carGroupId');
         $this->contractModel->carId = $contractData->get('carId');
         $this->contractModel->statusId = $contractData->get('statusId');
-        $this->contractModel->deposit = $contractData->get('deposit');
         $this->contractModel->price = $contractData->get('price');
         $this->contractModel->subjectIdFrom = $contractData->get('subjectIdFrom');
         $this->contractModel->subjectIdTo = $contractData->get('subjectIdTo');

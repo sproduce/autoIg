@@ -19,7 +19,7 @@ public function addContractTariff();
 
 public function addContract($contractArray);
 public function getContracts($typeId);
-public function getContract($id):rentContract;
+public function getContract($id): rentContract;
 public function updateContract($contractId,$dataArray);
 
 public function getLastContracts($kol);
