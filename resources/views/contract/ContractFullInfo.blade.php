@@ -2,11 +2,28 @@
 
 
     @section('header')
-                <h6 class="m-0 mr-3">Информация по договору </h6>
+                <h6 class="m-0 mr-3">Информация по договору № {{$rentContractObj->number}}</h6> <br/>
     @endsection
 
     @section('content')
 
+        <div class="row">
+            <div class="col-3"><strong>Начало договора </strong>{{ $rentContractObj->start->format('Y-m-d\TH:i:s')}}</div>
+            <div class="col-3"><strong>Окончание договора </strong>{{$rentContractObj->finish ? $rentContractObj->finish->format('d-m-Y H:i') : ''}}</div>
+            <div class="col-3"><strong>Окончание договора по факту </strong>{{$rentContractObj->finishFact ? $rentContractObj->finishFact->format('d-m-Y H:i') : ''}}</div>
+            <div class="col-3"><strong>Тип договора </strong>{{$rentContractObj->type->name}}</div>
+        </div>
+        <div class="row">
+            <div class="col-3"><strong>Машина </strong>{{$rentContractObj->car->nickName}}</div>
+            <div class="col-3"><strong>Группа машин </strong>{{$rentContractObj->carGroup->nickName}}</div>
+            <div class="col-3"><strong>От кого </strong>{{$rentContractObj->subjectFrom->nickname}}</div>
+            <div class="col-3"><strong>Клиент </strong>{{$rentContractObj->subjectTo->nickname}}</div>
+        </div>
+        <div class="row">
+            <div class="col-3"><strong>Тариф договора </strong>{{$rentContractObj->price}}</div>
+            <div class="col-3"><strong>Статус договора </strong>{{$rentContractObj->status->name}}</div>
+            <div class="col-6"><strong>Комментарий </strong>{{$rentContractObj->comment}}</div>
+        </div>
 
         @if($contractPayments->count())
             <div class="row align-items-center font-weight-bold border mt-3 pb-1 mb-3">

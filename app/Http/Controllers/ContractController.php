@@ -96,20 +96,18 @@ class ContractController extends Controller
     }
 
 
-    public function contractFullInfo(
-        ContractIdRequest $contractIdRequest,
+    public function contractFullInfo($contractId,
         PaymentRepositoryInterface $paymentRep,
-        TimeSheetRepositoryInterface $timeSheetRep,
         ToPaymentRepositoryInterface $toPaymentRep
     ){
-        $contractValidate = $contractIdRequest->validated();
-        $contractId = $contractValidate['contractId'];
+
         $contractPayments = $paymentRep->getPaymentsByContract($contractId);
         //$contractTimeSheets = $timeSheetRep->getContractTimeSheets($contractId);
         $contractService = $toPaymentRep->getToPaymentsByContract($contractId);
+        $contractObj = $this->contractServ->getContract($contractId);
         return view('contract.ContractFullInfo',[
             'contractPayments' => $contractPayments,
-            //'contractTimeSheets' => $contractTimeSheets,
+            'rentContractObj' => $contractObj,
             'contractService' => $contractService,
         ]);
     }

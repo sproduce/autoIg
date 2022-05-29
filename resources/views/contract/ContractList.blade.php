@@ -87,7 +87,7 @@
                                     <div class="row">{{--line 2--}}
                                         <div class="col-1 p-0">
             {{--                            <a href="/payment/listByContract?contractId={{$contract->id}}" title="События по договору">{{$contract->number}}</a>--}}
-                                            <a href="/contract/contractFullInfo?contractId={{$contract->id}}" title="События по договору">{{$contract->number}}</a>
+                                            <a href="/contract/contractFullInfo/{{$contract->id}}" title="События по договору">{{$contract->number}}</a>
                                         </div>
                                         <div class="col-2">{{$contract->finish}}</div>
                                         <div class="col-2">{{$contract->car->nickName}}</div>

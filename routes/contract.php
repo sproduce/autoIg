@@ -22,6 +22,6 @@ Route::get('/search',[ContractController::class,'search']);
 Route::get('/info',[ContractController::class,'dialogInfo']);
 
 Route::get('/toPay',[ContractController::class,'contractToPay']);
-Route::get('/contractFullInfo',[ContractController::class,'contractFullInfo']);
+Route::get('/contractFullInfo/{contractId}',[ContractController::class,'contractFullInfo']);
 //Route::get('/carContracts',[ContractController::class,'dialogCarContract']);
 

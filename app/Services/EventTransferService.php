@@ -21,8 +21,8 @@ Class EventTransferService{
 
     public function addEvent($dataArray)
     {
-        $eventTransferData['contractId']=$dataArray['contractId'];
-        $eventTransferData['type']=$dataArray['typeTransfer'];
+        $eventTransferData['contractId'] = $dataArray['contractId'];
+        $eventTransferData['type'] = $dataArray['typeTransfer'];
         $eventTransferObj=$this->eventTransferRep->addEventTransfer($eventTransferData);
 
         $timesheetData['carId']=$dataArray['carId'];
