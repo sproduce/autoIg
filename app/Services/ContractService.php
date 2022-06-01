@@ -1,18 +1,21 @@
 <?php
 namespace App\Services;
 use App\Http\Requests\ContractRequest;
+use App\Http\Requests\Payment\ToPaymentRequest;
 use App\Models\rentContract;
+use App\Models\toPayment;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use Carbon\CarbonPeriod;
 
 
 Class ContractService{
-    private $contractRep,$contractModel;
+    private $contractRep,$contractModel,$toPaymentModel;
 
-    function __construct(ContractRepositoryInterface $contractRep,rentContract $contractModel)
+    function __construct(ContractRepositoryInterface $contractRep,rentContract $contractModel,toPayment $toPaymentModel)
     {
         $this->contractRep = $contractRep;
         $this->contractModel = $contractModel;
+        $this->toPaymentModel = $toPaymentModel;
     }
 
     public function getContracts(CarbonPeriod $periodDate,$typeId)
@@ -57,26 +60,6 @@ Class ContractService{
         $this->contractModel->save();
     }
 
-    public function editContract()
-    {
-//        $contract=$this->request->validate(['id'=>'required|integer']);
-//        $validate=$this->request->validate(['start'=>'required',
-//            'finish'=>'',
-//            'finishFact'=>'',
-//            'typeId'=>'required|integer',
-//            'driverId'=>'required|integer',
-//            'carId'=>'required|integer',
-//            'statusId'=>'required|integer',
-//            'tariffId'=>'required|integer',
-//            'balance'=>'',
-//            'deposit'=>'',
-//            'number'=>'required',
-//            'comment'=>'',
-//            'sum'=>''
-//        ]);
-//        $this->contractRep->updateContract( $contract['id'],$validate);
-    }
-
 
     public function getContractTypes()
     {
@@ -103,5 +86,14 @@ Class ContractService{
     {
         return $this->contractRep->getLastContracts($kol);
     }
+
+
+    public function  addContractToPayment(ToPaymentRequest $toPayment)
+    {
+        $this->toPaymentModel->sum = $toPayment->get('sum');
+        $this->toPaymentModel->comment = $toPayment->get('comment');
+
+    }
+
 
 }

@@ -71,6 +71,11 @@ class carConfiguration extends Model
         return $this->hasOne(carType::class,'id','typeId')->withDefault();
     }
 
+    public function subjectFrom()
+    {
+        return $this->hasOne(rentSubject::class,'id','subjectIdFrom')->withDefault();
+    }
+
     public function linkCarGroup()
     {
       return $this->hasMany(rentCarGroupLink::class,'carId');

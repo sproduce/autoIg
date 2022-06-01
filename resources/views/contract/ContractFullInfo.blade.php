@@ -8,7 +8,7 @@
     @section('content')
 
         <div class="row">
-            <div class="col-3"><strong>Начало договора </strong>{{ $rentContractObj->start->format('Y-m-d\TH:i:s')}}</div>
+            <div class="col-3"><strong>Начало договора </strong>{{$rentContractObj->start->format('d-m-Y H:i')}}</div>
             <div class="col-3"><strong>Окончание договора </strong>{{$rentContractObj->finish ? $rentContractObj->finish->format('d-m-Y H:i') : ''}}</div>
             <div class="col-3"><strong>Окончание договора по факту </strong>{{$rentContractObj->finishFact ? $rentContractObj->finishFact->format('d-m-Y H:i') : ''}}</div>
             <div class="col-3"><strong>Тип договора </strong>{{$rentContractObj->type->name}}</div>
@@ -105,37 +105,28 @@
             </div>
         @endif
 
+
+
+            <div class="row mt-3">
+                <div class="col-12 text-center">
+                    <h5><a class="btn btn-ssm btn-outline-success DialogUserMin mr-3" title="Добавить услугу" href="/contract/addAdditional/{{$rentContractObj->id}}"><i class="far fa-plus-square"></i></a> Услуги по договору {{$contractService->count() ? '':'не найдены'}}</h5>
+                </div>
+            </div>
         @if($contractService->count())
-            <div class="row mt-3">
-                <div class="col-12 text-center">
-                    <h5>Услуги по договору</h5>
-                </div>
-            </div>
             <div class="row align-items-center font-weight-bold border">
-                <div class="col-2">Дата</div>
-                <div class="col-3">Услуга</div>
-                <div class="col-2">Сумма</div>
-            </div>
-
-            @foreach($contractService as $service)
-                <div class="row row-table">
-                    <div class="col-2">{{$service->sheetsDateTime->format('d-m-Y H:i')}}</div>
-                    <div class="col-3">{{$service->eventsName}}</div>
-                    <div class="col-2">{{$service->paymentsSum}}</div>
-                </div>
-            @endforeach
-
-
-
-        @else
-            <div class="row mt-3">
-                <div class="col-12 text-center">
-                    <h5>Услуги не найдены</h5>
-                </div>
+                <div class="col-2">Событие</div>
+                <div class="col-3">Сумма</div>
+                <div class="col-2">Комменатрий</div>
             </div>
         @endif
 
-
+{{--            @foreach($contractService as $service)--}}
+{{--                <div class="row row-table">--}}
+{{--                    <div class="col-2">{{$service->sheetsDateTime->format('d-m-Y H:i')}}</div>--}}
+{{--                    <div class="col-3">{{$service->eventsName}}</div>--}}
+{{--                    <div class="col-2">{{$service->paymentsSum}}</div>--}}
+{{--                </div>--}}
+{{--            @endforeach--}}
 
     @endsection
 

@@ -112,11 +112,15 @@
 @section('js')
     <script>
         $('#carId').change(function() {
-            $.get("/api/getCarGroups",{carId:$('#carId').val()}).done(function( data ) {
+            $.get("/api/getCarGroups/"+$('#carId').val()).done(function( data ) {
                 if (data.length){
                     $('#carGroupText').val(data[0].nickName);
                     $('#carGroupId').val(data[0].id);
                 }
+            });
+            $.get("/api/getCarRentFrom/"+$('#carId').val()).done(function( data ) {
+                    $('#subjectFromText').val(data.nickname);
+                    $('#subjectFromId').val(data.id);
             });
         });
     </script>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ContractIdRequest;
 use App\Http\Requests\ContractRequest;
 use App\Http\Requests\DateSpan;
+use App\Http\Requests\Payment\ToPaymentRequest;
 use App\Models\rentContract;
 use App\Repositories\ContractRepository;
 use App\Repositories\Interfaces\CarGroupRepositoryInterface;
@@ -146,12 +147,26 @@ class ContractController extends Controller
         return response()->json($contractObj);
     }
 
-    public function contractToPay()
+//    public function contractToPay()
+//    {
+//        $validate=$this->request->validate(['contractId'=>'required|integer']);
+//        $contractObj=$this->contractServ->getContract($validate['contractId']);
+//        return view('contract.toPay',['contractObj'=>$contractObj]);
+//    }
+
+
+    public function addContractAdditionalDialog($contractId)
     {
-        $validate=$this->request->validate(['contractId'=>'required|integer']);
-        $contractObj=$this->contractServ->getContract($validate['contractId']);
-        return view('contract.toPay',['contractObj'=>$contractObj]);
+        return view('dialog.Contract.addContractAdditional',['contractId'=>$contractId]);
     }
+
+    public function addContractAdditional(ToPaymentRequest $toPayment)
+    {
+        $this->contractServ->addContractToPayment($toPayment);
+        return  redirect()->back();
+    }
+
+
 
 
 //    public function dialogCarContract(ContractRepository $contractRep)

@@ -113,4 +113,17 @@ class MotorPoolController extends Controller
         return response()->json($carInfo);
     }
 
+
+    public function getCarFullInfo($id)
+    {
+        $carObj = $this->motorPoolServ->getCarFullInfo($id);
+        return response()->json($carObj);
+    }
+
+    public function getCarRentFrom($carId,carConfiguration $motorPoolCar)
+    {
+        $carInfoObj = $this->motorPoolServ->getCar($carId);
+        return response()->json($carInfoObj->subjectFrom);
+    }
+
 }

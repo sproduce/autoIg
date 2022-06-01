@@ -13,7 +13,7 @@ class ToPaymentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class ToPaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id' => 'integer|nullable',
+            'timeSheetId' => 'integer|nullable',
+            'paymentId' => 'integer|nullable',
+            'contractId' => 'integer|required',
+            'sum' => 'integer|required',
+            'comment' => 'string|nullable',
         ];
     }
 }

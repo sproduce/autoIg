@@ -72,9 +72,9 @@ class CarGroupController extends Controller
     }
 
 
-    public function getCarGroupsApi(CarIdRequest $carIdRequest)
+    public function getCarGroupsApi($carId)
     {
-        $carGroups = $this->carGroupRep->getCarGroupsByCar($carIdRequest->getCarId());
+        $carGroups = $this->carGroupRep->getCarGroupsByCar($carId);
         if (!count($carGroups)){
             $carGroups = $this->carGroupRep->getCarGroups();
         }

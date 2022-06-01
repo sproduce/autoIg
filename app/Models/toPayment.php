@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $carId
  * @property int $paymentId
  * @property int $pId
- * @property string $comemnt
+ * @property string $comment
  *
  */
 

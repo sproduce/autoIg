@@ -26,7 +26,11 @@ Route::get('/getModels',[ReferenceController::class,'getModel']);
 Route::get('/getGenerations',[ReferenceController::class,'getGeneration']);
 
 
-Route::get('/getCarInfo',[MotorPoolController::class,'getCarInfo']);
-Route::get('/getCarInfo/{carId}',[MotorPoolController::class,'getCarInfo']);
-Route::get('/getContractInfo/{contarctId}',[ContractController::class,'getContractInfo']);
-Route::get('/getCarGroups',[CarGroupController::class,'getCarGroupsApi']);
+Route::get('/getContractInfo/{contractId}',[ContractController::class,'getContractInfo']);
+
+
+
+Route::get('/getCarGroups/{carId}',[CarGroupController::class,'getCarGroupsApi']);
+Route::get('/getCarRentFrom/{carId}',[MotorPoolController::class,'getCarRentFrom']);
+Route::get('/getCarInfo/{carId}?',[MotorPoolController::class,'getCarInfo']);
+Route::get('/getCarFullInfo/{carId}',[MotorPoolController::class,'getCarFullInfo']);
