@@ -50,6 +50,7 @@ class ContractRequest extends FormRequest
             'number' => 'required',
             'comment' => 'string|nullable',
             'price' =>'integer',
+            'toAddForm' => 'nullable|boolean',
         ];
     }
 }

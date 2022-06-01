@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $subjectIdFrom
  * @property int $subjectIdTo
  * @property int $carId
+ * @property $toAddForm
  *
  */
 
@@ -30,7 +31,7 @@ class rentContract extends Model
 {
     use HasFactory;
     protected $dates = ['start','finish','finishFact'];
-    private $start,$finish,$finishFact,$typeId,$carGroupId,$statusId,$number,$comment,$price,$carId,$subjectIdFrom,$subjectIdTo;
+    private $start,$finish,$finishFact,$typeId,$carGroupId,$statusId,$number,$comment,$price,$carId,$subjectIdFrom,$subjectIdTo,$toAddForm;
     protected $fillable = ['start','finish','finishFact','typeId','carGroupId','statusId','number','comment','carId','subjectIdFrom','subjectIdTo'];
 
 

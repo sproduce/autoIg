@@ -56,11 +56,10 @@
                         <div class="row align-items-center font-weight-bold border">
                             <div class="col-1 p-0">Номер</div>
                             <div class="col-2 p-0">Даты</div>
-                            <div class="col-2 p-0">Группа/Машина</div>
-                            <div class="col-2 p-0">Водитель</div>
-                            <div class="col-1 p-0">Депозит</div>
+                            <div class="col-2 p-0">Группа / Машина</div>
+                            <div class="col-3 p-0">От кого / Кому</div>
                             <div class="col-1 p-0">Баланс</div>
-                            <div class="col-2 p-0">??</div>
+                            <div class="col-2 p-0">Статус / Тариф</div>
                             <div class="col-1"></div>
                         </div>
                         @foreach($contracts as $contract)
@@ -70,9 +69,8 @@
                                         <div class="col-1 text-left pl-0">{{$loop->iteration}}.</div>
                                         <div class="col-2">{{$contract->start}}</div>
                                         <div class="col-2">{{$contract->carGroup->nickName}}</div>
-                                        <div class="col-2"></div>
+                                        <div class="col-3">{{$contract->subjectFrom->nickname}}</div>
                                         <div class="col-1 text-right">{{$contract->deposit}}</div>
-                                        <div class="col-1 text-right"></div>
                                         <div class="col-2">{{$contract->status->name}}</div>
                                         <div class="col-1 p-0 text-center">
                                             <a class="btn btn-ssm btn-outline-warning" href="/contract/edit/{{$contract->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
@@ -91,9 +89,9 @@
                                         </div>
                                         <div class="col-2">{{$contract->finish}}</div>
                                         <div class="col-2">{{$contract->car->nickName}}</div>
-                                        <div class="col-2"></div>
+                                        <div class="col-3">{{$contract->subjectTo->nickname}}</div>
                                         <div class="col-1 text-right"></div>
-                                        <div class="col-1 text-right"></div>
+
                                         <div class="col-2">{{$contract->price}}</div>
                                         <div class="col-1 text-center p-0 pt-1"></div>
                                     </div>
