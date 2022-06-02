@@ -36,7 +36,6 @@
                             Сумма <br/>(Комиссия)
                         </div>
                     </div>
-
                 </div>
                 <div class="col-2">Счет</div>
                 <div class="col-2">Тип операции</div>
@@ -105,11 +104,12 @@
             </div>
         @endif
 
-
-
             <div class="row mt-3">
                 <div class="col-12 text-center">
-                    <h5><a class="btn btn-ssm btn-outline-success DialogUserMin mr-3" title="Добавить услугу" href="/contract/addAdditional/{{$rentContractObj->id}}"><i class="far fa-plus-square"></i></a> Услуги по договору {{$contractService->count() ? '':'не найдены'}}</h5>
+                    <h5>
+                    <a class="btn btn-ssm btn-outline-success mr-3" href="/timesheet/add?carId={{$rentContractObj->carId}}&contractId={{$rentContractObj->id}}"><i class="fas fa-calendar-plus"></i></a>
+                    <a class="btn btn-ssm btn-outline-success DialogUserMin mr-3" title="Добавить услугу" href="/contract/addAdditional/{{$rentContractObj->id}}"><i class="far fa-plus-square"></i></a>
+                    Услуги по договору {{$contractService->count() ? '':'не найдены'}}</h5>
                 </div>
             </div>
         @if($contractService->count())
@@ -120,13 +120,13 @@
             </div>
         @endif
 
-{{--            @foreach($contractService as $service)--}}
-{{--                <div class="row row-table">--}}
-{{--                    <div class="col-2">{{$service->sheetsDateTime->format('d-m-Y H:i')}}</div>--}}
-{{--                    <div class="col-3">{{$service->eventsName}}</div>--}}
-{{--                    <div class="col-2">{{$service->paymentsSum}}</div>--}}
-{{--                </div>--}}
-{{--            @endforeach--}}
+            @foreach($contractService as $service)
+                <div class="row row-table">
+                    <div class="col-2">{{$service->eventsName}}</div>
+                    <div class="col-3">{{$service->paymentsSum}}</div>
+                    <div class="col-2">{{$service->paymentsComment}}</div>
+                </div>
+            @endforeach
 
     @endsection
 

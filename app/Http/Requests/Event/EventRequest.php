@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Event;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EventRequest extends FormRequest
@@ -16,6 +17,19 @@ class EventRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        $input = parent::all();
+        if (empty($input['date'])){
+            $date = Carbon::today();
+        } else{
+            $date = new Carbon($input['date']);
+        }
+        $date = $date->setTimeFrom(Carbon::now());
+        $this->merge(['date' => $date]);
+    }
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +38,9 @@ class EventRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'carId' => 'nullable|integer',
+            'contractId' => 'nullable|integer',
+            'date' => 'nullable|date',
         ];
     }
 }

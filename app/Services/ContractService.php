@@ -2,18 +2,25 @@
 namespace App\Services;
 use App\Http\Requests\ContractRequest;
 use App\Http\Requests\Payment\ToPaymentRequest;
+use App\Http\Requests\Search\SearchContractRequest;
 use App\Models\rentContract;
 use App\Models\toPayment;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
+use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\CarbonPeriod;
 
 
 Class ContractService{
-    private $contractRep,$contractModel,$toPaymentModel;
+    private $contractRep,$toPaymentRep,$contractModel,$toPaymentModel;
 
-    function __construct(ContractRepositoryInterface $contractRep,rentContract $contractModel,toPayment $toPaymentModel)
-    {
+    function __construct(
+        ContractRepositoryInterface $contractRep,
+        ToPaymentRepositoryInterface $toPaymentRep,
+        rentContract $contractModel,
+        toPayment $toPaymentModel
+    ){
         $this->contractRep = $contractRep;
+        $this->toPaymentRep = $toPaymentRep;
         $this->contractModel = $contractModel;
         $this->toPaymentModel = $toPaymentModel;
     }
@@ -91,8 +98,15 @@ Class ContractService{
     public function  addContractToPayment(ToPaymentRequest $toPayment)
     {
         $this->toPaymentModel->sum = $toPayment->get('sum');
+        $this->toPaymentModel->contractId = $toPayment->get('contractId');
         $this->toPaymentModel->comment = $toPayment->get('comment');
+        $this->toPaymentRep->addToPayment($this->toPaymentModel);
+    }
 
+
+    public function search(SearchContractRequest $searchContractObj)
+    {
+        return $this->contractRep->search($searchContractObj);
     }
 
 

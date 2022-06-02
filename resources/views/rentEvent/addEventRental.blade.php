@@ -19,18 +19,15 @@
     <input name="duration" value="{{$eventObj->duration}}" hidden/>
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
-            <label for="contractText" title="Автомобиль">
-                Машина
-                <a href="/contract/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
-            </label>
+            <label for="contractText" title="Автомобиль">Машина</label>
+                <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
             <input id="carText" class="form-control" value="{{$carObj->nickName}}" readonly required />
             <input id="carId" name="carId" class="form-control" value="{{$carObj->id}}" hidden />
         </div>
         <div class="form-group col-md-3 input-group-sm">
-            <label for="contractText" title="Договор">
-                Договор
-                <a href="/payment/addContract" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
-            </label>
+            <label for="contractText" title="Договор"> Договор </label>
+                <a href="/contract/addContractTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+
             @if ($contractObj->id)
                 <input id="contractText" name="contractText"  class="form-control" value="{{$contractObj->number}}" disabled />
                 <input name="contractId" id="contractId" value="{{$contractObj->id}}"  hidden/>
@@ -94,7 +91,7 @@
                 <label></label>
             </div>
             <div class="input-group col-3 mb-3">
-                <input type="text" name="sum[]" class="form-control form-control-sm inputLineSum" autocomplete="off">
+                <input type="text" name="sum[]" class="form-control form-control-sm inputLineSum" value="{{$contractObj->price ?:0}}" autocomplete="off">
             </div>
         </div>
 

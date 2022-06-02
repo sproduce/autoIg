@@ -19,6 +19,8 @@ Route::get('/addCar',[ContractController::class,'addCarDialog']);
 
 
 Route::get('/search',[ContractController::class,'search']);
+Route::get('/addContractTo',[ContractController::class,'addContractToDialog']);
+
 Route::get('/info',[ContractController::class,'dialogInfo']);
 
 Route::get('/toPay',[ContractController::class,'contractToPay']);

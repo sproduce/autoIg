@@ -5,6 +5,8 @@ namespace App\Services;
 
 use App\Models\carConfiguration;
 use App\Models\rentEventRental;
+use App\Models\timeSheet;
+use App\Models\toPayment;
 use App\Repositories\Interfaces\EventRentalRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 
@@ -30,42 +32,52 @@ Class EventRentalService{
         $startDateText = $dataArray['dateStart'].' '.$dataArray['timeStart'];
         $finishDateText = $dataArray['dateFinish'].' '.$dataArray['timeFinish'];
         $startCarbon = new Carbon($startDateText);
+
+
+
+
         $diffMinutes = $startCarbon->diffInMinutes($finishDateText);
         $colIteration = floor($diffMinutes/$dataArray['duration']);
         $deltaMinutes = $diffMinutes-$colIteration*$dataArray['duration'];
 
-        //$eventRentalData['contractId'] = $dataArray['contractId'];
-        //$eventRentalObj = $this->eventRentalRep->addEventRental($eventRentalData);
+        $timeSheetObj = new timeSheet();
+        $timeSheetObj->carId = $dataArray['carId'];
+        $timeSheetObj->eventId = $dataArray['eventId'];
+        $timeSheetObj->comment = '';
+        $timeSheetObj->color =  $dataArray['color'];
+        $timeSheetObj->duration = $dataArray['duration'];
 
-        $timesheetData['contractId'] = $dataArray['contractId'];
-        $timesheetData['carId'] = $dataArray['carId'];
-        $timesheetData['eventId'] = $dataArray['eventId'];
-        $timesheetData['comment'] = '';
+        $toPaymentObj = new toPayment();
+        $toPaymentObj->contractId = $dataArray['contractId'];
 
-        $timesheetData['color'] = $dataArray['color'];
-        $timesheetData['duration'] = $dataArray['duration'];
-        //$toPaymentArray['contractId'] = $dataArray['contractId'];
-        $toPaymentArray['carId'] = $dataArray['carId'];
         for ($i = 0; $i < $colIteration; $i++)
         {
-            $rentEventOnj = new rentEventRental();
-            $rentEventOnj->save();
-            $timesheetData['dataId'] = $rentEventOnj->id;
-            $timesheetData['dateTime'] = $startCarbon->toDateTimeString();
+            $rentEventObj = new rentEventRental();
+            $rentEventObj = $this->eventRentalRep->addEventRental($rentEventObj);
+
+            $timeSheetRep = $timeSheetObj->replicate();
+            $timeSheetRep->dateTime = $startCarbon->toDateTimeString();
             $startCarbon->addDays(1);
-            $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
-            $toPaymentArray['sum'] = $dataArray['sum'][$i]??0;;
-            $toPaymentArray['timeSheetId'] = $timeSheetObj->id;
-            $this->toPaymentRep->addToPayment($toPaymentArray);
+            $timeSheetRep->dataId = $rentEventObj->id;
+            $timeSheetRep = $this->timeSheetRep->addTimeSheet($timeSheetRep);
+
+            $toPaymentRep = $toPaymentObj->replicate();
+            $toPaymentRep->sum = $dataArray['sum'][$i]??0;
+            $toPaymentRep->timeSheetId =  $timeSheetRep->id;
+            $toPaymentRep = $this->toPaymentRep->addToPayment($toPaymentRep);
         }
         if ($deltaMinutes){
-            $timesheetData['dateTime']=$startCarbon->toDateTimeString();
-            $timesheetData['sum']=$dataArray['sum'][$colIteration]??0;
-            $timesheetData['duration']=$deltaMinutes;
-            $timeSheetObj=$this->timeSheetRep->addTimeSheet($timesheetData);
-            $toPaymentArray['sum']= $dataArray['sum'][$i]??0;;
-            $toPaymentArray['timeSheetId']=$timeSheetObj->id;
-            $this->toPaymentRep->addToPayment($toPaymentArray);
+            $timeSheetRep = $timeSheetObj->replicate();
+            $toPaymentRep = $toPaymentObj->replicate();
+
+            $timeSheetRep->dateTime = $startCarbon->toDateTimeString();
+            $timeSheetRep->sum = $dataArray['sum'][$colIteration]??0;
+            $timeSheetRep->duration =$deltaMinutes;
+            $timeSheetRep = $this->timeSheetRep->addTimeSheet($timeSheetRep);
+
+            $toPaymentRep->sum = $dataArray['sum'][$i]??0;;
+            $toPaymentRep->timeSheetId = $timeSheetObj->id;
+            $toPaymentRep = $this->toPaymentRep->addToPayment($toPaymentRep);
         }
     }
 

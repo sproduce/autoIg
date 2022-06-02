@@ -16,10 +16,11 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
     public function getToPaymentsByContract($contractId): Collection
     {
         $resultCollection = DB::table('to_payments')
-            ->join('time_sheets','time_sheets.id', '=' ,'to_payments.timeSheetId')
-            ->join('rent_events','rent_events.id','=','time_sheets.eventId')
+            ->leftjoin('time_sheets','time_sheets.id', '=' ,'to_payments.timeSheetId')
+            ->leftjoin('rent_events','rent_events.id','=','time_sheets.eventId')
             ->select([
                 'to_payments.sum as paymentsSum',
+                'to_payments.comment as paymentsComment',
                 'to_payments.paymentId as paymentsPaymentId',
                 'time_sheets.dateTime as sheetsDateTime',
                 'rent_events.name as eventsName',
@@ -35,7 +36,6 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         });
 
         return $resultCollection;
-        //return toPayment::query()->where('contractId',$contractId)->get();
     }
 
     public function getToPayment($toPaymentId)
@@ -84,14 +84,20 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         return $resultCollection;
     }
 
-    public function addToPayment($toPaymentArray)
+    public function addToPayment(toPayment $toPaymentObj): toPayment
     {
-        return toPayment::create($toPaymentArray);
+        $toPaymentObj->save();
+        return $toPaymentObj;
     }
+
+
+
     public function updateToPayment($id,$toPaymentArray)
     {
         toPayment::where('id',$id)->update($toPaymentArray);
     }
+
+
     public function delToPayment($toPaymentId)
     {
         $toPayment=toPayment::find($toPaymentId);

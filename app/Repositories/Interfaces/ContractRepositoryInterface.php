@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories\Interfaces;
+use App\Http\Requests\Search\SearchContractRequest;
 use App\Models\rentContract;
 
 interface ContractRepositoryInterface
@@ -24,7 +25,7 @@ public function updateContract($contractId,$dataArray);
 
 public function getLastContracts($kol);
 
-public function search($text);
+public function search(SearchContractRequest $searchContractObj);
 
 public function getContractsByCarId($carId);
 

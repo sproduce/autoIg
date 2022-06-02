@@ -3,13 +3,14 @@
 namespace App\Repositories\Interfaces;
 
 
+use App\Models\rentEventRental;
 use Carbon\CarbonPeriod;
 
 interface EventRentalRepositoryInterface
 {
-    public function addEventRental($dataArray);
+    public function addEventRental(rentEventRental $rentEventRentalObj): rentEventRental;
     public function getEventRentalsByContract($contractId);
-    public function getEventRental($id);
+    public function getEventRental($id): rentEventRental;
 
     public function getEventRentalFullInfo($eventId,$eventRentalId);
 

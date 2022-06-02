@@ -6,6 +6,7 @@ use App\Http\Requests\ContractIdRequest;
 use App\Http\Requests\ContractRequest;
 use App\Http\Requests\DateSpan;
 use App\Http\Requests\Payment\ToPaymentRequest;
+use App\Http\Requests\Search\SearchContractRequest;
 use App\Models\rentContract;
 use App\Repositories\ContractRepository;
 use App\Repositories\Interfaces\CarGroupRepositoryInterface;
@@ -29,7 +30,7 @@ class ContractController extends Controller
     function __construct(ContractService $contractServ,Request $request)
     {
         $this->contractServ = $contractServ;
-        $this->request=$request;
+        $this->request = $request;
     }
 
     public function showActual()
@@ -126,9 +127,17 @@ class ContractController extends Controller
     }
 
 
-    public function search()
+    public function addContractToDialog()
     {
-        $contractsObj=$this->contractServ->search();
+        $contractsObj = $this->contractServ->getLastContracts(7);
+        return view('dialog.Contract.addContractTo',['contractsObj' => $contractsObj]);
+    }
+
+
+    public function search(SearchContractRequest $searchContractObj)
+    {
+        $contractsObj = $this->contractServ->search($searchContractObj);
+
         return view('contract.resultSearch',['contracts'=>$contractsObj]);
     }
 

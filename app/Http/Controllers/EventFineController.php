@@ -58,7 +58,7 @@ class EventFineController extends Controller
 
         return response()->view('rentEvent.addEventFine',[
             'needParent' => $needParent['needParent'],
-            'dateTime' => $carIdDate['date'],
+            'dateTime' => $carIdDate->get('date'),
             'carObj' => $carObj,
             'eventFineObj' => $this->eventFineModel,
         ]);

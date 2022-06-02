@@ -18,7 +18,7 @@ interface ToPaymentRepositoryInterface
     public function getToPayments();
 
     public function updateToPayment($id,$toPaymentArray);
-    public function addToPayment(toPayment $toPaymentArray);
+    public function addToPayment(toPayment $toPaymentObj): toPayment;
     public function delToPayment($toPaymentId);
 
 }

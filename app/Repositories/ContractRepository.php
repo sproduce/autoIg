@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories;
+use App\Http\Requests\Search\SearchContractRequest;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Models\rentContract;
 use App\Models\rentContractStatus;
@@ -67,9 +68,10 @@ class ContractRepository implements ContractRepositoryInterface
         return rentContract::take($kol)->orderByDesc('id')->get();
     }
 
-    public function search($text)
+    public function search(SearchContractRequest $searchContractObj)
     {
-        return rentContract::query()->where('number','LIKE','%'.$text.'%')->get();
+        $searchText = $searchContractObj->get('searchText');
+        return rentContract::query()->where('number','LIKE','%'.$searchText.'%')->get();
     }
 
     public function getContractTypeFirst()

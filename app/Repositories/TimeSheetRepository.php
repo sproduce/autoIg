@@ -60,9 +60,10 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         // TODO: Implement getTimeSheetById() method.
     }
 
-    public function addTimeSheet($dataArray)
+    public function addTimeSheet(timeSheet $timeSheetObj): timeSheet
     {
-        return timeSheet::create($dataArray);
+        $timeSheetObj->save();
+        return $timeSheetObj;
     }
 
 
