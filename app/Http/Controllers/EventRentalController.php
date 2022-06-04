@@ -48,13 +48,12 @@ class EventRentalController extends Controller
         ContractRepositoryInterface $contractRep,
         TimeSheetRepositoryInterface $timeSheetRep
     ){
-        $inputData = $carIdDate->validated();
         $nP = $needParent->validated();
-        $contractObj=$contractRep->getContract($inputData['contractId']);
+        $contractObj=$contractRep->getContract($carIdDate->get('contractId'));
         if ($contractObj->carId){
             $carObj=$motorPoolServ->getCar($contractObj->carId);
         } else{
-            $carObj=$motorPoolServ->getCar($inputData['carId']);
+            $carObj=$motorPoolServ->getCar($carIdDate->get('carId'));
         }
 
         $lastTimeSheetObj = $timeSheetRep->getLastTimeSheet($carObj,$this->eventObj);
@@ -63,7 +62,7 @@ class EventRentalController extends Controller
             'carObj' => $carObj,
             'needParent' => $nP['needParent'],
             'contractObj' => $contractObj,
-            'dateTime' => $inputData['date'],
+            'dateTime' => $carIdDate->get('date'),
             'eventObj' => $this->eventObj,
             'lastTimeSheet' => $lastTimeSheetObj,
         ]);

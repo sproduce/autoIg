@@ -16,7 +16,7 @@
             <div class="p-2">Машина: {{$carObj->nickName}}</div>
         @endif
         @if($contractObj->id)
-            <div class="p-2">Контракт N: {{$contractObj->number}}</div>
+            <div class="p-2">Договор N: {{$contractObj->number}}</div>
         @endif
 
         <div class="p-2">Дата: {{$dateTime->format('d-m-Y')}}</div>

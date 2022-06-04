@@ -6,6 +6,7 @@ use App\Http\Requests\CarIdDate;
 use App\Http\Requests\DateSpan;
 use App\Http\Requests\NeedParent;
 use App\Models\rentEventFine;
+use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\EventFineRepositoryInterface;
 use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
@@ -51,13 +52,15 @@ class EventFineController extends Controller
     public function create(
         NeedParent $needParent,
         CarIdDate $carIdDate,
-        MotorPoolService $motorPoolServ
+        MotorPoolService $motorPoolServ,
+        ContractRepositoryInterface $contractRep
     ){
 
         $carObj = $motorPoolServ->getCar($carIdDate->getCarId());
-
+        $contractObj=$contractRep->getContract($carIdDate->get('contractId'));
         return response()->view('rentEvent.addEventFine',[
             'needParent' => $needParent['needParent'],
+            'contractObj' =>  $contractObj,
             'dateTime' => $carIdDate->get('date'),
             'carObj' => $carObj,
             'eventFineObj' => $this->eventFineModel,

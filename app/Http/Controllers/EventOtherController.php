@@ -43,15 +43,15 @@ class EventOtherController extends Controller
            MotorPoolService $motorPoolServ,
            ContractRepositoryInterface $contractRep
        ) {
-        $inputData = $carIdDate->validated();
-        $nP = $needParent->validated();
-        $carObj = $motorPoolServ->getCar($inputData['carId']);
+            $contractObj=$contractRep->getContract($carIdDate->get('contractId'));
+            $carObj = $motorPoolServ->getCar($carIdDate['carId']);
 
         return view('rentEvent.addEventOther',[
             'carObj' => $carObj,
-            'needParent' => $nP['needParent'],
-            'dateTime'=> $inputData['date'],
-            'eventObj'=>$this->eventObj,
+            'needParent' => $needParent['needParent'],
+            'dateTime' => $carIdDate['date'],
+            'eventObj' => $this->eventObj,
+            'contractObj' => $contractObj,
         ]);
     }
 
