@@ -40,7 +40,7 @@
         <div class="col-8">
             <select name="payOperationTypeId">
                 @foreach($paymentTypes as $paymentType)
-                    <option value="{{$paymentType->id}}">{{$paymentType->name}}</option>
+                    <option value="{{$paymentType->id}}" @if($rentEventObj->operationType->id==$paymentType->id)selected @endif>{{$paymentType->name}}</option>
                 @endforeach
             </select>
         </div>

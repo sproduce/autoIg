@@ -47,24 +47,28 @@
                     <div class="form-group col-md-3 input-group-sm">
                         <label for="carText" title="Машина">Машина</label>
                         <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+                        <a class="btn btn-ssm btn-outline-danger ml-2" id="carClear"><i class="fas fa-eraser"></i></a>
                         <input id="carText" name="carText" class="form-control" value="{{old('carText',$rentContractObj->car->nickName)}}" readonly/>
                         <input name="carId" id="carId" value="{{old('carId',$rentContractObj->carId)}}" hidden/>
                     </div>
                     <div class="form-group col-md-3 input-group-sm">
                         <label for="carGroupText" title="Группа машин">Группа машин</label>
                         <a href="/carGroup/addCarGroupTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+                        <a class="btn btn-ssm btn-outline-danger ml-2" id="carGroupClear"><i class="fas fa-eraser"></i></a>
                         <input id="carGroupText" name="carGroupText" class="form-control" value="{{old('carGroupText',$rentContractObj->carGroup->nickName)}}" readonly/>
                         <input name="carGroupId" id="carGroupId" value="{{old('carGroupId',$rentContractObj->carGroupId)}}" hidden/>
                     </div>
                     <div class="form-group col-md-3 input-group-sm">
                         <label for="subjectFromText" title="От кого">От кого</label>
                         <a href="/subject/addSubjectTo/subjectFrom" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+                        <a class="btn btn-ssm btn-outline-danger ml-2" id="subjectFromClear"><i class="fas fa-eraser"></i></a>
                             <input id="subjectFromText" name="subjectFromText" value="{{old('subjectFromText',$rentContractObj->subjectFrom->nickname)}}" class="form-control"  readonly/>
                             <input name="subjectIdFrom" id="subjectFromId" value="{{old('subjectIdFrom',$rentContractObj->subjectIdFrom)}}" hidden/>
                     </div>
                     <div class="form-group col-md-3 input-group-sm">
                         <label for="subjectToText" title="Клиент">Клиент</label>
                         <a href="/subject/addSubjectTo/subjectTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+                        <a class="btn btn-ssm btn-outline-danger ml-2" id="subjectToClear"><i class="fas fa-eraser"></i></a>
                             <input id="subjectToText" class="form-control"  value="{{old('subjectToText',$rentContractObj->subjectTo->nickname)}}"readonly/>
                             <input name="subjectIdTo" id="subjectToId" value="{{old('subjectIdTo',$rentContractObj->subjectIdTo)}}" hidden/>
                     </div>
@@ -123,5 +127,25 @@
                     $('#subjectFromId').val(data.id);
             });
         });
+        $('#carClear').click(function() {
+                $('#carText').val("");
+                $('#carId').val("");
+        });
+
+        $('#carGroupClear').click(function() {
+            $('#carGroupText').val("");
+            $('#carGroupId').val("");
+        });
+        $('#subjectFromClear').click(function() {
+            $('#subjectFromText').val("");
+            $('#subjectFromId').val("");
+        });
+        $('#subjectToClear').click(function() {
+            $('#subjectToText').val("");
+            $('#subjectToId').val("");
+        });
+
+
+
     </script>
 @endsection

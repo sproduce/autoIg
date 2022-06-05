@@ -36,7 +36,7 @@
                     <input type="checkbox" onclick="return false;"/>
                 @endif
             </div>
-            <div class="col-2"></div>
+            <div class="col-2">{{$rentEvent->operationType->name}} </div>
             <div class="col-1"><a class="btn btn-ssm btn-outline-warning DialogUserMin" href="/rentEvent/edit?eventId={{$rentEvent->id}}" title="Редактировать"> <i class="far fa-edit"></i></a></div>
         </div>
     @endforeach

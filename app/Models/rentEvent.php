@@ -24,4 +24,10 @@ class rentEvent extends Model
     protected $fillable = ['name', 'color','action'];
 
 
+    public function operationType()
+    {
+        return $this->hasOne(payOperationType::class,'id','payOperationTypeId')->withDefault();
+    }
+
+
 }
