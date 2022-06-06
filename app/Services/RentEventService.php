@@ -64,5 +64,12 @@ Class RentEventService{
     }
 
 
+    public function getAllEvents()
+    {
+
+    }
+
+
+
 }
 

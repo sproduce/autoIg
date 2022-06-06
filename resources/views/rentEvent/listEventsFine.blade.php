@@ -16,8 +16,13 @@
             <div class="col-2">{{$event->datePaySale}}</div>
             <div class="col-2">{{$event->sum}}/{{$event->sumSale}}</div>
             <div class="col-2">
-                <a class="btn btn-ssm btn-outline-warning" href="/{{$eventObj->action}}/{{$event->dataId}}/edit" title="Редактировать"> <i class="far fa-edit"></i></a>
-                <a href="/carDriver/delete?carDriverId=6" class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить марку?')"><i class="fas fa-trash"></i> </a>
+                <form method="POST" action="/{{$eventObj->action}}/{{$event->dataId}}">
+                    @method('DELETE')
+                    @csrf
+                    <a class="btn btn-ssm btn-outline-warning" href="/{{$eventObj->action}} /{{$event->dataId}}/edit" title="Редактировать"> <i class="far fa-edit"></i></a>
+                    <button class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить событие?')"><i class="fas fa-trash"></i> </button>
+                </form>
+
             </div>
         </div>
     @endforeach

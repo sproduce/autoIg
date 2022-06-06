@@ -36,7 +36,8 @@ class OtherRequest extends FormRequest
     public function rules()
     {
         return [
-            'carId' => 'integer|required',
+            'carId' => 'integer|nullable',
+            'contractId' => 'integer|nullable',
             'sumOther' => 'integer',
             'dateOther' => 'date|required',
             'timeOther' => 'date_format:H:i|required',

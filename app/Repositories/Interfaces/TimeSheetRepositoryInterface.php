@@ -17,9 +17,10 @@ interface TimeSheetRepositoryInterface
 
     public function getTimeSheetsByEvent($eventId,CarbonPeriod  $datePeriod);
     public function getTimeSheet($timeSheetId):timeSheet;
-    public function getTimeSheetsArray($dateFrom,$dateTo);
+    public function getTimeSheetsArray(CarbonPeriod $datePeriod);
     public function getTimeSheetByDate($date);
     public function getTimeSheetById($id);
+
     public function addTimeSheet(timeSheet $timeSheetObj): timeSheet;
     public function updateTimeSheet($id,$dataArray);
     public function getCarTimeSheetByDate($carId,CarbonPeriod  $datePeriod);
@@ -30,6 +31,7 @@ interface TimeSheetRepositoryInterface
 
     public function getTimeSheetPeriod();
 
+    //public function getAllEvents(CarbonPeriod  $datePeriod);
 
     public function getLastTimeSheet(carConfiguration $carObj,rentEvent $eventObj): ?timeSheet;
 

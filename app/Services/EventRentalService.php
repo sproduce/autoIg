@@ -53,6 +53,7 @@ Class EventRentalService{
         for ($i = 0; $i < $colIteration; $i++)
         {
             $rentEventObj = new rentEventRental();
+            $rentEventObj->contractId = $dataArray['contractId'];
             $rentEventObj = $this->eventRentalRep->addEventRental($rentEventObj);
 
             $timeSheetRep = $timeSheetObj->replicate();

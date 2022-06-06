@@ -23,6 +23,7 @@ Route::get('/days',[TimeSheetController::class,'showDaysTimeSheet']);
 Route::get('/contract',[TimeSheetController::class,'showContractTimeSheet']);
 
 Route::get('/listByEvent',[TimeSheetController::class,'listByEvent']);
+Route::get('/listEvents',[TimeSheetController::class,'listEvents']);
 
 
 Route::get('/carContracts',[TimeSheetController::class,'carContractDialog']);

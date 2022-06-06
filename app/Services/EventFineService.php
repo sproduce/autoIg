@@ -56,25 +56,10 @@ Class EventFineService{
         if (!$fineRequest->get('id')){
             $this->toPaymentModel->sum = -1 * abs($fineRequest->get('sumSale'));
             $this->toPaymentModel->timeSheetId =  $this->timeSheetModel->id;
-            $this->toPaymentModel->carId = $fineRequest->get('carId');
             $this->toPaymentModel->save();
         }
 
     }
-
-    public function updateEvent(Event\FineRequest $fineRequest,rentEvent $eventObj)
-    {
-
-//        $this->rentEventFineModel->dateTimeOrder = $fineRequest->get('dateOrder');
-//        $this->rentEventFineModel->datePayMax = $fineRequest->get('datePayMax');
-//        $this->rentEventFineModel->datePaySale = $fineRequest->get('datePaySale');
-//        $this->rentEventFineModel->dateTimeFine = $fineRequest->get('dateTimeFine');
-//        $rentEventFineModel->sum = $fineRequest->get('sum');
-//        $rentEventFineModel->sumSale = $fineRequest->get('sumSale');
-//        $rentEventFineModel->save();
-    }
-
-
 
     public function getEvents(CarbonPeriod $periodDate,$eventId)
     {

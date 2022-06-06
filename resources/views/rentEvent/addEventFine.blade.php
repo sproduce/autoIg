@@ -21,18 +21,6 @@
             <input id="carText" class="form-control" value="{{$carObj->nickName}}" disabled />
             <input id="carId" name="carId" class="form-control" value="{{$carObj->id}}" hidden />
         </div>
-        <div class="form-group col-md-3 input-group-sm">
-            <label for="contractText" title="Договор"> Договор </label>
-            <a href="/contract/addContractTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
-
-            @if ($contractObj->id)
-                <input id="contractText" name="contractText"  class="form-control" value="{{$contractObj->number}}" disabled />
-                <input name="contractId" id="contractId" value="{{$contractObj->id}}"  hidden/>
-            @else
-                <input id="contractText" name="contractText"  class="form-control" disabled />
-                <input name="contractId" id="contractId" value=""  hidden/>
-            @endif
-        </div>
     </div>
 
 

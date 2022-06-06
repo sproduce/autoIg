@@ -39,25 +39,25 @@ class TimeSheetController extends Controller
         $validate=$this->request->validate(['currentDate'=>'date','subDays'=>'','addDays'=>'']);
 
         if (isset($validate['currentDate'])){
-            $currentDate=CarbonImmutable::create($validate['currentDate']);
+            $currentDate = CarbonImmutable::create($validate['currentDate']);
         } else {
             $currentDate = CarbonImmutable::today();
         }
         if (isset($validate['subDays'])){
-            $subDays=$validate['subDays'];
+            $subDays = $validate['subDays'];
         } else {
-            $subDays=12;
+            $subDays = 12;
         }
         if (isset($validate['addDays'])){
-            $addDays=$validate['addDays'];
+            $addDays = $validate['addDays'];
         } else {
-            $addDays=7;
+            $addDays = 7;
         }
 
-        $dateFrom=$currentDate->subDays($subDays);
-        $dateTo=$currentDate->addDays($addDays);
-        $periodDate=CarbonPeriod::create($dateFrom,$dateTo);
-        $accuracy=4;
+        $dateFrom = $currentDate->subDays($subDays);
+        $dateTo = $currentDate->addDays($addDays);
+        $periodDate = CarbonPeriod::create($dateFrom,$dateTo);
+        $accuracy = 4;
         $timeSheetArray = $this->timeSheetServ->getCarsTimeSheets($periodDate,$accuracy);
         $motorPoolObj=$this->motorPoolRep->getCars();
         return view('timeSheet.list', ['timeSheetArray' => $timeSheetArray,
@@ -206,7 +206,7 @@ class TimeSheetController extends Controller
 
     public function listByEvent(RentEventRepositoryInterface  $rentEventRep,DateSpan $dateSpan,EventIdRequest $eventIdrequest)
     {
-        //$dateFromTo=$dateSpan->validated();
+
         $periodDate = $dateSpan->getCarbonPeriod();
         $eventId = $eventIdrequest->getEventId();
         $eventObj = $rentEventRep->getEvent($eventId);
@@ -219,5 +219,15 @@ class TimeSheetController extends Controller
     }
 
 
+    public function listEvents(DateSpan $dateSpan)
+    {
+        $periodDate = $dateSpan->getCarbonPeriod();
+        $eventsArray = $this->timeSheetServ->getAllTimeSheets($periodDate);
+        //$eventsArray->dd();
+        return view('timeSheet.allEvents',[
+            'eventsArray' => $eventsArray,
+            'periodDate' => $periodDate,
+        ]);
+    }
 
 }

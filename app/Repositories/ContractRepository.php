@@ -5,7 +5,6 @@ use App\Http\Requests\Search\SearchContractRequest;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Models\rentContract;
 use App\Models\rentContractStatus;
-use App\Models\rentContractTariff;
 use App\Models\rentContractType;
 
 class ContractRepository implements ContractRepositoryInterface

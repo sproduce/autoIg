@@ -25,11 +25,31 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         return timeSheet::find($timeSheetId);
     }
 
-    public function getTimeSheetsArray($dateFrom, $dateTo)
+    public function getTimeSheetsArray(CarbonPeriod $datePeriod)
     {
-        return DB::table('time_sheets')
-            ->leftJoin('rent_events','time_sheets.eventId','=','rent_events.id')
-            ->get(['time_sheets.*','rent_events.priority','rent_events.name']);
+        $startDate = $datePeriod->getStartDate()->format('Y-m-d H:i');
+        $finishDate = $datePeriod->getEndDate()->subMinute(1)->format('Y-m-d H:i');
+
+        $resultCollection = DB::table('time_sheets')
+            ->join('rent_events','time_sheets.eventId','=','rent_events.id')
+            ->leftJoin('car_configurations','time_sheets.carId','=','car_configurations.id')
+            ->WhereBetween('dateTime',[$startDate,$finishDate])
+            ->orderByDesc('time_sheets.dateTime')
+            ->get([
+                'time_sheets.*',
+                'rent_events.priority as eventPriority',
+                'rent_events.name as eventName',
+                'car_configurations.nickName as carNickName',
+            ]);
+
+          $resultCollection->each(function ($item, $key) {
+              if ($item->dateTime){
+                  $item->dateTime = Carbon::parse($item->dateTime);
+              }
+
+          });
+
+          return $resultCollection;
     }
 
     public function getCarTimeSheetByDate($carId,CarbonPeriod $datePeriod)
@@ -111,8 +131,8 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
 
     public function getTimeSheetsByEvent($eventId, CarbonPeriod $datePeriod)
     {
-        $startDate=$datePeriod->getStartDate()->format('Y-m-d');
-        $finishDate=$datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
+        $startDate = $datePeriod->getStartDate()->format('Y-m-d');
+        $finishDate = $datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
 
         return timeSheet::query()
             ->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])
@@ -147,6 +167,14 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
             ->first();
         return $timeSheetResult;
     }
+
+//
+//    public function getAllEvents(CarbonPeriod $datePeriod)
+//    {
+//        $startDate = $datePeriod->getStartDate()->format('Y-m-d');
+//        $finishDate = $datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
+//    }
+
 
 }
 

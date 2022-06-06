@@ -36,9 +36,10 @@ class EventRentalRepository implements EventRentalRepositoryInterface
         return DB::table('time_sheets')
             ->join('rent_event_rentals','rent_event_rentals.id', '=', 'time_sheets.dataId')
             ->join('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
+            ->leftjoin('rent_contracts','rent_contracts.id','=','rent_event_rentals.contractId')
             ->where('time_sheets.eventId','=',$eventId)
             ->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])
-            ->orderBy('time_sheets.dateTime')
+            ->orderByDesc('time_sheets.dateTime')
             ->get();
     }
 

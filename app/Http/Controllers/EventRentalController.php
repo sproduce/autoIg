@@ -34,10 +34,9 @@ class EventRentalController extends Controller
 
     public function index(DateSpan $dateSpan,EventRentalService $eventRentalServ)
     {
-        $dateSpan->validated();
         $periodDate = $dateSpan->getCarbonPeriod();
         $eventsObj = $eventRentalServ->getEvents($periodDate,$this->eventObj->id);
-        return view('rentEvent.listEventsRental',['eventsObj' => $eventsObj]);
+        return view('rentEvent.listEventsRental',['eventsObj' => $eventsObj,'eventObj' => $this->eventObj,]);
     }
 
 
@@ -78,7 +77,8 @@ class EventRentalController extends Controller
             'dateFinish'=>'required',
             'timeFinish'=>'required',
             'sum'=>'array',
-            'contractId'=>'required']);
+            'contractId'=>'required'
+        ]);
 
         $inputData['eventId']= $this->eventObj->id;
         $inputData['color']=$this->eventObj->color;

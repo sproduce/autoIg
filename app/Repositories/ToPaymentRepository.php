@@ -50,7 +50,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         $finishDate=$datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
 
         $resultCollection = DB::table('to_payments')
-            ->join('car_configurations','car_configurations.id','=','to_payments.carId')
+            ->leftjoin('car_configurations','car_configurations.id','=','to_payments.carId')
             ->leftJoin('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
             ->leftJoin('rent_events','rent_events.id','=','time_sheets.eventId')
 

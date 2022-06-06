@@ -97,7 +97,6 @@ class EventFineController extends Controller
     {
         $eventFineObj = $this->eventFineModel->find($id);
         $timeSheetObj = $timeSheetRep->getTimeSheetByEvent($this->eventObj,$id);
-
         return response()->view('rentEvent.addEventFine',[
             'needParent' => 1,
             'dateTime' =>  $timeSheetObj->dateTime,
@@ -128,6 +127,6 @@ class EventFineController extends Controller
      */
     public function destroy($id)
     {
-        //
+        echo "asdasd";
     }
 }

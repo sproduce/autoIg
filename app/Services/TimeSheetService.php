@@ -20,7 +20,7 @@ Class TimeSheetService{
     public function getCarsTimeSheets($periodDate,$accuracyH)
     {
         $accuracyMin=$accuracyH*60;
-        $timeSheetsArray=$this->timeSheetRep->getTimeSheetsArray($periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d'));
+        $timeSheetsArray = $this->timeSheetRep->getTimeSheetsArray($periodDate);
         $timeSheetsCollection=collect($timeSheetsArray);
         $periodTimeSheet=$timeSheetsCollection->whereBetween('dateTime',[$periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d')])->sortBy('dateTime');
             foreach($periodTimeSheet as $dayTimeSheet){
@@ -31,16 +31,16 @@ Class TimeSheetService{
                 }
                 $toBox=$fromBox+ceil($dayTimeSheet->duration/$accuracyMin);
                 for($i=$fromBox;$i<$toBox;$i++){
-                    $resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]['data']=$dayTimeSheet;
+                    $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['data']=$dayTimeSheet;
                     if ($i==$fromBox){
-                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]['first']=true;
+                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['first']=true;
                     } else {
-                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]['first']=false;
+                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['first']=false;
                     }
                     if ($i==$toBox-1){
-                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]['last']=true;
+                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['last']=true;
                     } else {
-                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->priority][$i]['last']=false;
+                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['last']=false;
                     }
                 }
             }
@@ -62,6 +62,12 @@ Class TimeSheetService{
     public function getDaysTimeSheet(CarbonPeriod $datePeriod)
     {
 
+    }
+
+
+    public function getAllTimeSheets(CarbonPeriod $datePeriod)
+    {
+        return $this->timeSheetRep->getTimeSheetsArray($datePeriod);
     }
 
     public function getContractTimeSheets($contractId)
