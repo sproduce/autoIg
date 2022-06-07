@@ -7,6 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
+/**
+ *@property int $id
+ *@property int $pid
+ *@property int $payAccountId
+ *@property int $payOperationTypeId
+ *@property int $payment
+ *@property int $balance
+ *@property int $carId
+ *@property int $carGroupId
+ *@property $dateTime
+ *@property boolean $finished
+ *@property $name
+ *@property $comm
+ *
+ **/
+
+
 class rentPayment extends Model
 {
     use HasFactory;
@@ -16,7 +33,6 @@ class rentPayment extends Model
 
 
     protected $dates=['dateTime'];
-      //protected $dateFormat = 'Y-m-d';
 
 
     public function car()

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DateSpan;
+use App\Http\Requests\PaymentRequest;
+use App\Models\rentPayment;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\ToPaymentRepository;
 use App\Services\ContractService;
@@ -35,9 +37,18 @@ class PaymentController extends Controller
     }
 
 
-    public function add()
+    public function add(PaymentRequest $paymentReq,rentPayment $paymentModel)
     {
-        $this->paymentServ->addPayment();
+        $paymentModel->dateTime = $paymentReq->get('dateTime');
+        $paymentModel->payment = $paymentReq->get('payment');
+        $paymentModel->comm = $paymentReq->get('comm');
+        $paymentModel->payAccountId = $paymentReq->get('payAccountId');
+        $paymentModel->payOperationTypeId = $paymentReq->get('payOperationTypeId');
+        $paymentModel->contractId = $paymentReq->get('contractId');
+
+
+
+        $this->paymentServ->addPayment($paymentModel);
 
         return redirect('/payment/list');
     }
@@ -46,7 +57,7 @@ class PaymentController extends Controller
     public function edit()
     {
         $paymentGuideObj=$this->paymentServ->getPaymentGuide();
-        $payment=$this->paymentServ->getPayment();
+        //$payment=$this->paymentServ->getPayment();
         return view('payment.editPayment',['paymentGuide'=>$paymentGuideObj,'payment'=>$payment]);
     }
 
@@ -148,6 +159,18 @@ class PaymentController extends Controller
         $this->paymentServ->addToPayment($validate);
         return redirect('/payment/toPay');
     }
+
+
+    public function allocatePayment($paymentId)
+    {
+        $paymentObj = $this->paymentServ->getPayment($paymentId);
+
+        return view('payment.allocatePayment',[
+            'paymentObj' => $paymentObj,
+
+            ]);
+    }
+
 
 
 }

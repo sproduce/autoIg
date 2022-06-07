@@ -29,3 +29,6 @@ Route::post('/copyToPayClient',[PaymentController::class,'copyToPayClient']);
 
 Route::get('/addToPay',[PaymentController::class,'addToPayDialog']);
 Route::post('/addToPay',[PaymentController::class,'addToPay']);
+
+
+Route::get('/allocatePayment/{paymentId}',[PaymentController::class,'allocatePayment']);

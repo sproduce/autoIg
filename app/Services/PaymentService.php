@@ -1,5 +1,6 @@
 <?php
 namespace App\Services;
+use App\Models\rentPayment;
 use App\Repositories\ContractRepository;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
@@ -36,34 +37,21 @@ Class PaymentService{
 
     public function getPaymentGuide()
     {
-        $accountsObj=$this->paymentRep->getAccounts();
-        $operationTypesObj=$this->paymentRep->getOperationTypes();
-        $paymentGuide=collect(['accounts'=>$accountsObj,'operationTypes'=>$operationTypesObj]);
+        $accountsObj = $this->paymentRep->getAccounts();
+        $operationTypesObj = $this->paymentRep->getOperationTypes();
+        $paymentGuide = collect(['accounts'=>$accountsObj,'operationTypes'=>$operationTypesObj]);
 
         return $paymentGuide;
     }
 
-    public function addPayment()
+    public function addPayment(rentPayment $paymentModel)
     {
-        $validate=$this->request->validate(['dateTime'=>'required',
-            'payment'=>'required|integer',
-            'comm'=>'required|integer',
-            'payAccountId'=>'required|integer',
-            'payOperationTypeId'=>'required|integer',
-            'name'=>'',
-            'carId'=>'',
-            'carGroupId'=>'',
-            'finished'=>'',
-            'pid'=>'integer',
-            'comment'=>'',
-            'contractId'=>'',
-            'carDriverId'=>'',
-            'carOwnerId'=>''
-        ]);
+        $paymentModel->balance = $paymentModel->payment;
+        $this->paymentRep->addPayment($paymentModel);
 
-        $validate['pid']=$validate['pid'] ?? 0;
+        $paymentModel->pid = $paymentModel->id;
+        $this->paymentRep->addPayment($paymentModel);
 
-        $this->paymentRep->addPayment($validate);
     }
 
     public function getPayments()
@@ -90,10 +78,9 @@ Class PaymentService{
 
     }
 
-    public function getPayment()
+    public function getPayment($payment)
     {
-        $validate=$this->request->validate(['paymentId'=>'required|integer']);
-        return $this->paymentRep->getPayment($validate['paymentId']);
+        return $this->paymentRep->getPayment($payment);
     }
 
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories;
+use App\Models\rentCarGroup;
 use App\Models\rentPayment;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Models\payAccount;
@@ -29,7 +30,7 @@ class PaymentRepository implements PaymentRepositoryInterface
         return payOperationType::all();
     }
 
-    public function getPayment($id)
+    public function getPayment($id): rentPayment
     {
         return rentPayment::find($id);
     }
@@ -56,9 +57,10 @@ class PaymentRepository implements PaymentRepositoryInterface
     }
 
 
-    public function addPayment($paymentArray)
+    public function addPayment(rentPayment $paymentModel): rentPayment
     {
-        return rentPayment::create($paymentArray);
+        $paymentModel->save();
+        return $paymentModel;
     }
 
     public function updatePayment($id, $paymentArray)

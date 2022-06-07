@@ -65,7 +65,7 @@ class CarIdDate extends FormRequest
     public function rules()
     {
         return [
-            'carId'=>'required|integer',
+            'carId'=>'nullable|integer',
             'date' => 'date',
             'contractId' => 'nullable|integer',
         ];

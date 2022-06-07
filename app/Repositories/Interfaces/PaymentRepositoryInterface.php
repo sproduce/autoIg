@@ -3,6 +3,8 @@
 namespace App\Repositories\Interfaces;
 
 
+use App\Models\rentPayment;
+
 interface PaymentRepositoryInterface
 {
     public function getAccounts();
@@ -11,10 +13,10 @@ interface PaymentRepositoryInterface
     public function getOperationTypes();
     public function getOperationType($id);
 
-    public function getPayment($id);
+    public function getPayment($id):rentPayment;
     public function getPayments($validateFilter);
     public function getPaymentsAll();
-    public function addPayment($paymentArray);
+    public function addPayment(rentPayment $paymentmodel): rentPayment;
     public function updatePayment($id,$paymentArray);
     public function delPayment($id);
 
