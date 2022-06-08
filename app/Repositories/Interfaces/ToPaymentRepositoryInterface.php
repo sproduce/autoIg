@@ -14,6 +14,8 @@ interface ToPaymentRepositoryInterface
 {
     public function getToPaymentsByDate(CarbonPeriod $datePeriod);
     public function getToPaymentsByContract($contractId): Collection;
+
+    public function getToPaymentsByOperationType();
     public function getToPayment($toPaymentId);
     public function getToPayments();
 

@@ -32,7 +32,7 @@
             <div class="col-12 text-center">
                 <h5>
 {{--                    <a class="btn btn-ssm btn-outline-success mr-3" href="/timesheet/add?carId={{$rentContractObj->carId}}&contractId={{$rentContractObj->id}}"><i class="fas fa-calendar-plus"></i></a>--}}
-                    <a class="btn btn-ssm btn-outline-success mr-3" title="Добавить платеж" href=""><i class="far fa-plus-square"></i></a>
+                    <a class="btn btn-ssm btn-outline-success mr-3" title="Добавить платеж" href="/payment/add?contractId={{$rentContractObj->id}}"><i class="far fa-plus-square"></i></a>
                     Платежи по договору {{$contractService->count() ? '':'не найдены'}}</h5>
             </div>
         </div>

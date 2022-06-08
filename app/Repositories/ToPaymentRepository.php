@@ -108,5 +108,12 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
     {
         return toPayment::all();
     }
+
+    public function getToPaymentsByOperationType()
+    {
+        // TODO: Implement getToPaymentsByOperationType() method.
+    }
+
+
 }
 
