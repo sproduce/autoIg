@@ -34,8 +34,12 @@
 @section('js')
     <script>
         $(".allocate").click(function(){
-            $('#paymentSum').val($('#paymentSum').val()-$(this).val());
-          // console.log($(this).val());
+            if ($('.allocate').is(':checked')) {
+                $('#paymentSum').val(parseInt($('#paymentSum').val()) - parseInt($(this).val()));
+                // console.log($(this).val());
+            } else {
+                $('#paymentSum').val(parseInt($('#paymentSum').val()) + parseInt($(this).val()));
+            }
         })
     </script>
 
