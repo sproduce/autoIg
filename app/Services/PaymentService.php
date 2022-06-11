@@ -78,7 +78,7 @@ Class PaymentService{
 
     }
 
-    public function getPayment($payment)
+    public function getPayment($payment): rentPayment
     {
         return $this->paymentRep->getPayment($payment);
     }
@@ -136,6 +136,15 @@ Class PaymentService{
     {
         $dataArray['sum'] = abs($dataArray['sum'])*-1;
         $this->toPaymentRep->addToPayment($dataArray);
+    }
+
+
+    public function getToPaymentsByPayment(rentPayment $rentPayment)
+    {
+        $toPaymentsObj = $this->toPaymentRep->getToPaymentsByContractAndOperationType($rentPayment->contractId,$rentPayment->payOperationTypeId);
+
+
+        return $toPaymentsObj;
     }
 
 

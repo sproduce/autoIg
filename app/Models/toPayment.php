@@ -26,6 +26,7 @@ class toPayment extends Model
     use SoftDeletes;
     //private $sum;
     protected $fillable = ['contractId','timeSheetId','sum','carId','paymentId','pId','comment'];
+    protected $dates = ['dateTime'];
 
     public function contract()
     {

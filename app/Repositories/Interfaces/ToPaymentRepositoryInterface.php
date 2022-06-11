@@ -23,4 +23,6 @@ interface ToPaymentRepositoryInterface
     public function addToPayment(toPayment $toPaymentObj): toPayment;
     public function delToPayment($toPaymentId);
 
+    public function getToPaymentsByContractAndOperationType($contractId,$operationTypeId);
+
 }

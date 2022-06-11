@@ -28,7 +28,7 @@ class timeSheet extends Model
     //private $dateTime,$comment,$dataId,$eventId;
     protected $fillable = ['carId', 'eventId','dateTime','comment','mileage','color','duration','dataId'];
 
-    protected $dates=['dateTime','fromDate','toDate'];
+    protected $dates = ['dateTime','fromDate','toDate'];
 
     public function event()
     {

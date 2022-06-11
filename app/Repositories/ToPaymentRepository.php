@@ -109,11 +109,31 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         return toPayment::all();
     }
 
-    public function getToPaymentsByOperationType()
-    {
-        // TODO: Implement getToPaymentsByOperationType() method.
-    }
+   public function getToPaymentsByContractAndOperationType($contractId, $operationTypeId)
+   {
+       $resultCollection = DB::table('to_payments')
+           ->join('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
+           ->join('rent_events','rent_events.id','=','time_sheets.eventId')
+           ->where('to_payments.contractId','=',$contractId)
+           ->where('rent_events.payOperationTypeId','=',$operationTypeId)
+           ->whereNull('to_payments.paymentId')
+           ->get();
 
+
+
+       $resultCollection->each(function ($item, $key) {
+           if ($item->dateTime) {
+               $item->dateTime = Carbon::parse($item->dateTime);
+           }
+       });
+       return  $resultCollection;
+   }
+
+
+   public function getToPaymentsByOperationType()
+   {
+       // TODO: Implement getToPaymentsByOperationType() method.
+   }
 
 }
 
