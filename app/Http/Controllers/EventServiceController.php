@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CarIdDate;
+use App\Http\Requests\NeedParent;
 use App\Models\rentEventService;
 use App\Repositories\RentEventRepository;
+use App\Services\MotorPoolService;
 use Illuminate\Http\Request;
 
 class EventServiceController extends Controller
@@ -27,17 +30,24 @@ class EventServiceController extends Controller
      */
     public function index()
     {
+
+
         return view('rentEvent.listEventsService',['eventsObj' => $eventsObj]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+
+    public function create(NeedParent $needParent,
+                           CarIdDate $carIdDate,
+                           MotorPoolService $motorPoolServ
+    ){
+        $carObj = $motorPoolServ->getCar($carIdDate->getCarId());
+
+        return view('rentEvent.addEventService',[
+            'carObj' => $carObj,
+            'needParent' => $needParent['needParent'],
+            'dateTime' => $carIdDate->get('date'),
+            'eventObj' =>$this->eventObj,
+            ]);
     }
 
     /**

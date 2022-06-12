@@ -27,7 +27,9 @@ class PaymentRepository implements PaymentRepositoryInterface
     }
     public function getOperationTypes()
     {
-        return payOperationType::all();
+        $resultOperationTypes = payOperationType::orderBy('name')->get();
+        
+        return $resultOperationTypes;
     }
 
     public function getPayment($id): rentPayment

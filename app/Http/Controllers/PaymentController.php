@@ -148,7 +148,7 @@ class PaymentController extends Controller
 
     public function copyToPayClient()
     {
-        $validate=$this->request->validate([
+        $validate = $this->request->validate([
             'contractId' => 'required|integer',
             'timeSheetId' => '',
             'sum' => 'required|integer',
@@ -170,6 +170,20 @@ class PaymentController extends Controller
             'paymentObj' => $paymentObj,
             'toPaymentsObj' =>$toPaymentsObj,
             ]);
+    }
+
+
+    public function saveAllocatePayment()
+    {
+        $validate = $this->request->validate(['paymentId' => 'required|integer',
+            'toPaymentId' => '',
+            ]);
+
+        $paymentId = $validate['paymentId'];
+        $toPaymentArray = $validate['toPaymentId'];
+//var_dump($toPaymentArray);
+        $this->paymentServ->saveAllocatePayment($toPaymentArray,$paymentId);
+        return  redirect()->back();
     }
 
 

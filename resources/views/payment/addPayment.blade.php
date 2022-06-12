@@ -17,7 +17,7 @@
 
         <div class="row pb-3 mb-3 border-bottom">
             <div class="col-1">Дата</div>
-            <div class="col-3"><input type="datetime-local" name="dateTime" required/></div>
+            <div class="col-3"><input type="datetime-local" name="dateTime" id="dateTime" required/> <button class="btn btn-ssm btn-outline-success" title="Текущая дата" id="currentDate"><i class="fas fa-calendar-alt"></i></button> </div>
             <div class="col-1">Сумма</div>
             <div class="col-3"><input type="number" name="payment" required/></div>
             <div class="col-1">Комиссия</div>
@@ -48,26 +48,14 @@
             <div class="col-3">
                 <div class="row">
                     <div class="col-3">
-                        Водитель
+                       Субьект
                     </div>
                     <div class="col-1">
-                        <a href="/contract/addDriver" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                        <a href="/subject/addSubjectTo/subject" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
                     </div>
                     <div class="col-7">
-                        <input id="driverText" disabled />
-                        <input name="carDriverId" id="driverId" value=""  hidden />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-3">
-                        Владелец
-                    </div>
-                    <div class="col-1">
-                        <a href="/carOwner/searchDialog" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
-                    </div>
-                    <div class="col-7">
-                        <input id="carOwnerText" disabled />
-                        <input name="carOwnerId" id="carOwnerId" value=""  hidden />
+                        <input id="subjectText" disabled />
+                        <input name="subjectId" id="subjectId" value=""  hidden />
                     </div>
                 </div>
 
@@ -179,6 +167,14 @@
     $(".clickable").click(function(){
         $(this).children().prop("checked", true);
     });
+    $("#currentDate").click(function(){
+        $("#dateTime").val(new Date().toJSON().slice(0,16));
+        return false;
+    });
+
+
+
+
 </script>
 
 @endsection

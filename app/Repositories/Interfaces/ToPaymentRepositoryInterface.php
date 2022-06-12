@@ -16,7 +16,7 @@ interface ToPaymentRepositoryInterface
     public function getToPaymentsByContract($contractId): Collection;
 
     public function getToPaymentsByOperationType();
-    public function getToPayment($toPaymentId);
+    public function getToPayment($toPaymentId): toPayment;
     public function getToPayments();
 
     public function updateToPayment($id,$toPaymentArray);

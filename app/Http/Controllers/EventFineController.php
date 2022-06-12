@@ -52,17 +52,15 @@ class EventFineController extends Controller
     public function create(
         NeedParent $needParent,
         CarIdDate $carIdDate,
-        MotorPoolService $motorPoolServ,
-        ContractRepositoryInterface $contractRep
+        MotorPoolService $motorPoolServ
     ){
 
         $carObj = $motorPoolServ->getCar($carIdDate->getCarId());
-        $contractObj=$contractRep->getContract($carIdDate->get('contractId'));
         return response()->view('rentEvent.addEventFine',[
             'needParent' => $needParent['needParent'],
-            'contractObj' =>  $contractObj,
             'dateTime' => $carIdDate->get('date'),
             'carObj' => $carObj,
+            'eventObj' =>$this->eventObj,
             'eventFineObj' => $this->eventFineModel,
         ]);
     }

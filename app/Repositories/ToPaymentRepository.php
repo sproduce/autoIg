@@ -38,7 +38,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         return $resultCollection;
     }
 
-    public function getToPayment($toPaymentId)
+    public function getToPayment($toPaymentId): toPayment
     {
         return toPayment::find($toPaymentId);
     }
@@ -116,10 +116,8 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
            ->join('rent_events','rent_events.id','=','time_sheets.eventId')
            ->where('to_payments.contractId','=',$contractId)
            ->where('rent_events.payOperationTypeId','=',$operationTypeId)
-           ->whereNull('to_payments.paymentId')
+           ->select('to_payments.*','rent_events.name','time_sheets.dateTime')
            ->get();
-
-
 
        $resultCollection->each(function ($item, $key) {
            if ($item->dateTime) {

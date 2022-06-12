@@ -148,5 +148,20 @@ Class PaymentService{
     }
 
 
+    public function saveAllocatePayment($toPaymentArray,$paymentId)
+    {
+        $paymentObj = $this->paymentRep->getPayment($paymentId);
+        $allocateSum=0;
+        foreach($toPaymentArray as $toPayment)
+        {
+            $toPaymentObj = $this->toPaymentRep->getToPayment($toPayment);
+            $toPaymentObj->paymentId = $paymentObj->id;
+            $this->toPaymentRep->addToPayment($toPaymentObj);
+            $allocateSum = $allocateSum+$toPaymentObj->sum;
+        }
+        $paymentObj->balance = $paymentObj->balance-$allocateSum;
+        $this->paymentRep->addPayment($paymentObj);
+    }
+
 
 }
