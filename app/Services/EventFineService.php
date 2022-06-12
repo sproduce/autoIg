@@ -9,22 +9,26 @@ use App\Models\timeSheet;
 use App\Models\toPayment;
 use App\Http\Requests\Event;
 use App\Repositories\EventFineRepository;
+use App\Repositories\Interfaces\EventFineRepositoryInterface;
+use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
 Class EventFineService{
-    private $timeSheetModel,$toPaymentModel,$rentEventFineModel,$eventFineRep;
+    private $timeSheetModel,$toPaymentModel,$rentEventFineModel,$eventFineRep,$timeSheetRep;
 
     function __construct(
         timeSheet $timeSheetModel,
         toPayment $toPaymentModel,
         rentEventFine $rentEventFineModel,
-        EventFineRepository $eventFineRep
+        EventFineRepositoryInterface $eventFineRep,
+        TimeSheetRepositoryInterface $timeSheetRep
     ){
         $this->timeSheetModel = $timeSheetModel;
         $this->toPaymentModel = $toPaymentModel;
         $this->rentEventFineModel = $rentEventFineModel;
         $this->eventFineRep = $eventFineRep;
+        $this->timeSheetRep = $timeSheetRep;
     }
 
 
@@ -84,6 +88,16 @@ Class EventFineService{
         ]);
 
         return  $eventFineFullInfo;
+    }
+
+
+    public function deleteEvent($eventFineId,rentEvent $eventObj)
+    {
+        $timeSheetObj = $this->timeSheetRep->getTimeSheetByEvent($eventObj,$eventFineId);
+        $this->timeSheetRep->delTimeSheet($timeSheetObj);
+
+        $eventFineObj = $this->eventFineRep->getEventFine($eventFineId);
+        $this->eventFineRep->delEventFine($eventFineObj);
     }
 
 

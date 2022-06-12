@@ -168,13 +168,12 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         return $timeSheetResult;
     }
 
-//
-//    public function getAllEvents(CarbonPeriod $datePeriod)
-//    {
-//        $startDate = $datePeriod->getStartDate()->format('Y-m-d');
-//        $finishDate = $datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
-//    }
 
+
+    public function delTimeSheet(timeSheet $timeSheetObj)
+    {
+     $timeSheetObj->delete();
+    }
 
 }
 

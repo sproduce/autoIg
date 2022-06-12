@@ -96,9 +96,21 @@ class EventRentalController extends Controller
     }
 
 
-    public function edit($id)
+    public function edit($id, TimeSheetRepositoryInterface $timeSheetRep)
     {
-        //
+        //echo $lastEvent->dateTime;
+        $eventRentalObj = $this->eventRentalServ->getEventRental($id);
+        $timeSheetObj = $timeSheetRep->getTimeSheetByEvent($this->eventObj,$id);
+
+        return view('rentEvent.editEventRental',[
+            'carObj' => $timeSheetObj->car,
+            'needParent' => 1,
+            'contractObj' =>  $eventRentalObj->contract,
+            'dateTime' => $timeSheetObj->dateTime,
+            'eventObj' => $this->eventObj,
+            'eventRentalObj' => $eventRentalObj,
+            'lastTimeSheet' => false,
+        ]);
     }
 
 

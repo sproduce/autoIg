@@ -19,7 +19,7 @@
                 <form method="POST" action="/{{$eventObj->action}}/{{$event->dataId}}">
                     @method('DELETE')
                     @csrf
-                    <a class="btn btn-ssm btn-outline-warning" href="/{{$eventObj->action}} /{{$event->dataId}}/edit" title="Редактировать"> <i class="far fa-edit"></i></a>
+                    <a class="btn btn-ssm btn-outline-warning" href="/{{$eventObj->action}}/{{$event->dataId}}/edit" title="Редактировать"> <i class="far fa-edit"></i></a>
                     <button class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить событие?')"><i class="fas fa-trash"></i> </button>
                 </form>
 

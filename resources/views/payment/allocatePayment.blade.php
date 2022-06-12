@@ -45,7 +45,10 @@
                 <div class="col-2">{{$toPayment->dateTime->format('d-m-Y H:i')}}</div>
                 <div class="col-2">{{$toPayment->name}}</div>
                 <div class="col-2">{{$toPayment->sum}}</div>
-                <div class="col-2"><input class="allocate" type="checkbox" @if($toPayment->paymentId) checked  @endif data-sum="{{$toPayment->sum}}" name="toPaymentId[]" value="{{$toPayment->id}}"/></div>
+                <div class="col-2">
+                    <input class="allocate" type="checkbox" @if($toPayment->paymentId) checked  @endif data-sum="{{$toPayment->sum}}" name="toPaymentId[]" value="{{$toPayment->id}}"/>
+                    <input class="h-75 hiddenInput" @if($toPayment->paymentId) value="{{$toPayment->sum}}" @else hidden @endif  data-sum="{{$toPayment->sum}}" name="toPaymentSum[]" size="5"/>
+                </div>
             </div>
         @endforeach
         <div class="row mt-4">
@@ -59,14 +62,35 @@
 
 @section('js')
     <script>
-        $(".allocate").click(function(){
-            if ($('#paymentSum').val()>0) {
-                if ($(this).is(':checked')) {
-                    $('#paymentSum').val(parseInt($('#paymentSum').val()) - parseInt($(this).data('sum')));
-                } else {
-                    $('#paymentSum').val(parseInt($('#paymentSum').val()) + parseInt($(this).data('sum')));
+        $(function() {
+
+            $(".hiddenInput").each(function(){
+                if ($(this).attr('hidden')){
+                    $(this).hide();
                 }
-            }
+            })
+            $(".hiddenInput").attr('hidden', false);
+        });
+
+
+        $(".allocate").click(function(){
+            paymentSum = parseInt($('#paymentSum').val());
+            curretnSum = parseInt($(this).data('sum'));
+
+                if ($(this).is(':checked')) {
+                    if ($('#paymentSum').val()>0) {
+
+                        $('#paymentSum').val(paymentSum - curretnSum);
+
+                        $(this).next("input").show();
+                    } else {
+                        $(this).prop("checked", false);
+                    }
+                } else {
+                    $('#paymentSum').val(paymentSum + curretnSum);
+                    $(this).next("input").hide();
+                }
+
         })
     </script>
 

@@ -85,12 +85,7 @@ class EventFineController extends Controller
         return response()->view('dialog.RentEvent.infoEventFine',['eventFineObj' => $eventFineObj]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id,TimeSheetRepositoryInterface $timeSheetRep)
     {
         $eventFineObj = $this->eventFineModel->find($id);
@@ -100,31 +95,22 @@ class EventFineController extends Controller
             'dateTime' =>  $timeSheetObj->dateTime,
             'carObj' => $timeSheetObj->car,
             'eventFineObj' => $eventFineObj,
+            'eventObj' =>$this->eventObj,
         ]);
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Event\FineRequest $fineRequest, $id)
     {
         $this->eventFineServ->addEvent($fineRequest,$this->eventObj);
         return redirect('/timesheet/listByEvent?eventId='.$this->eventObj->id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        echo "asdasd";
+        $this->eventFineServ->deleteEvent($id,$this->eventObj);
+        return redirect()->back();
     }
 }

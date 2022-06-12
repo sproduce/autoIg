@@ -54,10 +54,10 @@ class PaymentController extends Controller
     }
 
 
-    public function edit()
+    public function edit($paymentId)
     {
-        $paymentGuideObj=$this->paymentServ->getPaymentGuide();
-        //$payment=$this->paymentServ->getPayment();
+        $paymentGuideObj = $this->paymentServ->getPaymentGuide();
+        $payment = $this->paymentServ->getPayment($paymentId);
         return view('payment.editPayment',['paymentGuide'=>$paymentGuideObj,'payment'=>$payment]);
     }
 

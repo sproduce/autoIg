@@ -78,9 +78,9 @@ Class PaymentService{
 
     }
 
-    public function getPayment($payment): rentPayment
+    public function getPayment($paymentId): rentPayment
     {
-        return $this->paymentRep->getPayment($payment);
+        return $this->paymentRep->getPayment($paymentId);
     }
 
 

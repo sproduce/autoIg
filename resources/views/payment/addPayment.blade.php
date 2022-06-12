@@ -168,7 +168,9 @@
         $(this).children().prop("checked", true);
     });
     $("#currentDate").click(function(){
-        $("#dateTime").val(new Date().toJSON().slice(0,16));
+        currentDate = new Date();
+        currentDate.setHours(currentDate.getHours()+ (currentDate.getTimezoneOffset()/-60));
+        $("#dateTime").val(currentDate.toJSON().slice(0,16));
         return false;
     });
 

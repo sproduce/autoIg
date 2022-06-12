@@ -102,5 +102,12 @@ Class EventRentalService{
     }
 
 
+    public function getEventRental($eventId): rentEventRental
+    {
+        $eventRentalObj = $this->eventRentalRep->getEventRental($eventId);
+        return $eventRentalObj;
+    }
+
+
 
 }

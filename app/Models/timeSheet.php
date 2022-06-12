@@ -35,10 +35,6 @@ class timeSheet extends Model
         return $this->hasOne(rentEvent::class,'id','eventId')->withDefault();
     }
 
-    public function contract()
-    {
-        return $this->hasOne(rentContract::class,'id','contractId')->withDefault();
-    }
 
     public function car()
     {

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class EventFineRepository implements EventFineRepositoryInterface
 {
-public function getEventFine($id)
+public function getEventFine($id): rentEventFine
 {
     return rentEventFine::find($id)?? new rentEventFine;
 }
@@ -37,6 +37,11 @@ public function getEventFinesByContract($contractId)
 
     }
 
+
+    public function delEventFine(rentEventFine $eventFineObj)
+    {
+        $eventFineObj->delete();
+    }
 
 }
 

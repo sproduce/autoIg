@@ -19,6 +19,13 @@ use Illuminate\Database\Eloquent\Model;
 class rentEventRental extends Model
 {
     use HasFactory;
+    private $id,$personId,$contractId,$sum,$isFinish;
     protected $fillable = ['personId','contractId','isFinish','sum'];
+
+    public function contract()
+    {
+        return $this->hasOne(rentContract::class,'id','contractId')->withDefault();
+    }
+
 
 }
