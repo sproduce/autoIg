@@ -100,26 +100,30 @@
                 </div>
 
                 <div class="col-2">
-                    @if ($payment->carId)
-                        {{$payment->car->nickName}}
-                        <div class="float-right" title="Информация о машине">
-                            <a href="/dialog/carInfo?carId={{$payment->car->id}}" class="btn btn-ssm btn-outline-info DialogUser"> <i class="fas fa-info-circle"></i></a>
+                    <div class="row">
+                        <div class="col-3 p-0">
+                            @if ($payment->carId)
+                                <a href="/dialog/carInfo?carId={{$payment->car->id}}" class="btn btn-ssm btn-outline-info DialogUser" title="{{$payment->car->nickName}}"> <i class="fas fa-info-circle"></i></a>
+                            @endif
                         </div>
-                    @endif
-                    @if ($payment->contractId)
-                        {{$payment->contract->number}}
-                            <div class="float-right" title="Информация о договоре ">
-                                <a href="/contract/info?contractId={{$payment->contract->id}}" class="btn btn-ssm btn-outline-info DialogUser"> <i class="fas fa-info-circle"></i></a>
-                            </div>
-                    @endif
-                    @if ($payment->carGroupId)
-                        {{$payment->carGroup->name}}
-                            <div class="float-right" title="Информация о группе">
-                                <a href="/carGroup/info?carGroupId={{$payment->carGroup->id}}" class="btn btn-ssm btn-outline-info DialogUserMin"> <i class="fas fa-info-circle"></i></a>
-                            </div>
-                    @endif
+                        <div class="col-3 p-0">
+                            @if ($payment->contractId)
+                                <a href="/contract/info?contractId={{$payment->contract->id}}" class="btn btn-ssm btn-outline-info DialogUser" title="{{$payment->contract->number}}"> <i class="fas fa-info-circle"></i></a>
+                            @endif
+                        </div>
+                        <div class="col-3 p-0">
+                            @if ($payment->carGroupId)
+                                <a href="/carGroup/info?carGroupId={{$payment->carGroup->id}}" class="btn btn-ssm btn-outline-info DialogUserMin" title="{{$payment->carGroup->name}}"> <i class="fas fa-info-circle"></i></a>
+                            @endif
+                        </div>
+
+                        <div class="col-3 p-0" title="Рспределить платеж">
+                            <a href="/payment/allocatePayment/{{$payment->id}}" class="btn btn-ssm btn-outline-info"> <i class="fas fa-expand-arrows-alt" title="Распределить"></i></a>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-1">
+
                     {{$payment->comment}}
                 </div>
                 <div class="col-1">

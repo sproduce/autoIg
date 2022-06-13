@@ -47,7 +47,7 @@
                 <div class="col-2">{{$toPayment->sum}}</div>
                 <div class="col-2">
                     <input class="allocate" type="checkbox" @if($toPayment->paymentId) checked  @endif data-sum="{{$toPayment->sum}}" name="toPaymentId[]" value="{{$toPayment->id}}"/>
-                    <input class="h-75 hiddenInput" @if($toPayment->paymentId) value="{{$toPayment->sum}}" @else hidden @endif  data-sum="{{$toPayment->sum}}" name="toPaymentSum[]" size="5"/>
+                    <input class="h-75 hiddenInput" @if($toPayment->paymentId) value="{{$toPayment->sum}}" data-sum="{{$toPayment->sum}}" @else hidden disabled @endif data-maxsum="{{$toPayment->sum}}" name="toPaymentSum[]" size="5"/>
                 </div>
             </div>
         @endforeach
@@ -55,7 +55,6 @@
             <div class="col-6"></div>
             <div class="col-2"><input type="submit" class="btn btn-ssm btn-primary" value="Сохранить"/></div>
         </div>
-
     </form>
 @endsection
 
@@ -63,7 +62,6 @@
 @section('js')
     <script>
         $(function() {
-
             $(".hiddenInput").each(function(){
                 if ($(this).attr('hidden')){
                     $(this).hide();
@@ -75,23 +73,64 @@
 
         $(".allocate").click(function(){
             paymentSum = parseInt($('#paymentSum').val());
-            curretnSum = parseInt($(this).data('sum'));
+            hiddenInput = $(this).next(".hiddenInput");
+
+
 
                 if ($(this).is(':checked')) {
+                    currentSum = parseInt($(this).data('sum'));
                     if ($('#paymentSum').val()>0) {
-
-                        $('#paymentSum').val(paymentSum - curretnSum);
-
-                        $(this).next("input").show();
+                        if (currentSum > paymentSum){
+                            currentSum = paymentSum;
+                            hiddenInput.css("background-color","#f8fa3e");
+                        } else {
+                            hiddenInput.css("background-color","#0F0");
+                        }
+                        $('#paymentSum').val(paymentSum - currentSum);
+                        hiddenInput.show();
+                        hiddenInput.val(currentSum);
+                        hiddenInput.data('sum',currentSum);
+                        hiddenInput.prop('disabled', false);
                     } else {
                         $(this).prop("checked", false);
                     }
                 } else {
-                    $('#paymentSum').val(paymentSum + curretnSum);
-                    $(this).next("input").hide();
+                    currentSum = hiddenInput.data('sum');
+                    $('#paymentSum').val(paymentSum + currentSum);
+                    hiddenInput.hide();
+                    hiddenInput.prop('disabled', true);
                 }
+        });
 
-        })
+
+        $(".hiddenInput").focusout(function(){
+            maxSum = parseInt($(this).data('maxsum'));
+            paymentSum = parseInt($('#paymentSum').val());
+            currentSum = parseInt($(this).val());
+            prevSum = parseInt($(this).data('sum'));
+
+            if (currentSum > maxSum){
+                currentSum = maxSum;
+            }
+
+            if (currentSum > paymentSum + prevSum){
+                currentSum = paymentSum + prevSum;
+            }
+
+            if (currentSum == maxSum){
+                $(this).css("background-color","#0F0");
+            } else {
+                $(this).css("background-color","#f8fa3e");
+            }
+
+            deltaSum = prevSum - currentSum;
+            $('#paymentSum').val(paymentSum + deltaSum);
+            $(this).val(currentSum);
+            $(this).data('sum',currentSum);
+
+        });
+
+
     </script>
 
 

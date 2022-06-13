@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AllocatePaymentRequest;
 use App\Http\Requests\DateSpan;
 use App\Http\Requests\PaymentRequest;
 use App\Models\rentPayment;
@@ -173,17 +174,13 @@ class PaymentController extends Controller
     }
 
 
-    public function saveAllocatePayment()
+    public function saveAllocatePayment(AllocatePaymentRequest $allocatePaymentRequest)
     {
-        $validate = $this->request->validate(['paymentId' => 'required|integer',
-            'toPaymentId' => '',
-            ]);
-
-        $paymentId = $validate['paymentId'];
-        $toPaymentArray = $validate['toPaymentId'];
-//var_dump($toPaymentArray);
-        $this->paymentServ->saveAllocatePayment($toPaymentArray,$paymentId);
-        return  redirect()->back();
+        $toPaymentIdArray = $allocatePaymentRequest->get('toPaymentId');
+        $toPaymentSumArray = $allocatePaymentRequest->get('toPaymentSum');
+        $paymentId = $allocatePaymentRequest->get('paymentId');
+        $this->paymentServ->saveAllocatePayment($toPaymentIdArray,$toPaymentSumArray,$paymentId);
+        //return  redirect()->back();
     }
 
 
