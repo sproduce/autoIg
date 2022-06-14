@@ -46,6 +46,7 @@ class PaymentController extends Controller
         $paymentModel->payAccountId = $paymentReq->get('payAccountId');
         $paymentModel->payOperationTypeId = $paymentReq->get('payOperationTypeId');
         $paymentModel->contractId = $paymentReq->get('contractId');
+        $paymentModel->subjectId = $paymentReq->get('subjectId');
 
 
 
@@ -180,7 +181,7 @@ class PaymentController extends Controller
         $toPaymentSumArray = $allocatePaymentRequest->get('toPaymentSum');
         $paymentId = $allocatePaymentRequest->get('paymentId');
         $this->paymentServ->saveAllocatePayment($toPaymentIdArray,$toPaymentSumArray,$paymentId);
-        //return  redirect()->back();
+        return  redirect()->back();
     }
 
 

@@ -141,8 +141,7 @@ Class PaymentService{
 
     public function getToPaymentsByPayment(rentPayment $rentPayment)
     {
-        $toPaymentsObj = $this->toPaymentRep->getToPaymentsByContractAndOperationType($rentPayment->contractId,$rentPayment->payOperationTypeId);
-
+        $toPaymentsObj = $this->toPaymentRep->getToPaymentsByContractAndOperationType($rentPayment);
 
         return $toPaymentsObj;
     }
@@ -151,10 +150,13 @@ Class PaymentService{
     public function saveAllocatePayment($toPaymentIdArray,$toPaymentSumArray,$paymentId)
     {
         $paymentObj = $this->paymentRep->getPayment($paymentId);
+        $allocateSum = $this->toPaymentRep->getAllocateToPaymentSum($paymentObj);
+        $this->toPaymentRep->delAllocateToPayment($paymentObj);
+
         $toPaymentObjArray = array();
         $maxPay = array_sum($toPaymentSumArray);
 // sum of toPayment
-        if ($maxPay <= $paymentObj->balance){
+        if ($maxPay <= $paymentObj->balance+$allocateSum){
             foreach($toPaymentIdArray as $key => $toPayment){
                 $toPaymentObj = $this->toPaymentRep->getToPayment($toPayment);
 
@@ -177,7 +179,7 @@ Class PaymentService{
                    $this->toPaymentRep->addToPayment($toPaymentObj);
                }
             }
-            $paymentObj->balance = $paymentObj->balance - $maxPay;
+            $paymentObj->balance = $paymentObj->balance + $allocateSum - $maxPay;
             $this->paymentRep->addPayment($paymentObj);
         }
 

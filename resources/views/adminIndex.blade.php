@@ -12,7 +12,7 @@
         <!-- Styles -->
         <link href="/css/app.css" rel="stylesheet">
         <link href="/css/dashboard.css" rel="stylesheet">
-        <link href="/css/style.css?version=1.0" rel="stylesheet">
+        <link href="/css/style.css?version={{config('global.version')}}" rel="stylesheet">
     </head>
 
     <body class="antialiased">
@@ -198,9 +198,9 @@
 
 
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/ready.js?version=1') }}" defer></script>
+    <script src="{{ asset('js/ready.js?version='.config('global.version'))}}" defer></script>
     <script src="{{ asset('js/js.cookie.min.js') }}" defer></script>
-    <script src="{{ asset('js/user.js') }}" defer></script>
+    <script src="{{ asset('js/user.js?version='.config('global.version'))}}" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
     @yield('js')
 

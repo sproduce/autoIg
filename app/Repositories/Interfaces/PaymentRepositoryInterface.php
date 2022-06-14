@@ -14,6 +14,7 @@ interface PaymentRepositoryInterface
     public function getOperationType($id);
 
     public function getPayment($id): rentPayment;
+
     public function getPayments($validateFilter);
     public function getPaymentsAll();
     public function addPayment(rentPayment $paymentmodel): rentPayment;

@@ -62,3 +62,19 @@ div.carInfoSize{
 td.partSize{
     width: 10px;
 }
+
+
+.fullAllocate{
+    background-color:#0F0;
+}
+.partAllocate{
+    background-color:#f8fa3e;
+}
+
+
+input.noBorderInput{
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+}

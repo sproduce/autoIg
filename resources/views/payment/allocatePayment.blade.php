@@ -23,7 +23,7 @@
             </div>
         <label class="col-sm-1 col-form-label" for="paymentSum" title="Остаток"><strong>Остаток :</strong></label>
         <div class="col-sm-2">
-            <input readonly class="form-control-plaintext" id="paymentSum" value="{{$paymentObj->balance}}"/>
+            <input readonly disabled class="form-control-plaintext" id="paymentSum" value="{{$paymentObj->balance}}"/>
         </div>
 
     </div>
@@ -47,7 +47,7 @@
                 <div class="col-2">{{$toPayment->sum}}</div>
                 <div class="col-2">
                     <input class="allocate" type="checkbox" @if($toPayment->paymentId) checked  @endif data-sum="{{$toPayment->sum}}" name="toPaymentId[]" value="{{$toPayment->id}}"/>
-                    <input class="h-75 hiddenInput" @if($toPayment->paymentId) value="{{$toPayment->sum}}" data-sum="{{$toPayment->sum}}" @else hidden disabled @endif data-maxsum="{{$toPayment->sum}}" name="toPaymentSum[]" size="5"/>
+                    <input class="h-75 hiddenInput @if($toPayment->paymentId) fullAllocate noBorderInput" value="{{$toPayment->sum}}" data-sum="{{$toPayment->sum}}" @else" hidden disabled @endif data-maxsum="{{$toPayment->sum}}" name="toPaymentSum[]" size="5"/>
                 </div>
             </div>
         @endforeach
@@ -82,9 +82,9 @@
                     if ($('#paymentSum').val()>0) {
                         if (currentSum > paymentSum){
                             currentSum = paymentSum;
-                            hiddenInput.css("background-color","#f8fa3e");
+                            hiddenInput.removeClass("fullAllocate").addClass("partAllocate");
                         } else {
-                            hiddenInput.css("background-color","#0F0");
+                            hiddenInput.removeClass("partAllocate").addClass("fullAllocate");
                         }
                         $('#paymentSum').val(paymentSum - currentSum);
                         hiddenInput.show();
@@ -118,9 +118,9 @@
             }
 
             if (currentSum == maxSum){
-                $(this).css("background-color","#0F0");
+                $(this).removeClass("partAllocate").addClass("fullAllocate");
             } else {
-                $(this).css("background-color","#f8fa3e");
+                $(this).removeClass("fullAllocate").addClass("partAllocate");
             }
 
             deltaSum = prevSum - currentSum;

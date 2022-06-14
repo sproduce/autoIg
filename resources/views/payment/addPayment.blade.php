@@ -44,6 +44,12 @@
                         </div>
                     </div>
                 @endforeach
+                    <div class="row">
+                        <div class="col-12 clickable">
+                            <input type="radio"  name="payOperationTypeId" value="" required>
+                            Не указано
+                        </div>
+                    </div>
             </div>
             <div class="col-3">
                 <div class="row">

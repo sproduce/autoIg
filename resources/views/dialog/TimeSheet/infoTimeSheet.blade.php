@@ -26,8 +26,6 @@
 {{--            <div class="col-1">{{round($timeSheet->duration/60)}}</div>--}}
 {{--            <div class="col-1">{{$timeSheet->sum}}</div>--}}
             <div class="col-2">{{$timeSheet->mileage}}</div>
-            <div class="col-3">{{$timeSheet->contract->number}}</div>
-
         </div>
         @endforeach
     </div>

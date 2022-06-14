@@ -31,7 +31,7 @@ class rentPayment extends Model
     use HasFactory;
     use SoftDeletes;
     private $id,$dateTime,$payAccountId,$payOperationTypeId,$payment,$balance,$name,$carId,$carGroupId,$finished,$pid,$comm,$contractId,$subjectId;
-    protected $fillable =['dateTime','payAccountId','payOperationTypeId','payment','balance','name','carId','carGroupId','finished','pid','comm','comment','contractId','carDriverId','carOwnerId','subjectId'];
+    protected $fillable =['dateTime','payAccountId','payOperationTypeId','payment','balance','name','carId','carGroupId','finished','pid','comm','comment','contractId','subjectId'];
 
 
     protected $dates=['dateTime'];

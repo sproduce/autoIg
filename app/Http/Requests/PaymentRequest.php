@@ -36,8 +36,7 @@ class PaymentRequest extends FormRequest
             'pid'=>'integer|nullable',
             'comment'=>'',
             'contractId'=>'',
-            'carDriverId'=>'',
-            'carOwnerId'=>'',
+            'subjectId'=>'',
         ];
     }
 }

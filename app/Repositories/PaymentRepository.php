@@ -3,6 +3,7 @@
 namespace App\Repositories;
 use App\Models\rentCarGroup;
 use App\Models\rentPayment;
+use App\Models\toPayment;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Models\payAccount;
 use App\Models\payOperationType;
@@ -28,7 +29,7 @@ class PaymentRepository implements PaymentRepositoryInterface
     public function getOperationTypes()
     {
         $resultOperationTypes = payOperationType::orderBy('name')->get();
-        
+
         return $resultOperationTypes;
     }
 
@@ -80,6 +81,7 @@ class PaymentRepository implements PaymentRepositoryInterface
     {
         return rentPayment::where('contractId',$contractId)->orderByDesc('dateTime')->get();
     }
+
 
 }
 

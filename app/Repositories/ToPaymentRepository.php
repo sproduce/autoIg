@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\rentPayment;
 use App\Models\toPayment;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\Carbon;
@@ -109,15 +110,23 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         return toPayment::all();
     }
 
-   public function getToPaymentsByContractAndOperationType($contractId, $operationTypeId)
+   public function getToPaymentsByContractAndOperationType(rentPayment $rentPayment)
    {
-       $resultCollection = DB::table('to_payments')
-           ->join('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
-           ->join('rent_events','rent_events.id','=','time_sheets.eventId')
-           ->where('to_payments.contractId','=',$contractId)
-           ->where('rent_events.payOperationTypeId','=',$operationTypeId)
-           ->select('to_payments.*','rent_events.name','time_sheets.dateTime')
-           ->get();
+
+        $paymentId = $rentPayment->id;
+        $resultCollection = DB::table('to_payments')
+            ->join('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
+            ->join('rent_events','rent_events.id','=','time_sheets.eventId')
+            ->where('to_payments.contractId','=',$rentPayment->contractId)
+            ->where('rent_events.payOperationTypeId','=',$rentPayment->payOperationTypeId)
+            ->where(function($query) use ($paymentId){
+                $query->where('to_payments.paymentId','=',$paymentId);
+                $query->orWhereNull('to_payments.paymentId');
+            })
+            ->select('to_payments.*','rent_events.name','time_sheets.dateTime')
+            ->orderBy('dateTime')
+            ->orderBy('id')
+            ->get();
 
        $resultCollection->each(function ($item, $key) {
            if ($item->dateTime) {
@@ -132,6 +141,19 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
    {
        // TODO: Implement getToPaymentsByOperationType() method.
    }
+
+
+
+    public function getAllocateToPaymentSum(rentPayment $paymentObj)
+    {
+        return toPayment::where('paymentId',$paymentObj->id)->sum('sum');
+    }
+
+    public function delAllocateToPayment(rentPayment $paymentObj)
+    {
+        return toPayment::where('paymentId',$paymentObj->id)->update(['paymentId' => null]);
+    }
+
 
 }
 
