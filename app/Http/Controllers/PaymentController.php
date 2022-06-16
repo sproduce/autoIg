@@ -6,6 +6,7 @@ use App\Http\Requests\AllocatePaymentRequest;
 use App\Http\Requests\DateSpan;
 use App\Http\Requests\PaymentRequest;
 use App\Models\rentPayment;
+use App\Models\toPayment;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\ToPaymentRepository;
 use App\Services\ContractService;
@@ -32,14 +33,22 @@ class PaymentController extends Controller
 
     public function addDialog()
     {
+        $paymentObj = new rentPayment();
 
         $paymentGuideObj=$this->paymentServ->getPaymentGuide();
-        return view('payment.addPayment',['paymentGuide'=>$paymentGuideObj]);
+        return view('payment.addPayment',['paymentGuide' => $paymentGuideObj ,'paymentObj' => $paymentObj]);
     }
 
+    public function edit($paymentId)
+    {
+        $paymentGuideObj = $this->paymentServ->getPaymentGuide();
+        $paymentObj = $this->paymentServ->getPayment($paymentId);
+        return view('payment.addPayment',['paymentGuide' => $paymentGuideObj ,'paymentObj' => $paymentObj]);
+    }
 
     public function add(PaymentRequest $paymentReq,rentPayment $paymentModel)
     {
+
         $paymentModel->dateTime = $paymentReq->get('dateTime');
         $paymentModel->payment = $paymentReq->get('payment');
         $paymentModel->comm = $paymentReq->get('comm');
@@ -47,20 +56,12 @@ class PaymentController extends Controller
         $paymentModel->payOperationTypeId = $paymentReq->get('payOperationTypeId');
         $paymentModel->contractId = $paymentReq->get('contractId');
         $paymentModel->subjectId = $paymentReq->get('subjectId');
-
+        $paymentModel->subjectId = $paymentReq->get('idgit ');
 
 
         $this->paymentServ->addPayment($paymentModel);
 
         return redirect('/payment/list');
-    }
-
-
-    public function edit($paymentId)
-    {
-        $paymentGuideObj = $this->paymentServ->getPaymentGuide();
-        $payment = $this->paymentServ->getPayment($paymentId);
-        return view('payment.editPayment',['paymentGuide'=>$paymentGuideObj,'payment'=>$payment]);
     }
 
     public function update()

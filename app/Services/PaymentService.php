@@ -46,11 +46,16 @@ Class PaymentService{
 
     public function addPayment(rentPayment $paymentModel)
     {
-        $paymentModel->balance = $paymentModel->payment;
-        $this->paymentRep->addPayment($paymentModel);
 
-        $paymentModel->pid = $paymentModel->id;
-        $this->paymentRep->addPayment($paymentModel);
+        if ($paymentModel->id){
+            $this->paymentRep->addPayment($paymentModel);
+        } else {
+            $paymentModel->balance = $paymentModel->payment;
+            $this->paymentRep->addPayment($paymentModel);
+            $paymentModel->pid = $paymentModel->id;
+            $this->paymentRep->addPayment($paymentModel);
+        }
+
 
     }
 

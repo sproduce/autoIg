@@ -58,19 +58,9 @@ class rentPayment extends Model
         return $this->hasOne(payOperationType::class,'id','payOperationTypeId')->withDefault();
     }
 
-    public function carOwner()
-    {
-        return $this->hasOne(carOwner::class,'id','carOwnerId')->withDefault();
-    }
-
     public function carGroup()
     {
         return $this->hasOne(rentCarGroup::class,'id','carGroupId')->withDefault();
-    }
-
-    public function carDriver()
-    {
-        return $this->hasOne(rentCarDriver::class,'id','carDriverId')->withDefault();
     }
 
     public function subject()

@@ -28,7 +28,7 @@ class PaymentRequest extends FormRequest
             'payment'=>'required|integer',
             'comm'=>'required|integer',
             'payAccountId'=>'required|integer',
-            'payOperationTypeId'=>'required|integer',
+            'payOperationTypeId'=>'nullable|integer',
             'name'=>'',
             'carId'=>'',
             'carGroupId'=>'',
