@@ -24,19 +24,21 @@ class PaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            'dateTime'=>'required',
-            'payment'=>'required|integer',
-            'comm'=>'required|integer',
-            'payAccountId'=>'required|integer',
-            'payOperationTypeId'=>'nullable|integer',
-            'name'=>'',
-            'carId'=>'',
-            'carGroupId'=>'',
-            'finished'=>'',
-            'pid'=>'integer|nullable',
-            'comment'=>'',
-            'contractId'=>'',
-            'subjectId'=>'',
+            'id' => 'nullable|integer',
+            'dateTime' => 'required',
+            'payment' => 'required|integer',
+            'comm' => 'required|integer',
+            'payAccountId' => 'required|integer',
+            'payOperationTypeId' => 'nullable|integer',
+            'name' => '',
+            'carId' => 'nullable|integer',
+            'carGroupId' => 'nullable|integer',
+            'finished' => 'boolean',
+            'isNext' => 'boolean',
+            'pid' => 'integer|nullable',
+            'comment' => '',
+            'contractId' => 'nullable|integer',
+            'subjectId' => 'nullable|integer',
         ];
     }
 }

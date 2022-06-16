@@ -15,16 +15,12 @@
     </button>
 </div>
 <form action="/payment/copyToPayClient" method="POST">
+
     @csrf
-    <input type="number" name="carId" value="{{$car->id}}" hidden/>
-    <input type="number" name="timeSheetId" value="{{$toPayment->timeSheetId}}" hidden/>
+    <input type="number" name="toPaymentId" value="{{$toPayment->id}}" hidden/>
     <div class="modal-body">
         <div class="container-fluid">
             <div class="form-group row">
-                <label for="car" class="col-sm-2 col-form-label form-control-sm">Машина</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control form-control-sm" id="car" name="car" autocomplete="off" value="{{$car->nickName}}" readonly />
-                </div>
                 <label for="sum" class="col-sm-2 col-form-label form-control-sm">Сумма</label>
                 <div class="col-sm-4">
                     <input type="number" class="form-control form-control-sm" id="sum" name="sum" autocomplete="off" value="{{$toPayment->sum}}" required/>
@@ -37,7 +33,7 @@
                         <input type="radio" name="contractId" value="{{$contract->id}}"/>
                     </div>
                     <div class="col-4">{{$contract->number}}</div>
-                    <div class="col-4">{{$contract->driver->surname}}</div>
+                    <div class="col-4"></div>
                     <div class="col-3">{{$contract->car->nickName}}</div>
                 </div>
             @empty

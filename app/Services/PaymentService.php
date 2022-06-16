@@ -1,5 +1,6 @@
 <?php
 namespace App\Services;
+use App\Http\Requests\CopyToPayRequest;
 use App\Models\rentPayment;
 use App\Repositories\ContractRepository;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
@@ -46,15 +47,12 @@ Class PaymentService{
 
     public function addPayment(rentPayment $paymentModel)
     {
-
-        if ($paymentModel->id){
-            $this->paymentRep->addPayment($paymentModel);
-        } else {
+        if (!$paymentModel->id) {
             $paymentModel->balance = $paymentModel->payment;
             $this->paymentRep->addPayment($paymentModel);
             $paymentModel->pid = $paymentModel->id;
-            $this->paymentRep->addPayment($paymentModel);
         }
+        $this->paymentRep->addPayment($paymentModel);
 
 
     }
@@ -89,26 +87,6 @@ Class PaymentService{
     }
 
 
-    public function updatePayment()
-    {
-        $validate=$this->request->validate(['dateTime'=>'required',
-            'payment'=>'required|integer',
-            'comm'=>'required|integer',
-            'payAccountId'=>'required|integer',
-            'payOperationTypeId'=>'required|integer',
-            'name'=>'',
-            'carId'=>'',
-            'carGroupId'=>'',
-            'finished'=>'',
-            'pid'=>'integer',
-            'comment'=>'',
-            'contractId'=>''
-        ]);
-        $validateId=$this->request->validate(['id'=>'required|integer']);
-
-        $this->paymentRep->updatePayment($validateId['id'],$validate);
-    }
-
     public function deletePayment()
     {
         $validateId=$this->request->validate(['paymentId'=>'required|integer']);
@@ -137,8 +115,15 @@ Class PaymentService{
     }
 
 
+    public function copyToPayment(CopyToPayRequest $copyToPayRequest)
+    {
+
+    }
+
+
     public function addToPayment($dataArray)
     {
+
         $dataArray['sum'] = abs($dataArray['sum'])*-1;
         $this->toPaymentRep->addToPayment($dataArray);
     }

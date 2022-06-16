@@ -20,7 +20,10 @@
 
         <div class="row pb-3 mb-3 border-bottom">
             <div class="col-1">Дата</div>
-            <div class="col-3"><input type="datetime-local" name="dateTime" value="{{old('dateTime',$paymentObj->dateTime ? $paymentObj->dateTime->format('Y-m-d\TH:i:s'):'')}}" id="dateTime" required/> <button class="btn btn-ssm btn-outline-success" title="Текущая дата" id="currentDate"><i class="fas fa-calendar-alt"></i></button> </div>
+            <div class="col-3">
+                <input type="datetime-local" name="dateTime" value="{{old('dateTime',$paymentObj->dateTime ? $paymentObj->dateTime->format('Y-m-d\TH:i:s'):'')}}" id="dateTime" required/>
+                <button class="btn btn-ssm btn-outline-success" title="Текущая дата" id="currentDate"><i class="fas fa-calendar-alt"></i></button>
+            </div>
             <div class="col-1">Сумма</div>
             <div class="col-3"><input type="number" name="payment" value="{{old('payment',$paymentObj->payment)}}" required/></div>
             <div class="col-1">Комиссия</div>
@@ -49,7 +52,7 @@
                 @endforeach
                     <div class="row">
                         <div class="col-12 clickable">
-                            <input type="radio"  name="payOperationTypeId" value="" required/>
+                            <input type="radio"  name="payOperationTypeId" value="0" @if(old('payOperationTypeId') === 0) checked @endif required/>
                                 Не указано
                         </div>
                     </div>
@@ -88,7 +91,7 @@
                         <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
                     </div>
                     <div class="col-7">
-                        <input id="carText" name="carText" value="{{old('carText',$paymentObj->car->nickName)}}" disabled />
+                        <input id="carText" name="carText" value="{{old('carText',$paymentObj->car->nickName)}}" readonly/>
                         <input name="carId" id="carId" value="{{old('carId',$paymentObj->carId)}}"  hidden />
                     </div>
                 </div>
@@ -101,7 +104,7 @@
                         <a href="/carGroup/searchDialog" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
                     </div>
                     <div class="col-7">
-                        <input id="carGroupText" name="carGroupText" value="{{old('carGroupText',$paymentObj->carGroup->nickName)}}" disabled />
+                        <input id="carGroupText" name="carGroupText" value="{{old('carGroupText',$paymentObj->carGroup->nickName)}}" readonly/>
                         <input name="carGroupId" id="carGroupId" value="{{old('carGroupId',$paymentObj->carGroupId)}}"  hidden />
                     </div>
                 </div>
@@ -113,19 +116,12 @@
                         <a href="/payment/addContract" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
                     </div>
                     <div class="col-7">
-                        <input id="contractText" name="contractText" value="{{old('contractText',$paymentObj->contract->number)}}" disabled />
+                        <input id="contractText" name="contractText" value="{{old('contractText',$paymentObj->contract->number)}}" readonly/>
                         <input name="contractId" id="contractId" value="{{old('contractId',$paymentObj->contractId)}}"  hidden />
                     </div>
                 </div>
-
-
             </div>
-
         </div>
-
-
-
-
 
         <div class="row pt-3">
             <div class="col-2">
@@ -155,12 +151,15 @@
                 <input type="checkbox" value="1"  name="finished" @if(old('finished',$paymentObj->finished)) checked @endif/>
             </div>
         </div>
-        <div class="row mt-3 pt-3">
+        <div class="row">
+            @if ($paymentObj->id)
+                <div class="col-4"></div>
+            @else
+                <div class="col-2">Следующий платеж</div>
+                <div class="col-2"><input type="checkbox" name="isNext" value="1" @if(old('isNext'))checked @endif/></div>
+            @endif
             <div class="col-4">
-                <input type="submit" class="btn btn-primary" value="Добавить">
-            </div>
-            <div class="col-4">
-                <input type="submit" class="btn btn-primary" value="Добавить следующий">
+                <input type="submit" class="btn btn-primary" value="Сохранить">
             </div>
         </div>
     </form>

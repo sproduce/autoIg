@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AllocatePaymentRequest;
+use App\Http\Requests\CopyToPayRequest;
 use App\Http\Requests\DateSpan;
 use App\Http\Requests\PaymentRequest;
 use App\Models\rentPayment;
@@ -46,9 +47,9 @@ class PaymentController extends Controller
         return view('payment.addPayment',['paymentGuide' => $paymentGuideObj ,'paymentObj' => $paymentObj]);
     }
 
-    public function add(PaymentRequest $paymentReq,rentPayment $paymentModel)
+    public function add(PaymentRequest $paymentReq)
     {
-
+        $paymentModel = $this->paymentServ->getPayment($paymentReq->get('id'));
         $paymentModel->dateTime = $paymentReq->get('dateTime');
         $paymentModel->payment = $paymentReq->get('payment');
         $paymentModel->comm = $paymentReq->get('comm');
@@ -56,18 +57,16 @@ class PaymentController extends Controller
         $paymentModel->payOperationTypeId = $paymentReq->get('payOperationTypeId');
         $paymentModel->contractId = $paymentReq->get('contractId');
         $paymentModel->subjectId = $paymentReq->get('subjectId');
-        $paymentModel->subjectId = $paymentReq->get('idgit ');
 
 
         $this->paymentServ->addPayment($paymentModel);
 
-        return redirect('/payment/list');
-    }
+        if ($paymentReq->get('isNext')){
+            return  redirect()->back();
+        } else {
+            return redirect('/payment/list');
+        }
 
-    public function update()
-    {
-        $this->paymentServ->updatePayment();
-        return redirect('/payment/list');
     }
 
 
@@ -100,16 +99,15 @@ class PaymentController extends Controller
 
     public function listByContract()
     {
-        $paymentsObj=$this->paymentServ->getPaymentsByContract();
+        $paymentsObj = $this->paymentServ->getPaymentsByContract();
         return view('payment.paymentByContractList',['payments'=>$paymentsObj]);
     }
 
     public function listToPays(ToPaymentRepository $toPaymentRep,DateSpan $dateSpan)
     {
-        $dateSpan->validated();
-        $periodDate=$dateSpan->getCarbonPeriod();
+        $periodDate = $dateSpan->getCarbonPeriod();
 
-        $toPaymentsCollect=$toPaymentRep->getToPaymentsByDate($periodDate);
+        $toPaymentsCollect = $toPaymentRep->getToPaymentsByDate($periodDate);
         $grouped = $toPaymentsCollect->groupBy('nickname');
         //$grouped->dump();
         //$toPaymentsCollect->dump();
@@ -149,17 +147,11 @@ class PaymentController extends Controller
         return redirect('/payment/toPay');
     }
 
-    public function copyToPayClient()
+    public function copyToPayClient(CopyToPayRequest $copyToPayRequest)
     {
-        $validate = $this->request->validate([
-            'contractId' => 'required|integer',
-            'timeSheetId' => '',
-            'sum' => 'required|integer',
-            'carId' => 'required|integer',
-            'comment' => '',
-        ]);
 
-        $this->paymentServ->addToPayment($validate);
+        $this->paymentServ->copyToPayment($copyToPayRequest);
+
         return redirect('/payment/toPay');
     }
 

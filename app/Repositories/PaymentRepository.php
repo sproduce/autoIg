@@ -35,7 +35,7 @@ class PaymentRepository implements PaymentRepositoryInterface
 
     public function getPayment($id): rentPayment
     {
-        return rentPayment::find($id);
+        return rentPayment::find($id) ?? new rentPayment();
     }
 
     public function getPayments($validateFilter)

@@ -39,9 +39,9 @@
                 </select>
             </div>
             <div class="col-1 text-center">Сумма</div>
-            <div class="col-2 text-center">Платеж</div>
-            <div class="col-1 text-center"></div>
-            <div class="col-2 text-center">Комментарий</div>
+            <div class="col-1 text-center">Договор</div>
+            <div class="col-2 text-center">От кого</div>
+            <div class="col-2 text-center">Кому</div>
         </div>
 
         @foreach($toPayments as $toPayment)
@@ -58,17 +58,12 @@
                         {{$toPayment->eventName}}
                     @endif
                 </div>
-                <div class="col-1 text-right">{{$toPayment->toPaymentSum}}</div>
-                <div class="col-2 text-center">
-                    @if($toPayment->paymentId)
-                        @else
-                        <a href="/payment/addPaymentId?toPayId={{$toPayment->toPaymentId}}" class="btn btn-ssm btn-outline-success" title="К платежу">
-                            <i class="fas fa-ruble-sign"></i>
-                        </a>
-                    @endif
+                <div class="col-1 text-right @if($toPayment->paymentId) fullAllocate @endif">{{$toPayment->toPaymentSum}}</div>
+                <div class="col-1 text-center">
+                   {{$toPayment->contractNumber}}
                 </div>
                 <div class="col-1 text-center">
-                    @if ($toPayment->toPaymentSum<=0)
+                    @if ($toPayment->toPaymentSum<0)
                         <a href="/payment/copyToPayClientDialog?toPayId={{$toPayment->toPaymentId}}" class="btn btn-ssm btn-outline-success DialogUserMin" title="Добавить к оплате">
                             <i class="fas fa-user-plus"></i>
                         </a>
