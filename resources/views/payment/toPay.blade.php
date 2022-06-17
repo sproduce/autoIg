@@ -57,20 +57,24 @@
                         <a href="/{{$toPayment->eventAction}}/{{$toPayment->timeSheetDataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробно о событии"><i class="fas fa-info-circle"></i></a>
                         {{$toPayment->eventName}}
                     @endif
+                    <br/>
+                    {{$toPayment->operationTypeName}}
                 </div>
                 <div class="col-1 text-right @if($toPayment->paymentId) fullAllocate @endif">{{$toPayment->toPaymentSum}}</div>
                 <div class="col-1 text-center">
-                   {{$toPayment->contractNumber}}
-                </div>
-                <div class="col-1 text-center">
-                    @if ($toPayment->toPaymentSum<0)
-                        <a href="/payment/copyToPayClientDialog?toPayId={{$toPayment->toPaymentId}}" class="btn btn-ssm btn-outline-success DialogUserMin" title="Добавить к оплате">
-                            <i class="fas fa-user-plus"></i>
-                        </a>
+                    @if ($toPayment->toPaymentContractId)
+                        {{$toPayment->contractNumber}}
+                    @else
+{{--                        <a href="/payment/copyToPayClientDialog?toPayId={{$toPayment->toPaymentId}}" class="btn btn-ssm btn-outline-success DialogUserMin" title="Добавить к оплате">--}}
+{{--                            <i class="fas fa-user-plus"></i>--}}
+{{--                        </a>--}}
                     @endif
                 </div>
                 <div class="col-2">
-                        {{$toPayment->toPaymentComment}}
+                    {{$toPayment->subjectFromNickname}}
+                </div>
+                <div class="col-2">
+                    {{$toPayment->subjectToNickname}}
                 </div>
             </div>
 

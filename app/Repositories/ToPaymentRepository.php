@@ -55,7 +55,9 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->leftJoin('rent_events','rent_events.id','=','time_sheets.eventId')
             ->leftjoin('car_configurations','car_configurations.id','=','time_sheets.carId')
             ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
-
+            ->leftJoin('pay_operation_types','pay_operation_types.id','=','rent_events.payOperationTypeId')
+            ->leftJoin('rent_subjects as subjectFrom','subjectFrom.id','=','to_payments.subjectIdFrom')
+            ->leftJoin('rent_subjects as subjectTo','subjectTo.id','=','to_payments.subjectIdTo')
             ->select([
                 'rent_events.name as eventName',
                 'rent_events.action as eventAction',
@@ -69,10 +71,20 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
 
                 'to_payments.sum as toPaymentSum',
                 'to_payments.id as toPaymentId',
+                'to_payments.contractId as toPaymentContractId',
                 'to_payments.comment as toPaymentComment',
                 'to_payments.paymentId as paymentId',
 
-                'rent_contracts.number as contractNumber'
+                'rent_contracts.number as contractNumber',
+
+                'pay_operation_types.name as operationTypeName',
+
+                'subjectFrom.nickname as subjectFromNickname',
+                'subjectTo.nickname as subjectToNickname',
+
+
+
+
             ])
             ->whereBetween('dateTime',[$startDate,$finishDate])
             ->orderBy('time_sheets.dateTime')

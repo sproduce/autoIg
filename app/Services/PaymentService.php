@@ -117,6 +117,12 @@ Class PaymentService{
 
     public function copyToPayment(CopyToPayRequest $copyToPayRequest)
     {
+        $toPaymentObj = $this->toPaymentRep->getToPayment($copyToPayRequest->get('toPaymentId'));
+        $newToPayment = $toPaymentObj->replicate();
+        $newToPayment->contractId = $copyToPayRequest->get('contractId');
+        $newToPayment->sum = $copyToPayRequest->get('sum');
+        $newToPayment->comment = $copyToPayRequest->get('comment');
+        $this->toPaymentRep->addToPayment($newToPayment);
 
     }
 

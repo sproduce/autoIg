@@ -88,7 +88,7 @@
                         Машина
                     </div>
                     <div class="col-1">
-                        <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                        <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
                     </div>
                     <div class="col-7">
                         <input id="carText" name="carText" value="{{old('carText',$paymentObj->car->nickName)}}" readonly/>
@@ -101,7 +101,7 @@
                         Группа
                     </div>
                     <div class="col-1">
-                        <a href="/carGroup/searchDialog" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                        <a href="/carGroup/addCarGroupTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
                     </div>
                     <div class="col-7">
                         <input id="carGroupText" name="carGroupText" value="{{old('carGroupText',$paymentObj->carGroup->nickName)}}" readonly/>
@@ -113,7 +113,7 @@
                         Договор
                     </div>
                     <div class="col-1">
-                        <a href="/payment/addContract" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                        <a href="/contract/addContractTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
                     </div>
                     <div class="col-7">
                         <input id="contractText" name="contractText" value="{{old('contractText',$paymentObj->contract->number)}}" readonly/>
