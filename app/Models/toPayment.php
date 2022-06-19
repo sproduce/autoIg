@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $timeSheetId
  * @property int $sum
  * @property int $paymentId
+ * @property int $paymentSum
  * @property int $pId
  * @property int $subjectIdFrom
  * @property int $subjectIdTo
@@ -26,8 +27,8 @@ class toPayment extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    private $id,$contractId,$timeSheetId,$sum,$paymentId,$pId,$subjectIdFrom,$subjectIdTo,$comment,$payUp;
-    protected $fillable = ['contractId','timeSheetId','sum','paymentId','pId','comment','subjectIdFrom','subjectIdTo','payUp'];
+    private $id,$contractId,$timeSheetId,$sum,$paymentId,$pId,$subjectIdFrom,$subjectIdTo,$comment,$payUp,$paymentSum;
+    protected $fillable = ['contractId','timeSheetId','sum','paymentId','pId','comment','subjectIdFrom','subjectIdTo','payUp','paymentSum'];
     protected $dates = ['dateTime'];
 
     public function contract()

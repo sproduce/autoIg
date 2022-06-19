@@ -146,21 +146,22 @@ Class PaymentService{
     public function saveAllocatePayment($toPaymentIdArray,$toPaymentSumArray,$paymentId)
     {
         $paymentObj = $this->paymentRep->getPayment($paymentId);
-        $allocateSum = $this->toPaymentRep->getAllocateToPaymentSum($paymentObj);
-        $this->toPaymentRep->delAllocateToPayment($paymentObj);
+       // $allocateSum = $this->toPaymentRep->getAllocateToPaymentSum($paymentObj);
+        //$this->toPaymentRep->delAllocateToPayment($paymentObj);
 
         $toPaymentObjArray = array();
         $maxPay = array_sum($toPaymentSumArray);
 // sum of toPayment
-        if ($maxPay <= $paymentObj->balance+$allocateSum){
+        if ($maxPay <= $paymentObj->balance){
             foreach($toPaymentIdArray as $key => $toPayment){
                 $toPaymentObj = $this->toPaymentRep->getToPayment($toPayment);
 
                 if ($toPaymentObj->sum > $toPaymentSumArray[$key]){
                     $newToPayment = $toPaymentObj->replicate();
                     $newToPayment->sum = $toPaymentSumArray[$key];
+                    $newToPayment->paymentSum = $toPaymentSumArray[$key];
                     $newToPayment->paymentId = $paymentId;
-                    $toPaymentObj->sum = $toPaymentObj->sum - $toPaymentSumArray[$key];
+                    $toPaymentObj->paymentSum = $toPaymentObj->paymentSum + $toPaymentSumArray[$key];
                     $toPaymentObjArray[] = $toPaymentObj;
                     $toPaymentObjArray[] = $newToPayment;
                 } else{
@@ -168,6 +169,7 @@ Class PaymentService{
                         return 0;
                     }
                     $toPaymentObj->paymentId = $paymentId;
+                    $toPaymentObj->paymentSum = $toPaymentObj->sum;
                     $toPaymentObjArray[] = $toPaymentObj;
                 }
 
@@ -175,7 +177,8 @@ Class PaymentService{
                    $this->toPaymentRep->addToPayment($toPaymentObj);
                }
             }
-            $paymentObj->balance = $paymentObj->balance + $allocateSum - $maxPay;
+
+            $paymentObj->balance = $paymentObj->balance - $maxPay;
             $this->paymentRep->addPayment($paymentObj);
         }
 

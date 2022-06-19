@@ -38,7 +38,7 @@
                     <option>Все ..</option>
                 </select>
             </div>
-            <div class="col-1 text-center">Сумма</div>
+            <div class="col-1 text-center">Сумма /<br/>Оплачено</div>
             <div class="col-1 text-center">Договор</div>
             <div class="col-2 text-center">От кого</div>
             <div class="col-2 text-center">Кому</div>
@@ -47,9 +47,10 @@
         @foreach($toPayments as $toPayment)
             <div class="row row row-table">
                 <div class="col-2">
-                    @if($toPayment->timeSheetDateTime)
-                        {{$toPayment->timeSheetDateTime->format('d-m-Y H:i')}}
-                    @endif
+
+                        {{$toPayment->timeSheetDateTime->format('d-m-Y H:i')}}<br/>
+                        {{$toPayment->paymentPayUp->format('d-m-Y')}}
+
                 </div>
                 <div class="col-2">{{$toPayment->carNickName}}</div>
                 <div class="col-2">
@@ -60,7 +61,8 @@
                     <br/>
                     {{$toPayment->operationTypeName}}
                 </div>
-                <div class="col-1 text-right @if($toPayment->paymentId) fullAllocate @endif">{{$toPayment->toPaymentSum}}</div>
+{{--                @if($toPayment->paymentId) fullAllocate @endif--}}
+                <div class="col-1 text-right ">{{$toPayment->toPaymentSum}}<br/>{{$toPayment->paymentSum}}</div>
                 <div class="col-1 text-center">
                     @if ($toPayment->toPaymentContractId)
                         {{$toPayment->contractNumber}}

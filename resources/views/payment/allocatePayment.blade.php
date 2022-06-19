@@ -44,7 +44,7 @@
             <div class="row row-table">
                 <div class="col-2">{{$toPayment->dateTime->format('d-m-Y H:i')}}</div>
                 <div class="col-2">{{$toPayment->name}}</div>
-                <div class="col-2">{{$toPayment->sum}}</div>
+                <div class="col-2">{{$toPayment->sum}}/{{$toPayment->paymentSum}}</div>
                 <div class="col-2">
                     <input class="allocate" type="checkbox" @if($toPayment->paymentId) checked  @endif data-sum="{{$toPayment->sum}}" name="toPaymentId[]" value="{{$toPayment->id}}"/>
                     <input class="h-75 hiddenInput @if($toPayment->paymentId) fullAllocate noBorderInput" value="{{$toPayment->sum}}" data-sum="{{$toPayment->sum}}" @else" hidden disabled @endif data-maxsum="{{$toPayment->sum}}" name="toPaymentSum[]" size="5"/>
