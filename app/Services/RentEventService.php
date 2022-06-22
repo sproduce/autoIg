@@ -1,21 +1,24 @@
 <?php
 namespace App\Services;
+use App\Models\rentEvent;
 use App\Models\timeSheet;
 use App\Models\toPayment;
 use App\Repositories\Interfaces\RentEventRepositoryInterface;
-use Illuminate\Http\Request;
+use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
+use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
+
 
 Class RentEventService{
-    private $rentEventRep,$toPayment,$timeSheet;
+    private $rentEventRep,$timeSheetRep,$toPaymentRep;
 
     function __construct(
-        toPayment $toPayment,
-        timeSheet $timeSheet,
-        RentEventRepositoryInterface $rentEventRep
+        RentEventRepositoryInterface $rentEventRep,
+        TimeSheetRepositoryInterface $timeSheetRep,
+        ToPaymentRepositoryInterface $toPaymentRep
     ){
-        $this->toPayment = $toPayment;
-        $this->timeSheet = $timeSheet;
         $this->rentEventRep = $rentEventRep;
+        $this->timeSheetRep = $timeSheetRep;
+        $this->toPaymentRep = $toPaymentRep;
     }
 
 
@@ -25,9 +28,18 @@ Class RentEventService{
         return $rentEventsObj;
     }
 
-    public function getRentEvent($eventId)
+
+    public function getEventService(rentEvent $eventObj): EventServiceInterface
     {
-        $rentEventObj=$this->rentEventRep->getEvent($eventId);
+        $serviceName = '\App\Services\\'.ucfirst($eventObj->action).'Service';
+
+        return (new $serviceName($this->timeSheetRep,$this->toPaymentRep,$eventObj));
+    }
+
+
+    public function getRentEvent($eventId):rentEvent
+    {
+        $rentEventObj = $this->rentEventRep->getEvent($eventId);
         return $rentEventObj;
     }
 
@@ -54,12 +66,12 @@ Class RentEventService{
 
     public function getEventExtendedObjs($eventId,$dataId)
     {
-        $timeSheetObj = $this->timeSheet
-            ->where('eventId',$eventId)
-            ->where('dataId',$dataId)
-            ->first();
-        $toPaymentObj = $this->toPayment
-            ->where('');
+//        $timeSheetObj = $this->timeSheet
+//            ->where('eventId',$eventId)
+//            ->where('dataId',$dataId)
+//            ->first();
+//        $toPaymentObj = $this->toPayment
+//            ->where('');
 
     }
 

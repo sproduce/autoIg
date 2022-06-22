@@ -11,26 +11,34 @@ use App\Http\Requests\Event;
 use App\Repositories\EventFineRepository;
 use App\Repositories\Interfaces\EventFineRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
+use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
-Class EventFineService{
-    private $timeSheetModel,$toPaymentModel,$rentEventFineModel,$eventFineRep,$timeSheetRep;
+Class EventFineService implements EventServiceInterface {
+    private $eventFineRep,$timeSheetRep,$toPaymentRep,$eventObj;
 
     function __construct(
-        timeSheet $timeSheetModel,
-        toPayment $toPaymentModel,
-        rentEventFine $rentEventFineModel,
-        EventFineRepositoryInterface $eventFineRep,
-        TimeSheetRepositoryInterface $timeSheetRep
+        TimeSheetRepositoryInterface $timeSheetRep,
+        ToPaymentRepositoryInterface $toPaymentRep,
+        rentEvent $eventObj
     ){
-        $this->timeSheetModel = $timeSheetModel;
-        $this->toPaymentModel = $toPaymentModel;
-        $this->rentEventFineModel = $rentEventFineModel;
-        $this->eventFineRep = $eventFineRep;
+        $this->eventFineRep = new EventFineRepository();
         $this->timeSheetRep = $timeSheetRep;
+        $this->toPaymentRep = $toPaymentRep;
+        $this->eventObj = $eventObj;
     }
 
+
+    public function index()
+    {
+
+    }
+
+    public function getViews()
+    {
+
+    }
 
     public function addEvent(Event\FineRequest $fineRequest,rentEvent $eventObj)
     {

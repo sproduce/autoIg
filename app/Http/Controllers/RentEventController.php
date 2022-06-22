@@ -6,15 +6,31 @@ use App\Repositories\PaymentRepository;
 use App\Services\RentEventService;
 use Illuminate\Http\Request;
 
-
 class RentEventController extends Controller
 {
     private $request,$rentEventServ;
     public function __construct(Request $request,RentEventService $rentEventServ)
     {
         $this->request=$request;
-        $this->rentEventServ=$rentEventServ;
+        $this->rentEventServ = $rentEventServ;
     }
+
+
+    public function index($eventId)
+    {
+        $eventObj = $this->rentEventServ->getRentEvent($eventId);
+        $serviceObj = $this->rentEventServ->getEventService($eventObj);
+        $eventResult = $serviceObj->index();
+        echo $eventObj->action;
+    }
+
+
+    public function create($eventId)
+    {
+        echo $eventId;
+    }
+
+
 
 
     public function show()

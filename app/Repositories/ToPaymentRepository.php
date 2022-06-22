@@ -107,14 +107,12 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
     public function addToPayment(toPayment $toPaymentObj): toPayment
     {
         $toPaymentObj->save();
+        if (is_null($toPaymentObj->pId)){
+            $toPaymentObj->pId = $toPaymentObj->id;
+            $toPaymentObj->save();
+        }
+
         return $toPaymentObj;
-    }
-
-
-
-    public function updateToPayment($id,$toPaymentArray)
-    {
-        toPayment::where('id',$id)->update($toPaymentArray);
     }
 
 

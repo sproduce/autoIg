@@ -1,31 +1,37 @@
 <?php
 namespace App\Services;
 
-
-
-use App\Models\carConfiguration;
-use App\Models\rentEventRental;
-use App\Models\timeSheet;
-use App\Models\toPayment;
-use App\Repositories\Interfaces\EventRentalRepositoryInterface;
+use App\Models\rentEvent;
+use App\Repositories\EventRentalRepository;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
-
-use App\Repositories\ToPaymentRepository;
+use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
-Class EventRentalService{
-    private $eventRentalRep,$timeSheetRep,$toPaymentRep;
+Class EventRentalService implements EventServiceInterface {
+    private $eventRentalRep,$timeSheetRep,$toPaymentRep,$eventObj;
 
-    function __construct(EventRentalRepositoryInterface $eventRentalRep,
-                         TimeSheetRepositoryInterface $timeSheetRep,
-                         ToPaymentRepository $toPaymentRep)
-    {
-        $this->eventRentalRep=$eventRentalRep;
-        $this->timeSheetRep=$timeSheetRep;
-        $this->toPaymentRep=$toPaymentRep;
+    function __construct(
+        TimeSheetRepositoryInterface $timeSheetRep,
+        ToPaymentRepositoryInterface $toPaymentRep,
+        rentEvent $eventObj
+    ){
+        $this->eventRentalRep = new EventRentalRepository();
+        $this->timeSheetRep = $timeSheetRep;
+        $this->toPaymentRep = $toPaymentRep;
+        $this->eventObj = $eventObj;
     }
 
+
+    public function index()
+    {
+
+    }
+
+    public function getViews()
+    {
+
+    }
 
     public function addEvent($dataArray)
     {

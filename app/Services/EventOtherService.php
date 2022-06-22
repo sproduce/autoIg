@@ -6,18 +6,26 @@ use App\Models\rentEvent;
 use App\Models\timeSheet;
 use App\Models\toPayment;
 use App\Http\Requests\Event;
+use App\Repositories\EventOtherRepository;
+use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
+use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\CarbonPeriod;
 
 
 
 Class EventOtherService{
 
-    private $timeSheetModel,$toPaymentModel;
+    private $eventOtherRep,$timeSheetRep,$toPaymentRep,$eventObj;
 
-    function __construct(timeSheet $timeSheetModel,toPayment $toPaymentModel)
-    {
-        $this->timeSheetModel = $timeSheetModel;
-        $this->toPaymentModel =  $toPaymentModel;
+    function __construct(
+        TimeSheetRepositoryInterface $timeSheetRep,
+        ToPaymentRepositoryInterface $toPaymentRep,
+        rentEvent $eventObj
+    ){
+        $this->eventOtherRep = new EventOtherRepository();
+        $this->timeSheetRep = $timeSheetRep;
+        $this->toPaymentRep = $toPaymentRep;
+        $this->eventObj = $eventObj;
     }
 
 
