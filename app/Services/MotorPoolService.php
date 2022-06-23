@@ -26,7 +26,7 @@ Class MotorPoolService{
     }
 
 
-    public function getCar($carId):carConfiguration
+    public function getCar($carId): carConfiguration
     {
         return $this->motorPoolRep->getCar($carId);
     }

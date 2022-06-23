@@ -23,15 +23,38 @@ Class EventRentalService implements EventServiceInterface {
     }
 
 
-    public function index()
+    public function index(CarbonPeriod $datePeriod)
     {
-
+        $resultEvents = $this->eventRentalRep->getEventRentals($this->eventObj->id,$datePeriod);
+        return $resultEvents;
     }
+
+   public function getEventModel($modelId = null)
+   {
+       return $this->eventRentalRep->getEventRental($modelId);
+   }
+
+
+   public function getAdditionalViewDataArray()
+   {
+       return ['lastTimeSheet'];
+   }
+
+   public function getRequestRules()
+   {
+       // TODO: Implement getRequestRules() method.
+   }
 
     public function getViews()
     {
 
     }
+
+
+
+
+
+
 
     public function addEvent($dataArray)
     {

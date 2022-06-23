@@ -30,9 +30,25 @@ Class EventFineService implements EventServiceInterface {
     }
 
 
-    public function index()
+    public function index(CarbonPeriod $datePeriod)
     {
+        $resultEvents = $this->eventFineRep->getEventFines($this->eventObj->id,$datePeriod);
+        return $resultEvents;
+    }
 
+   public function getEventModel($modelId = null)
+   {
+       return $this->eventFineRep->getEventFine($modelId);
+   }
+
+    public function getAdditionalViewDataArray()
+    {
+        return [];
+    }
+
+    public function getRequestRules()
+    {
+        // TODO: Implement getRequestRules() method.
     }
 
     public function getViews()

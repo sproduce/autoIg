@@ -3,14 +3,14 @@
 namespace App\Repositories\Interfaces;
 
 
-use App\Models\rentEventOther;
+use App\Models\rentEventService;
 use Carbon\CarbonPeriod;
 
-interface EventOtherRepositoryInterface
+interface EventServiceRepositoryInterface
 {
     public function addEvent($dataArray);
     public function getEventsByContract($contractId);
-    public function getEvent($id): rentEventOther;
+    public function getEvent($id): rentEventService;
     public function getEvents($eventId,CarbonPeriod $datePeriod);
 
 }

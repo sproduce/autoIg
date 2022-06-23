@@ -7,22 +7,23 @@ use App\Models\timeSheet;
 use App\Models\toPayment;
 use App\Http\Requests\Event;
 use App\Repositories\EventOtherRepository;
+use App\Repositories\EventServiceRepository;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\CarbonPeriod;
 
 
 
-Class EventOtherService implements EventServiceInterface{
+Class EventServiceService implements EventServiceInterface{
 
-    private $eventOtherRep,$timeSheetRep,$toPaymentRep,$eventObj;
+    private $eventServiceRep,$timeSheetRep,$toPaymentRep,$eventObj;
 
     function __construct(
         TimeSheetRepositoryInterface $timeSheetRep,
         ToPaymentRepositoryInterface $toPaymentRep,
         rentEvent $eventObj
     ){
-        $this->eventOtherRep = new EventOtherRepository();
+        $this->eventServiceRep = new EventServiceRepository();
         $this->timeSheetRep = $timeSheetRep;
         $this->toPaymentRep = $toPaymentRep;
         $this->eventObj = $eventObj;
@@ -30,14 +31,14 @@ Class EventOtherService implements EventServiceInterface{
 
     public function index(CarbonPeriod $datePeriod)
     {
-        $resultEvent = $this->eventOtherRep->getEvents($this->eventObj->id,$datePeriod);
+        $resultEvent = $this->eventServiceRep->getEvents($this->eventObj->id,$datePeriod);
         return $resultEvent;
     }
 
-  public function getEventModel($modelId = null)
-  {
-      return $this->eventOtherRep->getEvent($modelId);
-  }
+    public function getEventModel($modelId = null)
+    {
+        return $this->eventServiceRep->getEvent($modelId);
+    }
 
 
     public function getAdditionalViewDataArray()

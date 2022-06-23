@@ -9,9 +9,9 @@
 
 @section('content')
 
-    @if ($eventFineObj->id)
-        <form method="POST" action="/eventFine/{{$eventFineObj->id}}">
-        <input name="id" value="{{$eventFineObj->id}}" hidden/>
+    @if ($eventDataObj->id)
+        <form method="POST" action="/eventFine/{{$eventDataObj->id}}">
+        <input name="id" value="{{$eventDataObj->id}}" hidden/>
             @method('PUT')
         @else
         <form method="POST" action="/eventFine">
@@ -35,8 +35,8 @@
         <div class="form-group col-md-3 input-group-sm">
             <label for="dateOrder" title="Дата постановления">Дата постановления</label>
             <input type="date" name="dateOrder" id="dateOrder" class="form-control"
-                   @if ($eventFineObj->dateTimeOrder)
-                        value="{{$eventFineObj->dateTimeOrder->toDateString()}}"
+                   @if ($eventDataObj->dateTimeOrder)
+                        value="{{$eventDataObj->dateTimeOrder->toDateString()}}"
                    @endif
                    required/>
 
@@ -53,7 +53,7 @@
     <div class="form-row text-center">
         <div class="form-group col-md-6 input-group-sm">
             <label for="uin" title="УИН номер">УИН номер</label>
-            <input type="text" name="uin" id="uin" value="{{$eventFineObj->uin}}" class="form-control"/>
+            <input type="text" name="uin" id="uin" value="{{$eventDataObj->uin}}" class="form-control"/>
         </div>
     </div>
 
@@ -61,16 +61,16 @@
         <div class="form-group col-md-3 input-group-sm">
             <label for="datePaySale" title="Срок оплаты со скидкой">Срок оплаты со скидкой</label>
             <input type="date" name="datePaySale" id="datePaySale" class="form-control"
-                   @if ($eventFineObj->datePaySale)
-                       value="{{$eventFineObj->datePaySale->toDateString()}}"
+                   @if ($eventDataObj->datePaySale)
+                       value="{{$eventDataObj->datePaySale->toDateString()}}"
                 @endif
             />
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="datePayMax" title="Максимальный срок оплаты">Максимальный срок оплаты</label>
             <input type="date" name="datePayMax" id="datePayMax" class="form-control"
-                   @if ($eventFineObj->datePayMax)
-                       value="{{$eventFineObj->datePayMax->toDateString()}}"
+                   @if ($eventDataObj->datePayMax)
+                       value="{{$eventDataObj->datePayMax->toDateString()}}"
                 @endif
             />
         </div>
@@ -79,18 +79,18 @@
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="sumSale" title="Сумма штрафа со скидкой">Сумма штрафа со скидкой</label>
-            <input type="number" name="sumSale" id="sumSale" value="{{$eventFineObj->sumSale}}" class="form-control"/>
+            <input type="number" name="sumSale" id="sumSale" value="{{$eventDataObj->sumSale}}" class="form-control"/>
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="sum" title="Сумма штрафа">Сумма штрафа</label>
-            <input type="number" name="sum" id="sum" value="{{$eventFineObj->sum}}" class="form-control"/>
+            <input type="number" name="sum" id="sum" value="{{$eventDataObj->sum}}" class="form-control"/>
         </div>
     </div>
 
     <div class="form-row text-center">
         <div class="form-group col-md-6 input-group-sm">
             <label for="comment" title="Комментарий">Комментарий</label>
-            <input type="text" name="comment" id="comment" value="{{$eventFineObj->comment}}" class="form-control"/>
+            <input type="text" name="comment" id="comment" value="{{$eventDataObj->comment}}" class="form-control"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
             <label for="mileage" title="Пробег">Пробег</label>
@@ -99,7 +99,7 @@
     </div>
     <div class="form-row text-center" id="last-row">
         <div class="input-group col-1">
-            @if ($eventFineObj->id)
+            @if ($eventDataObj->id)
                 <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Сохранить"/>
                 @else
                 <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Добавить"/>

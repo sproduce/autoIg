@@ -10,11 +10,11 @@
 @section('content')
     <div class="row mb-3">
         <div class="col-4">
-            @if($lastTimeSheet)
-                Последнее событие  {{$lastTimeSheet->dateTime->addMinute($lastTimeSheet->duration)->format('d-m-Y H:i')}}
-            @else
-                События не найдены
-            @endif
+{{--            @if($lastTimeSheet)--}}
+{{--                Последнее событие  {{$lastTimeSheet->dateTime->addMinute($lastTimeSheet->duration)->format('d-m-Y H:i')}}--}}
+{{--            @else--}}
+{{--                События не найдены--}}
+{{--            @endif--}}
         </div>
 
     </div>

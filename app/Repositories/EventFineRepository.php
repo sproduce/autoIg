@@ -3,6 +3,7 @@
 namespace App\Repositories;
 use App\Models\rentEventFine;
 use App\Repositories\Interfaces\EventFineRepositoryInterface;
+use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
 
@@ -27,7 +28,7 @@ public function getEventFinesByContract($contractId)
         $startDate=$datePeriod->getStartDate()->format('Y-m-d');
         $finishDate=$datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
 
-        return DB::table('time_sheets')
+        $resultEventsObj = DB::table('time_sheets')
             ->join('rent_event_fines','rent_event_fines.id', '=', 'time_sheets.dataId')
             ->join('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
             ->where('time_sheets.eventId','=',$eventId)
@@ -35,6 +36,12 @@ public function getEventFinesByContract($contractId)
             ->orderByDesc('time_sheets.dateTime')
             ->get();
 
+
+        $resultEventsObj->each(function ($item, $key) {
+            $item->dateTime = Carbon::parse($item->dateTime);
+        });
+
+        return $resultEventsObj;
     }
 
 

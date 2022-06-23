@@ -8,7 +8,7 @@
             <select name="eventId" id="eventId">
                 <option id="placeholderSelect" selected>Событие ... </option>
                 @foreach($rentEvents as $rentEvent)
-                    <option value="{{$rentEvent->action}}" style="background: {{$rentEvent->color}}">{{$rentEvent->name}}</option>
+                    <option value="{{$rentEvent->id}}" style="background: {{$rentEvent->color}}">{{$rentEvent->name}}</option>
                 @endforeach
             </select>
         </div>
@@ -39,7 +39,7 @@
     $( "#eventId" ).change(function() {
         $("#placeholderSelect").remove();
 
-        $("#eventForm").load('/'+$("#eventId").val()+'/create?carId={{$carObj->id}}&date={{$dateTime->format('d-m-Y')}}&contractId={{$contractObj->id}}',function(){
+        $("#eventForm").load('/rentEvent/'+$("#eventId").val()+'/create?carId={{$carObj->id}}&date={{$dateTime->format('d-m-Y')}}&contractId={{$contractObj->id}}',function(){
             initDialogWindow();
         });
     });

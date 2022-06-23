@@ -17,6 +17,7 @@
         </div>
     </div>
 
+
     <div class="form-row text-center">
         <div class="form-group col-md-2 input-group-sm">
             <label for="datePhoto" title="Дата фотографии">Дата фотографии</label>
