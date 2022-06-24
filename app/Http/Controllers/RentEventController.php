@@ -11,6 +11,7 @@ use App\Services\MotorPoolService;
 use App\Services\RentEventService;
 use Illuminate\Http\Request;
 
+
 class RentEventController extends Controller
 {
     private $request,$rentEventServ,$motorPoolServ,$contractServ;
@@ -19,7 +20,7 @@ class RentEventController extends Controller
 
     public function __construct(Request $request,RentEventService $rentEventServ,MotorPoolService $motorPoolServ,ContractService $contractServ)
     {
-        $this->request=$request;
+        $this->request = $request;
         $this->rentEventServ = $rentEventServ;
         $this->motorPoolServ = $motorPoolServ;
         $this->contractServ = $contractServ;
@@ -63,11 +64,32 @@ class RentEventController extends Controller
     }
 
 
-    public function store()
+    public function store($eventId)
     {
+        $eventObj = $this->rentEventServ->getRentEvent($eventId);
+
+        $serviceObj = $this->rentEventServ->getEventService($eventObj);
+        $validateRules = $serviceObj->getRequestRules();
+
+        $requestObj = \App\Http\Requests\Event\OtherRequest::createFromGlobals();
 
 
+        $requestObj->validated();
+
+        //$requestObj->validated();
+
+        //var_dump($requestObj);
+
+//        $validateData = $this->request->validate($validateRules);
+//        var_dump($validateData);
     }
+
+
+
+
+
+
+
 
 
 

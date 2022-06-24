@@ -17,7 +17,7 @@ interface EventServiceInterface
 
     public function getRequestRules();
 
-
+    public function store($dataArray);
 
     public function getViews();
 

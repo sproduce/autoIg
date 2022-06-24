@@ -56,6 +56,14 @@ Class EventFineService implements EventServiceInterface {
 
     }
 
+
+    public function store()
+    {
+
+    }
+
+
+
     public function addEvent(Event\FineRequest $fineRequest,rentEvent $eventObj)
     {
 

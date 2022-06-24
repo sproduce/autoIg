@@ -38,7 +38,7 @@ class OtherRequest extends FormRequest
         return [
             'carId' => 'integer|nullable',
             'contractId' => 'integer|nullable',
-            'sumOther' => 'integer',
+            'sumOther' => 'integer|required',
             'dateOther' => 'date|required',
             'timeOther' => 'date_format:H:i|required',
             'commentOther' => 'string|nullable',

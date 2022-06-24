@@ -7,7 +7,7 @@
 @endif
 
 @section('content')
-<form method="POST" action="/eventOther">
+    <form method="POST" action="/rentEvent/{{$eventObj->id}}">
     @csrf
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">

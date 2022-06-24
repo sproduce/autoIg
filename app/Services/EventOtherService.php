@@ -48,7 +48,21 @@ Class EventOtherService implements EventServiceInterface{
 
     public function getRequestRules()
     {
-        // TODO: Implement getRequestRules() method.
+        return [
+            'carId' => 'integer|nullable',
+            'contractId' => 'integer|nullable',
+            'sumOther' => 'integer',
+            'dateOther' => 'date|required',
+            'timeOther' => 'date_format:H:i|required',
+            'commentOther' => 'string|nullable',
+            'dateTimeOther' => 'required',
+        ];
+    }
+
+
+    public function store($dataArray)
+    {
+        // TODO: Implement store() method.
     }
 
     public function getViews()

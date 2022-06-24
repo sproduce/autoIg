@@ -19,9 +19,8 @@
 
     </div>
 
-<form method="POST" action="/eventRental">
+<form method="POST" action="/rentEvent/{{$eventObj->id}}">
     @csrf
-    <input name="eventId" value="{{$eventObj->id}}" hidden/>
     <input name="duration" value="{{$eventObj->duration}}" hidden/>
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
