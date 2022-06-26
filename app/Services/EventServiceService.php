@@ -3,11 +3,9 @@ namespace App\Services;
 
 
 use App\Models\rentEvent;
-use App\Models\timeSheet;
-use App\Models\toPayment;
 use App\Http\Requests\Event;
-use App\Repositories\EventOtherRepository;
 use App\Repositories\EventServiceRepository;
+use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\CarbonPeriod;
@@ -16,9 +14,10 @@ use Carbon\CarbonPeriod;
 
 Class EventServiceService implements EventServiceInterface{
 
-    private $eventServiceRep,$timeSheetRep,$toPaymentRep,$eventObj;
+    private $eventServiceRep,$timeSheetRep,$toPaymentRep,$eventObj,$contractRep;
 
     function __construct(
+        ContractRepositoryInterface $contractRep,
         TimeSheetRepositoryInterface $timeSheetRep,
         ToPaymentRepositoryInterface $toPaymentRep,
         rentEvent $eventObj
@@ -27,6 +26,7 @@ Class EventServiceService implements EventServiceInterface{
         $this->timeSheetRep = $timeSheetRep;
         $this->toPaymentRep = $toPaymentRep;
         $this->eventObj = $eventObj;
+        $this->contractRep = $contractRep;
     }
 
     public function index(CarbonPeriod $datePeriod)
@@ -47,15 +47,25 @@ Class EventServiceService implements EventServiceInterface{
     }
 
 
-    public function getRequestRules()
-    {
-        // TODO: Implement getRequestRules() method.
-    }
-
     public function getViews()
     {
 
     }
+
+
+    public function store()
+    {
+        $eventService = app()->make(Event\ServiceRequest::class);
+        $timeSheetModel = $this->timeSheetRep->getTimeSheet(null);
+    }
+
+
+
+
+
+
+
+
 
     public function addEvent(Event\OtherRequest $eventOther,rentEvent $eventObj)
     {

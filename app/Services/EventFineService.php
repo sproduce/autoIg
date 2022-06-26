@@ -2,23 +2,20 @@
 namespace App\Services;
 
 
-use App\Http\Requests\CarIdDate;
-use App\Models\rentEvent;
-use App\Models\rentEventFine;
-use App\Models\timeSheet;
-use App\Models\toPayment;
 use App\Http\Requests\Event;
+use App\Models\rentEvent;
 use App\Repositories\EventFineRepository;
-use App\Repositories\Interfaces\EventFineRepositoryInterface;
+use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
 Class EventFineService implements EventServiceInterface {
-    private $eventFineRep,$timeSheetRep,$toPaymentRep,$eventObj;
+    private $eventFineRep,$timeSheetRep,$toPaymentRep,$eventObj,$contractRep;
 
     function __construct(
+        ContractRepositoryInterface $contractRep,
         TimeSheetRepositoryInterface $timeSheetRep,
         ToPaymentRepositoryInterface $toPaymentRep,
         rentEvent $eventObj
@@ -26,6 +23,7 @@ Class EventFineService implements EventServiceInterface {
         $this->eventFineRep = new EventFineRepository();
         $this->timeSheetRep = $timeSheetRep;
         $this->toPaymentRep = $toPaymentRep;
+        $this->contractRep = $contractRep;
         $this->eventObj = $eventObj;
     }
 
@@ -46,11 +44,6 @@ Class EventFineService implements EventServiceInterface {
         return [];
     }
 
-    public function getRequestRules()
-    {
-        // TODO: Implement getRequestRules() method.
-    }
-
     public function getViews()
     {
 
@@ -59,7 +52,8 @@ Class EventFineService implements EventServiceInterface {
 
     public function store()
     {
-
+        $eventFine = app()->make(Event\FineRequest::class);
+        $timeSheetModel = $this->timeSheetRep->getTimeSheet(null);
     }
 
 

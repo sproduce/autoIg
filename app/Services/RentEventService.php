@@ -3,22 +3,25 @@ namespace App\Services;
 use App\Models\rentEvent;
 use App\Models\timeSheet;
 use App\Models\toPayment;
+use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 
 
 Class RentEventService{
-    private $rentEventRep,$timeSheetRep,$toPaymentRep;
+    private $rentEventRep,$timeSheetRep,$toPaymentRep,$contractRep;
 
     function __construct(
         RentEventRepositoryInterface $rentEventRep,
         TimeSheetRepositoryInterface $timeSheetRep,
-        ToPaymentRepositoryInterface $toPaymentRep
+        ToPaymentRepositoryInterface $toPaymentRep,
+        ContractRepositoryInterface $contractRep
     ){
         $this->rentEventRep = $rentEventRep;
         $this->timeSheetRep = $timeSheetRep;
         $this->toPaymentRep = $toPaymentRep;
+        $this->contractRep = $contractRep;
     }
 
 
@@ -35,7 +38,7 @@ Class RentEventService{
     {
         $serviceName = '\App\Services\\'.ucfirst($eventObj->action).'Service';
 
-        return (new $serviceName($this->timeSheetRep,$this->toPaymentRep,$eventObj));
+        return (new $serviceName($this->contractRep,$this->timeSheetRep,$this->toPaymentRep,$eventObj));
     }
 
 

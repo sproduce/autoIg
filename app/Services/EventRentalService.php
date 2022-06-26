@@ -3,19 +3,24 @@ namespace App\Services;
 
 use App\Models\rentEvent;
 use App\Repositories\EventRentalRepository;
+use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use App\Http\Requests\Event;
+
 
 Class EventRentalService implements EventServiceInterface {
-    private $eventRentalRep,$timeSheetRep,$toPaymentRep,$eventObj;
+    private $eventRentalRep,$timeSheetRep,$toPaymentRep,$eventObj,$contractRep;
 
     function __construct(
+        ContractRepositoryInterface $contractRep,
         TimeSheetRepositoryInterface $timeSheetRep,
         ToPaymentRepositoryInterface $toPaymentRep,
         rentEvent $eventObj
     ){
+        $this->contractRep = $contractRep;
         $this->eventRentalRep = new EventRentalRepository();
         $this->timeSheetRep = $timeSheetRep;
         $this->toPaymentRep = $toPaymentRep;
@@ -40,9 +45,11 @@ Class EventRentalService implements EventServiceInterface {
        return ['lastTimeSheet'];
    }
 
-   public function getRequestRules()
+   public function store()
    {
-       // TODO: Implement getRequestRules() method.
+       $eventRental = app()->make(Event\RentalRequest::class);
+       $timeSheetModel = $this->timeSheetRep->getTimeSheet(null);
+
    }
 
     public function getViews()

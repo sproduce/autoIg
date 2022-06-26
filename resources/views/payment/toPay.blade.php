@@ -54,10 +54,8 @@
                 </div>
                 <div class="col-2">{{$toPayment->carNickName}}</div>
                 <div class="col-2">
-                    @if ($toPayment->timeSheetDataId)
-                        <a href="/{{$toPayment->eventAction}}/{{$toPayment->timeSheetDataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробно о событии"><i class="fas fa-info-circle"></i></a>
-                        {{$toPayment->eventName}}
-                    @endif
+                    <a href="/rentEvent/{{$toPayment->eventId}}/{{$toPayment->timeSheetDataId ?? 0}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробно о событии"><i class="fas fa-info-circle"></i></a>
+                    {{$toPayment->eventName}}
                     <br/>
                     {{$toPayment->operationTypeName}}
                 </div>

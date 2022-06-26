@@ -3,10 +3,9 @@ namespace App\Services;
 
 
 use App\Models\rentEvent;
-use App\Models\timeSheet;
-use App\Models\toPayment;
 use App\Http\Requests\Event;
 use App\Repositories\EventOtherRepository;
+use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\CarbonPeriod;
@@ -15,13 +14,15 @@ use Carbon\CarbonPeriod;
 
 Class EventOtherService implements EventServiceInterface{
 
-    private $eventOtherRep,$timeSheetRep,$toPaymentRep,$eventObj;
+    private $eventOtherRep,$timeSheetRep,$toPaymentRep,$eventObj,$contractRep;
 
     function __construct(
+        ContractRepositoryInterface $contractRep,
         TimeSheetRepositoryInterface $timeSheetRep,
         ToPaymentRepositoryInterface $toPaymentRep,
         rentEvent $eventObj
     ){
+        $this->contractRep = $contractRep;
         $this->eventOtherRep = new EventOtherRepository();
         $this->timeSheetRep = $timeSheetRep;
         $this->toPaymentRep = $toPaymentRep;
@@ -46,23 +47,35 @@ Class EventOtherService implements EventServiceInterface{
     }
 
 
-    public function getRequestRules()
+
+    public function store()
     {
-        return [
-            'carId' => 'integer|nullable',
-            'contractId' => 'integer|nullable',
-            'sumOther' => 'integer',
-            'dateOther' => 'date|required',
-            'timeOther' => 'date_format:H:i|required',
-            'commentOther' => 'string|nullable',
-            'dateTimeOther' => 'required',
-        ];
-    }
+        $eventOther = app()->make(Event\OtherRequest::class);
+        $timeSheetModel = $this->timeSheetRep->getTimeSheet($eventOther->get('id'));
+
+        $timeSheetModel->carId = $eventOther->get('carId');
+        $timeSheetModel->eventId = $this->eventObj->id;
+        $timeSheetModel->dateTime = $eventOther->get('dateTimeOther');
+        $timeSheetModel->comment = $eventOther->get('commentOther');
+        $timeSheetModel->duration = $this->eventObj->duration;
+        $timeSheetModel->color = $this->eventObj->color;
+        $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
+
+        $toPaymentModel = $this->toPaymentRep->getToPayment(null);
+
+        $toPaymentModel->timeSheetId = $timeSheetModel->id;
+        $toPaymentModel->sum = $eventOther->get('sumOther');
+        if ($eventOther->get('contractId')){
+            $toPaymentModel->contractId = $eventOther->get('contractId');
+            $contractModel = $this->contractRep->getContract($eventOther->get('contractId'));
+            $toPaymentModel->subjectIdFrom = $contractModel->subjectIdTo;
+            $toPaymentModel->subjectIdTo = $contractModel->subjectIdFrom;
+        }
 
 
-    public function store($dataArray)
-    {
-        // TODO: Implement store() method.
+
+        $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
+
     }
 
     public function getViews()
@@ -72,18 +85,7 @@ Class EventOtherService implements EventServiceInterface{
 
     public function addEvent(Event\OtherRequest $eventOther,rentEvent $eventObj)
     {
-        $this->timeSheetModel->carId = $eventOther->get('carId');
-        $this->timeSheetModel->eventId = $eventObj->id;
-        $this->timeSheetModel->dateTime = $eventOther->get('dateTimeOther');
-        $this->timeSheetModel->comment = $eventOther->get('commentOther');
-        $this->timeSheetModel->duration = $eventObj->duration;
-        $this->timeSheetModel->color = $eventObj->color;
-        $this->timeSheetModel->save();
 
-        $this->toPaymentModel->timeSheetId = $this->timeSheetModel->id;
-        $this->toPaymentModel->carId=$eventOther->get('carId');
-        $this->toPaymentModel->sum=$eventOther->get('sumOther');
-        $this->toPaymentModel->save();
     }
 
     public function getEvents(CarbonPeriod $periodDate,$eventId)

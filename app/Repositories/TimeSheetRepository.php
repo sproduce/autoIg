@@ -22,7 +22,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
 
     public function getTimeSheet($timeSheetId): timeSheet
     {
-        return timeSheet::find($timeSheetId);
+        return timeSheet::find($timeSheetId) ?? new timeSheet();
     }
 
     public function getTimeSheetsArray(CarbonPeriod $datePeriod)

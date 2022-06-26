@@ -67,14 +67,18 @@ class RentEventController extends Controller
     public function store($eventId)
     {
         $eventObj = $this->rentEventServ->getRentEvent($eventId);
-
         $serviceObj = $this->rentEventServ->getEventService($eventObj);
-        $validateRules = $serviceObj->getRequestRules();
-
-        $requestObj = \App\Http\Requests\Event\OtherRequest::createFromGlobals();
+        $serviceObj->store();
 
 
-        $requestObj->validated();
+//        return  redirect()->back();
+        return redirect('/timesheet/list');
+
+
+
+
+//        $requestObj = app()->make(\App\Http\Requests\Event\OtherRequest::class);
+//        $requestObj->validated();
 
         //$requestObj->validated();
 
