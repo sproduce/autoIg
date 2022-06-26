@@ -63,8 +63,10 @@ Class EventServiceService implements EventServiceInterface{
 
 
 
-
-
+    public function getEventInfo($eventId)
+    {
+        // TODO: Implement getEventInfo() method.
+    }
 
 
     public function addEvent(Event\OtherRequest $eventOther,rentEvent $eventObj)

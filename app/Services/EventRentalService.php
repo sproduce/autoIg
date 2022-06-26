@@ -59,8 +59,10 @@ Class EventRentalService implements EventServiceInterface {
 
 
 
-
-
+    public function getEventInfo($eventId)
+    {
+        // TODO: Implement getEventInfo() method.
+    }
 
 
     public function addEvent($dataArray)

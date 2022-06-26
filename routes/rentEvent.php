@@ -16,3 +16,5 @@ Route::post('/add',[RentEventController::class,'add']);
 Route::get('{eventId}',[RentEventController::class,'index']);
 Route::get('{eventId}/create',[RentEventController::class,'create']);
 Route::post('{eventId}',[RentEventController::class,'store']);
+
+Route::get('{eventId}/{dataId}/edit',[RentEventController::class,'edit']);

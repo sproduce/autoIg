@@ -41,6 +41,11 @@ Class EventOtherService implements EventServiceInterface{
   }
 
 
+    public function getEventInfo($dataId)
+    {
+        return $this->eventOtherRep->getEventFullInfo($this->eventObj->id,$dataId);
+    }
+
     public function getAdditionalViewDataArray()
     {
         return [];
@@ -50,13 +55,19 @@ Class EventOtherService implements EventServiceInterface{
 
     public function store()
     {
-        $eventOther = app()->make(Event\OtherRequest::class);
-        $timeSheetModel = $this->timeSheetRep->getTimeSheet($eventOther->get('id'));
+        $eventOtherRequest = app()->make(Event\OtherRequest::class);
 
-        $timeSheetModel->carId = $eventOther->get('carId');
+        $eventOtherObj = $this->eventOtherRep->getEvent($eventOtherRequest->get('idOther'));
+
+        $eventOtherObj->save();
+
+        $timeSheetModel = $this->timeSheetRep->getTimeSheet(null);
+
+        $timeSheetModel->carId = $eventOtherRequest->get('carIdOther');
         $timeSheetModel->eventId = $this->eventObj->id;
-        $timeSheetModel->dateTime = $eventOther->get('dateTimeOther');
-        $timeSheetModel->comment = $eventOther->get('commentOther');
+        $timeSheetModel->dataId = $eventOtherObj->id;
+        $timeSheetModel->dateTime = $eventOtherRequest->get('dateTimeOther');
+        $timeSheetModel->comment = $eventOtherRequest->get('commentOther');
         $timeSheetModel->duration = $this->eventObj->duration;
         $timeSheetModel->color = $this->eventObj->color;
         $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
@@ -64,10 +75,10 @@ Class EventOtherService implements EventServiceInterface{
         $toPaymentModel = $this->toPaymentRep->getToPayment(null);
 
         $toPaymentModel->timeSheetId = $timeSheetModel->id;
-        $toPaymentModel->sum = $eventOther->get('sumOther');
-        if ($eventOther->get('contractId')){
-            $toPaymentModel->contractId = $eventOther->get('contractId');
-            $contractModel = $this->contractRep->getContract($eventOther->get('contractId'));
+        $toPaymentModel->sum = $eventOtherRequest->get('sumOther');
+        if ($eventOtherRequest->get('contractIdOther')){
+            $toPaymentModel->contractId = $eventOtherRequest->get('contractIdOther');
+            $contractModel = $this->contractRep->getContract($eventOtherRequest->get('contractIdOther'));
             $toPaymentModel->subjectIdFrom = $contractModel->subjectIdTo;
             $toPaymentModel->subjectIdTo = $contractModel->subjectIdFrom;
         }
@@ -83,7 +94,7 @@ Class EventOtherService implements EventServiceInterface{
 
     }
 
-    public function addEvent(Event\OtherRequest $eventOther,rentEvent $eventObj)
+    public function addEvent(Event\OtherRequest $eventOtherRequest,rentEvent $eventObj)
     {
 
     }

@@ -17,5 +17,6 @@ interface EventServiceInterface
 
     public function getViews();
 
+    public function getEventInfo($dataId);
 
 }

@@ -13,4 +13,5 @@ interface EventOtherRepositoryInterface
     public function getEvent($id): rentEventOther;
     public function getEvents($eventId,CarbonPeriod $datePeriod);
 
+    public function getEventFullInfo($eventId,$dataId);
 }

@@ -57,6 +57,11 @@ Class EventFineService implements EventServiceInterface {
     }
 
 
+    public function getEventInfo($eventId)
+    {
+        // TODO: Implement getEventInfo() method.
+    }
+
 
     public function addEvent(Event\FineRequest $fineRequest,rentEvent $eventObj)
     {

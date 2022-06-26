@@ -46,6 +46,8 @@ class RentEventController extends Controller
         $serviceObj = $this->rentEventServ->getEventService($eventObj);
         $eventDataObj = $serviceObj->getEventModel();
 
+
+
         $viewDataArray = [
             'carObj' => $this->motorPoolServ->getCar($carIdDate->get('carId')),
             'contractObj' => $this->contractServ->getContract($carIdDate->get('contractId')),
@@ -69,26 +71,28 @@ class RentEventController extends Controller
         $eventObj = $this->rentEventServ->getRentEvent($eventId);
         $serviceObj = $this->rentEventServ->getEventService($eventObj);
         $serviceObj->store();
-
-
-//        return  redirect()->back();
         return redirect('/timesheet/list');
-
-
-
-
-//        $requestObj = app()->make(\App\Http\Requests\Event\OtherRequest::class);
-//        $requestObj->validated();
-
-        //$requestObj->validated();
-
-        //var_dump($requestObj);
-
-//        $validateData = $this->request->validate($validateRules);
-//        var_dump($validateData);
     }
 
+    public function edit($eventId,$dataId, NeedParent $needParent,
+                         CarIdDate $carIdDate)
+    {
 
+        $eventObj = $this->rentEventServ->getRentEvent($eventId);
+        $serviceObj = $this->rentEventServ->getEventService($eventObj);
+        $eventDataObj = $serviceObj->getEventInfo($dataId);
+
+        $viewDataArray = [
+            'carObj' => $this->motorPoolServ->getCar($carIdDate->get('carId')),
+            'contractObj' => $this->contractServ->getContract($carIdDate->get('contractId')),
+            'needParent' => $needParent['needParent'],
+            'dateTime' => $carIdDate->get('date'),
+            'eventObj' => $eventObj,
+            'eventDataObj' => $eventDataObj,
+        ];
+        return view('rentEvent.'.$eventObj->action.'.add',$viewDataArray);
+
+    }
 
 
 

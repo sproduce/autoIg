@@ -14,12 +14,8 @@
         <div class="col-2">{{$event->comment}}</div>
         <div class="col-2"></div>
         <div class="col-2">
-            <form method="POST" action="/{{$eventObj->action}}/{{$event->dataId}}">
-                @method('DELETE')
-                @csrf
-                <a class="btn btn-ssm btn-outline-warning" href="/{{$eventObj->action}}/{{$event->dataId}}/edit" title="Редактировать"> <i class="far fa-edit"></i></a>
-                <button class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить событие?')"><i class="fas fa-trash"></i> </button>
-            </form>
+           <a class="btn btn-ssm btn-outline-warning" href="/rentEvent/{{$eventObj->id}}/{{$event->dataId ?? 0}}/edit" title="Редактировать"> <i class="far fa-edit"></i></a>
+           <button class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить событие?')"><i class="fas fa-trash"></i> </button>
         </div>
     </div>
 @endforeach
