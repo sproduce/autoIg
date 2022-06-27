@@ -8,7 +8,7 @@ use Carbon\CarbonPeriod;
 
 interface EventOtherRepositoryInterface
 {
-    public function addEvent($dataArray);
+    public function addEvent(rentEventOther $rentEventOther): rentEventOther;
     public function getEventsByContract($contractId);
     public function getEvent($id): rentEventOther;
     public function getEvents($eventId,CarbonPeriod $datePeriod);

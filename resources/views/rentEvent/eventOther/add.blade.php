@@ -32,11 +32,11 @@
         </div>
         <div class="form-group col-md-2 input-group-sm">
             <label for="dateOther" title="Дата события">Дата события</label>
-            <input type="date" name="dateOther" id="dateOther" class="form-control" value="{{old('dateOther',$dateTime->toDateString() ?? $eventDataObj->dateTimeOther->toDateString())}}"/>
+            <input type="date" name="dateOther" id="dateOther" class="form-control" value="{{old('dateOther',$eventDataObj->dateTimeOther->toDateString() ?? $dateTime->toDateString())}}"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
             <label for="timeOther" title="Время нарушения">Время события</label>
-            <input type="time" name="timeOther" id="timeOther" class="form-control" value="{{old('timeOther',$dateTime->format('H:i') ?? $eventDataObj->dateTimeOther->format('H:i'))}}"/>
+            <input type="time" name="timeOther" id="timeOther" class="form-control" value="{{old('timeOther',$eventDataObj->dateTimeOther->format('H:i') ?? $dateTime->format('H:i'))}}"/>
         </div>
     </div>
 
@@ -49,7 +49,7 @@
 
     <div class="form-row text-center" id="last-row">
         <div class="input-group col-1">
-            <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Добавить"/>
+            <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Сохранить"/>
         </div>
     </div>
 </form>

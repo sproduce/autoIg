@@ -165,7 +165,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         $timeSheetResult = timeSheet::where('eventId',$eventObj->id)
             ->where('dataId',$eventDataId)
             ->first();
-        return $timeSheetResult;
+        return $timeSheetResult ?? new timeSheet();
     }
 
 

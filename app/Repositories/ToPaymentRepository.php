@@ -44,6 +44,12 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         return toPayment::find($toPaymentId) ??new toPayment();
     }
 
+    public function getToPaymentByTimeSheet($timeSheetId): toPayment
+    {
+        $resultObj = toPayment::where('timeSheetId',$timeSheetId)->whereColumn('id','pId')->first();
+        return $resultObj ?? new toPayment();
+    }
+
 
     public function getToPaymentsByDate(CarbonPeriod $datePeriod): Collection
     {

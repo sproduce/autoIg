@@ -41,7 +41,7 @@ Class EventOtherService implements EventServiceInterface{
   }
 
 
-    public function getEventInfo($dataId)
+    public function getEventInfo($dataId = null)
     {
         return $this->eventOtherRep->getEventFullInfo($this->eventObj->id,$dataId);
     }
@@ -57,22 +57,22 @@ Class EventOtherService implements EventServiceInterface{
     {
         $eventOtherRequest = app()->make(Event\OtherRequest::class);
 
-        $eventOtherObj = $this->eventOtherRep->getEvent($eventOtherRequest->get('idOther'));
+        $eventOtherModel = $this->eventOtherRep->getEvent($eventOtherRequest->get('idOther'));
+        $eventOtherModel->comment = $eventOtherRequest->get('commentOther');
+        $eventOtherModel = $this->eventOtherRep->addEvent($eventOtherModel);
 
-        $eventOtherObj->save();
-
-        $timeSheetModel = $this->timeSheetRep->getTimeSheet(null);
+        $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventOtherModel->id);
 
         $timeSheetModel->carId = $eventOtherRequest->get('carIdOther');
         $timeSheetModel->eventId = $this->eventObj->id;
-        $timeSheetModel->dataId = $eventOtherObj->id;
+        $timeSheetModel->dataId = $eventOtherModel->id;
         $timeSheetModel->dateTime = $eventOtherRequest->get('dateTimeOther');
         $timeSheetModel->comment = $eventOtherRequest->get('commentOther');
         $timeSheetModel->duration = $this->eventObj->duration;
         $timeSheetModel->color = $this->eventObj->color;
         $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 
-        $toPaymentModel = $this->toPaymentRep->getToPayment(null);
+        $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
 
         $toPaymentModel->timeSheetId = $timeSheetModel->id;
         $toPaymentModel->sum = $eventOtherRequest->get('sumOther');
@@ -94,16 +94,10 @@ Class EventOtherService implements EventServiceInterface{
 
     }
 
-    public function addEvent(Event\OtherRequest $eventOtherRequest,rentEvent $eventObj)
+    public function destroy($dataId)
     {
-
+        // TODO: Implement destroy() method.
     }
-
-    public function getEvents(CarbonPeriod $periodDate,$eventId)
-    {
-
-    }
-
 
 
 }

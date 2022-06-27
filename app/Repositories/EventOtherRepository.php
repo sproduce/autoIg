@@ -12,9 +12,10 @@ class EventOtherRepository implements EventOtherRepositoryInterface
 {
 
 
-    public function addEvent($dataArray)
+    public function addEvent(rentEventOther $rentEventOther): rentEventOther
     {
-        // TODO: Implement addEvent() method.
+        $rentEventOther->save();
+        return $rentEventOther;
     }
 
     public function getEventsByContract($contractId)
@@ -48,7 +49,6 @@ class EventOtherRepository implements EventOtherRepositoryInterface
 
     public function getEventFullInfo($eventId,$dataId)
     {
-
         $resultEventObj = DB::table('time_sheets')
             ->leftjoin('rent_event_others','rent_event_others.id','=','time_sheets.dataId')
             ->leftJoin('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
@@ -68,9 +68,10 @@ class EventOtherRepository implements EventOtherRepositoryInterface
             ])
             ->first();
 
+        $resultEventObj->dateTimeOther =  Carbon::parse( $resultEventObj->dateTimeOther);
 
 
-        return $resultEventObj;
+        return $resultEventObj ?? new rentEventOther();
     }
 
 }

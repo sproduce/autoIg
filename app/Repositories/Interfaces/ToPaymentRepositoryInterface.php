@@ -22,6 +22,8 @@ interface ToPaymentRepositoryInterface
 
     public function getToPaymentsByOperationType();
     public function getToPayment($toPaymentId): toPayment;
+
+    public function getToPaymentByTimeSheet($timeSheetId): toPayment;
     public function getToPayments();
 
     public function addToPayment(toPayment $toPaymentObj): toPayment;

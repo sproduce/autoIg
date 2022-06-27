@@ -15,8 +15,10 @@ interface EventServiceInterface
 
     public function store();
 
+    public function destroy($dataId);
+
     public function getViews();
 
-    public function getEventInfo($dataId);
+    public function getEventInfo($dataId = null);
 
 }
