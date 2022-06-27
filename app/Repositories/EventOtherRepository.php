@@ -58,7 +58,7 @@ class EventOtherRepository implements EventOtherRepositoryInterface
             ->where('time_sheets.dataId','=',$dataId)
             ->select([
                 'rent_event_others.id as idOther',
-                'car_configurations.nickName as catTextOther',
+                'car_configurations.nickName as carTextOther',
                 'car_configurations.id as carIdOther',
                 'rent_contracts.id as contractIdOther',
                 'rent_contracts.number as contractNumberOther',
@@ -68,10 +68,12 @@ class EventOtherRepository implements EventOtherRepositoryInterface
             ])
             ->first();
 
-        $resultEventObj->dateTimeOther =  Carbon::parse( $resultEventObj->dateTimeOther);
+        $resultEventObj = $resultEventObj ?? new rentEventOther();
+
+        $resultEventObj->dateTimeOther =  Carbon::parse($resultEventObj->dateTimeOther);
 
 
-        return $resultEventObj ?? new rentEventOther();
+        return $resultEventObj;
     }
 
 }

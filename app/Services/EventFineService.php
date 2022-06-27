@@ -52,14 +52,50 @@ Class EventFineService implements EventServiceInterface {
 
     public function store()
     {
-        $eventFine = app()->make(Event\FineRequest::class);
-        $timeSheetModel = $this->timeSheetRep->getTimeSheet(null);
+        $eventFineRequest = app()->make(Event\FineRequest::class);
+
+        $eventFineModel = $this->eventFineRep->getEventFine($eventFineRequest->get('id'));
+        $eventFineModel->dateTimeOrder = $eventFineRequest->get('dateOrder');
+        $eventFineModel->datePayMax = $eventFineRequest->get('datePayMax');
+        $eventFineModel->datePaySale = $eventFineRequest->get('datePaySale');
+        $eventFineModel->dateTimeFine = $eventFineRequest->get('dateTimeFine');
+        $eventFineModel->sum = $eventFineRequest->get('sum');
+        $eventFineModel->sumSale = $eventFineRequest->get('sumSale');
+
+        $eventFineModel = $this->eventFineRep->addEventFine($eventFineModel);
+
+        $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventFineModel->id);
+
+        $timeSheetModel->carId = $eventFineRequest->get('carId');
+        $timeSheetModel->eventId = $this->eventObj->id;
+        $timeSheetModel->dataId = $eventFineModel->id;
+        $timeSheetModel->dateTime = $eventFineRequest->get('dateTimeFine');
+        $timeSheetModel->comment = $eventFineRequest->get('comment');
+        $timeSheetModel->duration = $this->eventObj->duration;
+        $timeSheetModel->color = $this->eventObj->color;
+        $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
+
+
+        $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+        $toPaymentModel->timeSheetId = $timeSheetModel->id;
+        $toPaymentModel->sum = $eventFineRequest->get('sumSale');
+
+        $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
+
+
     }
 
 
-    public function getEventInfo($eventId)
+    public function getEventInfo($dataId = null)
     {
-        // TODO: Implement getEventInfo() method.
+        return $this->eventFineRep->getEventFullInfo($this->eventObj->id,$dataId);
+    }
+
+
+
+    public function destroy($dataId)
+    {
+        // TODO: Implement destroy() method.
     }
 
 

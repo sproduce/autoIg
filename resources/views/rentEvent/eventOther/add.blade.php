@@ -14,14 +14,14 @@
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Автомобиль">Машина</label>
             <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
-                <input id="carText" name="carTextOther" class="form-control" value="{{old('carTextOther',$carObj->nickName ?? $eventDataObj->catTextOther)}}" readonly />
-                <input id="carIdOther" name="carIdOther" class="form-control" value="{{old('carIdOther',$carObj->id ?? $eventDataObj->carIdOther)}}" hidden/>
+                <input id="carText" name="carTextOther" class="form-control" value="{{old('carTextOther',$eventDataObj->carTextOther ?? $carObj->nickName)}}" readonly />
+                <input id="carIdOther" name="carIdOther" class="form-control" value="{{old('carIdOther',$eventDataObj->carIdOther ?? $carObj->id)}}" hidden/>
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Договор"> Договор </label>
             <a href="/contract/addContractTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
-            <input id="contractText" name="contractTextOther" value="{{old('contractTextOther',$contractObj->number ?? $eventDataObj->contractNumberOther)}}"  class="form-control" readonly />
-            <input name="contractIdOther" id="contractId" value="{{old('contractIdOther',$contractObj->id ?? $eventDataObj->contractIdOther)}}" hidden/>
+            <input id="contractText" name="contractTextOther" value="{{old('contractTextOther',$eventDataObj->contractNumberOther ?? $contractObj->number)}}"  class="form-control" readonly />
+            <input name="contractIdOther" id="contractId" value="{{old('contractIdOther',$eventDataObj->contractIdOther ?? $contractObj->id)}}" hidden/>
         </div>
 
     </div>

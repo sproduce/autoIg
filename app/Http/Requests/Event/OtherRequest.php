@@ -42,7 +42,7 @@ class OtherRequest extends FormRequest
             'sumOther' => 'integer|required',
             'dateOther' => 'date|required',
             'timeOther' => 'date_format:H:i|required',
-            'commentOther' => 'string|required',
+            'commentOther' => 'string|nullable',
             'dateTimeOther' => 'required',
         ];
     }
