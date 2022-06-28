@@ -25,12 +25,12 @@ class FineRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $input = parent::all();
-        if (!$input['sumSale']){
-            $this->merge(['sumSale' => 0,]);
-        }
-        if (!$input['sum']){
-            $this->merge(['sum' => 0,]);
-        }
+//        if (!$input['sumSale']){
+//            $this->merge(['sumSale' => 0,]);
+//        }
+//        if (!$input['sum']){
+//            $this->merge(['sum' => 0,]);
+//        }
         $dateTime = date("Y-m-d H:i:00",strtotime($input['dateFine'].' '.$input['timeFine']));
         $this->merge(['dateTimeFine' => $dateTime,]);
     }
@@ -54,10 +54,9 @@ class FineRequest extends FormRequest
             'uin' => 'string|nullable',
             'datePaySale' => 'date|nullable',
             'datePayMax' => 'date|nullable',
-            'sumSale' => 'integer',
-            'sum' => 'integer',
+            'sumSale' => 'integer|required',
+            'sum' => 'integer|required',
             'comment' => 'string|nullable',
-            'mileage' => 'integer|nullable',
             'dateTimeFine' => 'required',
         ];
     }

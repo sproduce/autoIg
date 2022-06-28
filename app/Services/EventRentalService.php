@@ -59,9 +59,16 @@ Class EventRentalService implements EventServiceInterface {
 
 
 
-    public function getEventInfo($eventId)
+    public function getEventInfo($eventId = null)
     {
         // TODO: Implement getEventInfo() method.
+    }
+
+
+
+    public function destroy($dataId)
+    {
+        // TODO: Implement destroy() method.
     }
 
 

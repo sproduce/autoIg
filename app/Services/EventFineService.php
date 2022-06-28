@@ -55,12 +55,14 @@ Class EventFineService implements EventServiceInterface {
         $eventFineRequest = app()->make(Event\FineRequest::class);
 
         $eventFineModel = $this->eventFineRep->getEventFine($eventFineRequest->get('id'));
+
         $eventFineModel->dateTimeOrder = $eventFineRequest->get('dateOrder');
         $eventFineModel->datePayMax = $eventFineRequest->get('datePayMax');
         $eventFineModel->datePaySale = $eventFineRequest->get('datePaySale');
         $eventFineModel->dateTimeFine = $eventFineRequest->get('dateTimeFine');
         $eventFineModel->sum = $eventFineRequest->get('sum');
         $eventFineModel->sumSale = $eventFineRequest->get('sumSale');
+        $eventFineModel->uin = $eventFineRequest->get('uin');
 
         $eventFineModel = $this->eventFineRep->addEventFine($eventFineModel);
 

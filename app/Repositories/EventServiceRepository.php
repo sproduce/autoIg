@@ -25,7 +25,7 @@ class EventServiceRepository implements EventServiceRepositoryInterface
 
     public function getEvent($id): rentEventService
     {
-        return new rentEventService();
+        return rentEventService::find($id) ??  new rentEventService();
     }
 
     public function getEvents($eventId, CarbonPeriod $datePeriod)

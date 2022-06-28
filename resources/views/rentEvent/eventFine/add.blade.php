@@ -10,15 +10,15 @@
 @section('content')
     <form method="POST" action="/rentEvent/{{$eventObj->id}}">
     @csrf
-
+<input type="number" name="id" id="id" value="{{old('id',$eventDataObj->id)}}" hidden/>
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Автомобиль">
                 Машина
                 <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
             </label>
-            <input id="carText" name="carTextOther" class="form-control" value="{{old('carTextOther',$eventDataObj->carTextOther ?? $carObj->nickName)}}" readonly />
-            <input id="carIdOther" name="carIdOther" class="form-control" value="{{old('carIdOther',$eventDataObj->carIdOther ?? $carObj->id)}}" hidden/>
+            <input id="carText" name="carText" class="form-control" value="{{old('carText',$eventDataObj->carText ?? $carObj->nickName)}}" readonly />
+            <input id="carId" name="carId" class="form-control" value="{{old('carIdOther',$eventDataObj->carId ?? $carObj->id)}}" hidden/>
         </div>
     </div>
 
@@ -34,31 +34,25 @@
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="timeFine" title="Время нарушения">Время нарушения</label>
-            <input type="time" name="timeFine" id="timeFine" class="form-control" value="{{$dateTime->format('H:i')}}"/>
+            <input type="time" name="timeFine" id="timeFine" class="form-control" value="{{old('timeFine',$eventDataObj->dateTimeFine ? $eventDataObj->dateTimeFine->format('H:i') : $dateTime->format('H:i'))}}"/>
         </div>
     </div>
     <div class="form-row text-center">
         <div class="form-group col-md-6 input-group-sm">
             <label for="uin" title="УИН номер">УИН номер</label>
-            <input type="text" name="uin" id="uin" value="{{$eventDataObj->uin}}" class="form-control"/>
+            <input type="text" name="uin" id="uin" value="{{old('uin',$eventDataObj->uin)}}" class="form-control"/>
         </div>
     </div>
 
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="datePaySale" title="Срок оплаты со скидкой">Срок оплаты со скидкой</label>
-            <input type="date" name="datePaySale" id="datePaySale" class="form-control"
-                   @if ($eventDataObj->datePaySale)
-                       value="{{$eventDataObj->datePaySale->toDateString()}}"
-                @endif
-            />
+            <input type="date" name="datePaySale" id="datePaySale" class="form-control" value="{{old('datePaySale',$eventDataObj->datePaySale ? $eventDataObj->datePaySale->toDateString() : '' )}}"/>
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="datePayMax" title="Максимальный срок оплаты">Максимальный срок оплаты</label>
-            <input type="date" name="datePayMax" id="datePayMax" class="form-control"
-                   @if ($eventDataObj->datePayMax)
-                       value="{{$eventDataObj->datePayMax->toDateString()}}"
-                @endif
+            <input type="date" name="datePayMax" id="datePayMax" class="form-control" value="{{old('datePayMax',$eventDataObj->datePayMax ? $eventDataObj->datePayMax->toDateString(): '')}}"
+
             />
         </div>
     </div>
@@ -66,11 +60,11 @@
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="sumSale" title="Сумма штрафа со скидкой">Сумма штрафа со скидкой</label>
-            <input type="number" name="sumSale" id="sumSale" value="{{$eventDataObj->sumSale}}" class="form-control"/>
+            <input type="number" name="sumSale" id="sumSale" value="{{old('sumSale',$eventDataObj->sumSale)}}" class="form-control"/>
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="sum" title="Сумма штрафа">Сумма штрафа</label>
-            <input type="number" name="sum" id="sum" value="{{$eventDataObj->sum}}" class="form-control"/>
+            <input type="number" name="sum" id="sum" value="{{old('sum',$eventDataObj->sum)}}" class="form-control"/>
         </div>
     </div>
 
