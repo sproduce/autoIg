@@ -12,7 +12,8 @@
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Автомобиль">Машина</label>
-            <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+            <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser ml-2"><i class="fas fa-search-plus"></i></a>
+            <a class="btn btn-ssm btn-outline-danger ml-2" id="carClear"><i class="fas fa-eraser"></i></a>
             @if($carObj->id)
             <input id="carText" class="form-control" value="{{$carObj->nickName}}" disabled />
             <input id="carId" name="carId" class="form-control" value="{{$carObj->id}}" hidden/>
@@ -20,6 +21,13 @@
                 <input id="carText" class="form-control" value="" disabled />
                 <input id="carId" name="carId" class="form-control" value="" hidden/>
             @endif
+        </div>
+        <div class="form-group col-md-3 input-group-sm">
+            <label for="subjectText" title="Субьект">Субьект</label>
+            <a href="/subject/addSubjectTo/subject" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+            <a class="btn btn-ssm btn-outline-danger ml-2" id="subjectClear"><i class="fas fa-eraser"></i></a>
+            <input id="subjectText" name="subjectText" value="" class="form-control"  readonly/>
+            <input name="subjectId" id="subjectId" value="" hidden/>
         </div>
 
     </div>

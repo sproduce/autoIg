@@ -16,6 +16,22 @@ class PaymentRequest extends FormRequest
         return true;
     }
 
+
+
+
+    protected function prepareForValidation()
+    {
+        $input = parent::all();
+        if (empty($input['comm'])){
+            $this->merge(['comm' => 0]);
+        }
+        if (!$input['payOperationTypeId']){
+            $this->merge(['payOperationTypeId' => NULL]);
+
+        }
+    }
+
+
     /**
      * Get the validation rules that apply to the request.
      *

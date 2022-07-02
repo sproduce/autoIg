@@ -49,7 +49,7 @@
 
     <div class="form-row text-center" id="last-row">
         <div class="input-group col-1">
-            @if ($eventDataObj->id)
+            @if ($eventDataObj->idOther)
                 <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Сохранить"/>
             @else
                 <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Добавить"/>
