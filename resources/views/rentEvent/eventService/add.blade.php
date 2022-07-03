@@ -7,7 +7,7 @@
 @endif
 
 @section('content')
-<form method="POST" action="/eventOther">
+<form method="POST" action="/rentEvent/{{$eventObj->id}}">
     @csrf
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
@@ -28,6 +28,13 @@
             <a class="btn btn-ssm btn-outline-danger ml-2" id="subjectClear"><i class="fas fa-eraser"></i></a>
             <input id="subjectText" name="subjectText" value="" class="form-control"  readonly/>
             <input name="subjectId" id="subjectId" value="" hidden/>
+        </div>
+        <div class="form-group col-md-3 input-group-sm">
+            <label for="contractText" title="Договор">Договор</label>
+            <a href="/contract/addContractTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+            <a class="btn btn-ssm btn-outline-danger ml-2" id="subjectClear"><i class="fas fa-eraser"></i></a>
+            <input id="contractText" name="contractText" value="" class="form-control"  readonly/>
+            <input name="contractId" id="contractId" value="" hidden/>
         </div>
 
     </div>

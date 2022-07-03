@@ -24,7 +24,14 @@ class ServiceRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id' => 'integer|nullable',
+            'carId' => 'integer|nullable',
+            'contractId' => 'integer|nullable',
+            'subjectId' => 'integer|nullable',
+            'sum' => 'integer|required',
+            'date' => 'date|required',
+            'time' => 'date_format:H:i|required',
+            'comment' => 'string|nullable',
         ];
     }
 }

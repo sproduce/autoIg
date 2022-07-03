@@ -56,8 +56,8 @@ Class EventServiceService implements EventServiceInterface{
     public function store()
     {
         $eventService = app()->make(Event\ServiceRequest::class);
+        $eventServiceModel = $this->eventServiceRep->getEvent($eventService->get('id'));
 
-        $eventServiceModel = $this->eventServiceRep->getEvent();
 
         $timeSheetModel = $this->timeSheetRep->getTimeSheet(null);
     }
