@@ -35,7 +35,7 @@
             <input type="date" name="dateOther" id="dateOther" class="form-control" value="{{old('dateOther',$eventDataObj->dateTimeOther->toDateString() ?? $dateTime->toDateString())}}"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
-            <label for="timeOther" title="Время нарушения">Время события</label>
+            <label for="timeOther" title="Время события">Время события</label>
             <input type="time" name="timeOther" id="timeOther" class="form-control" value="{{old('timeOther',$eventDataObj->dateTimeOther->format('H:i') ?? $dateTime->format('H:i'))}}"/>
         </div>
     </div>

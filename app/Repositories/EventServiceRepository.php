@@ -13,10 +13,50 @@ class EventServiceRepository implements EventServiceRepositoryInterface
 {
 
 
-    public function addEvent($dataArray)
+    public function addEvent(rentEventService $eventService): rentEventService
     {
-        // TODO: Implement addEvent() method.
+        $eventService->save();
+        return $eventService;
     }
+
+
+    public function getEventFullInfo($eventId, $dataId)
+    {
+        $resultEventObj = DB::table('time_sheets')
+            ->leftjoin('rent_event_services','rent_event_services.id','=','time_sheets.dataId')
+            ->leftJoin('rent_subjects','rent_subjects.id', '=', 'rent_event_services.subjectId')
+            ->leftJoin('rent_contracts','rent_contracts.id','=','rent_event_services.contractId')
+            ->leftJoin('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
+            ->leftJoin('to_payments','to_payments.timeSheetId','=','time_sheets.id')
+
+            ->where('time_sheets.eventId','=',$eventId)
+            ->where('time_sheets.dataId','=',$dataId)
+            ->select([
+                'rent_event_services.id as id',
+                'rent_event_services.comment as comment',
+                'car_configurations.nickName as carText',
+                'car_configurations.id as carId',
+                'rent_contracts.id as contractId',
+                'rent_contracts.number as contractNumber',
+                'rent_subjects.id as subjectId',
+                'rent_subjects.nickname as subjectNickname',
+                'to_payments.sum as sum',
+                'time_sheets.dateTime as dateTime',
+                'time_sheets.mileage as mileage',
+            ])
+            ->first();
+
+        $resultEventObj = $resultEventObj ?? new rentEventService();
+
+        $resultEventObj->dateTime =  Carbon::parse($resultEventObj->dateTime);
+
+
+        return $resultEventObj;
+
+
+
+    }
+
 
     public function getEventsByContract($contractId)
     {

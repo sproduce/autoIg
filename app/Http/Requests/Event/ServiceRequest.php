@@ -16,6 +16,27 @@ class ServiceRequest extends FormRequest
         return true;
     }
 
+
+    protected function prepareForValidation()
+    {
+        $input=parent::all();
+        if (empty($input['mileage'])){
+            $this->merge(['mileage' => 0]);
+        }
+        if (empty($input['sum'])){
+            $this->merge(['sum' => 0]);
+        }
+
+        if (!$input['contractId']){
+            $this->merge(['contractId' => NULL]);
+        }
+        if (!$input['subjectId']){
+            $this->merge(['subjectId' => NULL,]);
+        }
+        $dateTime = date("Y-m-d H:i:00",strtotime($input['date'].' '.$input['time']));
+        $this->merge(['dateTime' => $dateTime,]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,12 +46,12 @@ class ServiceRequest extends FormRequest
     {
         return [
             'id' => 'integer|nullable',
-            'carId' => 'integer|nullable',
+            'carId' => 'integer',
+            'mileage' => 'integer',
             'contractId' => 'integer|nullable',
             'subjectId' => 'integer|nullable',
-            'sum' => 'integer|required',
-            'date' => 'date|required',
-            'time' => 'date_format:H:i|required',
+            'sum' => 'integer',
+            'dateTime' => 'required',
             'comment' => 'string|nullable',
         ];
     }

@@ -55,11 +55,33 @@ Class EventServiceService implements EventServiceInterface{
 
     public function store()
     {
-        $eventService = app()->make(Event\ServiceRequest::class);
-        $eventServiceModel = $this->eventServiceRep->getEvent($eventService->get('id'));
+        $eventServiceRequest = app()->make(Event\ServiceRequest::class);
 
+        $eventServiceModel = $this->eventServiceRep->getEvent($eventServiceRequest->get('id'));
 
-        $timeSheetModel = $this->timeSheetRep->getTimeSheet(null);
+        $eventServiceModel->comment = $eventServiceRequest->get('comment');
+        $eventServiceModel->contractId = $eventServiceRequest->get('contractId');
+        $eventServiceModel->subjectId = $eventServiceRequest->get('subjectId');
+        $eventServiceModel->sum = $eventServiceRequest->get('sum');
+        $eventServiceModel = $this->eventServiceRep->addEvent($eventServiceModel);
+
+        $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventServiceModel->id);
+
+        $timeSheetModel->carId = $eventServiceRequest->get('carId');
+        $timeSheetModel->eventId = $this->eventObj->id;
+        $timeSheetModel->dataId = $eventServiceModel->id;
+        $timeSheetModel->dateTime = $eventServiceRequest->get('dateTime');
+        $timeSheetModel->mileage = $eventServiceRequest->get('mileage');
+        $timeSheetModel->duration = $this->eventObj->duration;
+        $timeSheetModel->color = $this->eventObj->color;
+        $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
+
+        $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+
+        $toPaymentModel->timeSheetId = $timeSheetModel->id;
+        $toPaymentModel->sum = $eventServiceRequest->get('sum');
+        $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
+
     }
 
     public function destroy($dataId)
@@ -68,9 +90,9 @@ Class EventServiceService implements EventServiceInterface{
     }
 
 
-    public function getEventInfo($eventId = null)
+    public function getEventInfo($dataId = null)
     {
-        // TODO: Implement getEventInfo() method.
+        return  $this->eventServiceRep->getEventFullInfo($this->eventObj->id,$dataId);
     }
 
 
