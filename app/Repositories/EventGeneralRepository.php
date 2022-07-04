@@ -35,7 +35,7 @@ class EventGeneralRepository implements EventGeneralRepositoryInterface
 
         $resultEventsObj = DB::table('time_sheets')
             ->where('time_sheets.eventId','=',$eventId)
-            ->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])
+            //->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])
             ->orderByDesc('time_sheets.dateTime')
             ->get();
 
@@ -50,7 +50,7 @@ class EventGeneralRepository implements EventGeneralRepositoryInterface
     public function getEventFullInfo($eventId,$dataId)
     {
         $resultEventObj = DB::table('time_sheets')
-            ->leftjoin('rent_event_generals','rent_event_generals.id','=','time_sheets.dataId')
+            ->join('rent_event_generals','rent_event_generals.id','=','time_sheets.dataId')
             ->leftJoin('to_payments','to_payments.timeSheetId','=','time_sheets.id')
             ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
             ->where('time_sheets.eventId','=',$eventId)
@@ -65,8 +65,10 @@ class EventGeneralRepository implements EventGeneralRepositoryInterface
             ])
             ->first();
 
-        $resultEventObj = $resultEventObj ? $resultEventObj->dateTimeOther =  Carbon::parse($resultEventObj->dateTimeOther) : new rentEventGeneral();
-
+        $resultEventObj = $resultEventObj ?? new rentEventGeneral();
+        if ($resultEventObj->dateTime){
+            $resultEventObj->dateTime = Carbon::parse($resultEventObj->dateTime);
+        }
 
         return $resultEventObj;
     }

@@ -12,7 +12,7 @@ interface EventRentalRepositoryInterface
     public function getEventRentalsByContract($contractId);
     public function getEventRental($id): rentEventRental;
 
-    public function getEventRentalFullInfo($eventId,$eventRentalId);
+    public function getEventRentalFullInfo($eventId,$dataId);
 
     public function getEventRentals($eventId,CarbonPeriod $datePeriod);
 }

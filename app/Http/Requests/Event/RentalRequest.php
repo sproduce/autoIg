@@ -16,6 +16,15 @@ class RentalRequest extends FormRequest
         return true;
     }
 
+
+    protected function prepareForValidation()
+    {
+        $input=parent::all();
+        $dateTime = date("Y-m-d H:i:00",strtotime($input['date'].' '.$input['time']));
+        $this->merge(['dateTime' => $dateTime,]);
+    }
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,11 +36,11 @@ class RentalRequest extends FormRequest
             'id' => 'integer|nullable',
             'carId' => 'integer|required',
             'contractId' => 'required',
-            'dateStart' => 'required',
-            'timeStart' => 'required',
-            'dateFinish' => 'required',
-            'timeFinish' => 'required',
-            'sum' => 'array',
+            'date' => 'required',
+            'time' => 'required',
+            'dateTime' => 'required',
+            'sum' => 'integer|required',
+            'duration' => 'integer|required|max:1440',
         ];
     }
 }

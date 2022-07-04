@@ -34,7 +34,7 @@ public function getEventFinesByContract($contractId)
             ->join('rent_event_fines','rent_event_fines.id', '=', 'time_sheets.dataId')
             ->join('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
             ->where('time_sheets.eventId','=',$eventId)
-            ->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])
+            //->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])
             ->orderByDesc('time_sheets.dateTime')
             ->get();
 

@@ -8,42 +8,42 @@
 
 @section('content')
     <form method="POST" action="/rentEvent/{{$eventObj->id}}">
-        <input type="number" name="idOther" value="{{old('idOther',$eventDataObj->id)}}" hidden/>
+        <input type="number" name="id" value="{{old('id',$eventDataObj->id)}}" hidden/>
     @csrf
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Договор"> Договор </label>
             <a href="/contract/addContractTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
-            <input id="contractText" name="contractTextOther" value="{{old('contractTextOther',$eventDataObj->contractNumberOther ?? $contractObj->number)}}"  class="form-control" readonly />
-            <input name="contractIdOther" id="contractId" value="{{old('contractIdOther',$eventDataObj->contractIdOther ?? $contractObj->id)}}" hidden/>
+            <input id="contractText" name="contractText" value="{{old('contractText',$eventDataObj->contractNumber ?? $contractObj->number)}}"  class="form-control" readonly />
+            <input name="contractId" id="contractId" value="{{old('contractId',$eventDataObj->contractId ?? $contractObj->id)}}" hidden/>
         </div>
 
     </div>
     <div class="form-row text-center">
         <div class="form-group col-md-2 input-group-sm">
-            <label for="sumOther" title="Сумма">Сумма</label>
-            <input type="number" name="sumOther" id="sumOther" value="{{old('sumOther',$eventDataObj->sumOther)}}" class="form-control"/>
+            <label for="sum" title="Сумма">Сумма</label>
+            <input type="number" name="sum" id="sum" value="{{old('sum',$eventDataObj->sum)}}" class="form-control"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
-            <label for="dateOther" title="Дата события">Дата события</label>
-            <input type="date" name="dateOther" id="dateOther" class="form-control" value="{{old('dateOther',$eventDataObj->dateTime ? $eventDataObj->dateTime->toDateString() : $dateTime->toDateString())}}"/>
+            <label for="date" title="Дата события">Дата события</label>
+            <input type="date" name="date" id="date" class="form-control" value="{{old('date',$eventDataObj->dateTime ? $eventDataObj->dateTime->toDateString() : $dateTime->toDateString())}}"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
-            <label for="timeOther" title="Время события">Время события</label>
-            <input type="time" name="timeOther" id="timeOther" class="form-control" value="{{old('timeOther',$eventDataObj->dateTime ? $eventDataObj->dateTimeOther->format('H:i') : $dateTime->format('H:i'))}}"/>
+            <label for="time" title="Время события">Время события</label>
+            <input type="time" name="time" id="time" class="form-control" value="{{old('time',$eventDataObj->dateTime ? $eventDataObj->dateTime->format('H:i') : $dateTime->format('H:i'))}}"/>
         </div>
     </div>
 
     <div class="form-row text-center">
         <div class="form-group col-md-6 input-group-sm">
-            <label for="commentOther" title="Комментарий">Комментарий</label>
-            <input type="text" name="commentOther" id="commentOther" value="{{old('commentOther',$eventDataObj->commentOther)}}" class="form-control"/>
+            <label for="comment" title="Комментарий">Комментарий</label>
+            <input type="text" name="comment" id="comment" value="{{old('comment',$eventDataObj->comment)}}" class="form-control"/>
         </div>
     </div>
 
     <div class="form-row text-center" id="last-row">
         <div class="input-group col-1">
-            @if ($eventDataObj->idOther)
+            @if ($eventDataObj->id)
                 <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Сохранить"/>
             @else
                 <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Добавить"/>

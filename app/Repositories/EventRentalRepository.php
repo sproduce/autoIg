@@ -50,23 +50,35 @@ class EventRentalRepository implements EventRentalRepositoryInterface
     }
 
 
-    public function getEventRentalFullInfo($eventId,$eventRentalId)
+    public function getEventRentalFullInfo($eventId,$dataId)
     {
 
-        $rentalPeriod = DB::table('rent_event_rentals')
-               ->join('time_sheets','time_sheets.dataId','=','rent_event_rentals.id')
-               ->where('time_sheets.eventId','=',$eventId)
-               ->where('time_sheets.dataId','=',$eventRentalId)
+        $resultEventObj = DB::table('time_sheets')
+            ->leftjoin('rent_event_rentals','rent_event_rentals.id','=','time_sheets.dataId')
+            ->leftJoin('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
+            ->leftJoin('to_payments','to_payments.timeSheetId','=','time_sheets.id')
+            ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
+            ->where('time_sheets.eventId','=',$eventId)
+            ->where('time_sheets.dataId','=',$dataId)
+            ->select([
+                'rent_event_rentals.id as id',
+                'car_configurations.nickName as carText',
+                'car_configurations.id as carId',
+                'rent_contracts.id as contractId',
+                'rent_contracts.number as contractNumber',
+                'to_payments.sum as sum',
+                'time_sheets.comment as comment',
+                'time_sheets.dateTime as dateTime',
+                'time_sheets.duration as duration',
+            ])
+            ->first();
 
-               ->selectRaw('MIN(time_sheets.dateTime) as timeSheetMinDateTime')
-               ->selectRaw('MAX(DATE_ADD(time_sheets.dateTime,INTERVAL duration MINUTE)) as timeSheetMaxDateTime')
-               ->groupBy('time_sheets.dateTime')
-               ->first();
+        $resultEventObj = $resultEventObj ?? new rentEventRental();
 
-    //var_dump($rentalPeriod);
-            $rentalPeriod->timeSheetMinDateTime = Carbon::parse($rentalPeriod->timeSheetMinDateTime);
-            $rentalPeriod->timeSheetMaxDateTime = Carbon::parse($rentalPeriod->timeSheetMaxDateTime);
-            return $rentalPeriod;
+        if ($resultEventObj->dateTime){
+            $resultEventObj->dateTime =  Carbon::parse($resultEventObj->dateTime);
+        }
+        return $resultEventObj;
     }
 }
 

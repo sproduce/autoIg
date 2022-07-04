@@ -48,23 +48,34 @@ Class EventRentalService implements EventServiceInterface {
    public function store()
    {
        $eventRentalRequest = app()->make(Event\RentalRequest::class);
-       $startDateText = $eventRentalRequest->get('dateStart').' '.$eventRentalRequest->get('timeStart');
-       $finishDateText = $eventRentalRequest->get('dateFinish').' '.$eventRentalRequest->get('timeFinish');
-       $startCarbon = new Carbon($startDateText);
-
-       $diffMinutes = $startCarbon->diffInMinutes($finishDateText);
-       $colIteration = floor($diffMinutes / $this->eventObj->duration);
-       $deltaMinutes = $diffMinutes-$colIteration * $this->eventObj->duration;
-
        $eventRentalModel = $this->eventRentalRep->getEventRental($eventRentalRequest->get('id'));
+       $eventRentalModel->contractId = $eventRentalRequest->get('contractId');
+       $eventRentalModel = $this->eventRentalRep->addEventRental($eventRentalModel);
+
+       $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventRentalModel->id);
+
+       $timeSheetModel->carId = $eventRentalRequest->get('carId');
+       $timeSheetModel->eventId = $this->eventObj->id;
+       $timeSheetModel->dataId = $eventRentalModel->id;
+       $timeSheetModel->dateTime = $eventRentalRequest->get('dateTime');
+       $timeSheetModel->comment = $eventRentalRequest->get('comment');
+       $timeSheetModel->duration = $eventRentalRequest->get('duration');
+       $timeSheetModel->color = $this->eventObj->color;
+       $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 
 
 
+       $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
 
-       $timesheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventRentalModel->id);
+       $toPaymentModel->timeSheetId = $timeSheetModel->id;
+       $toPaymentModel->sum = $eventRentalRequest->get('sum');
 
+       $toPaymentModel->contractId = $eventRentalRequest->get('contractId');
+       $contractModel = $this->contractRep->getContract($eventRentalRequest->get('contractId'));
+       $toPaymentModel->subjectIdFrom = $contractModel->subjectIdTo;
+       $toPaymentModel->subjectIdTo = $contractModel->subjectIdFrom;
 
-       //$timeSheetModel = $this->timeSheetRep->getTimeSheet(null);
+       $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
 
 
 
@@ -78,9 +89,9 @@ Class EventRentalService implements EventServiceInterface {
 
 
 
-    public function getEventInfo($eventId = null)
+    public function getEventInfo($dataId = null)
     {
-        // TODO: Implement getEventInfo() method.
+        return $this->eventRentalRep->getEventRentalFullInfo($this->eventObj->id,$dataId);
     }
 
 

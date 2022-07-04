@@ -31,8 +31,8 @@ Class EventGeneralService implements EventServiceInterface{
 
     public function index(CarbonPeriod $datePeriod)
     {
-//        $resultEvent = $this->eventOtherRep->getEvents($this->eventObj->id,$datePeriod);
-//        return $resultEvent;
+        $resultEvent = $this->eventGeneralRep->getEvents($this->eventObj->id,$datePeriod);
+        return $resultEvent;
     }
 
   public function getEventModel($modelId = null)
@@ -56,7 +56,29 @@ Class EventGeneralService implements EventServiceInterface{
     public function store()
     {
         $eventGeneralRequest = app()->make(Event\GeneralRequest::class);
+        $eventGeneralModel = $this->eventGeneralRep->getEvent($eventGeneralRequest->get('id'));
+        $eventGeneralModel->comment = $eventGeneralRequest->get('comment');
+        $eventOtherModel = $this->eventGeneralRep->addEvent($eventGeneralModel);
 
+        $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventOtherModel->id);
+        $timeSheetModel->eventId = $this->eventObj->id;
+        $timeSheetModel->dataId = $eventOtherModel->id;
+        $timeSheetModel->dateTime = $eventGeneralRequest->get('dateTime');
+        $timeSheetModel->duration = $this->eventObj->duration;
+        $timeSheetModel->color = $this->eventObj->color;
+        $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
+
+        $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+
+        $toPaymentModel->timeSheetId = $timeSheetModel->id;
+        $toPaymentModel->sum = $eventGeneralRequest->get('sum');
+
+        $toPaymentModel->contractId = $eventGeneralRequest->get('contractId');
+        $contractModel = $this->contractRep->getContract($eventGeneralRequest->get('contractId'));
+        $toPaymentModel->subjectIdFrom = $contractModel->subjectIdTo;
+        $toPaymentModel->subjectIdTo = $contractModel->subjectIdFrom;
+
+        $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
 
     }
 

@@ -35,7 +35,7 @@ class GeneralRequest extends FormRequest
     {
         return [
             'id' => 'integer|nullable',
-            'contractId' => 'integer|nullable',
+            'contractId' => 'integer|required',
             'sum' => 'integer|required',
             'date' => 'date|required',
             'time' => 'date_format:H:i|required',

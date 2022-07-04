@@ -17,7 +17,7 @@ class CreateRentEventGeneralsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-            $table->string('comment');
+            $table->string('comment')->nullable();
         });
     }
 
