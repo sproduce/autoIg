@@ -159,11 +159,11 @@ Route::get('/carOwner/searchDialog',[CarOwnerController::class,'searchDialog']);
 Route::get('/carOwner/search',[CarOwnerController::class,'search']);
 
 
-Route::resource('eventRental', EventRentalController::class);
-Route::resource('eventTransfer', EventTransferController::class);
-Route::resource('eventFine', EventFineController::class);
-Route::resource('eventPhotocontrol', EventPhotocontrolController::class);
-Route::resource('eventCrash', EventCrashController::class);
-Route::resource('eventOther', EventOtherController::class);
-Route::resource('eventWash', EventWashController::class);
-Route::resource('eventService', EventServiceController::class);
+//Route::resource('eventRental', EventRentalController::class);
+//Route::resource('eventTransfer', EventTransferController::class);
+//Route::resource('eventFine', EventFineController::class);
+//Route::resource('eventPhotocontrol', EventPhotocontrolController::class);
+//Route::resource('eventCrash', EventCrashController::class);
+//Route::resource('eventOther', EventOtherController::class);
+//Route::resource('eventWash', EventWashController::class);
+//Route::resource('eventService', EventServiceController::class);

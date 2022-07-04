@@ -47,8 +47,27 @@ Class EventRentalService implements EventServiceInterface {
 
    public function store()
    {
-       $eventRental = app()->make(Event\RentalRequest::class);
-       $timeSheetModel = $this->timeSheetRep->getTimeSheet(null);
+       $eventRentalRequest = app()->make(Event\RentalRequest::class);
+       $startDateText = $eventRentalRequest->get('dateStart').' '.$eventRentalRequest->get('timeStart');
+       $finishDateText = $eventRentalRequest->get('dateFinish').' '.$eventRentalRequest->get('timeFinish');
+       $startCarbon = new Carbon($startDateText);
+
+       $diffMinutes = $startCarbon->diffInMinutes($finishDateText);
+       $colIteration = floor($diffMinutes / $this->eventObj->duration);
+       $deltaMinutes = $diffMinutes-$colIteration * $this->eventObj->duration;
+
+       $eventRentalModel = $this->eventRentalRep->getEventRental($eventRentalRequest->get('id'));
+
+
+
+
+       $timesheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventRentalModel->id);
+
+
+       //$timeSheetModel = $this->timeSheetRep->getTimeSheet(null);
+
+
+
 
    }
 

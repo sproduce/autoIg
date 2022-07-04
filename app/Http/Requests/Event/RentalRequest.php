@@ -24,7 +24,14 @@ class RentalRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id' => 'integer|nullable',
+            'carId' => 'integer|required',
+            'contractId' => 'required',
+            'dateStart' => 'required',
+            'timeStart' => 'required',
+            'dateFinish' => 'required',
+            'timeFinish' => 'required',
+            'sum' => 'array',
         ];
     }
 }
