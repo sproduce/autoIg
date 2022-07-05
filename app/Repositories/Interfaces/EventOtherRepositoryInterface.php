@@ -14,4 +14,6 @@ interface EventOtherRepositoryInterface
     public function getEvents($eventId,CarbonPeriod $datePeriod);
 
     public function getEventFullInfo($eventId,$dataId);
+
+    public function delete($eventId);
 }

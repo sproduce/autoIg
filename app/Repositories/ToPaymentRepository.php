@@ -19,6 +19,8 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         $resultCollection = DB::table('to_payments')
             ->leftjoin('time_sheets','time_sheets.id', '=' ,'to_payments.timeSheetId')
             ->leftjoin('rent_events','rent_events.id','=','time_sheets.eventId')
+            ->leftjoin('pay_operation_types','pay_operation_types.id','=','rent_events.payOperationTypeId')
+
             ->select([
                 'to_payments.sum as paymentsSum',
                 'to_payments.comment as paymentsComment',
@@ -27,6 +29,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
                 'rent_events.name as eventsName',
                 'rent_events.color as eventsColor',
                 'rent_events.action as eventsAction',
+                'pay_operation_types.name as operationTypeName',
             ])
             ->where('to_payments.contractId','=',$contractId)
             ->orderBy('time_sheets.dateTime')

@@ -72,11 +72,11 @@
             <div class="form-row text-center">
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="displacement">Обьем двигателя (cc)</label>
-                    <input type="number" name="displacement" id="displacement" class="form-control" value="{{$carConfiguration->displacement}}" autocomplete="off"/>
+                    <input type="number" name="displacement" id="displacement" class="form-control" value="{{$carConfiguration->displacement}}" required autocomplete="off"/>
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="hp">Лошадиных сил (hp)</label>
-                    <input type="number" name="hp" id="hp" class="form-control" value="{{$carConfiguration->hp}}" autocomplete="off"/>
+                    <input type="number" name="hp" id="hp" class="form-control" value="{{$carConfiguration->hp}}" required autocomplete="off"/>
                 </div>
                 <div class="form-group col-md-3 input-group-sm">
                     <label for="year">Год выпуска</label>

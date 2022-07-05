@@ -72,7 +72,7 @@
                 <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                         <div class="input-group-text p-0">
-                            <a href="/contract/addCar" class="btn btn-ssm btn-outline-success DialogUser"><i class="fas fa-search-plus"></i></a>
+                            <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success DialogUser"><i class="fas fa-search-plus"></i></a>
                         </div>
                     </div>
                     <input type="text" class="form-control" id="carText" name="carText" disabled/>

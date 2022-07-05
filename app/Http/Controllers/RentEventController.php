@@ -92,16 +92,28 @@ class RentEventController extends Controller
 
     }
 
-
-
-
-
-
-
-
-
-
     public function show()
+    {
+
+    }
+
+
+
+    public function destroy($eventId,$dataId)
+    {
+
+    }
+
+
+
+
+
+
+
+
+
+
+    public function list()
     {
         $rentEventsObj=$this->rentEventServ->getRentEvents();
         return view('rentEvent.rentEventList',['rentEvents'=>$rentEventsObj]);

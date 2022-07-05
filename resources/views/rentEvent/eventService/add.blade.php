@@ -29,8 +29,8 @@
             <label for="contractText" title="Договор">Договор</label>
             <a href="/contract/addContractTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
             <a class="btn btn-ssm btn-outline-danger ml-2" id="subjectClear"><i class="fas fa-eraser"></i></a>
-            <input id="contractText" name="contractText" value="{{old('contractText',$eventDataObj->contractNumber)}}" class="form-control"  readonly/>
-            <input name="contractId" id="contractId" value="{{old('subjectId',$eventDataObj->contractId)}}" hidden/>
+            <input id="contractText" name="contractText" value="{{old('contractText',$eventDataObj->contractNumber ?? $contractObj->number)}}" class="form-control"  readonly/>
+            <input name="contractId" id="contractId" value="{{old('subjectId',$eventDataObj->contractId ?? $contractObj->id)}}" hidden/>
         </div>
 
     </div>

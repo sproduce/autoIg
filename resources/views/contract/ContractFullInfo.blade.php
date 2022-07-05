@@ -75,7 +75,9 @@
         @if($contractService->count())
             <div class="row align-items-center font-weight-bold border">
                 <div class="col-2">Событие</div>
-                <div class="col-3">Сумма</div>
+                <div class="col-2">Дата</div>
+                <div class="col-1">Сумма</div>
+                <div class="col-3">Тип платежа</div>
                 <div class="col-2">Комменатрий</div>
             </div>
         @endif
@@ -83,7 +85,9 @@
             @foreach($contractService as $service)
                 <div class="row row-table">
                     <div class="col-2">{{$service->eventsName}}</div>
-                    <div class="col-3">{{$service->paymentsSum}}</div>
+                    <div class="col-2">{{$service->sheetsDateTime->format('d-m-Y')}}</div>
+                    <div class="col-1">{{$service->paymentsSum}}</div>
+                    <div class="col-3">{{$service->operationTypeName}}</div>
                     <div class="col-2">{{$service->paymentsComment}}</div>
                 </div>
             @endforeach

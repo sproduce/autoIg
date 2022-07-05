@@ -78,5 +78,11 @@ class EventOtherRepository implements EventOtherRepositoryInterface
         return $resultEventObj;
     }
 
+
+    public function delete($eventId)
+    {
+        rentEventOther::where('id',$eventId)->delete();
+    }
+
 }
 
