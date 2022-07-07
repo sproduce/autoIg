@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Repositories;
-use App\Models\rentEvent;
 use App\Models\rentEventFine;
 use App\Repositories\Interfaces\EventFineRepositoryInterface;
 use Carbon\Carbon;
@@ -10,22 +9,23 @@ use Illuminate\Support\Facades\DB;
 
 class EventFineRepository implements EventFineRepositoryInterface
 {
-public function getEventFine($id): rentEventFine
-{
-    return rentEventFine::find($id)?? new rentEventFine;
-}
+    public function getEvent($id): rentEventFine
+    {
+        return rentEventFine::find($id)?? new rentEventFine;
+    }
 
-public function addEventFine(rentEventFine $rentEventFine): rentEventFine
-{
-    $rentEventFine->save();
-  return $rentEventFine;
-}
-public function getEventFinesByContract($contractId)
-{
-    // TODO: Implement getEventRentalsByContract() method.
-}
+    public function addEvent(rentEventFine $rentEventFine): rentEventFine
+    {
+        $rentEventFine->save();
+        return $rentEventFine;
+    }
 
-    public function getEventFines($eventId,CarbonPeriod $datePeriod)
+    public function getEventsByContract($contractId)
+    {
+        // TODO: Implement getEventRentalsByContract() method.
+    }
+
+    public function getEvents($eventId,CarbonPeriod $datePeriod)
     {
         $startDate=$datePeriod->getStartDate()->format('Y-m-d');
         $finishDate=$datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
@@ -47,7 +47,7 @@ public function getEventFinesByContract($contractId)
     }
 
 
-    public function delEventFine(rentEventFine $eventFineObj)
+    public function delEvent(rentEventFine $eventFineObj)
     {
         $eventFineObj->delete();
     }

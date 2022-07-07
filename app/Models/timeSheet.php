@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 /**
@@ -25,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
 class timeSheet extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     //private $dateTime,$comment,$dataId,$eventId;
     protected $fillable = ['carId', 'eventId','dateTime','comment','mileage','color','duration','dataId'];
 

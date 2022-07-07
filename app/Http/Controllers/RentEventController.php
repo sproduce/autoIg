@@ -101,7 +101,10 @@ class RentEventController extends Controller
 
     public function destroy($eventId,$dataId)
     {
-
+        $eventObj = $this->rentEventServ->getRentEvent($eventId);
+        $serviceObj = $this->rentEventServ->getEventService($eventObj);
+        $serviceObj->destroy($dataId);
+        return redirect('/timesheet/list');
     }
 
 

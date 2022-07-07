@@ -8,13 +8,13 @@ use Carbon\CarbonPeriod;
 
 interface EventFineRepositoryInterface
 {
-    public function addEventFine(rentEventFine $rentEventFine): rentEventFine;
-    public function getEventFinesByContract($contractId);
-    public function getEventFine($id): rentEventFine;
+    public function addEvent(rentEventFine $rentEventFine): rentEventFine;
+    public function getEventsByContract($contractId);
+    public function getEvent($id): rentEventFine;
 
-    public function getEventFines($eventId,CarbonPeriod $datePeriod);
+    public function getEvents($eventId,CarbonPeriod $datePeriod);
 
-    public function delEventFine(rentEventFine $eventFineObj);
+    public function delEvent(rentEventFine $eventFineObj);
 
 
     public function getEventFullInfo($eventId,$dataId);

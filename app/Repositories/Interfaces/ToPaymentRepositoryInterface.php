@@ -27,7 +27,8 @@ interface ToPaymentRepositoryInterface
     public function getToPayments();
 
     public function addToPayment(toPayment $toPaymentObj): toPayment;
-    public function delToPayment($toPaymentId);
+
+    public function delToPayment(toPayment $toPayment);
 
     public function getToPaymentsByContractAndOperationType(rentPayment $rentPayment);
 

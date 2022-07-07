@@ -12,6 +12,7 @@ interface EventGeneralRepositoryInterface
     public function getEventsByContract($contractId);
     public function getEvent($id): rentEventGeneral;
     public function getEvents($eventId,CarbonPeriod $datePeriod);
-
     public function getEventFullInfo($eventId,$dataId);
+
+    public function delEvent(rentEventGeneral $rentEventGeneral);
 }

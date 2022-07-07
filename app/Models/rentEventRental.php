@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 class rentEventRental extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     private $id,$personId,$contractId,$sum,$isFinish;
     protected $fillable = ['personId','contractId','isFinish','sum'];
 

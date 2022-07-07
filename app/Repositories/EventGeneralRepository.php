@@ -73,5 +73,12 @@ class EventGeneralRepository implements EventGeneralRepositoryInterface
         return $resultEventObj;
     }
 
+
+
+    public function delEvent(rentEventGeneral $rentEventGeneral)
+    {
+        $rentEventGeneral->delete();
+    }
+
 }
 

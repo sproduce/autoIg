@@ -9,7 +9,7 @@ use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\CarbonPeriod;
-
+use Illuminate\Support\Facades\DB;
 
 
 Class EventOtherService implements EventServiceInterface{
@@ -96,7 +96,23 @@ Class EventOtherService implements EventServiceInterface{
 
     public function destroy($dataId)
     {
-        // TODO: Implement destroy() method.
+        $eventOtherModel = $this->eventOtherRep->getEvent($dataId);
+        $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventOtherModel->id);
+        $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+
+        DB::beginTransaction();
+        try {
+            $this->toPaymentRep->delToPayment($toPaymentModel);
+            $this->timeSheetRep->delTimeSheet($timeSheetModel);
+            $this->eventOtherRep->delEvent($eventOtherModel);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            echo $e;
+        }
+
+
     }
 
 

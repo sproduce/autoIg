@@ -15,5 +15,5 @@ interface EventOtherRepositoryInterface
 
     public function getEventFullInfo($eventId,$dataId);
 
-    public function delete($eventId);
+    public function delEvent(rentEventOther $rentEventOther);
 }

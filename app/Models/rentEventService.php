@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 class rentEventService extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     private $id,$subjectId,$contractId,$comment,$sum;
     protected $fillable = ['id','subjectId','contractId','comment','sum'];
 }

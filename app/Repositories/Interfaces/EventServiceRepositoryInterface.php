@@ -9,6 +9,8 @@ use Carbon\CarbonPeriod;
 interface EventServiceRepositoryInterface
 {
     public function addEvent(rentEventService $eventService): rentEventService;
+
+    public function delEvent(rentEventService $eventService);
     public function getEventsByContract($contractId);
     public function getEvent($id): rentEventService;
     public function getEvents($eventId,CarbonPeriod $datePeriod);

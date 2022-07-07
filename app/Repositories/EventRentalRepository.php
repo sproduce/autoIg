@@ -80,5 +80,11 @@ class EventRentalRepository implements EventRentalRepositoryInterface
         }
         return $resultEventObj;
     }
+
+
+    public function delEvent(rentEventRental $rentEventRental)
+    {
+        $rentEventRental->delete();
+    }
 }
 

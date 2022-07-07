@@ -125,10 +125,9 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
     }
 
 
-    public function delToPayment($toPaymentId)
+    public function delToPayment(toPayment $toPayment)
     {
-        $toPayment=toPayment::find($toPaymentId);
-        $toPayment->delete();
+        $toPayment->forceDelete();
     }
 
     public function getToPayments()

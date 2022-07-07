@@ -15,4 +15,7 @@ interface EventRentalRepositoryInterface
     public function getEventRentalFullInfo($eventId,$dataId);
 
     public function getEventRentals($eventId,CarbonPeriod $datePeriod);
+
+    public function delEvent(rentEventRental $rentEventRental);
+
 }

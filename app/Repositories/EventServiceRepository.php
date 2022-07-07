@@ -82,5 +82,11 @@ class EventServiceRepository implements EventServiceRepositoryInterface
 
         return $resultEventsObj;
     }
+
+    public function delEvent(rentEventService $eventService)
+    {
+        $eventService->delete();
+    }
+
 }
 
