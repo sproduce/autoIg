@@ -73,8 +73,10 @@ Class EventRentalService implements EventServiceInterface {
 
            $toPaymentModel->contractId = $eventRentalRequest->get('contractId');
            $contractModel = $this->contractRep->getContract($eventRentalRequest->get('contractId'));
+
            $toPaymentModel->subjectIdFrom = $contractModel->subjectIdTo;
            $toPaymentModel->subjectIdTo = $contractModel->subjectIdFrom;
+           $toPaymentModel->payUp =  $timeSheetModel->dateTime->addMinutes($timeSheetModel->duration);
 
            $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
            DB::commit();

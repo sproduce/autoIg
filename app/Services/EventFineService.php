@@ -82,6 +82,7 @@ Class EventFineService implements EventServiceInterface {
 
 
             $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+            $toPaymentModel->payUp = $eventFineModel->datePaySale;
             $toPaymentModel->timeSheetId = $timeSheetModel->id;
             $toPaymentModel->sum = $eventFineRequest->get('sumSale');
 

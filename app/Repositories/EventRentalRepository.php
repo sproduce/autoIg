@@ -30,8 +30,8 @@ class EventRentalRepository implements EventRentalRepositoryInterface
 
     public function getEventRentals($eventId,CarbonPeriod $datePeriod)
     {
-        $startDate=$datePeriod->getStartDate()->format('Y-m-d');
-        $finishDate=$datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
+        $startDate = $datePeriod->getStartDate()->format('Y-m-d');
+        $finishDate  =$datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
 
         $resultEventsObj = DB::table('time_sheets')
             ->join('rent_event_rentals','rent_event_rentals.id', '=', 'time_sheets.dataId')
