@@ -79,7 +79,7 @@
 
                 if ($(this).is(':checked')) {
                     currentSum = parseInt($(this).data('sum'));
-                    if ($('#paymentSum').val()>0) {
+                    if ($('#paymentSum').val()>=currentSum) {
                         if (currentSum > paymentSum){
                             currentSum = paymentSum;
                             hiddenInput.removeClass("fullAllocate").addClass("partAllocate");

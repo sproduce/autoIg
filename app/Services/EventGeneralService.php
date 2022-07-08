@@ -9,7 +9,7 @@ use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\CarbonPeriod;
-
+use Illuminate\Support\Facades\DB;
 
 
 Class EventGeneralService implements EventServiceInterface{
@@ -55,30 +55,39 @@ Class EventGeneralService implements EventServiceInterface{
 
     public function store()
     {
-        $eventGeneralRequest = app()->make(Event\GeneralRequest::class);
-        $eventGeneralModel = $this->eventGeneralRep->getEvent($eventGeneralRequest->get('id'));
-        $eventGeneralModel->comment = $eventGeneralRequest->get('comment');
-        $eventOtherModel = $this->eventGeneralRep->addEvent($eventGeneralModel);
+        DB::beginTransaction();
+        try {
 
-        $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventOtherModel->id);
-        $timeSheetModel->eventId = $this->eventObj->id;
-        $timeSheetModel->dataId = $eventOtherModel->id;
-        $timeSheetModel->dateTime = $eventGeneralRequest->get('dateTime');
-        $timeSheetModel->duration = $this->eventObj->duration;
-        $timeSheetModel->color = $this->eventObj->color;
-        $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
+            $eventGeneralRequest = app()->make(Event\GeneralRequest::class);
+            $eventGeneralModel = $this->eventGeneralRep->getEvent($eventGeneralRequest->get('id'));
+            $eventGeneralModel->comment = $eventGeneralRequest->get('comment');
+            $eventOtherModel = $this->eventGeneralRep->addEvent($eventGeneralModel);
 
-        $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+            $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventOtherModel->id);
+            $timeSheetModel->eventId = $this->eventObj->id;
+            $timeSheetModel->dataId = $eventOtherModel->id;
+            $timeSheetModel->dateTime = $eventGeneralRequest->get('dateTime');
+            $timeSheetModel->duration = $this->eventObj->duration;
+            $timeSheetModel->color = $this->eventObj->color;
+            $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 
-        $toPaymentModel->timeSheetId = $timeSheetModel->id;
-        $toPaymentModel->sum = $eventGeneralRequest->get('sum');
+            $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
 
-        $toPaymentModel->contractId = $eventGeneralRequest->get('contractId');
-        $contractModel = $this->contractRep->getContract($eventGeneralRequest->get('contractId'));
-        $toPaymentModel->subjectIdFrom = $contractModel->subjectIdTo;
-        $toPaymentModel->subjectIdTo = $contractModel->subjectIdFrom;
+            $toPaymentModel->timeSheetId = $timeSheetModel->id;
+            $toPaymentModel->sum = $eventGeneralRequest->get('sum');
 
-        $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
+            $toPaymentModel->contractId = $eventGeneralRequest->get('contractId');
+            $contractModel = $this->contractRep->getContract($eventGeneralRequest->get('contractId'));
+            $toPaymentModel->subjectIdFrom = $contractModel->subjectIdTo;
+            $toPaymentModel->subjectIdTo = $contractModel->subjectIdFrom;
+
+            $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
+
+
 
     }
 
@@ -89,7 +98,20 @@ Class EventGeneralService implements EventServiceInterface{
 
     public function destroy($dataId)
     {
-        // TODO: Implement destroy() method.
+        $eventGeneralModel = $this->eventGeneralRep->getEvent($dataId);
+        $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventGeneralModel->id);
+        $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+
+        DB::beginTransaction();
+        try {
+            $this->toPaymentRep->delToPayment($toPaymentModel);
+            $this->timeSheetRep->delTimeSheet($timeSheetModel);
+            $this->eventGeneralRep->delEvent($eventGeneralModel);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
+
     }
 
 

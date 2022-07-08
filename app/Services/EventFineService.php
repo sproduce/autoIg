@@ -10,6 +10,7 @@ use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Illuminate\Support\Facades\DB;
 
 Class EventFineService implements EventServiceInterface {
     private $eventFineRep,$timeSheetRep,$toPaymentRep,$eventObj,$contractRep;
@@ -52,39 +53,44 @@ Class EventFineService implements EventServiceInterface {
 
     public function store()
     {
-        $eventFineRequest = app()->make(Event\FineRequest::class);
+        DB::beginTransaction();
+        try {
+            $eventFineRequest = app()->make(Event\FineRequest::class);
 
-        $eventFineModel = $this->eventFineRep->getEvent($eventFineRequest->get('id'));
+            $eventFineModel = $this->eventFineRep->getEvent($eventFineRequest->get('id'));
 
-        $eventFineModel->dateTimeOrder = $eventFineRequest->get('dateOrder');
-        $eventFineModel->datePayMax = $eventFineRequest->get('datePayMax');
-        $eventFineModel->datePaySale = $eventFineRequest->get('datePaySale');
-        $eventFineModel->dateTimeFine = $eventFineRequest->get('dateTimeFine');
-        $eventFineModel->sum = $eventFineRequest->get('sum');
-        $eventFineModel->sumSale = $eventFineRequest->get('sumSale');
-        $eventFineModel->uin = $eventFineRequest->get('uin');
+            $eventFineModel->dateTimeOrder = $eventFineRequest->get('dateOrder');
+            $eventFineModel->datePayMax = $eventFineRequest->get('datePayMax');
+            $eventFineModel->datePaySale = $eventFineRequest->get('datePaySale');
+            $eventFineModel->dateTimeFine = $eventFineRequest->get('dateTimeFine');
+            $eventFineModel->sum = $eventFineRequest->get('sum');
+            $eventFineModel->sumSale = $eventFineRequest->get('sumSale');
+            $eventFineModel->uin = $eventFineRequest->get('uin');
 
-        $eventFineModel = $this->eventFineRep->addEvent($eventFineModel);
+            $eventFineModel = $this->eventFineRep->addEvent($eventFineModel);
 
-        $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventFineModel->id);
+            $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventFineModel->id);
 
-        $timeSheetModel->carId = $eventFineRequest->get('carId');
-        $timeSheetModel->eventId = $this->eventObj->id;
-        $timeSheetModel->dataId = $eventFineModel->id;
-        $timeSheetModel->dateTime = $eventFineRequest->get('dateTimeFine');
-        $timeSheetModel->comment = $eventFineRequest->get('comment');
-        $timeSheetModel->duration = $this->eventObj->duration;
-        $timeSheetModel->color = $this->eventObj->color;
-        $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
-
-
-        $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
-        $toPaymentModel->timeSheetId = $timeSheetModel->id;
-        $toPaymentModel->sum = $eventFineRequest->get('sumSale');
-
-        $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
+            $timeSheetModel->carId = $eventFineRequest->get('carId');
+            $timeSheetModel->eventId = $this->eventObj->id;
+            $timeSheetModel->dataId = $eventFineModel->id;
+            $timeSheetModel->dateTime = $eventFineRequest->get('dateTimeFine');
+            $timeSheetModel->comment = $eventFineRequest->get('comment');
+            $timeSheetModel->duration = $this->eventObj->duration;
+            $timeSheetModel->color = $this->eventObj->color;
+            $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 
 
+            $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+            $toPaymentModel->timeSheetId = $timeSheetModel->id;
+            $toPaymentModel->sum = $eventFineRequest->get('sumSale');
+
+            $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
     }
 
 
@@ -97,7 +103,20 @@ Class EventFineService implements EventServiceInterface {
 
     public function destroy($dataId)
     {
-        // TODO: Implement destroy() method.
+
+        $eventFineModel = $this->eventFineRep->getEvent($dataId);
+        $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventFineModel->id);
+        $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+        DB::beginTransaction();
+        try {
+            $this->toPaymentRep->delToPayment($toPaymentModel);
+            $this->timeSheetRep->delTimeSheet($timeSheetModel);
+            $this->eventFineRep->delEvent($eventFineModel);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
+
     }
 
     public function getEvents(CarbonPeriod $periodDate,$eventId)

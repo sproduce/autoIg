@@ -35,6 +35,7 @@ class EventGeneralRepository implements EventGeneralRepositoryInterface
 
         $resultEventsObj = DB::table('time_sheets')
             ->where('time_sheets.eventId','=',$eventId)
+            ->whereNull('deleted_at')
             //->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])
             ->orderByDesc('time_sheets.dateTime')
             ->get();

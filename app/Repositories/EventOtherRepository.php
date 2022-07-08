@@ -35,6 +35,7 @@ class EventOtherRepository implements EventOtherRepositoryInterface
 
         $resultEventsObj = DB::table('time_sheets')
             ->where('time_sheets.eventId','=',$eventId)
+            ->whereNull('deleted_at')
             //->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])
             ->orderByDesc('time_sheets.dateTime')
             ->get();
@@ -56,6 +57,7 @@ class EventOtherRepository implements EventOtherRepositoryInterface
             ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
             ->where('time_sheets.eventId','=',$eventId)
             ->where('time_sheets.dataId','=',$dataId)
+            ->whereNull('rent_event_others.deleted_at')
             ->select([
                 'rent_event_others.id as idOther',
                 'car_configurations.nickName as carTextOther',
@@ -81,7 +83,7 @@ class EventOtherRepository implements EventOtherRepositoryInterface
 
     public function delEvent(rentEventOther $rentEventOther)
     {
-        $rentEventOther->forceDelete();
+        $rentEventOther->delete();
     }
 
 }

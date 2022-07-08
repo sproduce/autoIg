@@ -55,38 +55,43 @@ Class EventOtherService implements EventServiceInterface{
 
     public function store()
     {
-        $eventOtherRequest = app()->make(Event\OtherRequest::class);
+        DB::beginTransaction();
+        try {
+            $eventOtherRequest = app()->make(Event\OtherRequest::class);
 
-        $eventOtherModel = $this->eventOtherRep->getEvent($eventOtherRequest->get('idOther'));
-        $eventOtherModel->comment = $eventOtherRequest->get('commentOther');
-        $eventOtherModel = $this->eventOtherRep->addEvent($eventOtherModel);
+            $eventOtherModel = $this->eventOtherRep->getEvent($eventOtherRequest->get('idOther'));
+            $eventOtherModel->comment = $eventOtherRequest->get('commentOther');
+            $eventOtherModel = $this->eventOtherRep->addEvent($eventOtherModel);
 
-        $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventOtherModel->id);
+            $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventOtherModel->id);
 
-        $timeSheetModel->carId = $eventOtherRequest->get('carIdOther');
-        $timeSheetModel->eventId = $this->eventObj->id;
-        $timeSheetModel->dataId = $eventOtherModel->id;
-        $timeSheetModel->dateTime = $eventOtherRequest->get('dateTimeOther');
-        $timeSheetModel->comment = $eventOtherRequest->get('commentOther');
-        $timeSheetModel->duration = $this->eventObj->duration;
-        $timeSheetModel->color = $this->eventObj->color;
-        $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
+            $timeSheetModel->carId = $eventOtherRequest->get('carIdOther');
+            $timeSheetModel->eventId = $this->eventObj->id;
+            $timeSheetModel->dataId = $eventOtherModel->id;
+            $timeSheetModel->dateTime = $eventOtherRequest->get('dateTimeOther');
+            $timeSheetModel->comment = $eventOtherRequest->get('commentOther');
+            $timeSheetModel->duration = $this->eventObj->duration;
+            $timeSheetModel->color = $this->eventObj->color;
+            $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 
-        $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+            $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
 
-        $toPaymentModel->timeSheetId = $timeSheetModel->id;
-        $toPaymentModel->sum = $eventOtherRequest->get('sumOther');
-        if ($eventOtherRequest->get('contractIdOther')){
-            $toPaymentModel->contractId = $eventOtherRequest->get('contractIdOther');
-            $contractModel = $this->contractRep->getContract($eventOtherRequest->get('contractIdOther'));
-            $toPaymentModel->subjectIdFrom = $contractModel->subjectIdTo;
-            $toPaymentModel->subjectIdTo = $contractModel->subjectIdFrom;
+            $toPaymentModel->timeSheetId = $timeSheetModel->id;
+            $toPaymentModel->sum = $eventOtherRequest->get('sumOther');
+            if ($eventOtherRequest->get('contractIdOther')){
+                $toPaymentModel->contractId = $eventOtherRequest->get('contractIdOther');
+                $contractModel = $this->contractRep->getContract($eventOtherRequest->get('contractIdOther'));
+                $toPaymentModel->subjectIdFrom = $contractModel->subjectIdTo;
+                $toPaymentModel->subjectIdTo = $contractModel->subjectIdFrom;
+            }
+
+
+
+            $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
         }
-
-
-
-        $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
-
     }
 
     public function getViews()
@@ -105,11 +110,9 @@ Class EventOtherService implements EventServiceInterface{
             $this->toPaymentRep->delToPayment($toPaymentModel);
             $this->timeSheetRep->delTimeSheet($timeSheetModel);
             $this->eventOtherRep->delEvent($eventOtherModel);
-
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            echo $e;
         }
 
 

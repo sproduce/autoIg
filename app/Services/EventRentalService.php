@@ -9,6 +9,7 @@ use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use App\Http\Requests\Event;
+use Illuminate\Support\Facades\DB;
 
 
 Class EventRentalService implements EventServiceInterface {
@@ -47,38 +48,39 @@ Class EventRentalService implements EventServiceInterface {
 
    public function store()
    {
-       $eventRentalRequest = app()->make(Event\RentalRequest::class);
-       $eventRentalModel = $this->eventRentalRep->getEventRental($eventRentalRequest->get('id'));
-       $eventRentalModel->contractId = $eventRentalRequest->get('contractId');
-       $eventRentalModel = $this->eventRentalRep->addEventRental($eventRentalModel);
+       DB::beginTransaction();
+       try {
+           $eventRentalRequest = app()->make(Event\RentalRequest::class);
+           $eventRentalModel = $this->eventRentalRep->getEventRental($eventRentalRequest->get('id'));
+           $eventRentalModel->contractId = $eventRentalRequest->get('contractId');
+           $eventRentalModel = $this->eventRentalRep->addEventRental($eventRentalModel);
 
-       $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventRentalModel->id);
+           $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventRentalModel->id);
 
-       $timeSheetModel->carId = $eventRentalRequest->get('carId');
-       $timeSheetModel->eventId = $this->eventObj->id;
-       $timeSheetModel->dataId = $eventRentalModel->id;
-       $timeSheetModel->dateTime = $eventRentalRequest->get('dateTime');
-       $timeSheetModel->comment = $eventRentalRequest->get('comment');
-       $timeSheetModel->duration = $eventRentalRequest->get('duration');
-       $timeSheetModel->color = $this->eventObj->color;
-       $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
+           $timeSheetModel->carId = $eventRentalRequest->get('carId');
+           $timeSheetModel->eventId = $this->eventObj->id;
+           $timeSheetModel->dataId = $eventRentalModel->id;
+           $timeSheetModel->dateTime = $eventRentalRequest->get('dateTime');
+           $timeSheetModel->comment = $eventRentalRequest->get('comment');
+           $timeSheetModel->duration = $eventRentalRequest->get('duration');
+           $timeSheetModel->color = $this->eventObj->color;
+           $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 
+           $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
 
+           $toPaymentModel->timeSheetId = $timeSheetModel->id;
+           $toPaymentModel->sum = $eventRentalRequest->get('sum');
 
-       $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+           $toPaymentModel->contractId = $eventRentalRequest->get('contractId');
+           $contractModel = $this->contractRep->getContract($eventRentalRequest->get('contractId'));
+           $toPaymentModel->subjectIdFrom = $contractModel->subjectIdTo;
+           $toPaymentModel->subjectIdTo = $contractModel->subjectIdFrom;
 
-       $toPaymentModel->timeSheetId = $timeSheetModel->id;
-       $toPaymentModel->sum = $eventRentalRequest->get('sum');
-
-       $toPaymentModel->contractId = $eventRentalRequest->get('contractId');
-       $contractModel = $this->contractRep->getContract($eventRentalRequest->get('contractId'));
-       $toPaymentModel->subjectIdFrom = $contractModel->subjectIdTo;
-       $toPaymentModel->subjectIdTo = $contractModel->subjectIdFrom;
-
-       $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
-
-
-
+           $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
+           DB::commit();
+       } catch (\Exception $e) {
+           DB::rollback();
+       }
 
    }
 
@@ -98,7 +100,19 @@ Class EventRentalService implements EventServiceInterface {
 
     public function destroy($dataId)
     {
-        // TODO: Implement destroy() method.
+        $eventRentalModel = $this->eventRentalRep->getEventRental($dataId);
+        $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventRentalModel->id);
+        $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+        DB::beginTransaction();
+        try {
+            $this->toPaymentRep->delToPayment($toPaymentModel);
+            $this->timeSheetRep->delTimeSheet($timeSheetModel);
+            $this->eventRentalRep->delEvent($eventRentalModel);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
+
     }
 
 

@@ -172,7 +172,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
 
     public function delTimeSheet(timeSheet $timeSheetObj)
     {
-        $timeSheetObj->forceDelete();
+        $timeSheetObj->delete();
     }
 
 }
