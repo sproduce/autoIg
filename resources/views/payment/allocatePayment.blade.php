@@ -12,16 +12,16 @@
 
     <div class="form-group row">
 
-        <label class="col-sm-1 col-form-label" for="id" title="Платеж"><strong>Платеж :</strong></label>
+        <label class="col-sm-1 col-form-label pr-0" for="id" title="Платеж"><strong>Платеж :</strong></label>
 
         <div class="col-sm-2 pt-2">
             {{$paymentObj->id}}
         </div>
-        <label class="col-sm-1 col-form-label" for="payment" title="Сумма"><strong>Сумма :</strong></label>
+        <label class="col-sm-1 col-form-label pr-0" for="payment" title="Сумма"><strong>Сумма :</strong></label>
             <div class="col-sm-2 pt-2">
                 {{$paymentObj->payment}}
             </div>
-        <label class="col-sm-1 col-form-label" for="paymentSum" title="Остаток"><strong>Остаток :</strong></label>
+        <label class="col-sm-1 col-form-label pr-0" for="paymentSum" title="Остаток"><strong>Остаток :</strong></label>
         <div class="col-sm-2">
             <input readonly disabled class="form-control-plaintext" id="paymentSum" value="{{$paymentObj->balance}}"/>
         </div>
@@ -79,7 +79,7 @@
 
                 if ($(this).is(':checked')) {
                     currentSum = parseInt($(this).data('sum'));
-                    if ($('#paymentSum').val()>=currentSum) {
+                    if ($('#paymentSum').val() >= currentSum) {
                         if (currentSum > paymentSum){
                             currentSum = paymentSum;
                             hiddenInput.removeClass("fullAllocate").addClass("partAllocate");
@@ -108,6 +108,8 @@
             paymentSum = parseInt($('#paymentSum').val());
             currentSum = parseInt($(this).val());
             prevSum = parseInt($(this).data('sum'));
+            console.log(currentSum);
+            console.log(maxSum);
 
             if (currentSum > maxSum){
                 currentSum = maxSum;

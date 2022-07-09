@@ -44,6 +44,12 @@ class timeSheet extends Model
     }
 
 
+    public function toPayment()
+    {
+        return $this->hasOne(toPayment::class,'timeSheetId','id')->whereColumn('id','pId');
+    }
+
+
     protected function getDateTimeEndAttribute()
     {
         if ($this->duration>1){

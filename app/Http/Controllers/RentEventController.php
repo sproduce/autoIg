@@ -92,9 +92,19 @@ class RentEventController extends Controller
 
     }
 
-    public function show()
+    public function show($eventId,$dataId)
     {
+        $eventObj = $this->rentEventServ->getRentEvent($eventId);
+        $serviceObj = $this->rentEventServ->getEventService($eventObj);
+        $eventDataObj = $serviceObj->getEventInfo($dataId);
 
+        $viewDataArray = [
+            'eventObj' => $eventObj,
+            'eventDataObj' => $eventDataObj,
+            ];
+
+
+        return view('rentEvent.'.$eventObj->action.'.info',$viewDataArray);
     }
 
 
@@ -106,13 +116,6 @@ class RentEventController extends Controller
         $serviceObj->destroy($dataId);
         return redirect('/timesheet/list');
     }
-
-
-
-
-
-
-
 
 
 

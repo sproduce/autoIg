@@ -78,6 +78,8 @@ Class EventServiceService implements EventServiceInterface{
 
         $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
 
+        $toPaymentModel->payUp =  $timeSheetModel->dateTime->addMinutes($timeSheetModel->duration);
+
         $toPaymentModel->timeSheetId = $timeSheetModel->id;
         $toPaymentModel->sum = $eventServiceRequest->get('sum');
         $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);

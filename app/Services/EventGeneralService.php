@@ -81,6 +81,8 @@ Class EventGeneralService implements EventServiceInterface{
             $toPaymentModel->subjectIdFrom = $contractModel->subjectIdTo;
             $toPaymentModel->subjectIdTo = $contractModel->subjectIdFrom;
 
+            $toPaymentModel->payUp =  $timeSheetModel->dateTime->addMinutes($timeSheetModel->duration);
+
             $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
             DB::commit();
         } catch (\Exception $e) {

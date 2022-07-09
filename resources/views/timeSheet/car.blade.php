@@ -43,9 +43,9 @@
                 <div class="col-3" style="background-color:{{$timeSheet->event->color}}">{{$timeSheet->event->name}}</div>
                 <div class="col-2">{{$timeSheet->dateTime->format('d-m-Y H:i')}}</div>
                 <div class="col-1">{{round($timeSheet->duration/60)}}</div>
-                <div class="col-1">{{$timeSheet->sum}}</div>
+                <div class="col-1">{{$timeSheet->toPayment->sum}}</div>
                 <div class="col-1">{{$timeSheet->mileage}}</div>
-                <div class="col-1">{{$timeSheet->contract->number}}</div>
+                <div class="col-1"></div>
                 <div class="col-2">{{$timeSheet->comment}}</div>
             </div>
         @endforeach

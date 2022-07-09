@@ -78,6 +78,7 @@ Class EventOtherService implements EventServiceInterface{
 
             $toPaymentModel->timeSheetId = $timeSheetModel->id;
             $toPaymentModel->sum = $eventOtherRequest->get('sumOther');
+            $toPaymentModel->payUp =  $timeSheetModel->dateTime->addMinutes($timeSheetModel->duration);
             if ($eventOtherRequest->get('contractIdOther')){
                 $toPaymentModel->contractId = $eventOtherRequest->get('contractIdOther');
                 $contractModel = $this->contractRep->getContract($eventOtherRequest->get('contractIdOther'));
