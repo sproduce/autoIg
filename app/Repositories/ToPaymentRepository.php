@@ -20,7 +20,6 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->leftjoin('time_sheets','time_sheets.id', '=' ,'to_payments.timeSheetId')
             ->leftjoin('rent_events','rent_events.id','=','time_sheets.eventId')
             ->leftjoin('pay_operation_types','pay_operation_types.id','=','rent_events.payOperationTypeId')
-
             ->select([
                 'to_payments.sum as paymentsSum',
                 'to_payments.comment as paymentsComment',
@@ -31,6 +30,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
                 'rent_events.action as eventsAction',
                 'pay_operation_types.name as operationTypeName',
             ])
+            ->whereNull('deleted_at')
             ->where('to_payments.contractId','=',$contractId)
             ->orderBy('time_sheets.dateTime')
             ->get();
@@ -60,7 +60,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         $finishDate=$datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
 
         $resultCollection = DB::table('to_payments')
-            ->leftJoin('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
+            ->join('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
             ->leftJoin('rent_events','rent_events.id','=','time_sheets.eventId')
             ->leftjoin('car_configurations','car_configurations.id','=','time_sheets.carId')
             ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
@@ -92,17 +92,14 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
 
                 'subjectFrom.nickname as subjectFromNickname',
                 'subjectTo.nickname as subjectToNickname',
-
-
-
-
             ])
             ->whereBetween('dateTime',[$startDate,$finishDate])
+            ->whereNull('to_payments.deleted_at')
+            ->whereNull('time_sheets.deleted_at')
             ->whereRaw('to_payments.id = to_payments.pId')
             ->orderBy('time_sheets.dateTime')
             ->orderBy('to_payments.pid')
             ->get();
-        //$resultCollection->dump();
         $resultCollection->each(function ($item, $key) {
             if ($item->timeSheetDateTime){
                 $item->timeSheetDateTime = Carbon::parse($item->timeSheetDateTime);

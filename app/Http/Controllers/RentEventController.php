@@ -97,7 +97,6 @@ class RentEventController extends Controller
         $eventObj = $this->rentEventServ->getRentEvent($eventId);
         $serviceObj = $this->rentEventServ->getEventService($eventObj);
         $eventDataObj = $serviceObj->getEventInfo($dataId);
-
         $viewDataArray = [
             'eventObj' => $eventObj,
             'eventDataObj' => $eventDataObj,
