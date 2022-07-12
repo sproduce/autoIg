@@ -108,16 +108,18 @@
             paymentSum = parseInt($('#paymentSum').val());
             currentSum = parseInt($(this).val());
             prevSum = parseInt($(this).data('sum'));
+
             console.log(currentSum);
             console.log(maxSum);
+            console.log(paymentSum);
 
-            if (currentSum > maxSum){
-                currentSum = maxSum;
-            }
+             // if (currentSum > maxSum){
+             //     currentSum = maxSum;
+             // }
 
-            if (currentSum > paymentSum + prevSum){
-                currentSum = paymentSum + prevSum;
-            }
+            // if (currentSum > paymentSum + prevSum){
+            //     currentSum = paymentSum + prevSum;
+            // }
 
             if (currentSum == maxSum){
                 $(this).removeClass("partAllocate").addClass("fullAllocate");
