@@ -44,10 +44,12 @@
             <div class="row row-table">
                 <div class="col-2">{{$toPayment->dateTime->format('d-m-Y H:i')}}</div>
                 <div class="col-2">{{$toPayment->name}}</div>
-                <div class="col-2">{{$toPayment->sum}}/{{$toPayment->paymentSum}}</div>
+                <div class="col-2 @if ($toPayment->sum == $toPayment->paymentSum) fullAllocate @else {{$toPayment->paymentSum ? 'partAllocate':''}}  @endif">{{$toPayment->sum}}/{{$toPayment->paymentSum}}</div>
                 <div class="col-2">
-                    <input class="allocate" type="checkbox" @if($toPayment->paymentId) checked  @endif data-sum="{{$toPayment->sum}}" name="toPaymentId[]" value="{{$toPayment->id}}"/>
-                    <input class="h-75 hiddenInput @if($toPayment->paymentId) fullAllocate noBorderInput" value="{{$toPayment->sum}}" data-sum="{{$toPayment->sum}}" @else" hidden disabled @endif data-maxsum="{{$toPayment->sum}}" name="toPaymentSum[]" size="5"/>
+                    @if (abs($toPayment->sum) > abs($toPayment->paymentSum))
+                        <input class="allocate" type="checkbox" @if($toPayment->paymentId) checked  @endif data-sum="{{$toPayment->sum}}" name="toPaymentId[]" value="{{$toPayment->id}}"/>
+                        <input class="h-75 hiddenInput @if($toPayment->paymentId) fullAllocate noBorderInput" value="{{$toPayment->sum}}" data-sum="{{$toPayment->sum}}" @else" hidden disabled @endif data-maxsum="{{$toPayment->sum}}" name="toPaymentSum[]" size="5"/>
+                    @endif
                 </div>
             </div>
         @endforeach
@@ -79,7 +81,8 @@
 
                 if ($(this).is(':checked')) {
                     currentSum = parseInt($(this).data('sum'));
-                    if ($('#paymentSum').val() >= currentSum) {
+                    console.log(currentSum);
+                    if (Math.abs(paymentSum) > 0) {
                         if (currentSum > paymentSum){
                             currentSum = paymentSum;
                             hiddenInput.removeClass("fullAllocate").addClass("partAllocate");
@@ -113,13 +116,13 @@
             console.log(maxSum);
             console.log(paymentSum);
 
-             // if (currentSum > maxSum){
-             //     currentSum = maxSum;
-             // }
+              if (currentSum > maxSum){
+                  currentSum = maxSum;
+              }
 
-            // if (currentSum > paymentSum + prevSum){
-            //     currentSum = paymentSum + prevSum;
-            // }
+             if (currentSum > paymentSum + prevSum){
+                 currentSum = paymentSum + prevSum;
+             }
 
             if (currentSum == maxSum){
                 $(this).removeClass("partAllocate").addClass("fullAllocate");

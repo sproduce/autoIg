@@ -142,6 +142,8 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->whereRaw('to_payments.id = to_payments.pId')
             ->where('to_payments.contractId','=',$rentPayment->contractId)
             ->where('rent_events.payOperationTypeId','=',$rentPayment->payOperationTypeId)
+            ->whereNull('to_payments.deleted_at')
+            ->whereNull('time_sheets.deleted_at')
             ->where(function($query) use ($paymentId){
                 $query->where('to_payments.paymentId','=',$paymentId);
                 $query->orWhereNull('to_payments.paymentId');

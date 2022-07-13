@@ -62,10 +62,10 @@ class SubjectRepository implements SubjectRepositoryInterface
     {
         $text = $subjectSearch->get('searchText');
         $rentSubjectQuery = rentSubject::query()
-        ->where('surname','LIKE','%'.$text.'%')
-        ->orWhere('name','LIKE','%'.$text.'%')
-        ->orWhere('companyName','LIKE','%'.$text.'%')
-        ->orWhere('nickName','LIKE','%'.$text.'%');
+            ->where('surname','LIKE','%'.$text.'%')
+            ->orWhere('name','LIKE','%'.$text.'%')
+            ->orWhere('companyName','LIKE','%'.$text.'%')
+            ->orWhere('nickName','LIKE','%'.$text.'%');
         return $rentSubjectQuery->get();
     }
 

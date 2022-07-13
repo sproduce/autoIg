@@ -40,10 +40,10 @@ class PaymentRepository implements PaymentRepositoryInterface
 
     public function getPayments($validateFilter)
     {
-        $start=$validateFilter['filterStart'];
-        $finish=$validateFilter['filterFinish'];
+        $start = $validateFilter['filterStart'];
+        $finish = $validateFilter['filterFinish'];
         $finish = date('Y-m-d', strtotime($finish . ' +1 day'));
-        $query=rentPayment::query();
+        $query = rentPayment::query();
         if ($validateFilter['typeId']){
             $query->where('payOperationTypeId','=',$validateFilter['typeId']);
         }
