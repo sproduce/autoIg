@@ -145,17 +145,24 @@ Class PaymentService{
 
     public function saveAllocatePayment($toPaymentIdArray,$toPaymentSumArray,$paymentId)
     {
-        $paymentObj = $this->paymentRep->getPayment($paymentId);
-       // $allocateSum = $this->toPaymentRep->getAllocateToPaymentSum($paymentObj);
-        //$this->toPaymentRep->delAllocateToPayment($paymentObj);
-
         $toPaymentObjArray = array();
+        $paymentObj = $this->paymentRep->getPayment($paymentId);
         $maxPay = array_sum($toPaymentSumArray);
-// sum of toPayment
+
+//        if ($maxPay <= $paymentObj->balance && $paymentObj->balance > 0){
+//
+//        }
+//
+//        if ($maxPay >= $paymentObj->balance && $paymentObj->balance < 0){
+//
+//        }
+
+
+
         if ($maxPay <= $paymentObj->balance){
             foreach($toPaymentIdArray as $key => $toPayment){
                 $toPaymentObj = $this->toPaymentRep->getToPayment($toPayment);
-
+                echo $toPaymentObj->sum."   ".$toPaymentSumArray[$key];
                 if ($toPaymentObj->sum > $toPaymentSumArray[$key]){
                     $newToPayment = $toPaymentObj->replicate();
                     $newToPayment->sum = $toPaymentSumArray[$key];
@@ -174,6 +181,7 @@ Class PaymentService{
                 }
 
                foreach($toPaymentObjArray as $toPaymentObj){
+                   //$toPaymentObj->dump();
                    $this->toPaymentRep->addToPayment($toPaymentObj);
                }
             }

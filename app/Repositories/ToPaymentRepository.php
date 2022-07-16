@@ -30,7 +30,8 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
                 'rent_events.action as eventsAction',
                 'pay_operation_types.name as operationTypeName',
             ])
-            ->whereNull('deleted_at')
+            ->whereNull('to_payments.deleted_at')
+            ->whereNull('time_sheets.deleted_at')
             ->where('to_payments.contractId','=',$contractId)
             ->orderBy('time_sheets.dateTime')
             ->get();

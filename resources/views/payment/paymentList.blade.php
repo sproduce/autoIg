@@ -77,7 +77,7 @@
                             {{$payment->dateTime->format('d-m-Y')}}
                         </div>
                         <div class="col-4 text-right p-0">
-                            @if($payment->comm) ({{$payment->comm}}) @endif {{$payment->payment}}
+                            @if($payment->comm) ({{$payment->comm}}) @endif {{$payment->payment}} <br/> {{$payment->balance}}
                         </div>
                     </div>
                 </div>

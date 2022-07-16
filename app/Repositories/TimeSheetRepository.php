@@ -34,7 +34,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
             ->join('rent_events','time_sheets.eventId','=','rent_events.id')
             ->leftJoin('car_configurations','time_sheets.carId','=','car_configurations.id')
             ->WhereBetween('dateTime',[$startDate,$finishDate])
-            ->whereNull('deleted_at')
+            ->whereNull('time_sheets.deleted_at')
             ->orderByDesc('time_sheets.dateTime')
             ->get([
                 'time_sheets.*',

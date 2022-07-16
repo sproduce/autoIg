@@ -46,16 +46,14 @@
                 <div class="col-2">{{$toPayment->name}}</div>
                 <div class="col-2 @if ($toPayment->sum == $toPayment->paymentSum) fullAllocate @else {{$toPayment->paymentSum ? 'partAllocate':''}}  @endif">{{$toPayment->sum}}/{{$toPayment->paymentSum}}</div>
                 <div class="col-2">
-                    @if (abs($toPayment->sum) > abs($toPayment->paymentSum))
-                        <input class="allocate" type="checkbox" @if($toPayment->paymentId) checked  @endif data-sum="{{$toPayment->sum}}" name="toPaymentId[]" value="{{$toPayment->id}}"/>
-                        <input class="h-75 hiddenInput @if($toPayment->paymentId) fullAllocate noBorderInput" value="{{$toPayment->sum}}" data-sum="{{$toPayment->sum}}" @else" hidden disabled @endif data-maxsum="{{$toPayment->sum}}" name="toPaymentSum[]" size="5"/>
-                    @endif
+                        <input class="allocate" type="checkbox" name="toPaymentId[]" value="{{$toPayment->id}}"/>
+                        <input class="h-75 hiddenInput" hidden name="toPaymentSum[]" data-paymentsum = "{{$toPayment->sum}}" value="0" size="5"/>
                 </div>
             </div>
         @endforeach
         <div class="row mt-4">
-            <div class="col-6"></div>
-            <div class="col-2"><input type="submit" class="btn btn-ssm btn-primary" value="Сохранить"/></div>
+            <div class="col-6"><input type="submit" class="btn btn-ssm btn-primary" value="Сохранить"/></div>
+            <div class="col-3"><strong>Баланс : </strong><input id="balance" class="h-75" size="5" readonly /></div>
         </div>
     </form>
 @endsection
@@ -73,69 +71,79 @@
         });
 
 
-        $(".allocate").click(function(){
+        function calculateSumPayment(){
             paymentSum = parseInt($('#paymentSum').val());
-            hiddenInput = $(this).next(".hiddenInput");
+            balance = 0;
+            $('.hiddenInput').each(function() {
+                balance +=  parseInt($(this).val());
+            });
+            $("#balance").val(balance);
+
+
+            $('#balance').removeClass("notAllocate").removeClass("fullAllocate").removeClass("partAllocate")
 
 
 
-                if ($(this).is(':checked')) {
-                    currentSum = parseInt($(this).data('sum'));
-                    console.log(currentSum);
-                    if (Math.abs(paymentSum) > 0) {
-                        if (currentSum > paymentSum){
-                            currentSum = paymentSum;
-                            hiddenInput.removeClass("fullAllocate").addClass("partAllocate");
-                        } else {
-                            hiddenInput.removeClass("partAllocate").addClass("fullAllocate");
-                        }
-                        $('#paymentSum').val(paymentSum - currentSum);
-                        hiddenInput.show();
-                        hiddenInput.val(currentSum);
-                        hiddenInput.data('sum',currentSum);
-                        hiddenInput.prop('disabled', false);
+            if (paymentSum == balance){
+                $('#balance').addClass("fullAllocate");
+            } else {
+                if (paymentSum<0){
+                    if (balance >= paymentSum && balance <= 0) {
+                        $('#balance').addClass("partAllocate");
                     } else {
-                        $(this).prop("checked", false);
+                        $('#balance').addClass("notAllocate");
                     }
                 } else {
-                    currentSum = hiddenInput.data('sum');
-                    $('#paymentSum').val(paymentSum + currentSum);
-                    hiddenInput.hide();
-                    hiddenInput.prop('disabled', true);
+                    if (balance <= paymentSum && balance >= 0){
+                        $('#balance').addClass("partAllocate");
+                    } else {
+                        $('#balance').addClass('notAllocate');
+                    }
                 }
+            }
+        }
+
+        $(".allocate").click(function(){
+            hiddenInput = $(this).next(".hiddenInput");
+
+            if ($(this).is(':checked')) {
+                hiddenInput.val(hiddenInput.data('paymentsum'));
+                hiddenInput.show();
+                hiddenInput.addClass("fullAllocate");
+            } else {
+                hiddenInput.val(0);
+                hiddenInput.hide();
+                hiddenInput.removeClass("fullAllocate").removeClass("partAllocate");
+            };
+
+            calculateSumPayment();
         });
 
+        $(".hiddenInput").blur(function(){
+            inputSum = parseInt($(this).val());
+            paymentSum = parseInt($(this).data('paymentsum'));
+            if (inputSum < 0){
+                if (inputSum < paymentSum){
+                    $(this).val(paymentSum);
+                }
+            }else {
+                if (inputSum > paymentSum){
+                    $(this).val(paymentSum);
+                }
+            }
 
-        $(".hiddenInput").focusout(function(){
-            maxSum = parseInt($(this).data('maxsum'));
-            paymentSum = parseInt($('#paymentSum').val());
-            currentSum = parseInt($(this).val());
-            prevSum = parseInt($(this).data('sum'));
-
-            console.log(currentSum);
-            console.log(maxSum);
-            console.log(paymentSum);
-
-              if (currentSum > maxSum){
-                  currentSum = maxSum;
-              }
-
-             if (currentSum > paymentSum + prevSum){
-                 currentSum = paymentSum + prevSum;
-             }
-
-            if (currentSum == maxSum){
-                $(this).removeClass("partAllocate").addClass("fullAllocate");
+            if (inputSum == paymentSum){
+               $(this).removeClass("partAllocate").addClass("fullAllocate");
             } else {
                 $(this).removeClass("fullAllocate").addClass("partAllocate");
             }
 
-            deltaSum = prevSum - currentSum;
-            $('#paymentSum').val(paymentSum + deltaSum);
-            $(this).val(currentSum);
-            $(this).data('sum',currentSum);
+            calculateSumPayment();
 
         });
+
+
+
 
 
     </script>

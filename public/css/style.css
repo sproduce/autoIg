@@ -71,6 +71,9 @@ td.partSize{
     background-color:#f8fa3e;
 }
 
+.notAllocate{
+    background-color: #ff0018;
+}
 
 input.noBorderInput{
     border-top-style: hidden;
