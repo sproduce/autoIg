@@ -143,39 +143,20 @@ Class PaymentService{
     }
 
 
-    private function verifyPos()
-    {
-
-    }
-
-
-    private function verifyNeg()
-    {
-
-    }
-
 
     public function saveAllocatePayment($toPaymentIdArray,$toPaymentSumArray,$paymentId)
     {
+        //exit();
         $toPaymentObjArray = array();
         $paymentObj = $this->paymentRep->getPayment($paymentId);
         $maxPay = array_sum($toPaymentSumArray);
 
-//        if ($maxPay <= $paymentObj->balance && $paymentObj->balance > 0){
-//
-//        }
-//
-//        if ($maxPay >= $paymentObj->balance && $paymentObj->balance < 0){
-//
-//        }
+        if (abs($maxPay) <= abs($paymentObj->balance) && $maxPay * $paymentObj->balance >= 0){
 
-
-
-        if ($maxPay <= $paymentObj->balance){
             foreach($toPaymentIdArray as $key => $toPayment){
                 $toPaymentObj = $this->toPaymentRep->getToPayment($toPayment);
-                echo $toPaymentObj->sum."   ".$toPaymentSumArray[$key];
-                if ($toPaymentObj->sum > $toPaymentSumArray[$key]){
+                echo $toPaymentObj->sum."  ".$toPaymentSumArray[$key];
+                if (abs($toPaymentObj->sum) > abs($toPaymentSumArray[$key]) && $toPaymentObj->sum * $toPaymentSumArray[$key] >0){
                     $newToPayment = $toPaymentObj->replicate();
                     $newToPayment->sum = $toPaymentSumArray[$key];
                     $newToPayment->paymentSum = $toPaymentSumArray[$key];
@@ -183,24 +164,25 @@ Class PaymentService{
                     $toPaymentObj->paymentSum = $toPaymentObj->paymentSum + $toPaymentSumArray[$key];
                     $toPaymentObjArray[] = $toPaymentObj;
                     $toPaymentObjArray[] = $newToPayment;
-                } else{
-                    if ($toPaymentObj->sum < $toPaymentSumArray[$key]){
-                        return 0;
-                    }
+                }
+
+                if ($toPaymentObj->sum == $toPaymentSumArray[$key]) {
                     $toPaymentObj->paymentId = $paymentId;
                     $toPaymentObj->paymentSum = $toPaymentObj->sum;
                     $toPaymentObjArray[] = $toPaymentObj;
                 }
+            }
 
                foreach($toPaymentObjArray as $toPaymentObj){
-                   //$toPaymentObj->dump();
                    $this->toPaymentRep->addToPayment($toPaymentObj);
                }
-            }
 
             $paymentObj->balance = $paymentObj->balance - $maxPay;
             $this->paymentRep->addPayment($paymentObj);
         }
+
+
+    }
 
 //        $allocateSum=0;
 //        foreach($toPaymentArray as $toPayment)
@@ -212,7 +194,7 @@ Class PaymentService{
 //        }
 //        $paymentObj->balance = $paymentObj->balance-$allocateSum;
 //        $this->paymentRep->addPayment($paymentObj);
-    }
+
 
 
     public function allocatePaymentErase($paymentId)
@@ -221,12 +203,15 @@ Class PaymentService{
         $paymentObj->balance = $paymentObj->payment;
         $this->paymentRep->addPayment($paymentObj);
 
-        $toPayments = $this->toPaymentRep->getToPaymentsParentByPayment($paymentObj);
+        $toPayments = $this->toPaymentRep->getToPaymentsByPayment($paymentObj);
         foreach ($toPayments as $toPayment){
-            $toPayment->paymentSum = 0;
-            $toPayment->paymentId = null;
-            $this->toPaymentRep->addToPayment($toPayment);
-            $this->toPaymentRep->delChildToPayment($toPayment);
+            $parentToPayment = $this->toPaymentRep->getToPayment($toPayment->pId);
+            $parentToPayment->paymentSum -= $toPayment->paymentSum;
+            $parentToPayment->paymentId = null;
+            $this->toPaymentRep->addToPayment($parentToPayment);
+            if ($toPayment->id != $toPayment->pId){
+                $this->toPaymentRep->delToPayment($toPayment);
+            }
         }
 
 

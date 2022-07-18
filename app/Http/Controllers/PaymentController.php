@@ -172,9 +172,6 @@ class PaymentController extends Controller
     {
         $toPaymentIdArray = $allocatePaymentRequest->get('toPaymentId');
         $toPaymentSumArray = $allocatePaymentRequest->get('toPaymentSum');
-//        var_dump($toPaymentIdArray);
-//        var_dump($toPaymentSumArray);
-//        exit();
         $paymentId = $allocatePaymentRequest->get('paymentId');
         $this->paymentServ->saveAllocatePayment($toPaymentIdArray,$toPaymentSumArray,$paymentId);
         return  redirect()->back();

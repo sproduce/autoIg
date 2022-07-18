@@ -46,8 +46,10 @@
                 <div class="col-2">{{$toPayment->name}}</div>
                 <div class="col-2 @if ($toPayment->sum == $toPayment->paymentSum) fullAllocate @else {{$toPayment->paymentSum ? 'partAllocate':''}}  @endif">{{$toPayment->sum}}/{{$toPayment->paymentSum}}</div>
                 <div class="col-2">
+                    @if ($toPayment->sum != $toPayment->paymentSum)
                         <input class="allocate" type="checkbox" name="toPaymentId[]" value="{{$toPayment->id}}"/>
-                        <input class="h-75 hiddenInput" hidden name="toPaymentSum[]" data-paymentsum = "{{$toPayment->sum}}" value="0" size="5"/>
+                        <input class="h-75 hiddenInput" hidden disabled name="toPaymentSum[]" data-paymentsum = "{{$toPayment->sum-$toPayment->paymentSum}}" value="0" size="5"/>
+                    @endif
                 </div>
             </div>
         @endforeach
@@ -68,40 +70,36 @@
                 }
             })
             $(".hiddenInput").attr('hidden', false);
+            $(':input[type ="submit"]').prop('disabled',true);
         });
 
 
-        function calculateSumPayment(){
+        function calculateSumPayment() {
+            $(':input[type ="submit"]').prop('disabled',false);
             paymentSum = parseInt($('#paymentSum').val());
             balance = 0;
-            $('.hiddenInput').each(function() {
-                balance +=  parseInt($(this).val());
+            $('.hiddenInput').each(function () {
+                balance += parseInt($(this).val());
             });
             $("#balance").val(balance);
-
 
             $('#balance').removeClass("notAllocate").removeClass("fullAllocate").removeClass("partAllocate")
 
 
-
-            if (paymentSum == balance){
+            if (paymentSum == balance) {
                 $('#balance').addClass("fullAllocate");
             } else {
-                if (paymentSum<0){
-                    if (balance >= paymentSum && balance <= 0) {
-                        $('#balance').addClass("partAllocate");
-                    } else {
-                        $('#balance').addClass("notAllocate");
-                    }
+                if ((Math.abs(balance) < Math.abs(paymentSum)) && (balance * paymentSum >= 0)) {
+                    $('#balance').addClass("partAllocate");
                 } else {
-                    if (balance <= paymentSum && balance >= 0){
-                        $('#balance').addClass("partAllocate");
-                    } else {
-                        $('#balance').addClass('notAllocate');
-                    }
+                    $('#balance').addClass("notAllocate");
+                    $(':input[type ="submit"]').prop('disabled',true);
                 }
             }
         }
+
+
+
 
         $(".allocate").click(function(){
             hiddenInput = $(this).next(".hiddenInput");
@@ -110,33 +108,39 @@
                 hiddenInput.val(hiddenInput.data('paymentsum'));
                 hiddenInput.show();
                 hiddenInput.addClass("fullAllocate");
+                hiddenInput.prop('disabled', false);
             } else {
                 hiddenInput.val(0);
                 hiddenInput.hide();
                 hiddenInput.removeClass("fullAllocate").removeClass("partAllocate");
+                hiddenInput.prop('disabled', true);
             };
 
             calculateSumPayment();
         });
 
         $(".hiddenInput").blur(function(){
+            $(this).removeClass("notAllocate").removeClass("fullAllocate").removeClass("partAllocate")
             inputSum = parseInt($(this).val());
             paymentSum = parseInt($(this).data('paymentsum'));
-            if (inputSum < 0){
-                if (inputSum < paymentSum){
-                    $(this).val(paymentSum);
-                }
-            }else {
-                if (inputSum > paymentSum){
-                    $(this).val(paymentSum);
+
+
+
+            if (inputSum == paymentSum){
+                $(this).addClass("fullAllocate");
+            } else {
+                if (Math.abs(inputSum) < Math.abs(paymentSum) && inputSum*paymentSum > 0){
+                    $(this).addClass("partAllocate");
+                } else {
+                    inputSum = paymentSum;
+                    $(this).addClass("fullAllocate");
                 }
             }
 
-            if (inputSum == paymentSum){
-               $(this).removeClass("partAllocate").addClass("fullAllocate");
-            } else {
-                $(this).removeClass("fullAllocate").addClass("partAllocate");
-            }
+
+
+
+            $(this).val(inputSum);
 
             calculateSumPayment();
 

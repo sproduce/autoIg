@@ -125,7 +125,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
 
     public function delToPayment(toPayment $toPayment)
     {
-        $toPayment->delete();
+        $toPayment->forceDelete();
     }
 
     public function getToPayments()
@@ -201,7 +201,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
 
     public function delChildToPayment(toPayment $toPayment)
     {
-        $result = toPayment::where('pId',$toPayment->id)
+        toPayment::where('pId',$toPayment->id)
             ->whereColumn('id','!=','pId')
             ->delete();
     }
@@ -211,6 +211,13 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
     public function getToPaymentsParentByPayment(rentPayment $paymentObj)
     {
         $result = toPayment::whereColumn('id','pId')->where('paymentId',$paymentObj->id)->get();
+        return $result;
+    }
+
+
+    public function getToPaymentsByPayment(rentPayment $paymentObj)
+    {
+        $result = toPayment::where('paymentId',$paymentObj->id)->get();
         return $result;
     }
 

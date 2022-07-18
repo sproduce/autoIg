@@ -37,4 +37,5 @@ interface ToPaymentRepositoryInterface
 
     public function getToPaymentsParentByPayment(rentPayment $paymentObj);
 
+    public function getToPaymentsByPayment(rentPayment $paymentObj);
 }
