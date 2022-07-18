@@ -177,9 +177,15 @@ class PaymentController extends Controller
 //        exit();
         $paymentId = $allocatePaymentRequest->get('paymentId');
         $this->paymentServ->saveAllocatePayment($toPaymentIdArray,$toPaymentSumArray,$paymentId);
-        //return  redirect()->back();
+        return  redirect()->back();
     }
 
+
+    public function allocatePaymentErase($paymentId)
+    {
+        $this->paymentServ->allocatePaymentErase($paymentId);
+        return  redirect()->back();
+    }
 
 
 }

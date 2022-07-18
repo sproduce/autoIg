@@ -32,4 +32,9 @@ interface ToPaymentRepositoryInterface
 
     public function getToPaymentsByContractAndOperationType(rentPayment $rentPayment);
 
+    public function delChildToPayment(toPayment $toPayment);
+
+
+    public function getToPaymentsParentByPayment(rentPayment $paymentObj);
+
 }

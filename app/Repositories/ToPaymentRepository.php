@@ -199,5 +199,20 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
     }
 
 
+    public function delChildToPayment(toPayment $toPayment)
+    {
+        $result = toPayment::where('pId',$toPayment->id)
+            ->whereColumn('id','!=','pId')
+            ->delete();
+    }
+
+
+
+    public function getToPaymentsParentByPayment(rentPayment $paymentObj)
+    {
+        $result = toPayment::whereColumn('id','pId')->where('paymentId',$paymentObj->id)->get();
+        return $result;
+    }
+
 }
 

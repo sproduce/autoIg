@@ -115,11 +115,15 @@
                             @if ($payment->carGroupId)
                                 <a href="/carGroup/info?carGroupId={{$payment->carGroup->id}}" class="btn btn-ssm btn-outline-info DialogUserMin" title="{{$payment->carGroup->name}}"> <i class="fas fa-info-circle"></i></a>
                             @endif
+                                <a href="/payment/allocatePaymentErase/{{$payment->id}}" class="btn btn-ssm btn-outline-danger"> <i class="fas fa-eraser" title="Отменить распределение"></i></a>
                         </div>
 
                         <div class="col-3 p-0" title="Рспределить платеж">
                             <a href="/payment/allocatePayment/{{$payment->id}}" class="btn btn-ssm btn-outline-info"> <i class="fas fa-expand-arrows-alt" title="Распределить"></i></a>
                         </div>
+
+
+
                     </div>
                 </div>
                 <div class="col-1">

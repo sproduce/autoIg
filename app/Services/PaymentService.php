@@ -143,6 +143,18 @@ Class PaymentService{
     }
 
 
+    private function verifyPos()
+    {
+
+    }
+
+
+    private function verifyNeg()
+    {
+
+    }
+
+
     public function saveAllocatePayment($toPaymentIdArray,$toPaymentSumArray,$paymentId)
     {
         $toPaymentObjArray = array();
@@ -201,6 +213,30 @@ Class PaymentService{
 //        $paymentObj->balance = $paymentObj->balance-$allocateSum;
 //        $this->paymentRep->addPayment($paymentObj);
     }
+
+
+    public function allocatePaymentErase($paymentId)
+    {
+        $paymentObj = $this->paymentRep->getPayment($paymentId);
+        $paymentObj->balance = $paymentObj->payment;
+        $this->paymentRep->addPayment($paymentObj);
+
+        $toPayments = $this->toPaymentRep->getToPaymentsParentByPayment($paymentObj);
+        foreach ($toPayments as $toPayment){
+            $toPayment->paymentSum = 0;
+            $toPayment->paymentId = null;
+            $this->toPaymentRep->addToPayment($toPayment);
+            $this->toPaymentRep->delChildToPayment($toPayment);
+        }
+
+
+
+
+
+
+    }
+
+
 
 
 }
