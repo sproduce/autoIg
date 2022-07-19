@@ -13,29 +13,30 @@
     <div class="form-group row">
 
         <label class="col-sm-1 col-form-label pr-0" for="id" title="Платеж"><strong>Платеж :</strong></label>
-
-        <div class="col-sm-2 pt-2">
+        <div class="col-sm-1 pt-2">
             {{$paymentObj->id}}
         </div>
-        <label class="col-sm-1 col-form-label pr-0" for="payment" title="Сумма"><strong>Сумма :</strong></label>
-            <div class="col-sm-2 pt-2">
-                {{$paymentObj->payment}}
-            </div>
-        <label class="col-sm-1 col-form-label pr-0" for="paymentSum" title="Остаток"><strong>Остаток :</strong></label>
-        <div class="col-sm-2">
-            <input readonly disabled class="form-control-plaintext" id="paymentSum" value="{{$paymentObj->balance}}"/>
+
+        <label class="col-sm-2 col-form-label pr-0" for="id" title="Тип платежа"><strong>Тип платежа :</strong></label>
+        <div class="col-sm-2 pt-2">
+            {{$paymentObj->operationType->name}}
+        </div>
+
+        <label class="col-sm-2 col-form-label pr-0" for="payment" title="Сумма"><strong>Сумма/Остаток :</strong></label>
+        <div class="col-sm-2 pt-2">
+                {{$paymentObj->payment}}/{{$paymentObj->balance}}
         </div>
 
     </div>
-
+    <input hidden disabled class="form-control-plaintext" id="paymentSum" value="{{$paymentObj->balance}}"/>
 
     <div class="row align-items-center font-weight-bold border">
         <div class="col-2">Дата</div>
         <div class="col-2">Услуга</div>
+        <div class="col-2">Договор</div>
+        <div class="col-2"></div>
         <div class="col-2">Стоимость</div>
         <div class="col-2">Распределить</div>
-        <div class="col-2"></div>
-        <div class="col-2"></div>
     </div>
     <form method="post" action="/payment/allocatePayment">
         @csrf
@@ -44,6 +45,8 @@
             <div class="row row-table">
                 <div class="col-2">{{$toPayment->dateTime->format('d-m-Y H:i')}}</div>
                 <div class="col-2">{{$toPayment->name}}</div>
+                <div class="col-2">{{$toPayment->contractNumber}}</div>
+                <div class="col-2"></div>
                 <div class="col-2 @if ($toPayment->sum == $toPayment->paymentSum) fullAllocate @else {{$toPayment->paymentSum ? 'partAllocate':''}}  @endif">{{$toPayment->sum}}/{{$toPayment->paymentSum}}</div>
                 <div class="col-2">
                     @if ($toPayment->sum != $toPayment->paymentSum)

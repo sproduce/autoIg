@@ -72,7 +72,17 @@
 
                 <div class="col-2">
                     <div class="row">
-                        <div class="col-2 p-0">{{$loop->iteration}}.</div>
+                        <div class="col-2 p-0
+                        @if ($payment->balance == 0)
+                            fullAllocate
+                        @else
+                            @if ($payment->payment == $payment->balance) notAllocate
+                            @else
+                                partAllocate
+                            @endif
+                         @endif
+
+                        ">{{$loop->iteration}}.</div>
                         <div class="col-6 p-0" title="{{$payment->dateTime}}">
                             {{$payment->dateTime->format('d-m-Y')}}
                         </div>
