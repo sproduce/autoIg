@@ -22,6 +22,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->leftjoin('pay_operation_types','pay_operation_types.id','=','rent_events.payOperationTypeId')
             ->select([
                 'to_payments.sum as paymentsSum',
+                'to_payments.paymentSum as paymentsPaymentSum',
                 'to_payments.comment as paymentsComment',
                 'to_payments.paymentId as paymentsPaymentId',
                 'time_sheets.dateTime as sheetsDateTime',

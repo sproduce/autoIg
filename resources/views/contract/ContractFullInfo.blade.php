@@ -42,10 +42,10 @@
         @if($contractPayments->count())
             <div class="row align-items-center font-weight-bold border">
                 <div class="col-2">Дата/Время</div>
-                <div class="col-2">Сумма</div>
+                <div class="col-1">Сумма</div>
                 <div class="col-2">Не распределено</div>
                 <div class="col-2">Счет</div>
-                <div class="col-3">Тип операции</div>
+                <div class="col-3">Тип платежа</div>
                 <div class="col-1"></div>
             </div>
         @endif
@@ -55,7 +55,17 @@
             @foreach($contractPayments as $payment)
                 <div class="row row-table" >
                     <div class="col-2" title="{{$payment->dateTime}}">{{$payment->dateTime->format('d-m-Y')}}</div>
-                    <div class="col-2">{{$payment->payment}}</div>
+                    <div class="col-1 text-right p-0
+                        @if ($payment->balance == 0)
+                                fullAllocate
+                        @else
+                            @if ($payment->payment == $payment->balance)
+                                notAllocate
+                            @else
+                                partAllocate
+                            @endif
+                        @endif
+                    ">{{$payment->payment}}</div>
                     <div class="col-2">{{$payment->balance}}</div>
                     <div class="col-2">{{$payment->account->nickName}}</div>
                     <div class="col-3">{{$payment->operationType->name}}</div>
@@ -75,8 +85,13 @@
         @if($contractService->count())
             <div class="row align-items-center font-weight-bold border">
                 <div class="col-2">Событие</div>
-                <div class="col-2">Дата</div>
-                <div class="col-1">Сумма</div>
+                <div class="col-1">Дата</div>
+                <div class="col-2">
+                    <div class="row">
+                        <div class="col-6 text-right p-0">Сумма</div>
+                        <div class="col-6 text-right p-0">Оплачено</div>
+                    </div>
+                </div>
                 <div class="col-3">Тип платежа</div>
                 <div class="col-2">Комменатрий</div>
             </div>
@@ -85,8 +100,23 @@
             @foreach($contractService as $service)
                 <div class="row row-table">
                     <div class="col-2">{{$service->eventsName}}</div>
-                    <div class="col-2">{{$service->sheetsDateTime->format('d-m-Y')}}</div>
-                    <div class="col-1">{{$service->paymentsSum}}</div>
+                    <div class="col-1 p-0">{{$service->sheetsDateTime->format('d-m-Y')}}</div>
+                    <div class="col-2 @if($service->paymentsSum>0)pl-3 @endif">
+                        <div class="row">
+                            <div class="col-6 p-0 text-right
+                             @if ($service->paymentsPaymentSum == 0)
+                                notAllocate
+                             @else
+                                @if ($service->paymentsSum == $service->paymentsPaymentSum)
+                                    fullAllocate
+                                @else
+                                    partAllocate
+                                @endif
+                             @endif
+                            ">{{$service->paymentsSum}}</div>
+                            <div class="col-6 p-0 text-right">{{$service->paymentsPaymentSum}}</div>
+                        </div>
+                    </div>
                     <div class="col-3">{{$service->operationTypeName}}</div>
                     <div class="col-2">{{$service->paymentsComment}}</div>
                 </div>
