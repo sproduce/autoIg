@@ -52,7 +52,7 @@
                 @endforeach
                     <div class="row">
                         <div class="col-12 clickable">
-                            <input type="radio"  name="payOperationTypeId" value="0" @if(old('payOperationTypeId') === 0) checked @endif required/>
+                            <input type="radio"  name="payOperationTypeId" value="0" @if(old('payOperationTypeId') === 0 || !$paymentObj->payOperationTypeId) checked @endif required/>
                                 Не указано
                         </div>
                     </div>

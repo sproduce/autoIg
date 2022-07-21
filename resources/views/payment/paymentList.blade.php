@@ -31,8 +31,8 @@
 
 
         <div class="row align-items-center font-weight-bold border mt-3 pb-1">
-            <div class="col-2">Дата</div>
-            <div class="col-1">Сумма <br/>(Комиссия)</div>
+            <div class="col-1">Дата</div>
+            <div class="col-1">Сумма <br/>Распред.</div>
             <div class="col-3">
                 <select name="accountId"  id="accountId">
                     <option value="0">Счет</option>
@@ -48,8 +48,22 @@
                 </select>
 
             </div>
-            <div class="col-2">Субьект</div>
-            <div class="col-2">Машина/Группа</div>
+            <div class="col-3">
+                <select name="subjectId"  id="subjectId">
+                    <option value="0">Субьект</option>
+                </select><br/>
+                Договор
+            </div>
+            <div class="col-2">
+                <select>
+                    <option value="0">Машина</option>
+                </select><br/>
+                <select>
+                    <option value="0">Группа</option>
+                </select>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-1"></div>
         </div>
     </form>
 
@@ -58,10 +72,7 @@
             <div class="row row-table">
                 <div class="col-12">
                     <div class="row">
-                        <div class="col-2">
-                            <div class="row">
-                                <div class="col-2 p-0
-                                @if ($payment->balance == 0)
+                        <div class="col-1 @if ($payment->balance == 0)
                                     fullAllocate
                                 @else
                                     @if ($payment->payment == $payment->balance)
@@ -69,20 +80,13 @@
                                     @else
                                         partAllocate
                                     @endif
-                                 @endif
-
-                                ">{{$loop->iteration}}.</div>
-                                <div class="col-6 p-0" title="{{$payment->dateTime}}">
-                                    {{$payment->dateTime->format('d-m-Y')}}
-                                </div>
-                            </div>
+                                 @endif">
+                                {{$loop->iteration}}.
                         </div>
                         <div class="col-1 text-right">{{$payment->payment}}</div>
                         <div class="col-3">{{$payment->account->nickName}}</div>
-                        <div class="col-2"></div>
-                        <div class="col-2">
-                            {{$payment->subject->nickname}}
-                        </div>
+                        <div class="col-3">{{$payment->subject->nickname}}</div>
+                        <div class="col-2">{{$payment->car->nickName}}</div>
                         <div class="col-1"> {{$payment->car->nickName}}</div>
                         <div class="col-1">
                             <a class="btn btn-ssm btn-outline-warning" href="/payment/edit/{{$payment->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
@@ -90,10 +94,12 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-2"></div>
+                        <div class="col-1 p-0" title="{{$payment->dateTime}}">
+                            {{$payment->dateTime->format('d-m-Y')}}
+                        </div>
                         <div class="col-1 text-right">{{$payment->balance}}</div>
                         <div class="col-3">{{$payment->operationType->name}}</div>
-                        <div class="col-2"></div>
+                        <div class="col-3">{{$payment->contract->number}}</div>
                         <div class="col-2"></div>
                         <div class="col-1"></div>
                         <div class="col-1">
