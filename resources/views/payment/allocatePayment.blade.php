@@ -34,7 +34,7 @@
         <div class="col-2">Дата</div>
         <div class="col-2">Услуга</div>
         <div class="col-2">Договор</div>
-        <div class="col-2"></div>
+        <div class="col-2">Тип платежа</div>
         <div class="col-2">Стоимость</div>
         <div class="col-2">Распределить</div>
     </div>
@@ -46,7 +46,7 @@
                 <div class="col-2">{{$toPayment->dateTime->format('d-m-Y H:i')}}</div>
                 <div class="col-2">{{$toPayment->name}}</div>
                 <div class="col-2">{{$toPayment->contractNumber}}</div>
-                <div class="col-2"></div>
+                <div class="col-2">{{$toPayment->operationName}}</div>
                 <div class="col-2 @if ($toPayment->sum == $toPayment->paymentSum) fullAllocate @else {{$toPayment->paymentSum ? 'partAllocate':''}}  @endif">{{$toPayment->sum}}/{{$toPayment->paymentSum}}</div>
                 <div class="col-2">
                     @if ($toPayment->sum != $toPayment->paymentSum)

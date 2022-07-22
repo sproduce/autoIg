@@ -141,6 +141,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         $resultCollectionRequest = DB::table('to_payments')
             ->join('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
             ->join('rent_events','rent_events.id','=','time_sheets.eventId')
+            ->join('pay_operation_types','pay_operation_types.id','=','rent_events.payOperationTypeId')
             ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
             ->whereRaw('to_payments.id = to_payments.pId');
         if ($rentPayment->contractId){
@@ -164,7 +165,11 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
                 $query->orWhereNull('to_payments.paymentId');
             })
 
-            ->select('to_payments.*','rent_events.name','time_sheets.dateTime','rent_contracts.number as contractNumber')
+            ->select('to_payments.*',
+                'rent_events.name',
+                'pay_operation_types.name as operationName',
+                'time_sheets.dateTime',
+                'rent_contracts.number as contractNumber')
             ->orderBy('dateTime')
             ->orderBy('id')
             ->get();

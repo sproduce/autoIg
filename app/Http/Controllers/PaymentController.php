@@ -57,7 +57,9 @@ class PaymentController extends Controller
         $paymentModel->payOperationTypeId = $paymentReq->get('payOperationTypeId');
         $paymentModel->contractId = $paymentReq->get('contractId');
         $paymentModel->subjectId = $paymentReq->get('subjectId');
-
+        $paymentModel->carId = $paymentReq->get('carId');
+        $paymentModel->carGroupId = $paymentReq->get('carGroupId');
+        $paymentModel->contractId = $paymentReq->get('contractId');
 
         $this->paymentServ->addPayment($paymentModel);
 

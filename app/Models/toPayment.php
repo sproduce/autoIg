@@ -36,10 +36,9 @@ class toPayment extends Model
         return $this->hasOne(rentContract::class,'id','contractId')->withDefault();
     }
 
-
-    public function rentEvent()
+    public function timeSheet()
     {
-        return $this->hasOne(rentEvent::class,'id','contractId')->withDefault();
+        return $this->hasOne(timeSheet::class,'id','timeSheetId')->withDefault();
     }
 
 

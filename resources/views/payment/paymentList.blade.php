@@ -87,7 +87,7 @@
                         <div class="col-3">{{$payment->account->nickName}}</div>
                         <div class="col-3">{{$payment->subject->nickname}}</div>
                         <div class="col-2">{{$payment->car->nickName}}</div>
-                        <div class="col-1"> {{$payment->car->nickName}}</div>
+                        <div class="col-1"></div>
                         <div class="col-1">
                             <a class="btn btn-ssm btn-outline-warning" href="/payment/edit/{{$payment->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
                             <a href="/payment/delete?paymentId={{$payment->id}}" class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить платеж?')"><i class="fas fa-trash"></i> </a>
