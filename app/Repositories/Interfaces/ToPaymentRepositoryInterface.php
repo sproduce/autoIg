@@ -30,7 +30,7 @@ interface ToPaymentRepositoryInterface
 
     public function delToPayment(toPayment $toPayment);
 
-    public function getToPaymentsByContractAndOperationType(rentPayment $rentPayment);
+    public function getToPaymentsByAllocatePayment(rentPayment $rentPayment);
 
     public function delChildToPayment(toPayment $toPayment);
 

@@ -137,7 +137,7 @@ Class PaymentService{
 
     public function getToPaymentsByPayment(rentPayment $rentPayment)
     {
-        $toPaymentsObj = $this->toPaymentRep->getToPaymentsByContractAndOperationType($rentPayment);
+        $toPaymentsObj = $this->toPaymentRep->getToPaymentsByAllocatePayment($rentPayment);
 
         return $toPaymentsObj;
     }

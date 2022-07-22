@@ -134,18 +134,30 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         return toPayment::all();
     }
 
-   public function getToPaymentsByContractAndOperationType(rentPayment $rentPayment)
+   public function getToPaymentsByAllocatePayment(rentPayment $rentPayment)
    {
 
         $paymentId = $rentPayment->id;
-        $resultCollection = DB::table('to_payments')
+        $resultCollectionRequest = DB::table('to_payments')
             ->join('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
             ->join('rent_events','rent_events.id','=','time_sheets.eventId')
             ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
-            ->whereRaw('to_payments.id = to_payments.pId')
-            ->where('to_payments.contractId','=',$rentPayment->contractId)
-            ->where('rent_events.payOperationTypeId','=',$rentPayment->payOperationTypeId)
-            ->whereNull('to_payments.deleted_at')
+            ->whereRaw('to_payments.id = to_payments.pId');
+        if ($rentPayment->contractId){
+            $resultCollectionRequest->where('to_payments.contractId','=',$rentPayment->contractId);
+        }
+        if ($rentPayment->payOperationTypeId){
+           $resultCollectionRequest->where('rent_events.payOperationTypeId','=',$rentPayment->payOperationTypeId);
+        }
+        if ($rentPayment->carId){
+            $resultCollectionRequest->where('time_sheets.carId','=',$rentPayment->carId);
+        }
+
+        if ($rentPayment->subjectId){
+            $resultCollectionRequest->where('to_payments.subjectIdFrom','=',$rentPayment->subjectId);
+        }
+
+       $resultCollectionRequest->whereNull('to_payments.deleted_at')
             ->whereNull('time_sheets.deleted_at')
             ->where(function($query) use ($paymentId){
                 $query->where('to_payments.paymentId','=',$paymentId);
@@ -156,7 +168,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->orderBy('dateTime')
             ->orderBy('id')
             ->get();
-
+       $resultCollection = $resultCollectionRequest->get();
 //        echo DB::table('to_payments')
 //            ->join('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
 //            ->join('rent_events','rent_events.id','=','time_sheets.eventId')
