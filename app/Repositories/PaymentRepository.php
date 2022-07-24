@@ -44,6 +44,7 @@ class PaymentRepository implements PaymentRepositoryInterface
         $finish = $validateFilter['filterFinish'];
         $finish = date('Y-m-d', strtotime($finish . ' +1 day'));
         $query = rentPayment::query();
+
         if ($validateFilter['typeId']){
             $query->where('payOperationTypeId','=',$validateFilter['typeId']);
         }
@@ -51,6 +52,7 @@ class PaymentRepository implements PaymentRepositoryInterface
         if ($validateFilter['accountId']){
             $query->where('payAccountId','=',$validateFilter['accountId']);
         }
+
         return $query->where('dateTime','>',$start)->where('dateTime','<',$finish)->orderByDesc('dateTime')->orderByDesc('id')->get();
     }
 

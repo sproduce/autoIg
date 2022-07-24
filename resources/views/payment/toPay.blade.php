@@ -28,13 +28,13 @@
             <div class="col-2">Дата</div>
             <div class="col-2">
                 Машина<br/>
-                <select name="">
+                <select name="carId" class="selectFilter">
                     <option>Все ..</option>
                 </select>
             </div>
             <div class="col-2">
                 Событие<br/>
-                <select name="">
+                <select name="eventId" class="selectFilter">
                     <option>Все ..</option>
                 </select>
             </div>
@@ -91,7 +91,11 @@
 
 
 @section('js')
-
+    <script>
+        $(".selectFilter").change(function(){
+            $('#filterForm').submit();
+        });
+    </script>
 @endsection
 
 

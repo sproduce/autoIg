@@ -102,6 +102,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->orderBy('time_sheets.dateTime')
             ->orderBy('to_payments.pid')
             ->get();
+
         $resultCollection->each(function ($item, $key) {
             if ($item->timeSheetDateTime){
                 $item->timeSheetDateTime = Carbon::parse($item->timeSheetDateTime);

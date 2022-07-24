@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 use App\Http\Requests\CopyToPayRequest;
+use App\Http\Requests\DateSpan;
 use App\Models\rentPayment;
 use App\Repositories\ContractRepository;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
@@ -8,7 +9,9 @@ use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use App\Repositories\ToPaymentRepository;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 Class PaymentService{
     private $paymentRep,$request,$toPaymentRep,$contractRep;
@@ -70,16 +73,27 @@ Class PaymentService{
         }
 
 
-        $payments=$this->paymentRep->getPayments($validateFilter);
+        $payments = $this->paymentRep->getPayments($validateFilter);
 
-        $paymentsObj=collect(['filters'=>$validateFilter,
-                                'payments'=>$payments,
-                            'types'=>$this->paymentRep->getOperationTypes(),
-                            'accounts'=>$this->paymentRep->getAccounts()
+        $paymentsObj = collect([
+            'filters' => $validateFilter,
+            'payments' => $payments,
+            'types' => $this->paymentRep->getOperationTypes(),
+            'accounts' => $this->paymentRep->getAccounts(),
             ]);
         return $paymentsObj;
 
     }
+
+
+    public function getToPayments(CarbonPeriod $periodDate): Collection
+    {
+
+
+        return $this->toPaymentRep->getToPaymentsByDate($periodDate);
+    }
+
+
 
     public function getPayment($paymentId): rentPayment
     {

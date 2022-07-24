@@ -2,46 +2,46 @@
 
 @php
 
-    $payments=$paymentsObj->get('payments');
-    $filters=$paymentsObj->get('filters');
-    $types=$paymentsObj->get('types');
-    $accounts=$paymentsObj->get('accounts');
+    $payments = $paymentsObj->get('payments');
+    $filters = $paymentsObj->get('filters');
+    $types = $paymentsObj->get('types');
+    $accounts = $paymentsObj->get('accounts');
 
 @endphp
 @section('header')
     <a class="btn btn-ssm btn-outline-success mr-3" title="Добавить платеж" href="/payment/add"><i class="far fa-plus-square"></i></a>
-            <h6 class="m-0 mr-3">Платежи </h6> {{$payments->sum('payment')}} ({{$payments->sum('comm')??'0'}})
+    <h6 class="m-0 mr-3">Платежи </h6> {{$payments->sum('payment')}} ({{$payments->sum('comm')??'0'}})
 
 
 @endsection
 
 @section('content')
     <form method="GET" action="" id="filterForm">
-    <div class="row">
-        <div class="col-2">
-            От: <input type="date" name="filterStart" value="{{$filters['filterStart']}}"/>
+        <div class="row">
+            <div class="col-2">
+                От: <input type="date" name="filterStart" value="{{$filters['filterStart']}}"/>
+            </div>
+            <div class="col-2">
+                До: <input type="date" name="filterFinish" value="{{$filters['filterFinish']}}"/>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-ssm btn-success" type="submit">Показать</button>
+            </div>
         </div>
-        <div class="col-2">
-            До: <input type="date" name="filterFinish" value="{{$filters['filterFinish']}}"/>
-        </div>
-        <div class="col-2">
-            <button class="btn btn-ssm btn-success" type="submit">Показать</button>
-        </div>
-    </div>
 
 
         <div class="row align-items-center font-weight-bold border mt-3 pb-1">
             <div class="col-1">Дата</div>
             <div class="col-1">Сумма <br/>Распред.</div>
             <div class="col-3">
-                <select name="accountId"  id="accountId">
-                    <option value="0">Счет</option>
+                <select name="accountId"  id="accountId" class="selectFilter">
+                    <option value="0">Счет(Все)</option>
                     @foreach( $accounts as $account)
                         <option value="{{$account->id}}"  @if($filters['accountId']==$account->id) selected @endif>{{$account->nickName}}</option>
                     @endforeach
                 </select><br/>
-                <select name="typeId"  id="typeId">
-                    <option value="0">Тип операции</option>
+                <select name="typeId"  id="typeId" class="selectFilter">
+                    <option value="0">Тип операции (Все)</option>
                     @foreach( $types as $type)
                         <option value="{{$type->id}}" @if($filters['typeId']==$type->id) selected @endif>{{$type->name}}</option>
                     @endforeach
@@ -81,7 +81,7 @@
                                         partAllocate
                                     @endif
                                  @endif">
-                                {{$loop->iteration}}.
+                            {{$loop->iteration}}.
                         </div>
                         <div class="col-1 text-right">{{$payment->payment}}</div>
                         <div class="col-3">{{$payment->account->nickName}}</div>
@@ -125,16 +125,10 @@
 @section('js')
 
     <script>
-        $("#typeId").change(function(){
+        $(".selectFilter").change(function(){
             $('#filterForm').submit();
         });
     </script>
-    <script>
-        $("#accountId").change(function(){
-            $('#filterForm').submit();
-        });
-    </script>
-
 
 
 @endsection

@@ -6,8 +6,8 @@ use App\Http\Requests\AllocatePaymentRequest;
 use App\Http\Requests\CopyToPayRequest;
 use App\Http\Requests\DateSpan;
 use App\Http\Requests\PaymentRequest;
+use App\Http\Requests\Filters\ToPaymentRequest;
 use App\Models\rentPayment;
-use App\Models\toPayment;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\ToPaymentRepository;
 use App\Services\ContractService;
@@ -28,7 +28,7 @@ class PaymentController extends Controller
 
     public function show()
     {
-        $paymentsObj=$this->paymentServ->getPayments();
+        $paymentsObj = $this->paymentServ->getPayments();
         return view('payment.paymentList',['paymentsObj'=>$paymentsObj]);
     }
 
@@ -105,14 +105,16 @@ class PaymentController extends Controller
         return view('payment.paymentByContractList',['payments'=>$paymentsObj]);
     }
 
-    public function listToPays(ToPaymentRepository $toPaymentRep,DateSpan $dateSpan)
+
+
+
+    public function listToPays(DateSpan $dateSpan,ToPaymentRequest $toPaymentFilter)
     {
         $periodDate = $dateSpan->getCarbonPeriod();
 
-        $toPaymentsCollect = $toPaymentRep->getToPaymentsByDate($periodDate);
-        $grouped = $toPaymentsCollect->groupBy('nickname');
-        //$grouped->dump();
-        //$toPaymentsCollect->dump();
+        $toPaymentsCollect = $this->paymentServ->getToPayments($periodDate);
+
+
         return view('payment.toPay',[
             'toPayments' => $toPaymentsCollect,
             'periodDate' => $periodDate,
