@@ -4,9 +4,11 @@ namespace App\Repositories;
 use App\Models\rentCarGroup;
 use App\Models\rentPayment;
 use App\Models\toPayment;
+use App\Http\Requests\Filters;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Models\payAccount;
 use App\Models\payOperationType;
+use Carbon\CarbonPeriod;
 
 
 class PaymentRepository implements PaymentRepositoryInterface
@@ -38,22 +40,37 @@ class PaymentRepository implements PaymentRepositoryInterface
         return rentPayment::find($id) ?? new rentPayment();
     }
 
-    public function getPayments($validateFilter)
+    public function getPayments($filtersValue,CarbonPeriod $datePeriod)
     {
-        $start = $validateFilter['filterStart'];
-        $finish = $validateFilter['filterFinish'];
-        $finish = date('Y-m-d', strtotime($finish . ' +1 day'));
         $query = rentPayment::query();
+        $startDate = $datePeriod->getStartDate()->format('Y-m-d');
+        $finishDate = $datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
 
-        if ($validateFilter['typeId']){
-            $query->where('payOperationTypeId','=',$validateFilter['typeId']);
+        if ($filtersValue['operationTypeId']){
+            $query->where('payOperationTypeId','=',$filtersValue['operationTypeId']);
         }
 
-        if ($validateFilter['accountId']){
-            $query->where('payAccountId','=',$validateFilter['accountId']);
+        if ($filtersValue['accountId']){
+            $query->where('payAccountId','=',$filtersValue['accountId']);
         }
 
-        return $query->where('dateTime','>',$start)->where('dateTime','<',$finish)->orderByDesc('dateTime')->orderByDesc('id')->get();
+        if ($filtersValue['carId']){
+            $query->where('carId','=',$filtersValue['carId']);
+        }
+
+        if ($filtersValue['carGroupId']) {
+            $query->where('carGroupId', '=', $filtersValue['carGroupId']);
+        }
+
+        if ($filtersValue['subjectId']) {
+            $query->where('subjectId', '=', $filtersValue['subjectId']);
+        }
+
+        $query->where('dateTime','>',$startDate)->where('dateTime','<',$finishDate)->orderByDesc('dateTime')->orderByDesc('id');
+
+        $resultPayments = $query->get();
+
+        return $resultPayments;
     }
 
     public function getPaymentsAll()

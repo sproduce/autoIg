@@ -6,29 +6,36 @@ use App\Http\Requests\AllocatePaymentRequest;
 use App\Http\Requests\CopyToPayRequest;
 use App\Http\Requests\DateSpan;
 use App\Http\Requests\PaymentRequest;
-use App\Http\Requests\Filters\ToPaymentRequest;
+use App\Http\Requests\Filters;
 use App\Models\rentPayment;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\ToPaymentRepository;
 use App\Services\ContractService;
+use App\Services\FilterService;
 use App\Services\PaymentService;
 use App\Services\MotorPoolService;
 use Illuminate\Http\Request;
 
+
 class PaymentController extends Controller
 {
-    private $paymentServ,$request;
+    private $paymentServ,$request,$filterService;
 
-    function __construct(Request $request,PaymentService $paymentServ)
+    function __construct(Request $request,PaymentService $paymentServ,FilterService $filterService)
     {
         $this->request=$request;
         $this->paymentServ = $paymentServ;
+        $this->filterService = $filterService;
     }
 
 
-    public function show()
+    public function show(Filters\PaymentRequest $paymentFilterRequest,DateSpan $dateSpan)
     {
-        $paymentsObj = $this->paymentServ->getPayments();
+        $paymentsObj = $this->paymentServ->getPayments($paymentFilterRequest,$dateSpan);
+        $paymentFilterObj = $this->filterService->getPaymentFilter();
+
+        $paymentsObj = $paymentsObj->merge($paymentFilterObj);
+
         return view('payment.paymentList',['paymentsObj'=>$paymentsObj]);
     }
 
@@ -108,7 +115,7 @@ class PaymentController extends Controller
 
 
 
-    public function listToPays(DateSpan $dateSpan,ToPaymentRequest $toPaymentFilter)
+    public function listToPays(DateSpan $dateSpan,Filters\ToPaymentRequest $toPaymentFilter)
     {
         $periodDate = $dateSpan->getCarbonPeriod();
 

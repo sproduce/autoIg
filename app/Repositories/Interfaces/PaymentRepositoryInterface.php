@@ -4,6 +4,9 @@ namespace App\Repositories\Interfaces;
 
 
 use App\Models\rentPayment;
+use Carbon\CarbonPeriod;
+use App\Http\Requests\Filters;
+
 
 interface PaymentRepositoryInterface
 {
@@ -15,7 +18,7 @@ interface PaymentRepositoryInterface
 
     public function getPayment($id): rentPayment;
 
-    public function getPayments($validateFilter);
+    public function getPayments($filtersValue,CarbonPeriod $datePeriod);
     public function getPaymentsAll();
     public function addPayment(rentPayment $paymentmodel): rentPayment;
     public function updatePayment($id,$paymentArray);

@@ -12,6 +12,9 @@ use App\Repositories\ToPaymentRepository;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use App\Http\Requests\Filters;
+
+
 
 Class PaymentService{
     private $paymentRep,$request,$toPaymentRep,$contractRep;
@@ -60,29 +63,26 @@ Class PaymentService{
 
     }
 
-    public function getPayments()
+    public function getPayments(Filters\PaymentRequest $paymentFilterRequest,DateSpan $dateSpan)
     {
-        $validateFilter=$this->request->validate(['filterStart'=>'date','filterFinish'=>'date','typeId'=>'','accountId'=>'']);
-        $validateFilter['typeId']=$validateFilter['typeId']??0;
-        $validateFilter['accountId']=$validateFilter['accountId']??0;
-        if (!(isset($validateFilter['filterStart'])&&isset($validateFilter['filterFinish']))){
-            $date = new \DateTime();
-            $validateFilter['filterFinish']=$date->format('Y-m-d');
-            $date->modify('-1 month');
-            $validateFilter['filterStart']=$date->format('Y-m-d');
-        }
+        $datePeriod = $dateSpan->getCarbonPeriod();
+        $filtersValue['fromDate'] = $datePeriod->getStartDate();
+        $filtersValue['toDate'] = $datePeriod->getEndDate();
+        $filtersValue['accountId'] = $paymentFilterRequest->get('accountId');
+        $filtersValue['operationTypeId'] = $paymentFilterRequest->get('operationTypeId');
+        $filtersValue['subjectId'] = $paymentFilterRequest->get('subjectId');
+        $filtersValue['carId'] = $paymentFilterRequest->get('carId');
+        $filtersValue['carGroupId'] = $paymentFilterRequest->get('carGroupId');
+
+        $payments = $this->paymentRep->getPayments($filtersValue,$datePeriod);
 
 
-        $payments = $this->paymentRep->getPayments($validateFilter);
 
         $paymentsObj = collect([
-            'filters' => $validateFilter,
+            'filterValue' => $filtersValue,
             'payments' => $payments,
-            'types' => $this->paymentRep->getOperationTypes(),
-            'accounts' => $this->paymentRep->getAccounts(),
             ]);
         return $paymentsObj;
-
     }
 
 

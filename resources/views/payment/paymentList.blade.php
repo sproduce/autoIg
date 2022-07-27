@@ -3,9 +3,8 @@
 @php
 
     $payments = $paymentsObj->get('payments');
-    $filters = $paymentsObj->get('filters');
-    $types = $paymentsObj->get('types');
-    $accounts = $paymentsObj->get('accounts');
+    $filterValue = $paymentsObj->get('filterValue');
+    $filterPossible = $paymentsObj->get('filterPossible');
 
 @endphp
 @section('header')
@@ -19,10 +18,10 @@
     <form method="GET" action="" id="filterForm">
         <div class="row">
             <div class="col-2">
-                От: <input type="date" name="filterStart" value="{{$filters['filterStart']}}"/>
+                От: <input type="date" name="fromDate" value="{{$filterValue['fromDate']->toDateString()}}"/>
             </div>
             <div class="col-2">
-                До: <input type="date" name="filterFinish" value="{{$filters['filterFinish']}}"/>
+                До: <input type="date" name="toDate" value="{{$filterValue['toDate']->toDateString()}}"/>
             </div>
             <div class="col-2">
                 <button class="btn btn-ssm btn-success" type="submit">Показать</button>
@@ -36,30 +35,39 @@
             <div class="col-3">
                 <select name="accountId"  id="accountId" class="selectFilter">
                     <option value="0">Счет(Все)</option>
-                    @foreach( $accounts as $account)
-                        <option value="{{$account->id}}"  @if($filters['accountId']==$account->id) selected @endif>{{$account->nickName}}</option>
+                    @foreach($filterPossible['accounts'] as $account)
+                        <option value="{{$account->id}}"@if($filterValue['accountId'] == $account->id)selected @endif>{{$account->nickName}}</option>
                     @endforeach
                 </select><br/>
-                <select name="typeId"  id="typeId" class="selectFilter">
+                <select name="operationTypeId"  id="operationTypeId" class="selectFilter">
                     <option value="0">Тип операции (Все)</option>
-                    @foreach( $types as $type)
-                        <option value="{{$type->id}}" @if($filters['typeId']==$type->id) selected @endif>{{$type->name}}</option>
+                    @foreach($filterPossible['operationTypes'] as $type)
+                        <option value="{{$type->id}}"@if($filterValue['operationTypeId'] == $type->id)selected @endif>{{$type->name}}</option>
                     @endforeach
                 </select>
 
             </div>
             <div class="col-3">
-                <select name="subjectId"  id="subjectId">
-                    <option value="0">Субьект</option>
+                <select name="subjectId"  id="subjectId" class="selectFilter">
+                    <option value="0">Субьект (Все)</option>
+                    @foreach($filterPossible['subjects'] as $subject)
+                        <option value="{{$subject->id}}"@if($filterValue['subjectId'] == $subject->id)selected @endif>{{$subject->nickname}}</option>
+                    @endforeach
                 </select><br/>
                 Договор
             </div>
             <div class="col-2">
-                <select>
-                    <option value="0">Машина</option>
+                <select name="carId" class="selectFilter">
+                    <option value="0">Машина (Все)</option>
+                    @foreach($filterPossible['motorPools'] as $car)
+                        <option value="{{$car->id}}"@if($filterValue['carId'] == $car->id)selected @endif>{{$car->nickName}}</option>
+                    @endforeach
                 </select><br/>
-                <select>
-                    <option value="0">Группа</option>
+                <select name="carGroupId" class="selectFilter">
+                    <option value="0">Группа (Все)</option>
+                    @foreach($filterPossible['carGroups'] as $carGroup)
+                        <option value="{{$carGroup->id}}"@if($filterValue['carGroupId'] == $carGroup->id)selected @endif>{{$carGroup->nickName}}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-1"></div>

@@ -24,7 +24,11 @@ class PaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'accountId' => 'integer|nullable',
+            'operationTypeId' => 'integer|nullable',
+            'subjectId' => 'integer|nullable',
+            'carId' => 'integer|nullable',
+            'carGroupId' => 'integer|nullable',
         ];
     }
 }

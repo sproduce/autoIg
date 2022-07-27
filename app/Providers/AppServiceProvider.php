@@ -34,7 +34,6 @@ use App\Repositories\Interfaces\CarDriverRepositoryInterface;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Repositories\Interfaces\CarGroupRepositoryInterface;
-use App\Repositories\Interfaces\CarOwnerRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use App\Repositories\Interfaces\EventRentalRepositoryInterface;
@@ -61,7 +60,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ContractRepositoryInterface::class,ContractRepository::class);
         $this->app->bind(PaymentRepositoryInterface::class,PaymentRepository::class);
         $this->app->bind(CarGroupRepositoryInterface::class,CarGroupRepository::class);
-        $this->app->bind(CarOwnerRepositoryInterface::class,CarOwnerRepository::class);
         $this->app->bind(TimeSheetRepositoryInterface::class,TimeSheetRepository::class);
         $this->app->bind(RentEventRepositoryInterface::class,RentEventRepository::class);
         $this->app->bind(EventRentalRepositoryInterface::class,EventRentalRepository::class);

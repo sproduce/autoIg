@@ -121,12 +121,6 @@
 
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link"  href="/carOwner/list">
-                                <i class="fas fa-user-tie"></i>
-                                Владельцы машин
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link"  href="/rentEvent/list">
                                 <i class="fas fa-bars"></i>
                                 События

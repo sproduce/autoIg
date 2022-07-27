@@ -22,16 +22,16 @@ class DateSpan extends FormRequest
 
     protected function prepareForValidation()
     {
-        $input=parent::all(['fromDate','toDate']);
+        $input = parent::all(['fromDate','toDate']);
 
         if (empty($input['fromDate'])||empty($input['toDate'])){
-            $toDate=CarbonImmutable::today();
-            $fromDate=$toDate->subMonth(1);
-            $this->merge(['fromDate'=>$fromDate->format('Y-m-d'),
-                'toDate'=>$toDate->format('Y-m-d')]
-            );
+            $toDate = CarbonImmutable::today();
+            $fromDate = $toDate->subMonth(1);
+            $this->merge([
+                'fromDate' => $fromDate->format('Y-m-d'),
+                'toDate' => $toDate->format('Y-m-d')
+                ]);
         }
-
     }
 
     public function getCarbonPeriod(): CarbonPeriod
