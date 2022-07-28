@@ -72,6 +72,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->select([
                 'rent_events.name as eventName',
                 'rent_events.action as eventAction',
+                'rent_events.color as eventColor',
                 'rent_events.id as eventId',
                 'time_sheets.id as timeSheetId',
                 'time_sheets.dateTime as timeSheetDateTime',

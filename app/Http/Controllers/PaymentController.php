@@ -36,7 +36,7 @@ class PaymentController extends Controller
 
         $paymentsObj = $paymentsObj->merge($paymentFilterObj);
 
-        return view('payment.paymentList',['paymentsObj'=>$paymentsObj]);
+        return view('payment.paymentList',['paymentsObj' => $paymentsObj]);
     }
 
     public function addDialog()
@@ -117,15 +117,12 @@ class PaymentController extends Controller
 
     public function listToPays(DateSpan $dateSpan,Filters\ToPaymentRequest $toPaymentFilter)
     {
-        $periodDate = $dateSpan->getCarbonPeriod();
+        $toPaymentsObj = $this->paymentServ->getToPayments($toPaymentFilter,$dateSpan);
+        $toPaymentFilterObj = $this->filterService->getToPaymentFilter();
 
-        $toPaymentsCollect = $this->paymentServ->getToPayments($periodDate);
-
-
-        return view('payment.toPay',[
-            'toPayments' => $toPaymentsCollect,
-            'periodDate' => $periodDate,
-        ]);
+        $toPaymentsObj = $toPaymentsObj->merge($toPaymentFilterObj);
+        //$toPaymentsObj->dd();
+        return view('payment.toPay',['toPaymentsObj' => $toPaymentsObj]);
     }
 
 

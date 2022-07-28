@@ -24,7 +24,10 @@ class ToPaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'carId' => 'integer|nullable',
+            'eventId' => 'integer|nullable',
+            'subjectFromId' => 'integer|nullable',
+            'subjectToId' => 'integer|nullable',
         ];
     }
 }

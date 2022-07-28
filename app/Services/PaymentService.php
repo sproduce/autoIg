@@ -66,8 +66,6 @@ Class PaymentService{
     public function getPayments(Filters\PaymentRequest $paymentFilterRequest,DateSpan $dateSpan)
     {
         $datePeriod = $dateSpan->getCarbonPeriod();
-        $filtersValue['fromDate'] = $datePeriod->getStartDate();
-        $filtersValue['toDate'] = $datePeriod->getEndDate();
         $filtersValue['accountId'] = $paymentFilterRequest->get('accountId');
         $filtersValue['operationTypeId'] = $paymentFilterRequest->get('operationTypeId');
         $filtersValue['subjectId'] = $paymentFilterRequest->get('subjectId');
@@ -76,6 +74,8 @@ Class PaymentService{
 
         $payments = $this->paymentRep->getPayments($filtersValue,$datePeriod);
 
+        $filtersValue['fromDate'] = $datePeriod->getStartDate();
+        $filtersValue['toDate'] = $datePeriod->getEndDate();
 
 
         $paymentsObj = collect([
@@ -86,11 +86,24 @@ Class PaymentService{
     }
 
 
-    public function getToPayments(CarbonPeriod $periodDate): Collection
+    public function getToPayments(Filters\ToPaymentRequest $toPaymentFilterRequest,DateSpan $dateSpan): Collection
     {
+        $filtersValue['carId'] = '';
+        $filtersValue['subjectFromId'] = '';
+        $filtersValue['subjectToId'] = '';
+        $filtersValue['eventId'] = '';
+        $filtersValue['operationTypeId'] = '';
 
+        $datePeriod = $dateSpan->getCarbonPeriod();
+        $filtersValue['fromDate'] = $datePeriod->getStartDate();
+        $filtersValue['toDate'] = $datePeriod->getEndDate();
+        $toPayments = $this->toPaymentRep->getToPaymentsByDate($datePeriod);
+        $toPaymentsObj = collect([
+            'filterValue' => $filtersValue,
+            'toPayments' => $toPayments,
+        ]);
 
-        return $this->toPaymentRep->getToPaymentsByDate($periodDate);
+        return $toPaymentsObj;
     }
 
 
