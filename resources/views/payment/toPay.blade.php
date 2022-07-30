@@ -7,6 +7,13 @@
 
 @endphp
 @section('header')
+
+@endsection
+
+
+
+@section('content')
+
     <form type="GET" action="" id="filterForm">
         <div class="d-flex flex-row">
             <div class="p-2 input-group-sm">
@@ -19,15 +26,10 @@
                 <input class="btn btn-sm btn-primary" value="Показать" type="submit"/>
             </div>
         </div>
-    </form>
-@endsection
 
 
 
-@section('content')
-
-    @if(isset($toPayments))
-        <div class="row align-items-center font-weight-bold border">
+        <div class="row align-items-center font-weight-bold border mt-3">
             <div class="col-1">Дата</div>
             <div class="col-1">Сумма<br/>Оплачено</div>
             <div class="col-2">
@@ -69,7 +71,8 @@
                 </select>
             </div>
         </div>
-
+    </form>
+    @if(isset($toPayments))
         @foreach($toPayments as $toPayment)
             <div class="row row row-table">
                 <div class="col-12">

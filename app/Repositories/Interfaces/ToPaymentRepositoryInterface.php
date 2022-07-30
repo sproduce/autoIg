@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
 
 interface ToPaymentRepositoryInterface
 {
-    public function getToPaymentsByDate(CarbonPeriod $datePeriod);
+    public function getToPayments($filtersValue,CarbonPeriod $datePeriod);
     public function getToPaymentsByContract($contractId): Collection;
     public function getAllocateToPaymentSum(rentPayment $paymentObj);
 
@@ -24,7 +24,6 @@ interface ToPaymentRepositoryInterface
     public function getToPayment($toPaymentId): toPayment;
 
     public function getToPaymentByTimeSheet($timeSheetId): toPayment;
-    public function getToPayments();
 
     public function addToPayment(toPayment $toPaymentObj): toPayment;
 

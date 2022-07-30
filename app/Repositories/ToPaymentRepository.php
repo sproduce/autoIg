@@ -56,12 +56,12 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
     }
 
 
-    public function getToPaymentsByDate(CarbonPeriod $datePeriod): Collection
+    public function getToPayments($filtersValue,CarbonPeriod $datePeriod): Collection
     {
-        $startDate=$datePeriod->getStartDate()->format('Y-m-d');
-        $finishDate=$datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
+        $startDate = $datePeriod->getStartDate()->format('Y-m-d');
+        $finishDate = $datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
 
-        $resultCollection = DB::table('to_payments')
+        $resultQuery = DB::table('to_payments')
             ->join('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
             ->leftJoin('rent_events','rent_events.id','=','time_sheets.eventId')
             ->leftjoin('car_configurations','car_configurations.id','=','time_sheets.carId')
@@ -99,8 +99,23 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->whereBetween('dateTime',[$startDate,$finishDate])
             ->whereNull('to_payments.deleted_at')
             ->whereNull('time_sheets.deleted_at')
-            ->whereRaw('to_payments.id = to_payments.pId')
-            ->orderBy('time_sheets.dateTime')
+            ->whereRaw('to_payments.id = to_payments.pId');
+
+        if ($filtersValue['carId']){
+            $resultQuery->where('car_configurations.id','=',$filtersValue['carId']);
+        }
+        if ($filtersValue['eventId']){
+            $resultQuery->where('rent_events.id','=',$filtersValue['eventId']);
+        }
+        if ($filtersValue['subjectFromId']){
+            $resultQuery->where('subjectFrom.id','=',$filtersValue['subjectFromId']);
+        }
+        if ($filtersValue['subjectToId']){
+            $resultQuery->where('subjectTo.id','=',$filtersValue['subjectToId']);
+        }
+
+
+        $resultCollection =  $resultQuery->orderBy('time_sheets.dateTime')
             ->orderBy('to_payments.pid')
             ->get();
 
@@ -131,10 +146,6 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         $toPayment->forceDelete();
     }
 
-    public function getToPayments()
-    {
-        return toPayment::all();
-    }
 
    public function getToPaymentsByAllocatePayment(rentPayment $rentPayment)
    {
