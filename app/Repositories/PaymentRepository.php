@@ -42,7 +42,7 @@ class PaymentRepository implements PaymentRepositoryInterface
 
     public function getPayments($filtersValue,CarbonPeriod $datePeriod)
     {
-        $query = rentPayment::query();
+        $query = rentPayment::select('rent_payments.*','rent_car_groups.nickName')->leftJoin('rent_car_groups','rent_car_groups.id','=','rent_payments.carGroupId');
         $startDate = $datePeriod->getStartDate()->format('Y-m-d');
         $finishDate = $datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
 

@@ -95,7 +95,7 @@
                         <div class="col-3">{{$payment->account->nickName}}</div>
                         <div class="col-3">{{$payment->subject->nickname}}</div>
                         <div class="col-2">{{$payment->car->nickName}}</div>
-                        <div class="col-1"></div>
+                        <div class="col-1">comment</div>
                         <div class="col-1">
                             <a class="btn btn-ssm btn-outline-warning" href="/payment/edit/{{$payment->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
                             <a href="/payment/delete?paymentId={{$payment->id}}" class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить платеж?')"><i class="fas fa-trash"></i> </a>
@@ -108,7 +108,7 @@
                         <div class="col-1 text-right">{{$payment->balance}}</div>
                         <div class="col-3">{{$payment->operationType->name}}</div>
                         <div class="col-3">{{$payment->contract->number}}</div>
-                        <div class="col-2"></div>
+                        <div class="col-2">{{$payment->nickName}}</div>
                         <div class="col-1"></div>
                         <div class="col-1">
                             <a href="/payment/allocatePayment/{{$payment->id}}" class="btn btn-ssm btn-outline-info"> <i class="fas fa-expand-arrows-alt" title="Распределить"></i></a>

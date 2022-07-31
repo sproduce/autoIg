@@ -5,6 +5,10 @@
 @endphp
 @section('header')
     <div class="d-flex flex-row">
+        <div class="p-1 input-group-sm mt-1">
+            <a href="/timesheet/add" class="btn btn-ssm btn-outline-success" title="добавить событие"><i class="far fa-plus-square"></i></a>
+        </div>
+
         <div class="p-2 input-group-sm">
             <input class="form-control" type="date" id="fromDate" name="fromDate" value="{{$periodDate->getStartDate()->format('Y-m-d')}}"/>
         </div>

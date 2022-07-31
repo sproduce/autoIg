@@ -10,13 +10,12 @@
 
 
 @section('content')
-    <div class="row font-weight-bold">
+    <div class="row font-weight-bold mb-2">
         <div class="col-2">Название </div>
         <div class="col-2">Поведение </div>
         <div class="col-1">Приоритет </div>
         <div class="col-2">Продолжительность </div>
-        <div class="col-1">Иконка</div>
-        <div class="col-1">К оплате</div>
+        <div class="col-2 p-0">Отображать в табеле</div>
         <div class="col-2">Тип платежа</div>
         <div class="col-1"></div>
     </div>

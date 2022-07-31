@@ -154,14 +154,14 @@ class RentEventController extends Controller
 
     public function update()
     {
-        $eventArray=$this->request->validate(['id' => 'required',
+        $eventArray = $this->request->validate(['id' => 'required',
             'name' => '',
             'color' => '',
             'action' =>'',
             'priority' => 'nullable|integer',
             'duration' => 'nullable|integer',
             'isToPay' => 'nullable',
-            'payOperationTypeId' => 'integer'
+            'payOperationTypeId' => 'integer',
             ]);
         $this->rentEventServ->updateRentEvent($eventArray);
 
