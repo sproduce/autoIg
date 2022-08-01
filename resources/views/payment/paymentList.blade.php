@@ -74,24 +74,29 @@
             <div class="col-1"></div>
         </div>
     </form>
-
     @if($payments->count())
         @foreach($payments as $payment)
             <div class="row row-table">
                 <div class="col-12">
                     <div class="row">
-                        <div class="col-1 @if ($payment->balance == 0)
+                        <div class="col-1
+                            @if ($payment->balance == 0)
+                                notAllocate
+                            @else
+                                @if ($payment->payment == $payment->balance)
                                     fullAllocate
                                 @else
-                                    @if ($payment->payment == $payment->balance)
-                                        notAllocate
-                                    @else
-                                        partAllocate
-                                    @endif
-                                 @endif">
+                                    partAllocate
+                                @endif
+                             @endif">
                             {{$loop->iteration}}.
                         </div>
-                        <div class="col-1 text-right">{{$payment->payment}}</div>
+                        <div class="col-1 text-right">
+                            @if($payment->comm)
+                                <i class="fas fa-comment-dollar" title="Комиссия {{$payment->comm}}"></i>
+                            @endif
+                            {{$payment->payment}}
+                        </div>
                         <div class="col-3">{{$payment->account->nickName}}</div>
                         <div class="col-3">{{$payment->subject->nickname}}</div>
                         <div class="col-2">{{$payment->car->nickName}}</div>

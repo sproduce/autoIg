@@ -28,7 +28,7 @@
         </div>
 
     </div>
-    <input hidden disabled class="form-control-plaintext" id="paymentSum" value="{{$paymentObj->balance}}"/>
+    <input hidden disabled class="form-control-plaintext" id="paymentSum" value="{{$paymentObj->payment-$paymentObj->balance}}"/>
 
     <div class="row align-items-center font-weight-bold border">
         <div class="col-2">Дата</div>

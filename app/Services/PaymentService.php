@@ -54,7 +54,7 @@ Class PaymentService{
     public function addPayment(rentPayment $paymentModel)
     {
         if (!$paymentModel->id) {
-            $paymentModel->balance = $paymentModel->payment;
+            $paymentModel->balance = 0;
             $this->paymentRep->addPayment($paymentModel);
             $paymentModel->pid = $paymentModel->id;
         }
@@ -180,7 +180,7 @@ Class PaymentService{
         $paymentObj = $this->paymentRep->getPayment($paymentId);
         $maxPay = array_sum($toPaymentSumArray);
 
-        if (abs($maxPay) <= abs($paymentObj->balance) && $maxPay * $paymentObj->balance >= 0){
+        if (abs($maxPay) <= abs($paymentObj->payment-$paymentObj->balance) && $maxPay * $paymentObj->payment >= 0){
 
             foreach($toPaymentIdArray as $key => $toPayment){
                 $toPaymentObj = $this->toPaymentRep->getToPayment($toPayment);
@@ -206,7 +206,7 @@ Class PaymentService{
                    $this->toPaymentRep->addToPayment($toPaymentObj);
                }
 
-            $paymentObj->balance = $paymentObj->balance - $maxPay;
+            $paymentObj->balance = $paymentObj->balance + $maxPay;
             $this->paymentRep->addPayment($paymentObj);
         }
 
@@ -229,7 +229,7 @@ Class PaymentService{
     public function allocatePaymentErase($paymentId)
     {
         $paymentObj = $this->paymentRep->getPayment($paymentId);
-        $paymentObj->balance = $paymentObj->payment;
+        $paymentObj->balance = 0;
         $this->paymentRep->addPayment($paymentObj);
 
         $toPayments = $this->toPaymentRep->getToPaymentsByPayment($paymentObj);
