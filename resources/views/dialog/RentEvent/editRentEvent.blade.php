@@ -28,9 +28,9 @@
         <div class="col-8"><input type="number" name="priority" value="{{$rentEventObj->priority}}" id="priority" autocomplete="off"/></div>
     </div>
     <div class="row">
-        <div class="col-4">К оплате</div>
-        <div class="col-8"> <input type="checkbox" value="1" name="isToPay"
-                                   @if($rentEventObj->isToPay)
+        <div class="col-4">Оотбражать в табеле</div>
+        <div class="col-8"> <input type="checkbox" value="1" name="visibleTimeSheet"
+                                   @if($rentEventObj->visibleTimeSheet)
                                         checked
                                    @endif/>
         </div>

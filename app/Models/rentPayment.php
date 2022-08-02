@@ -21,7 +21,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *@property $dateTime
  *@property boolean $finished
  *@property $name
- *@property $comm
+ *@property int $comm
+ *@property $comment
  *
  **/
 
@@ -30,7 +31,7 @@ class rentPayment extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    private $id,$dateTime,$payAccountId,$payOperationTypeId,$payment,$balance,$name,$carId,$carGroupId,$finished,$pid,$comm,$contractId,$subjectId;
+    private $id,$dateTime,$payAccountId,$payOperationTypeId,$payment,$balance,$name,$carId,$carGroupId,$finished,$pid,$comm,$contractId,$subjectId,$comment;
     protected $fillable =['dateTime','payAccountId','payOperationTypeId','payment','balance','name','carId','carGroupId','finished','pid','comm','comment','contractId','subjectId'];
 
 

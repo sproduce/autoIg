@@ -32,7 +32,9 @@
 
     <div class="modal-footer d-flex justify-content-center">
         @foreach($rentEventObjs as $rentEventObj)
-            <a href="/rentEvent/{{$rentEventObj->id}}/create?carId={{$carIdDate['carId']}}&date={{$carIdDate['date']->format('Y-m-d')}}&needParent=1" class="btn btn-sm" style="color:{{$rentEventObj->color}}"><i class="far fa-plus-square"></i> {{$rentEventObj->name}}</a>
+            @if($rentEventObj->visibleTimeSheet)
+                <a href="/rentEvent/{{$rentEventObj->id}}/create?carId={{$carIdDate['carId']}}&date={{$carIdDate['date']->format('Y-m-d')}}&needParent=1" class="btn btn-sm" style="color:{{$rentEventObj->color}}"><i class="far fa-plus-square"></i> {{$rentEventObj->name}}</a>
+            @endif
         @endforeach
     </div>
 

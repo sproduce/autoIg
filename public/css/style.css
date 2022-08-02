@@ -81,3 +81,8 @@ input.noBorderInput{
     border-left-style: hidden;
     border-bottom-style: hidden;
 }
+
+
+a.disable-link{
+    pointer-events: none;
+}

@@ -29,11 +29,7 @@
             <div class="col-2">{{$rentEvent->duration}}</div>
             <div class="col-1"></div>
             <div class="col-1">
-                @if ($rentEvent->isToPay)
-                    <input type="checkbox"  onclick="return false;" checked/>
-                @else
-                    <input type="checkbox" onclick="return false;"/>
-                @endif
+                <input type="checkbox" onclick="return false;"  @if($rentEvent->visibleTimeSheet)checked @endif/>
             </div>
             <div class="col-2">{{$rentEvent->operationType->name}} </div>
             <div class="col-1"><a class="btn btn-ssm btn-outline-warning DialogUserMin" href="/rentEvent/edit?eventId={{$rentEvent->id}}" title="Редактировать"> <i class="far fa-edit"></i></a></div>

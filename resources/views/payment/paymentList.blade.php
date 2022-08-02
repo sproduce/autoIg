@@ -70,7 +70,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-1"></div>
+            <div class="col-1">Комментарий</div>
             <div class="col-1"></div>
         </div>
     </form>
@@ -100,9 +100,13 @@
                         <div class="col-3">{{$payment->account->nickName}}</div>
                         <div class="col-3">{{$payment->subject->nickname}}</div>
                         <div class="col-2">{{$payment->car->nickName}}</div>
-                        <div class="col-1">comment</div>
                         <div class="col-1">
-                            <a class="btn btn-ssm btn-outline-warning" href="/payment/edit/{{$payment->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                            @if($payment->comment)
+                                <i class="far fa-comment-dots" title="{{$payment->comment}}"></i>
+                            @endif
+                        </div>
+                        <div class="col-1">
+                            <a class="btn btn-ssm btn-outline-warning @if($payment->balance == 0)disable-link @endif" href="/payment/edit/{{$payment->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
                             <a href="/payment/delete?paymentId={{$payment->id}}" class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить платеж?')"><i class="fas fa-trash"></i> </a>
                         </div>
                     </div>

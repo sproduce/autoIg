@@ -56,14 +56,14 @@ Class RentEventService{
 
     public function updateRentEvent($eventArray)
     {
-        $rentEventId=$eventArray['id'];
-        $rentEventArray['name']=$eventArray['name'];
-        $rentEventArray['color']=$eventArray['color'];
-        $rentEventArray['action']=$eventArray['action'];
-        $rentEventArray['priority']=$eventArray['priority'] ?? 0;
-        $rentEventArray['duration']=$eventArray['duration'] ?? 1;
-        $rentEventArray['isToPay']=$eventArray['isToPay']?? 0;
-        $rentEventArray['payOperationTypeId']=$eventArray['payOperationTypeId'];
+        $rentEventId = $eventArray['id'];
+        $rentEventArray['name'] = $eventArray['name'];
+        $rentEventArray['color'] = $eventArray['color'];
+        $rentEventArray['action'] = $eventArray['action'];
+        $rentEventArray['priority'] = $eventArray['priority'] ?? 0;
+        $rentEventArray['duration'] = $eventArray['duration'] ?? 1;
+        $rentEventArray['visibleTimeSheet'] = $eventArray['visibleTimeSheet']?? 0;
+        $rentEventArray['payOperationTypeId'] = $eventArray['payOperationTypeId'];
 
         $this->rentEventRep->updateEvent($rentEventId,$rentEventArray);
     }
