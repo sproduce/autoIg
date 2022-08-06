@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeyToTimeSheet extends Migration
+class AddPidToTimeSheetTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddForeignKeyToTimeSheet extends Migration
     public function up()
     {
         Schema::table('time_sheets', function (Blueprint $table) {
-            $table->foreign('eventId')->references('id')->on('rent_events');
+            $table->unsignedBigInteger('pId')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddForeignKeyToTimeSheet extends Migration
     public function down()
     {
         Schema::table('time_sheets', function (Blueprint $table) {
-            //
+            $table->dropColumn(['pId']);
         });
     }
 }
