@@ -94,6 +94,9 @@ class EventFineRepository implements EventFineRepositoryInterface
         if($resultEventObj->dateTimeSheet){
             $resultEventObj->dateTimeSheet =  Carbon::parse($resultEventObj->dateTimeSheet);
         }
+        if($resultEventObj->datePaySale){
+            $resultEventObj->datePaySale =  Carbon::parse($resultEventObj->datePaySale);
+        }
 
         return $resultEventObj;
     }

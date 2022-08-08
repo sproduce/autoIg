@@ -47,7 +47,7 @@ Class EventDocumentInsuranceService implements EventServiceInterface{
 
     public function getAdditionalViewDataArray()
     {
-     
+
     }
 
 
