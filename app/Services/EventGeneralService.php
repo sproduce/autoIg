@@ -55,10 +55,10 @@ Class EventGeneralService implements EventServiceInterface{
 
     public function store()
     {
+        $eventGeneralRequest = app()->make(Event\GeneralRequest::class);
         DB::beginTransaction();
         try {
 
-            $eventGeneralRequest = app()->make(Event\GeneralRequest::class);
             $eventGeneralModel = $this->eventGeneralRep->getEvent($eventGeneralRequest->get('id'));
             $eventGeneralModel->comment = $eventGeneralRequest->get('comment');
             $eventOtherModel = $this->eventGeneralRep->addEvent($eventGeneralModel);

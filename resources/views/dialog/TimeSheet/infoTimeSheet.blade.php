@@ -10,7 +10,7 @@
             <div class="col-4">Дата</div>
 {{--            <div class="col-1">Сумма</div>--}}
             <div class="col-2">Пробег</div>
-            <div class="col-3">Договор</div>
+            <div class="col-2">Договор</div>
 
         </div>
 
@@ -23,10 +23,13 @@
                     - {{$timeSheet->date_time_end->format('d-m-Y H:i')}}
                 @endif
             </div>
-{{--            <div class="col-1">{{round($timeSheet->duration/60)}}</div>--}}
-{{--            <div class="col-1">{{$timeSheet->sum}}</div>--}}
             <div class="col-2">{{$timeSheet->mileage}}</div>
-            <div class="col-1"><a class="btn-ssm"><i class="fas fa-child"></i></a></div>
+            <div class="col-2"></div>
+            <div class="col-1">
+                <a class="btn-ssm btn-outline-success" href="/timesheet/add?carId={{$carIdDate['carId']}}&date={{$carIdDate['date']->toDateString()}}&parentId={{$timeSheet->id}}" title="Добавить событие наследник">
+                    <i class="fas fa-folder-plus"></i>
+                </a>
+            </div>
         </div>
         @endforeach
     </div>

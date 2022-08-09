@@ -9,7 +9,7 @@ use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\CarbonPeriod;
-
+use Illuminate\Support\Facades\DB;
 
 
 Class EventServiceService implements EventServiceInterface{
@@ -56,33 +56,39 @@ Class EventServiceService implements EventServiceInterface{
     public function store()
     {
         $eventServiceRequest = app()->make(Event\ServiceRequest::class);
+        $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);
+        DB::beginTransaction();
+        try {
+            $eventServiceModel = $this->eventServiceRep->getEvent($eventServiceRequest->get('id'));
 
-        $eventServiceModel = $this->eventServiceRep->getEvent($eventServiceRequest->get('id'));
+            $eventServiceModel->comment = $eventServiceRequest->get('comment');
+            $eventServiceModel->contractId = $eventServiceRequest->get('contractId');
+            $eventServiceModel->subjectId = $eventServiceRequest->get('subjectId');
+            $eventServiceModel->sum = $eventServiceRequest->get('sum');
+            $eventServiceModel = $this->eventServiceRep->addEvent($eventServiceModel);
 
-        $eventServiceModel->comment = $eventServiceRequest->get('comment');
-        $eventServiceModel->contractId = $eventServiceRequest->get('contractId');
-        $eventServiceModel->subjectId = $eventServiceRequest->get('subjectId');
-        $eventServiceModel->sum = $eventServiceRequest->get('sum');
-        $eventServiceModel = $this->eventServiceRep->addEvent($eventServiceModel);
+            $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventServiceModel->id);
 
-        $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventServiceModel->id);
+            $timeSheetModel->carId = $eventServiceRequest->get('carId');
+            $timeSheetModel->eventId = $this->eventObj->id;
+            $timeSheetModel->dataId = $eventServiceModel->id;
+            $timeSheetModel->dateTime = $eventServiceRequest->get('dateTime');
+            $timeSheetModel->mileage = $eventServiceRequest->get('mileage');
+            $timeSheetModel->duration = $this->eventObj->duration;
+            $timeSheetModel->color = $this->eventObj->color;
+            $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 
-        $timeSheetModel->carId = $eventServiceRequest->get('carId');
-        $timeSheetModel->eventId = $this->eventObj->id;
-        $timeSheetModel->dataId = $eventServiceModel->id;
-        $timeSheetModel->dateTime = $eventServiceRequest->get('dateTime');
-        $timeSheetModel->mileage = $eventServiceRequest->get('mileage');
-        $timeSheetModel->duration = $this->eventObj->duration;
-        $timeSheetModel->color = $this->eventObj->color;
-        $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
+            $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
 
-        $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+            $toPaymentModel->payUp =  $timeSheetModel->dateTime->addMinutes($timeSheetModel->duration);
 
-        $toPaymentModel->payUp =  $timeSheetModel->dateTime->addMinutes($timeSheetModel->duration);
-
-        $toPaymentModel->timeSheetId = $timeSheetModel->id;
-        $toPaymentModel->sum = $eventServiceRequest->get('sum');
-        $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
+            $toPaymentModel->timeSheetId = $timeSheetModel->id;
+            $toPaymentModel->sum = $eventServiceRequest->get('sum');
+            $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
 
     }
 

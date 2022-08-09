@@ -13,13 +13,15 @@
             </select>
         </div>
         @if($carObj->id)
-            <div class="p-2">Машина: {{$carObj->nickName}}</div>
+            <div class="p-2"><strong>Машина: </strong>{{$carObj->nickName}}</div>
         @endif
         @if($contractObj->id)
-            <div class="p-2">Договор N: {{$contractObj->number}}</div>
+            <div class="p-2"><strong>Договор N: </strong>{{$contractObj->number}}</div>
         @endif
-
-        <div class="p-2">Дата: {{$dateTime->format('d-m-Y')}}</div>
+        <div class="p-2"><strong>Дата: </strong>{{$dateTime->format('d-m-Y')}}</div>
+        @if($parentObj->id)
+            <div class="p-2"><strong>Родитель: </strong>{{$parentObj->event->name}}</div>
+        @endif
     </div>
 
 @endsection
@@ -39,7 +41,7 @@
     $( "#eventId" ).change(function() {
         $("#placeholderSelect").remove();
 
-        $("#eventForm").load('/rentEvent/'+$("#eventId").val()+'/create?carId={{$carObj->id}}&date={{$dateTime->format('d-m-Y')}}&contractId={{$contractObj->id}}',function(){
+        $("#eventForm").load('/rentEvent/'+$("#eventId").val()+'/create?carId={{$carObj->id}}&date={{$dateTime->format('d-m-Y')}}&contractId={{$contractObj->id}}&parentId={{$parentObj->id}}',function(){
             initDialogWindow();
         });
     });

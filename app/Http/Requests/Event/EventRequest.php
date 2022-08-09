@@ -41,6 +41,7 @@ class EventRequest extends FormRequest
             'carId' => 'nullable|integer',
             'contractId' => 'nullable|integer',
             'date' => 'nullable|date',
+            'parentId' => 'integer|nullable',
         ];
     }
 }

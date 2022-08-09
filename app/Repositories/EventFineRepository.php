@@ -84,7 +84,10 @@ class EventFineRepository implements EventFineRepositoryInterface
                 'time_sheets.comment as commentSheet',
             ])
             ->first();
+
+
         $resultEventObj =  $resultEventObj ?? new rentEventFine();
+
         if($resultEventObj->dateTimeFine){
             $resultEventObj->dateTimeFine =  Carbon::parse($resultEventObj->dateTimeFine);
         }

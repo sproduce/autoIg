@@ -73,23 +73,20 @@ class TimeSheetController extends Controller
 
     public function addEvent(RentEventService $rentEventServ,ContractRepository $contractRep,EventRequest $eventReq)
     {
-//        $validate=$this->request->validate(['carId'=>'',
-//            'date'=>'',
-//            'contractId' => ''
-//        ]);
-//        $carId = $validate['carId'] ??0;
-//        $selectDate = $validate['date'] ?? '';
-//        $contractId = $validate['contractId'] ??0;
+
         $carObj = $this->motorPoolRep->getCar($eventReq->get('carId'));
 
         $contractObj = $contractRep->getContract($eventReq->get('contractId'));
+        $parentObj = $this->timeSheetServ->getTimeSheetInfo($eventReq->get('parentId'));
 
-
-        $rentEventsObj=$rentEventServ->getRentEvents();
-        return view('rentEvent.addEvent',['carObj' => $carObj,
-                                               'dateTime' => $eventReq->get('date'),
-                                               'contractObj' => $contractObj,
-                                               'rentEvents' => $rentEventsObj]);
+        $rentEventsObj = $rentEventServ->getRentEvents();
+        return view('rentEvent.addEvent',[
+            'carObj' => $carObj,
+            'dateTime' => $eventReq->get('date'),
+            'contractObj' => $contractObj,
+            'rentEvents' => $rentEventsObj,
+            'parentObj' => $parentObj,
+        ]);
     }
 
 

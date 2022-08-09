@@ -53,10 +53,9 @@ Class EventFineService implements EventServiceInterface {
 
     public function store()
     {
+        $eventFineRequest = app()->make(Event\FineRequest::class);
         DB::beginTransaction();
         try {
-            $eventFineRequest = app()->make(Event\FineRequest::class);
-
             $eventFineModel = $this->eventFineRep->getEvent($eventFineRequest->get('id'));
 
             $eventFineModel->dateTimeOrder = $eventFineRequest->get('dateOrder');

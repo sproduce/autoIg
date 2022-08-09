@@ -55,10 +55,9 @@ Class EventOtherService implements EventServiceInterface{
 
     public function store()
     {
+        $eventOtherRequest = app()->make(Event\OtherRequest::class);
         DB::beginTransaction();
         try {
-            $eventOtherRequest = app()->make(Event\OtherRequest::class);
-
             $eventOtherModel = $this->eventOtherRep->getEvent($eventOtherRequest->get('idOther'));
             $eventOtherModel->comment = $eventOtherRequest->get('commentOther');
             $eventOtherModel = $this->eventOtherRep->addEvent($eventOtherModel);

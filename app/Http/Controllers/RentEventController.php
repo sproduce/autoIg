@@ -42,7 +42,6 @@ class RentEventController extends Controller
                            CarIdDate $carIdDate
     ){
         $eventObj = $this->rentEventServ->getRentEvent($eventId);
-
         $serviceObj = $this->rentEventServ->getEventService($eventObj);
         $eventDataObj = $serviceObj->getEventInfo(null);
 
@@ -56,7 +55,7 @@ class RentEventController extends Controller
             ];
 
         $additionalDataArray = $serviceObj->getAdditionalViewDataArray();
-
+echo $eventObj->action;
 
 //        $viewAdditionalArray = $serviceObj->getAdditionalViewDataArray();
 //        $viewArray = array_merge($viewDataArray,$viewAdditionalArray);

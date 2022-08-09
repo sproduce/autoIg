@@ -8,5 +8,10 @@
 @endif
 
 @section('content')
-  
+    <form method="POST" action="/rentEvent/{{$eventObj->id}}">
+        @csrf
+
+
+
+    </form>
 @endsection

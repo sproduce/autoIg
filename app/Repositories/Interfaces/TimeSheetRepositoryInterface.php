@@ -13,12 +13,12 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface TimeSheetRepositoryInterface
 {
-    public function getTimeSheets($dateFrom,$dateTo):Collection;
+    public function getTimeSheets($dateFrom,$dateTo): Collection;
 
     public function delTimeSheet(timeSheet $timeSheetObj);
 
     public function getTimeSheetsByEvent($eventId,CarbonPeriod  $datePeriod);
-    public function getTimeSheet($timeSheetId):timeSheet;
+    public function getTimeSheet($timeSheetId): timeSheet;
     public function getTimeSheetsArray(CarbonPeriod $datePeriod);
     public function getTimeSheetByDate($date);
     public function getTimeSheetById($id);

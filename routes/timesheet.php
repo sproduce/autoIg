@@ -12,6 +12,8 @@ Route::get('/listByEvent',[TimeSheetController::class,'listByEvent']);
 
 Route::get('/info',[TimeSheetController::class,'infoDialog']);
 
+
+
 Route::get('/add',[TimeSheetController::class,'addEvent']);
 Route::post('/add',[TimeSheetController::class,'add']);
 

@@ -48,9 +48,9 @@ Class EventRentalService implements EventServiceInterface {
 
    public function store()
    {
+       $eventRentalRequest = app()->make(Event\RentalRequest::class);
        DB::beginTransaction();
        try {
-           $eventRentalRequest = app()->make(Event\RentalRequest::class);
            $eventRentalModel = $this->eventRentalRep->getEventRental($eventRentalRequest->get('id'));
            $eventRentalModel->contractId = $eventRentalRequest->get('contractId');
            $eventRentalModel = $this->eventRentalRep->addEventRental($eventRentalModel);

@@ -22,7 +22,7 @@
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Договор"> Договор </label>
             <a href="/contract/addContractTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
-            <input id="contractText" name="contractText" value="{{old('contractText',$eventDataObj->contractNumber ?? $contractObj->number)}}"  class="form-control" readonly />
+            <input id="contractText" name="contractText" value="{{old('contractText',$eventDataObj->contractNumber ?? $contractObj->number)}}" class="form-control" disabled required/>
             <input name="contractId" id="contractId" value="{{old('contractId',$eventDataObj->contractId ?? $contractObj->id)}}" hidden/>
         </div>
 
@@ -44,7 +44,7 @@
         </div>
         <div class="form-group col-md-2 input-group-sm">
             <label for="sum" title="Стоимость">Стоимость</label>
-            <input type="number" name="sum" id="sum" class="form-control" value="{{old('sum',$eventDataObj->sum)}}"/>
+            <input type="number" name="sum" id="sum" class="form-control" value="{{old('sum',$eventDataObj->sum)}}" required/>
         </div>
     </div>
 
