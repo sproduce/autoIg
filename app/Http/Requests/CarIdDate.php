@@ -68,6 +68,7 @@ class CarIdDate extends FormRequest
             'carId'=>'nullable|integer',
             'date' => 'date',
             'contractId' => 'nullable|integer',
+            'parentId' => 'nullable|integer',
         ];
     }
 }

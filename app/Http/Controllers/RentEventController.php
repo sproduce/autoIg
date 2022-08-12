@@ -52,10 +52,10 @@ class RentEventController extends Controller
             'dateTime' => $carIdDate->get('date'),
             'eventObj' => $eventObj,
             'eventDataObj' => $eventDataObj,
+            'parentId' => $carIdDate->get('parentId'),
             ];
 
         $additionalDataArray = $serviceObj->getAdditionalViewDataArray();
-echo $eventObj->action;
 
 //        $viewAdditionalArray = $serviceObj->getAdditionalViewDataArray();
 //        $viewArray = array_merge($viewDataArray,$viewAdditionalArray);
