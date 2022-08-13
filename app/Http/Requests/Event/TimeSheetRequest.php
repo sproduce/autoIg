@@ -16,6 +16,16 @@ class TimeSheetRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation(): void
+    {
+        $input = parent::all();
+        if (!$input['parentId']){
+            $this->merge(['parentId' => null]);
+        }
+    }
+
+
+
     /**
      * Get the validation rules that apply to the request.
      *

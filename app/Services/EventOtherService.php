@@ -56,6 +56,8 @@ Class EventOtherService implements EventServiceInterface{
     public function store()
     {
         $eventOtherRequest = app()->make(Event\OtherRequest::class);
+        $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);
+
         DB::beginTransaction();
         try {
             $eventOtherModel = $this->eventOtherRep->getEvent($eventOtherRequest->get('idOther'));
@@ -71,7 +73,10 @@ Class EventOtherService implements EventServiceInterface{
             $timeSheetModel->comment = $eventOtherRequest->get('commentOther');
             $timeSheetModel->duration = $this->eventObj->duration;
             $timeSheetModel->color = $this->eventObj->color;
+            $timeSheetModel->pId = $eventTimeSheetRequest->get('parentId');
+
             $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
+
 
             $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
 

@@ -31,6 +31,7 @@ class FineRequest extends FormRequest
 //        if (!$input['sum']){
 //            $this->merge(['sum' => 0,]);
 //        }
+
         $dateTime = date("Y-m-d H:i:00",strtotime($input['dateFine'].' '.$input['timeFine']));
         $this->merge(['dateTimeFine' => $dateTime,]);
     }

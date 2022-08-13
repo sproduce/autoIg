@@ -56,6 +56,8 @@ Class EventGeneralService implements EventServiceInterface{
     public function store()
     {
         $eventGeneralRequest = app()->make(Event\GeneralRequest::class);
+        $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);
+
         DB::beginTransaction();
         try {
 
@@ -69,6 +71,8 @@ Class EventGeneralService implements EventServiceInterface{
             $timeSheetModel->dateTime = $eventGeneralRequest->get('dateTime');
             $timeSheetModel->duration = $this->eventObj->duration;
             $timeSheetModel->color = $this->eventObj->color;
+            $timeSheetModel->pId = $eventTimeSheetRequest->get('parentId');
+            
             $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 
             $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);

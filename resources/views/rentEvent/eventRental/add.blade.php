@@ -11,6 +11,7 @@
 
 <form method="POST" action="/rentEvent/{{$eventObj->id}}">
     <input type="number" name="id" value="{{old('id',$eventDataObj->id)}}" hidden/>
+    <input type="number" name="parentId" value="{{old('parentId',$parentId)}}" hidden/>
     @csrf
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">

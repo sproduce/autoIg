@@ -49,6 +49,8 @@ Class EventRentalService implements EventServiceInterface {
    public function store()
    {
        $eventRentalRequest = app()->make(Event\RentalRequest::class);
+       $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);
+
        DB::beginTransaction();
        try {
            $eventRentalModel = $this->eventRentalRep->getEventRental($eventRentalRequest->get('id'));
@@ -64,7 +66,10 @@ Class EventRentalService implements EventServiceInterface {
            $timeSheetModel->comment = $eventRentalRequest->get('comment');
            $timeSheetModel->duration = $eventRentalRequest->get('duration');
            $timeSheetModel->color = $this->eventObj->color;
+           $timeSheetModel->pId = $eventTimeSheetRequest->get('parentId');
+
            $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
+
 
            $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
 

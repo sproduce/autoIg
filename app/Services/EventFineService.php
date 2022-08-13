@@ -54,6 +54,8 @@ Class EventFineService implements EventServiceInterface {
     public function store()
     {
         $eventFineRequest = app()->make(Event\FineRequest::class);
+        $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);
+
         DB::beginTransaction();
         try {
             $eventFineModel = $this->eventFineRep->getEvent($eventFineRequest->get('id'));
@@ -77,6 +79,8 @@ Class EventFineService implements EventServiceInterface {
             $timeSheetModel->comment = $eventFineRequest->get('comment');
             $timeSheetModel->duration = $this->eventObj->duration;
             $timeSheetModel->color = $this->eventObj->color;
+            $timeSheetModel->pId = $eventTimeSheetRequest->get('parentId');
+
             $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 
 

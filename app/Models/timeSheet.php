@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $duration
  * @property int $sum
  * @property int $contractId
+ * @property int $pId
  */
 
 
@@ -28,7 +29,7 @@ class timeSheet extends Model
     use HasFactory;
     use SoftDeletes;
     //private $dateTime,$comment,$dataId,$eventId;
-    protected $fillable = ['carId', 'eventId','dateTime','comment','mileage','color','duration','dataId'];
+    protected $fillable = ['carId', 'eventId','dateTime','comment','mileage','color','duration','dataId','pId'];
 
     protected $dates = ['dateTime','fromDate','toDate'];
 

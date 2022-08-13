@@ -57,6 +57,7 @@ Class EventServiceService implements EventServiceInterface{
     {
         $eventServiceRequest = app()->make(Event\ServiceRequest::class);
         $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);
+        //$eventTimeSheetRequest->dd();
         DB::beginTransaction();
         try {
             $eventServiceModel = $this->eventServiceRep->getEvent($eventServiceRequest->get('id'));
@@ -76,6 +77,8 @@ Class EventServiceService implements EventServiceInterface{
             $timeSheetModel->mileage = $eventServiceRequest->get('mileage');
             $timeSheetModel->duration = $this->eventObj->duration;
             $timeSheetModel->color = $this->eventObj->color;
+            $timeSheetModel->pId = $eventTimeSheetRequest->get('parentId');
+
             $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 
             $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
