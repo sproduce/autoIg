@@ -6,9 +6,17 @@
 </div>
 <div class="modal-body">
     <div class="row">
-        <div class="col-2"><strong>Дата : </strong></div>
-        <div class="col-2">{{$eventDataObj->dateTime->toDateTimeString()}}</div>
-        <div class="col-2"><strong>Сумма : </strong></div>
+        <div class="col-2"><strong>Машина: </strong></div>
+        <div class="col-2">{{$eventDataObj->carText}}</div>
+        <div class="col-2"><strong>Договор: </strong></div>
+        <div class="col-2">{{$eventDataObj->contractNumber}}</div>
+        <div class="col-2"><strong>Длительность: </strong></div>
+        <div class="col-2">{{$eventDataObj->duration}}</div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-3"><strong>Начало аренды: </strong></div>
+        <div class="col-3">{{$eventDataObj->dateTime->toDateTimeString()}}</div>
+        <div class="col-2"><strong>Стоимость: </strong></div>
         <div class="col-2">{{$eventDataObj->sum}}</div>
     </div>
 </div>

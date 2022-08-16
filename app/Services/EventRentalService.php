@@ -192,7 +192,7 @@ Class EventRentalService implements EventServiceInterface {
     public function getEventRentalInfo($eventId,$eventRentalId)
     {
         $eventRentalObj = $this->eventRentalRep->getEventRentalFullInfo($eventId,$eventRentalId);
-        //$eventRentalObj->dump();
+        //$eventRentalObj->dd();
         //var_dump($eventRentalObj);
         return $eventRentalObj;
     }

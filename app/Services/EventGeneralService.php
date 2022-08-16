@@ -72,7 +72,7 @@ Class EventGeneralService implements EventServiceInterface{
             $timeSheetModel->duration = $this->eventObj->duration;
             $timeSheetModel->color = $this->eventObj->color;
             $timeSheetModel->pId = $eventTimeSheetRequest->get('parentId');
-            
+
             $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 
             $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);

@@ -31,15 +31,28 @@ class EventRentalRepository implements EventRentalRepositoryInterface
     public function getEventRentals($eventId,CarbonPeriod $datePeriod)
     {
         $startDate = $datePeriod->getStartDate()->format('Y-m-d');
-        $finishDate  =$datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
+        $finishDate = $datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
 
         $resultEventsObj = DB::table('time_sheets')
             ->join('rent_event_rentals','rent_event_rentals.id', '=', 'time_sheets.dataId')
             ->leftjoin('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
             ->leftjoin('rent_contracts','rent_contracts.id','=','rent_event_rentals.contractId')
+            ->leftJoin('to_payments','to_payments.timeSheetId','=','time_sheets.id')
             ->where('time_sheets.eventId','=',$eventId)
             ->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])
             ->orderByDesc('time_sheets.dateTime')
+            ->select([
+                'rent_event_rentals.id as id',
+                'car_configurations.nickName as carText',
+                'car_configurations.id as carId',
+                'rent_contracts.id as contractId',
+                'rent_contracts.number as contractNumber',
+                'to_payments.sum as sum',
+                'time_sheets.comment as comment',
+                'time_sheets.dateTime as dateTime',
+                'time_sheets.duration as duration',
+                'time_sheets.pId as parentId',
+            ])
             ->get();
 
         $resultEventsObj->each(function ($item, $key) {
@@ -70,6 +83,7 @@ class EventRentalRepository implements EventRentalRepositoryInterface
                 'time_sheets.comment as comment',
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.duration as duration',
+                'time_sheets.pId as parentId',
             ])
             ->first();
 
