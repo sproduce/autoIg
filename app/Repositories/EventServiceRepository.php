@@ -23,7 +23,7 @@ class EventServiceRepository implements EventServiceRepositoryInterface
     public function getEventFullInfo($eventId, $dataId)
     {
         $resultEventObj = DB::table('time_sheets')
-            ->leftjoin('rent_event_services','rent_event_services.id','=','time_sheets.dataId')
+            ->join('rent_event_services','rent_event_services.id','=','time_sheets.dataId')
             ->leftJoin('rent_subjects','rent_subjects.id', '=', 'rent_event_services.subjectId')
             ->leftJoin('rent_contracts','rent_contracts.id','=','rent_event_services.contractId')
             ->leftJoin('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
@@ -43,10 +43,13 @@ class EventServiceRepository implements EventServiceRepositoryInterface
                 'to_payments.sum as sum',
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.mileage as mileage',
+                'time_sheets.pId as parentId',
             ])
             ->first();
 
-        $resultEventObj = $resultEventObj ? $resultEventObj->dateTime =  Carbon::parse($resultEventObj->dateTime) : new rentEventService();
+
+        $resultEventObj =  $resultEventObj ?? new rentEventService();
+        $resultEventObj->dateTime =  Carbon::parse($resultEventObj->dateTime);
 
         return $resultEventObj;
     }

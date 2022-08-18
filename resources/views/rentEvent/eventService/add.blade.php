@@ -10,7 +10,7 @@
 
 <form method="POST" action="/rentEvent/{{$eventObj->id}}">
     <input type="number" name="id" value="{{old('id',$eventDataObj->id)}}" hidden/>
-    <input type="number" name="parentId" value="{{old('parentId',$parentId)}}" hidden/>
+    <input type="number" name="parentId" value="{{old('parentId',$parentId ?? $eventDataObj->parentId)}}" hidden/>
 
     @csrf
     <div class="form-row text-center">

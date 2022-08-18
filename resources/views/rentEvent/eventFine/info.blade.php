@@ -12,7 +12,7 @@
         <div class="col-3">{{$eventDataObj->carText}}</div>
     </div>
 
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-3"><strong>Оплатить: </strong></div>
         <div class="col-3">
             {{$eventDataObj->sumSale}}
@@ -29,11 +29,11 @@
     </div>
 
 
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-2"><strong>УИН: </strong></div>
         <div class="col-10">{{$eventDataObj->uin}}</div>
     </div>
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-2"><strong>Комментарий: </strong></div>
         <div class="col-10">{{$eventDataObj->comment}}</div>
     </div>

@@ -63,6 +63,7 @@ class EventGeneralRepository implements EventGeneralRepositoryInterface
                 'to_payments.sum as sum',
                 'rent_event_generals.comment as comment',
                 'time_sheets.dateTime as dateTime',
+                'time_sheets.pId as parentId',
             ])
             ->first();
 

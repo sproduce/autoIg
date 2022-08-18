@@ -19,6 +19,10 @@
         <div class="col-2"><strong>Стоимость: </strong></div>
         <div class="col-2">{{$eventDataObj->sum}}</div>
     </div>
+    <div class="row mt-3">
+        <div class="col-2"><strong>Комментарий: </strong></div>
+        <div class="col-10">{{$eventDataObj->comment}}</div>
+    </div>
 </div>
 <div class="modal-footer">
 
