@@ -10,8 +10,10 @@
 @section('content')
     <form method="POST" action="/rentEvent/{{$eventObj->id}}">
     @csrf
+
         <input type="number" name="id" id="id" value="{{old('id',$eventDataObj->id)}}" hidden/>
-        <input type="number" name="parentId" value="{{old('parentId',$parentId)}}" hidden/>
+        <input type="number" name="parentId" value="{{old('parentId',$parentId ?? $eventDataObj->parentId)}}" hidden/>
+
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Автомобиль">
@@ -31,11 +33,11 @@
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="dateFine" title="Дата нарушения">Дата нарушения</label>
-            <input type="date" name="dateFine" id="dateFine" class="form-control" value="{{old('dateFine',$eventDataObj->dateTimeFine ? $eventDataObj->dateTimeFine->toDateString() : $dateTime->toDateString())}}"/>
+            <input type="date" name="dateFine" id="dateFine" class="form-control" value="{{old('dateFine',$eventDataObj->dateTime ? $eventDataObj->dateTimeFine->toDateString() : $dateTime->toDateString())}}"/>
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="timeFine" title="Время нарушения">Время нарушения</label>
-            <input type="time" name="timeFine" id="timeFine" class="form-control" value="{{old('timeFine',$eventDataObj->dateTimeFine ? $eventDataObj->dateTimeFine->format('H:i') : $dateTime->format('H:i'))}}"/>
+            <input type="time" name="timeFine" id="timeFine" class="form-control" value="{{old('timeFine',$eventDataObj->dateTime ? $eventDataObj->dateTimeFine->format('H:i') : $dateTime->format('H:i'))}}"/>
         </div>
     </div>
     <div class="form-row text-center">
@@ -72,7 +74,7 @@
     <div class="form-row text-center">
         <div class="form-group col-md-6 input-group-sm">
             <label for="comment" title="Комментарий">Комментарий</label>
-            <input type="text" name="comment" id="comment" value="{{old('comment',$eventDataObj->commentSheet)}}" class="form-control"/>
+            <input type="text" name="comment" id="comment" value="{{old('comment',$eventDataObj->comment)}}" class="form-control"/>
         </div>
     </div>
     <div class="form-row text-center" id="last-row">

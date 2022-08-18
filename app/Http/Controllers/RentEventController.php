@@ -100,8 +100,6 @@ class RentEventController extends Controller
             'eventObj' => $eventObj,
             'eventDataObj' => $eventDataObj,
             ];
-
-
         return view('rentEvent.'.$eventObj->action.'.info',$viewDataArray);
     }
 
@@ -120,6 +118,7 @@ class RentEventController extends Controller
     public function list()
     {
         $rentEventsObj=$this->rentEventServ->getRentEvents();
+
         return view('rentEvent.rentEventList',['rentEvents'=>$rentEventsObj]);
     }
 

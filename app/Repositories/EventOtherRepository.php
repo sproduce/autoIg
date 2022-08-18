@@ -67,6 +67,7 @@ class EventOtherRepository implements EventOtherRepositoryInterface
                 'to_payments.sum as sumOther',
                 'rent_event_others.comment as commentOther',
                 'time_sheets.dateTime as dateTimeOther',
+                'time_sheets.pId as parentId',
             ])
             ->first();
 

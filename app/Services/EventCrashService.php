@@ -29,7 +29,8 @@ Class EventCrashService implements EventServiceInterface {
 
     public function index(CarbonPeriod $datePeriod)
     {
-      // TODO: Implement index() method.
+      $resultEvents = $this->eventCrashRep->getEventCrashes($this->eventObj->id,$datePeriod);
+      return $resultEvents;
     }
 
     public function destroy($dataId)

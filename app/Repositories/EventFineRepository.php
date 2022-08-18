@@ -116,8 +116,8 @@ class EventFineRepository implements EventFineRepositoryInterface
                 'rent_contracts.number as contractNumber',
 
                 'to_payments.sum as sumPayment',
-                'time_sheets.dateTime as dateTimeSheet',
-                'time_sheets.comment as commentSheet',
+                'time_sheets.dateTime as dateTime',
+                'time_sheets.comment as comment',
                 'time_sheets.pId as parentId',
             ])
             ->first();
@@ -131,8 +131,8 @@ class EventFineRepository implements EventFineRepositoryInterface
         if($resultEventObj->dateTimeOrder){
             $resultEventObj->dateTimeOrder =  Carbon::parse($resultEventObj->dateTimeOrder);
         }
-        if($resultEventObj->dateTimeSheet){
-            $resultEventObj->dateTimeSheet =  Carbon::parse($resultEventObj->dateTimeSheet);
+        if($resultEventObj->dateTime){
+            $resultEventObj->dateTime =  Carbon::parse($resultEventObj->dateTime);
         }
         if($resultEventObj->datePaySale){
             $resultEventObj->datePaySale =  Carbon::parse($resultEventObj->datePaySale);

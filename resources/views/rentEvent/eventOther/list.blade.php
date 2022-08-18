@@ -10,7 +10,10 @@
     </div>
     @foreach($listEventsObj as $event)
         <div class="row row-table">
-            <div class="col-2">{{$event->dateTime->format('d-m-Y H:i')}}</div>
+            <div class="col-2" title="{{$event->dateTime->format('H:i')}}">
+                <a href="/rentEvent/{{$eventObj->id}}/{{$event->id ?? 0}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                {{$event->dateTime->toDateString()}}
+            </div>
             <div class="col-2"></div>
             <div class="col-2"></div>
             <div class="col-2"></div>

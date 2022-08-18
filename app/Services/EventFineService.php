@@ -100,7 +100,8 @@ Class EventFineService implements EventServiceInterface {
 
     public function getEventInfo($dataId = null)
     {
-        return $this->eventFineRep->getEventFullInfo($this->eventObj->id,$dataId);
+        $result = $this->eventFineRep->getEventFullInfo($this->eventObj->id,$dataId);
+        return $result;
     }
 
 
