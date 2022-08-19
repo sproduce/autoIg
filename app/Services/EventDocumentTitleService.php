@@ -3,18 +3,18 @@ namespace App\Services;
 
 
 use App\Models\rentEvent;
-use App\Http\Requests\Event;
-use App\Repositories\EventOtherRepository;
+
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
+use App\Repositories\EventDocumentTitleRepository;
 use Carbon\CarbonPeriod;
-use Illuminate\Support\Facades\DB;
+
 
 
 Class EventDocumentTitleService implements EventServiceInterface{
 
-    private $timeSheetRep,$toPaymentRep,$eventObj,$contractRep;
+    private $timeSheetRep,$toPaymentRep,$eventObj,$contractRep,$eventDocumentTitleRep;
 
     function __construct(
         ContractRepositoryInterface $contractRep,
@@ -23,7 +23,7 @@ Class EventDocumentTitleService implements EventServiceInterface{
         rentEvent $eventObj
     ){
         $this->contractRep = $contractRep;
-        $this->eventOtherRep = new EventOtherRepository();
+        $this->eventDocumentTitleRep = new EventDocumentTitleRepository();
         $this->timeSheetRep = $timeSheetRep;
         $this->toPaymentRep = $toPaymentRep;
         $this->eventObj = $eventObj;
@@ -31,6 +31,8 @@ Class EventDocumentTitleService implements EventServiceInterface{
 
     public function index(CarbonPeriod $datePeriod)
     {
+        $resultEvents = $this->eventDocumentTitleRep->getEvents($this->eventObj->id,$datePeriod);
+        return $resultEvents;
 
     }
 
@@ -42,7 +44,7 @@ Class EventDocumentTitleService implements EventServiceInterface{
 
     public function getEventInfo($dataId = null)
     {
-
+        return $this->eventDocumentTitleRep->getEventFullInfo($this->eventObj->id,$dataId);
     }
 
     public function getAdditionalViewDataArray()

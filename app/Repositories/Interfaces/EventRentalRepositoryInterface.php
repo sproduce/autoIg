@@ -8,9 +8,10 @@ use Carbon\CarbonPeriod;
 
 interface EventRentalRepositoryInterface
 {
+    public function getEventRental($id): rentEventRental;
     public function addEventRental(rentEventRental $rentEventRentalObj): rentEventRental;
     public function getEventRentalsByContract($contractId);
-    public function getEventRental($id): rentEventRental;
+
 
     public function getEventRentalFullInfo($eventId,$dataId);
 

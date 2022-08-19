@@ -16,6 +16,10 @@ class CreateRentEventDocumentTitlesTable extends Migration
         Schema::create('rent_event_document_titles', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
+            $table->string('number');
+            $table->string('regNumber');
+            $table->string('passport');
         });
     }
 
