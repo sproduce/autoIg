@@ -26,7 +26,7 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
     public function getEventFullInfo($eventId, $dataId)
     {
         $resultEventObj = DB::table('time_sheets')
-            ->leftjoin('rent_event_document_titles','rent_event_document_titles.id','=','time_sheets.dataId')
+            ->join('rent_event_document_titles','rent_event_document_titles.id','=','time_sheets.dataId')
             ->leftJoin('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
             ->leftJoin('to_payments','to_payments.timeSheetId','=','time_sheets.id')
             ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
@@ -42,12 +42,16 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
                 'rent_contracts.number as contractNumber',
 
                 'to_payments.sum as sumPayment',
-                'time_sheets.dateTime as dateTime',
+                'time_sheets.dateTime as date',
                 'time_sheets.comment as comment',
                 'time_sheets.pId as parentId',
             ])
             ->first();
         $resultEventObj =  $resultEventObj ?? new rentEventDocumentTitle();
+      
+        //$resultEventObj->date = Carbon::parse($resultEventObj->date);
+
+
         return $resultEventObj;
     }
 

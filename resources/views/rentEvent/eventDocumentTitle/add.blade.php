@@ -11,7 +11,7 @@
     <form method="POST" action="/rentEvent/{{$eventObj->id}}">
     @csrf
         <input type="number" name="id" id="id" value="{{old('id',$eventDataObj->id)}}" hidden/>
-
+        <input type="number" name="parentId" id="parentId" value="{{old('parentId',$parentId ?? $eventDataObj->parentId)}}" hidden/>
         <div class="form-row text-center">
             <div class="form-group col-md-3 input-group-sm">
                 <label for="carText" title="Автомобиль">Машина</label>
@@ -22,7 +22,7 @@
             </div>
             <div class="form-group col-md-3 input-group-sm">
                 <label for="date" title="Дата постановки на учет">Дата постановки на учет</label>
-                <input type="date" name="date" id="date" class="form-control" value="{{old('date',$eventDataObj->dateTime ? $eventDataObj->dateTime->toDateString() : $dateTime->toDateString())}}"/>
+                <input type="date" name="date" id="date" class="form-control" value="{{old('date',$eventDataObj->date ? $eventDataObj->date->toDateString() : $dateTime->toDateString())}}"/>
             </div>
             <div class="form-group col-md-3 input-group-sm">
                 <label for="sum" title="Сумма">Сумма</label>
@@ -45,6 +45,14 @@
                 <input type="text" name="passport" id="passport" value="{{old('passport')}}" class="form-control" required/>
             </div>
         </div>
+
+        <div class="form-row text-center">
+            <div class="form-group col-md-3 input-group-sm">
+                <label for="comment" title="Комментарий">Комментарий</label>
+                <input type="text" name="comment" id="comment" value="{{old('comment')}}" class="form-control"/>
+            </div>
+        </div>
+
 
         <div class="form-row text-center" id="last-row">
             <div class="input-group col-1">

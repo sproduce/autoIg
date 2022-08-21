@@ -34,10 +34,10 @@ Class EventDocumentInsuranceService implements EventServiceInterface{
 
     }
 
-  public function getEventModel($modelId = null)
-  {
+    public function getEventModel($modelId = null)
+    {
 
-  }
+    }
 
 
     public function getEventInfo($dataId = null)
@@ -54,7 +54,19 @@ Class EventDocumentInsuranceService implements EventServiceInterface{
 
     public function store()
     {
+        $eventDocumentInsuranceRequest = app()->make(Event\DocumentInsuranceRequest::class);
+        $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);
 
+        DB::beginTransaction();
+        try {
+
+
+
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
     }
 
     public function getViews()
