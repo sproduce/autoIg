@@ -20,8 +20,20 @@
             </div>
             <div class="col-2">@if($event->datePayMax){{$event->datePayMax->toDateString()}} @endif</div>
             <div class="col-2">@if($event->datePaySale){{$event->datePaySale->toDateString()}} @endif</div>
-            <div class="col-2">{{$event->sum}}/{{$event->sumSale}}</div>
             <div class="col-2">
+                <div class="row">
+                    <div class="col-5 text-right p-0">
+                        {{$event->sum}} p.
+                    </div>
+                    <div class="col-1 text-center p-0">
+                        /
+                    </div>
+                    <div class="col-5 text-right p-0">
+                        {{$event->sumSale}} p.
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 text-right">
                 <a class="btn btn-ssm btn-outline-warning" href="/rentEvent/{{$eventObj->id}}/{{$event->id ?? 0}}/edit?needParent=1" title="Редактировать"><i class="far fa-edit"></i></a>
                 <a class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить событие?')" href="/rentEvent/{{$eventObj->id}}/{{$event->id ?? 0}}/destroy"><i class="fas fa-trash"></i></a>
             </div>

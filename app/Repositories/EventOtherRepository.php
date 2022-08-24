@@ -34,10 +34,29 @@ class EventOtherRepository implements EventOtherRepositoryInterface
         $finishDate = $datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
 
         $resultEventsObj = DB::table('time_sheets')
+            ->join('rent_event_others','rent_event_others.id','=','time_sheets.dataId')
+            ->leftJoin('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
+            ->leftJoin('to_payments','to_payments.timeSheetId','=','time_sheets.id')
+            ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
             ->where('time_sheets.eventId','=',$eventId)
-            ->whereNull('deleted_at')
+            ->whereNull('rent_event_others.deleted_at')
             //->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])
             ->orderByDesc('time_sheets.dateTime')
+            ->select([
+                'rent_event_others.id as id',
+
+                'car_configurations.nickName as carText',
+                'car_configurations.id as carId',
+
+                'rent_contracts.id as contractId',
+                'rent_contracts.number as contractNumber',
+                'to_payments.sum as sumPayment',
+                'rent_event_others.comment as comment',
+                'time_sheets.dateTime as dateTime',
+                'time_sheets.pId as parentId',
+            ])
+
+
             ->get();
 
         $resultEventsObj->each(function ($item, $key) {

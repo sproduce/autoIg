@@ -26,7 +26,7 @@
             </div>
             <div class="form-group col-md-3 input-group-sm">
                 <label for="sum" title="Сумма">Сумма</label>
-                <input type="number" name="sum" id="sum" value="{{old('sum')}}" class="form-control" required/>
+                <input type="number" name="sum" id="sum" value="{{old('sum',$eventDataObj->sumPayment)}}" class="form-control" required/>
             </div>
         </div>
 
@@ -34,22 +34,22 @@
         <div class="form-row text-center">
             <div class="form-group col-md-3 input-group-sm">
                 <label for="regNumber" title="Регистрационный знак">Регистрационный знак</label>
-                <input type="text" name="regNumber" id="regNumber" value="{{old('regNumber')}}" class="form-control" required/>
+                <input type="text" name="regNumber" id="regNumber" value="{{old('regNumber',$eventDataObj->regNumber)}}" class="form-control" required/>
             </div>
             <div class="form-group col-md-3 input-group-sm">
                 <label for="number" title="Номер СТС">Номер СТС</label>
-                <input type="text" name="number" id="number" value="{{old('number')}}" class="form-control" required/>
+                <input type="text" name="number" id="number" value="{{old('number',$eventDataObj->number)}}" class="form-control" required/>
             </div>
             <div class="form-group col-md-3 input-group-sm">
                 <label for="passport" title="Номер ПТС">Номер ПТС</label>
-                <input type="text" name="passport" id="passport" value="{{old('passport')}}" class="form-control" required/>
+                <input type="text" name="passport" id="passport" value="{{old('passport',$eventDataObj->passport)}}" class="form-control" required/>
             </div>
         </div>
 
         <div class="form-row text-center">
             <div class="form-group col-md-3 input-group-sm">
                 <label for="comment" title="Комментарий">Комментарий</label>
-                <input type="text" name="comment" id="comment" value="{{old('comment')}}" class="form-control"/>
+                <input type="text" name="comment" id="comment" value="{{old('comment',$eventDataObj->comment)}}" class="form-control"/>
             </div>
         </div>
 

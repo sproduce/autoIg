@@ -71,7 +71,7 @@ Class EventDocumentTitleService implements EventServiceInterface{
 
             $timeSheetModel->carId = $eventDocumentTitleRequest->get('carId');
             $timeSheetModel->eventId = $this->eventObj->id;
-            $timeSheetModel->dataId = $eventDocumentTitleRequest->id;
+            $timeSheetModel->dataId = $eventDocumentTitleModel->id;
             $timeSheetModel->dateTime = $eventDocumentTitleRequest->get('date');
             $timeSheetModel->comment = $eventDocumentTitleRequest->get('comment');
             $timeSheetModel->duration = $this->eventObj->duration;

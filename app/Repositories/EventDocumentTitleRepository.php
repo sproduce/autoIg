@@ -34,6 +34,9 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
             ->where('time_sheets.dataId','=',$dataId)
             ->select([
                 'rent_event_document_titles.id as id',
+                'rent_event_document_titles.regNumber as regNumber',
+                'rent_event_document_titles.number as number',
+                'rent_event_document_titles.passport as passport',
 
                 'car_configurations.nickName as carText',
                 'car_configurations.id as carId',
@@ -48,8 +51,8 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
             ])
             ->first();
         $resultEventObj =  $resultEventObj ?? new rentEventDocumentTitle();
-      
-        //$resultEventObj->date = Carbon::parse($resultEventObj->date);
+
+        $resultEventObj->date = Carbon::parse($resultEventObj->date);
 
 
         return $resultEventObj;
@@ -61,10 +64,26 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
         $finishDate = $datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
 
         $resultEventsObj = DB::table('time_sheets')
+            ->join('rent_event_document_titles','rent_event_document_titles.id','=','time_sheets.dataId')
+            ->leftJoin('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
+            ->leftJoin('to_payments','to_payments.timeSheetId','=','time_sheets.id')
             ->where('time_sheets.eventId','=',$eventId)
-            ->whereNull('deleted_at')
+            ->whereNull('rent_event_document_titles.deleted_at')
             //->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])
             ->orderByDesc('time_sheets.dateTime')
+            ->select([
+                'rent_event_document_titles.id as id',
+                'rent_event_document_titles.regNumber as regNumber',
+                'rent_event_document_titles.number as number',
+                'rent_event_document_titles.passport as passport',
+
+                'car_configurations.nickName as carText',
+                'car_configurations.id as carId',
+
+                'to_payments.sum as sumPayment',
+                'time_sheets.dateTime as dateTime',
+                'time_sheets.comment as commentSheet',
+            ])
             ->get();
 
         $resultEventsObj->each(function ($item, $key) {

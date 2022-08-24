@@ -18,9 +18,10 @@
             {{$event->carText}}
         </div>
         <div class="col-2">{{$event->contractNumber}}</div>
-        <div class="col-1 text-right">{{$event->sum}} р.</div>
+        <div class="col-1 text-right p-0">{{$event->sum}} р.</div>
         <div class="col-2">{{$event->comment}}</div>
-        <div class="col-2">
+        <div class="col-1 text-right"></div>
+        <div class="col-2 text-right">
            <a class="btn btn-ssm btn-outline-warning" href="/rentEvent/{{$eventObj->id}}/{{$event->id ?? 0}}/edit?needParent=1" title="Редактировать"> <i class="far fa-edit"></i></a>
             <a class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить событие?')" href="/rentEvent/{{$eventObj->id}}/{{$event->id ?? 0}}/destroy"><i class="fas fa-trash"></i> </a>
         </div>
