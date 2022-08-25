@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\rentEvent;
 use App\Http\Requests\Event;
+use App\Repositories\EventDocumentInsuranceRepository;
 use App\Repositories\EventOtherRepository;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 Class EventDocumentInsuranceService implements EventServiceInterface{
 
-    private $timeSheetRep,$toPaymentRep,$eventObj,$contractRep;
+    private $timeSheetRep,$toPaymentRep,$eventObj,$contractRep,$eventDocumentInsurance;
 
     function __construct(
         ContractRepositoryInterface $contractRep,
@@ -23,7 +24,7 @@ Class EventDocumentInsuranceService implements EventServiceInterface{
         rentEvent $eventObj
     ){
         $this->contractRep = $contractRep;
-        $this->eventOtherRep = new EventOtherRepository();
+        $this->eventDocumentInsurance = new EventDocumentInsuranceRepository();
         $this->timeSheetRep = $timeSheetRep;
         $this->toPaymentRep = $toPaymentRep;
         $this->eventObj = $eventObj;
@@ -42,7 +43,7 @@ Class EventDocumentInsuranceService implements EventServiceInterface{
 
     public function getEventInfo($dataId = null)
     {
-
+        return $this->eventDocumentInsurance->getEventFullInfo($this->eventObj->id,$dataId);
     }
 
     public function getAdditionalViewDataArray()
