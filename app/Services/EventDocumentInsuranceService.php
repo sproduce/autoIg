@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 Class EventDocumentInsuranceService implements EventServiceInterface{
 
-    private $timeSheetRep,$toPaymentRep,$eventObj,$contractRep,$eventDocumentInsurance;
+    private $timeSheetRep,$toPaymentRep,$eventObj,$contractRep,$eventDocumentInsuranceRep;
 
     function __construct(
         ContractRepositoryInterface $contractRep,
@@ -24,7 +24,7 @@ Class EventDocumentInsuranceService implements EventServiceInterface{
         rentEvent $eventObj
     ){
         $this->contractRep = $contractRep;
-        $this->eventDocumentInsurance = new EventDocumentInsuranceRepository();
+        $this->eventDocumentInsuranceRep = new EventDocumentInsuranceRepository();
         $this->timeSheetRep = $timeSheetRep;
         $this->toPaymentRep = $toPaymentRep;
         $this->eventObj = $eventObj;
@@ -43,7 +43,7 @@ Class EventDocumentInsuranceService implements EventServiceInterface{
 
     public function getEventInfo($dataId = null)
     {
-        return $this->eventDocumentInsurance->getEventFullInfo($this->eventObj->id,$dataId);
+        return $this->eventDocumentInsuranceRep->getEventFullInfo($this->eventObj->id,$dataId);
     }
 
     public function getAdditionalViewDataArray()
@@ -61,6 +61,29 @@ Class EventDocumentInsuranceService implements EventServiceInterface{
         DB::beginTransaction();
         try {
 
+            $eventDocumentInsuranceModel = $this->eventDocumentInsuranceRep->getEvent($eventDocumentInsuranceRequest->get('id'));
+            $eventDocumentInsuranceModel->number = $eventDocumentInsuranceRequest->get('number');
+            $eventDocumentInsuranceModel->expiration = $eventDocumentInsuranceRequest->get('expiration');
+
+            $eventDocumentInsuranceModel = $this->eventDocumentInsuranceRep->addEvent($eventDocumentInsuranceModel);
+
+            $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventDocumentInsuranceModel->id);
+
+            $timeSheetModel->carId = $eventDocumentInsuranceRequest->get('carId');
+            $timeSheetModel->eventId = $this->eventObj->id;
+            $timeSheetModel->dataId = $eventDocumentInsuranceModel->id;
+            $timeSheetModel->dateTime = $eventDocumentInsuranceRequest->get('date');
+            $timeSheetModel->comment = $eventDocumentInsuranceRequest->get('comment');
+            $timeSheetModel->duration = $this->eventObj->duration;
+            $timeSheetModel->color = $this->eventObj->color;
+            $timeSheetModel->pId = $eventTimeSheetRequest->get('parentId');
+            $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
+
+            $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+            $toPaymentModel->timeSheetId = $timeSheetModel->id;
+            $toPaymentModel->sum = $eventDocumentInsuranceRequest->get('sum');
+
+            $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
 
 
 

@@ -25,12 +25,16 @@
                 <input type="date" name="date" id="date" class="form-control" value="{{old('date',$eventDataObj->date ? $eventDataObj->date->toDateString() : $dateTime->toDateString())}}"/>
             </div>
             <div class="form-group col-md-3 input-group-sm">
-                <label for="expirationDate" title="Дата окончания действия">Дата окончания действия</label>
-                <input type="date" name="expirationDate" id="expirationDate" value="{{old('expiration',$eventDataObj->expiration)}}" class="form-control" required/>
+                <label for="expiration" title="Дата окончания действия">Дата окончания действия</label>
+                <input type="date" name="expiration" id="expiration" value="{{old('expiration',$eventDataObj->expiration)}}" class="form-control" required/>
             </div>
         </div>
 
         <div class="form-row text-center">
+            <div class="form-group col-md-3 input-group-sm">
+                <label for="number" title="Номер">Номер</label>
+                <input type="text" name="number" id="number" class="form-control" value="{{old('sum',$eventDataObj->number)}}"/>
+            </div>
             <div class="form-group col-md-3 input-group-sm">
                 <label for="sum" title="Дата начала действия">Сумма</label>
                 <input type="number" name="sum" id="sum" class="form-control" value="{{old('sum',$eventDataObj->sum)}}"/>
@@ -41,5 +45,15 @@
             </div>
         </div>
 
+
+        <div class="form-row text-center" id="last-row">
+            <div class="input-group col-1">
+                @if ($eventDataObj->id)
+                    <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Сохранить"/>
+                @else
+                    <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Добавить"/>
+                @endif
+            </div>
+        </div>
     </form>
 @endsection

@@ -68,7 +68,7 @@ class RentEventController extends Controller
         $eventObj = $this->rentEventServ->getRentEvent($eventId);
         $serviceObj = $this->rentEventServ->getEventService($eventObj);
         $serviceObj->store();
-        return redirect('/timesheet/list');
+        //return redirect('/timesheet/list');
     }
 
     public function edit($eventId,$dataId, NeedParent $needParent,

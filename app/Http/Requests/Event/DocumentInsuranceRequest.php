@@ -13,7 +13,7 @@ class DocumentInsuranceRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class DocumentInsuranceRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id' => 'integer|nullable',
+            'parentId' => 'integer|nullable',
+            'carId' => 'integer|required',
+            'date' => 'date|required',
+            'expiration' => 'date|required',
+            'sum' => 'integer|nullable',
+            'number' => 'string|nullable',
+            'comment' => 'string|nullable',
         ];
     }
 }

@@ -25,6 +25,7 @@ class DocumentTitleRequest extends FormRequest
     {
         return [
             'id' => 'integer|nullable',
+            'parentId' => 'integer|nullable',
             'carId' => 'integer|required',
             'date' => 'date|required',
             'sum' => 'integer|nullable',
