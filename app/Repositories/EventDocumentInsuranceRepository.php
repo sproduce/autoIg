@@ -20,8 +20,43 @@ class EventDocumentInsuranceRepository implements EventDocumentInsuranceReposito
 
     public function getEvents($eventId, CarbonPeriod $datePeriod)
     {
-        // TODO: Implement getEvents() method.
+        $startDate = $datePeriod->getStartDate()->format('Y-m-d');
+        $finishDate = $datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
+
+        $resultEventsObj = DB::table('time_sheets')
+            ->join('rent_event_document_insurances','rent_event_document_insurances.id','=','time_sheets.dataId')
+            ->leftJoin('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
+            ->leftJoin('to_payments','to_payments.timeSheetId','=','time_sheets.id')
+            ->where('time_sheets.eventId','=',$eventId)
+            ->whereNull('rent_event_document_insurances.deleted_at')
+            //->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])
+            ->orderByDesc('time_sheets.dateTime')
+            ->select([
+                'rent_event_document_insurances.id as id',
+                'rent_event_document_insurances.expiration as expiration',
+                'rent_event_document_insurances.number as number',
+
+                'car_configurations.nickName as carText',
+                'car_configurations.id as carId',
+
+                'to_payments.sum as sumPayment',
+                'time_sheets.dateTime as dateTime',
+                'time_sheets.comment as commentSheet',
+            ])
+            ->get();
+
+        $resultEventsObj->each(function ($item, $key) {
+            $item->dateTime = Carbon::parse($item->dateTime);
+            $item->expiration = Carbon::parse($item->expiration);
+        });
+
+        return $resultEventsObj;
+
+
+
     }
+
+
     public function getEventFullInfo($eventId, $dataId)
     {
         $resultEventObj = DB::table('time_sheets')
@@ -42,7 +77,7 @@ class EventDocumentInsuranceRepository implements EventDocumentInsuranceReposito
                 'rent_contracts.id as contractId',
                 'rent_contracts.number as contractNumber',
 
-                'to_payments.sum as sumPayment',
+                'to_payments.sum as sum',
                 'time_sheets.dateTime as date',
                 'time_sheets.comment as comment',
                 'time_sheets.pId as parentId',

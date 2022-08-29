@@ -32,7 +32,8 @@ Class EventDocumentInsuranceService implements EventServiceInterface{
 
     public function index(CarbonPeriod $datePeriod)
     {
-
+        $resultEvents = $this->eventDocumentInsuranceRep->getEvents($this->eventObj->id,$datePeriod);
+        return $resultEvents;
     }
 
     public function getEventModel($modelId = null)

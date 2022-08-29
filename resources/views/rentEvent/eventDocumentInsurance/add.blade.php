@@ -26,7 +26,7 @@
             </div>
             <div class="form-group col-md-3 input-group-sm">
                 <label for="expiration" title="Дата окончания действия">Дата окончания действия</label>
-                <input type="date" name="expiration" id="expiration" value="{{old('expiration',$eventDataObj->expiration)}}" class="form-control" required/>
+                <input type="date" name="expiration" id="expiration" value="{{old('expiration',$eventDataObj->expiration ?$eventDataObj->expiration->toDateString() :"")}}" class="form-control" required/>
             </div>
         </div>
 

@@ -5,7 +5,7 @@
     </button>
 </div>
 <div class="modal-body">
-    <p>Modal body text goes here.</p>
+
 </div>
 <div class="modal-footer">
 

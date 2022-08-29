@@ -15,15 +15,17 @@
                 {{$event->dateTime->toDateString()}}
             </div>
             <div class="col-2">
-                <a href="/motorPool/carInfo/{{$event->carId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-                {{$event->carText}}
+                @if($event->carId)
+                    <a href="/motorPool/carInfo/{{$event->carId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                    {{$event->carText}}
+                    @endif
             </div>
             <div class="col-2">{{$event->contractNumber}}</div>
             <div class="col-2 text-right">{{$event->sumPayment}} р.</div>
             <div class="col-2"></div>
             <div class="col-2 text-right">
-                <a class="btn btn-ssm btn-outline-warning" href="/rentEvent/{{$eventObj->id}}/{{$event->dataId ?? 0}}/edit?needParent=1" title="Редактировать"> <i class="far fa-edit"></i></a>
-                <a class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить событие?')" href="/rentEvent/{{$eventObj->id}}/{{$event->dataId ?? 0}}/destroy"><i class="fas fa-trash"></i> </a>
+                <a class="btn btn-ssm btn-outline-warning" href="/rentEvent/{{$eventObj->id}}/{{$event->id ?? 0}}/edit?needParent=1" title="Редактировать"> <i class="far fa-edit"></i></a>
+                <a class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить событие?')" href="/rentEvent/{{$eventObj->id}}/{{$event->id ?? 0}}/destroy"><i class="fas fa-trash"></i> </a>
             </div>
         </div>
     @endforeach
