@@ -1,4 +1,3 @@
-
 @extends( ($needParent) ? '../adminIndex' : '../cleanIndex')
 
 @if($needParent)
