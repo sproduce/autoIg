@@ -29,6 +29,14 @@ Class EventRentalService implements EventServiceInterface {
     }
 
 
+
+    private function addEvent()
+    {
+
+    }
+
+
+
     public function index(CarbonPeriod $datePeriod)
     {
         $resultEvents = $this->eventRentalRep->getEventRentals($this->eventObj->id,$datePeriod);
@@ -48,47 +56,51 @@ Class EventRentalService implements EventServiceInterface {
 
    public function store()
    {
-       $eventRentalRequest = app()->make(Event\RentalRequest::class);
-       $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);
+        $eventRentalRequest = app()->make(Event\RentalRequest::class);
+        $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);
 
-       DB::beginTransaction();
-       try {
-           $eventRentalModel = $this->eventRentalRep->getEventRental($eventRentalRequest->get('id'));
-           $eventRentalModel->contractId = $eventRentalRequest->get('contractId');
-           $eventRentalModel = $this->eventRentalRep->addEventRental($eventRentalModel);
+        $dateTimeCarbon = Carbon::parse($eventRentalRequest->get('dateTime'));
 
-           $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventRentalModel->id);
+        foreach ($eventRentalRequest->get('sum') as $sum){
+            DB::beginTransaction();
+            try {
+                $eventRentalModel = $this->eventRentalRep->getEventRental($eventRentalRequest->get('id'));
+                $eventRentalModel->contractId = $eventRentalRequest->get('contractId');
+                $eventRentalModel = $this->eventRentalRep->addEventRental($eventRentalModel);
 
-           $timeSheetModel->carId = $eventRentalRequest->get('carId');
-           $timeSheetModel->eventId = $this->eventObj->id;
-           $timeSheetModel->dataId = $eventRentalModel->id;
-           $timeSheetModel->dateTime = $eventRentalRequest->get('dateTime');
-           $timeSheetModel->comment = $eventRentalRequest->get('comment');
-           $timeSheetModel->duration = $eventRentalRequest->get('duration');
-           $timeSheetModel->color = $this->eventObj->color;
-           $timeSheetModel->pId = $eventTimeSheetRequest->get('parentId');
+                $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventRentalModel->id);
 
-           $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
+                $timeSheetModel->carId = $eventRentalRequest->get('carId');
+                $timeSheetModel->eventId = $this->eventObj->id;
+                $timeSheetModel->dataId = $eventRentalModel->id;
+                $timeSheetModel->dateTime = $dateTimeCarbon->toDateTimeString();
+                $timeSheetModel->comment = $eventRentalRequest->get('comment');
+                $timeSheetModel->duration = $eventRentalRequest->get('duration');
+                $timeSheetModel->color = $this->eventObj->color;
+                $timeSheetModel->pId = $eventTimeSheetRequest->get('parentId');
+
+                $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 
 
-           $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+                $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
 
-           $toPaymentModel->timeSheetId = $timeSheetModel->id;
-           $toPaymentModel->sum = $eventRentalRequest->get('sum');
+                $toPaymentModel->timeSheetId = $timeSheetModel->id;
+                $toPaymentModel->sum = $sum;
 
-           $toPaymentModel->contractId = $eventRentalRequest->get('contractId');
-           $contractModel = $this->contractRep->getContract($eventRentalRequest->get('contractId'));
+                $toPaymentModel->contractId = $eventRentalRequest->get('contractId');
+                $contractModel = $this->contractRep->getContract($eventRentalRequest->get('contractId'));
 
-           $toPaymentModel->subjectIdFrom = $contractModel->subjectIdTo;
-           $toPaymentModel->subjectIdTo = $contractModel->subjectIdFrom;
-           $toPaymentModel->payUp =  $timeSheetModel->dateTime->addMinutes($timeSheetModel->duration);
+                $toPaymentModel->subjectIdFrom = $contractModel->subjectIdTo;
+                $toPaymentModel->subjectIdTo = $contractModel->subjectIdFrom;
+                $toPaymentModel->payUp =  $timeSheetModel->dateTime->addMinutes($timeSheetModel->duration);
 
-           $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
-           DB::commit();
-       } catch (\Exception $e) {
-           DB::rollback();
-       }
-
+                $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollback();
+            }
+            $dateTimeCarbon->addDay();
+        }
    }
 
     public function getViews()
@@ -123,60 +135,57 @@ Class EventRentalService implements EventServiceInterface {
     }
 
 
-    public function addEvent($dataArray)
-    {
-        $startDateText = $dataArray['dateStart'].' '.$dataArray['timeStart'];
-        $finishDateText = $dataArray['dateFinish'].' '.$dataArray['timeFinish'];
-        $startCarbon = new Carbon($startDateText);
-
-
-
-
-        $diffMinutes = $startCarbon->diffInMinutes($finishDateText);
-        $colIteration = floor($diffMinutes/$dataArray['duration']);
-        $deltaMinutes = $diffMinutes-$colIteration*$dataArray['duration'];
-
-        $timeSheetObj = new timeSheet();
-        $timeSheetObj->carId = $dataArray['carId'];
-        $timeSheetObj->eventId = $dataArray['eventId'];
-        $timeSheetObj->comment = '';
-        $timeSheetObj->color =  $dataArray['color'];
-        $timeSheetObj->duration = $dataArray['duration'];
-
-        $toPaymentObj = new toPayment();
-        $toPaymentObj->contractId = $dataArray['contractId'];
-
-        for ($i = 0; $i < $colIteration; $i++)
-        {
-            $rentEventObj = new rentEventRental();
-            $rentEventObj->contractId = $dataArray['contractId'];
-            $rentEventObj = $this->eventRentalRep->addEventRental($rentEventObj);
-
-            $timeSheetRep = $timeSheetObj->replicate();
-            $timeSheetRep->dateTime = $startCarbon->toDateTimeString();
-            $startCarbon->addDays(1);
-            $timeSheetRep->dataId = $rentEventObj->id;
-            $timeSheetRep = $this->timeSheetRep->addTimeSheet($timeSheetRep);
-
-            $toPaymentRep = $toPaymentObj->replicate();
-            $toPaymentRep->sum = $dataArray['sum'][$i]??0;
-            $toPaymentRep->timeSheetId =  $timeSheetRep->id;
-            $toPaymentRep = $this->toPaymentRep->addToPayment($toPaymentRep);
-        }
-        if ($deltaMinutes){
-            $timeSheetRep = $timeSheetObj->replicate();
-            $toPaymentRep = $toPaymentObj->replicate();
-
-            $timeSheetRep->dateTime = $startCarbon->toDateTimeString();
-            $timeSheetRep->sum = $dataArray['sum'][$colIteration]??0;
-            $timeSheetRep->duration =$deltaMinutes;
-            $timeSheetRep = $this->timeSheetRep->addTimeSheet($timeSheetRep);
-
-            $toPaymentRep->sum = $dataArray['sum'][$i]??0;;
-            $toPaymentRep->timeSheetId = $timeSheetObj->id;
-            $toPaymentRep = $this->toPaymentRep->addToPayment($toPaymentRep);
-        }
-    }
+//    public function addEvent($dataArray)
+//    {
+//        $startDateText = $dataArray['dateStart'].' '.$dataArray['timeStart'];
+//        $finishDateText = $dataArray['dateFinish'].' '.$dataArray['timeFinish'];
+//        $startCarbon = new Carbon($startDateText);
+//
+//        $diffMinutes = $startCarbon->diffInMinutes($finishDateText);
+//        $colIteration = floor($diffMinutes/$dataArray['duration']);
+//        $deltaMinutes = $diffMinutes-$colIteration*$dataArray['duration'];
+//
+//        $timeSheetObj = new timeSheet();
+//        $timeSheetObj->carId = $dataArray['carId'];
+//        $timeSheetObj->eventId = $dataArray['eventId'];
+//        $timeSheetObj->comment = '';
+//        $timeSheetObj->color =  $dataArray['color'];
+//        $timeSheetObj->duration = $dataArray['duration'];
+//
+//        $toPaymentObj = new toPayment();
+//        $toPaymentObj->contractId = $dataArray['contractId'];
+//
+//        for ($i = 0; $i < $colIteration; $i++)
+//        {
+//            $rentEventObj = new rentEventRental();
+//            $rentEventObj->contractId = $dataArray['contractId'];
+//            $rentEventObj = $this->eventRentalRep->addEventRental($rentEventObj);
+//
+//            $timeSheetRep = $timeSheetObj->replicate();
+//            $timeSheetRep->dateTime = $startCarbon->toDateTimeString();
+//            $startCarbon->addDays(1);
+//            $timeSheetRep->dataId = $rentEventObj->id;
+//            $timeSheetRep = $this->timeSheetRep->addTimeSheet($timeSheetRep);
+//
+//            $toPaymentRep = $toPaymentObj->replicate();
+//            $toPaymentRep->sum = $dataArray['sum'][$i]??0;
+//            $toPaymentRep->timeSheetId =  $timeSheetRep->id;
+//            $toPaymentRep = $this->toPaymentRep->addToPayment($toPaymentRep);
+//        }
+//        if ($deltaMinutes){
+//            $timeSheetRep = $timeSheetObj->replicate();
+//            $toPaymentRep = $toPaymentObj->replicate();
+//
+//            $timeSheetRep->dateTime = $startCarbon->toDateTimeString();
+//            $timeSheetRep->sum = $dataArray['sum'][$colIteration]??0;
+//            $timeSheetRep->duration =$deltaMinutes;
+//            $timeSheetRep = $this->timeSheetRep->addTimeSheet($timeSheetRep);
+//
+//            $toPaymentRep->sum = $dataArray['sum'][$i]??0;;
+//            $toPaymentRep->timeSheetId = $timeSheetObj->id;
+//            $toPaymentRep = $this->toPaymentRep->addToPayment($toPaymentRep);
+//        }
+//    }
 
     public function getEvents(CarbonPeriod $periodDate,$eventId)
     {

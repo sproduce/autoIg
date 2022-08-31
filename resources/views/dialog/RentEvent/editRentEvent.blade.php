@@ -12,8 +12,16 @@
         <div class="col-8"><input type="text" name="name" id="name" value="{{$rentEventObj->name}}" autocomplete="off"/></div>
     </div>
     <div class="row">
-        <div class="col-4">Цвет</div>
+        <div class="col-4">Цвет события</div>
         <div class="col-8"><input type="color" value="{{$rentEventObj->color}}" name="color" id="color"/></div>
+    </div>
+    <div class="row">
+        <div class="col-4">Оплата часть</div>
+        <div class="col-8"><input type="color" value="" name="colorPartPay" id="colorPartPay"/></div>
+    </div>
+    <div class="row">
+        <div class="col-4">Оплата все</div>
+        <div class="col-8"><input type="color" value="" name="colorPay" id="colorPay"/></div>
     </div>
     <div class="row">
         <div class="col-4">Поведение</div>

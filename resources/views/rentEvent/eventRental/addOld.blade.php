@@ -27,16 +27,16 @@
 
     <div class="form-row text-center">
         <div class="form-group col-md-2 input-group-sm">
-            <label for="date" title="Начало аренды">Дата начала аренды</label>
-            <input type="date" name="date" id="date" class="form-control" value="{{old('date',$eventDataObj->dateTime ? $eventDataObj->dateTime->toDateString() : $dateTime->toDateString())}}"/>
+            <label for="dateStart" title="Начало аренды">Дата начала аренды</label>
+            <input type="date" name="dateStart" id="dateStart" class="form-control" value="{{old('dateStart',$eventDataObj->dateTime ? $eventDataObj->dateTime->toDateString() : $dateTime->toDateString())}}"/>
         </div>
         <div class="form-group col-md-3 input-group-sm">
-            <label for="time" title="Начало аренды">Время начала аренды</label>
-            <input type="time" step="60" name="time" id="time" class="form-control" value="{{old('time',$eventDataObj->dateTime ? $eventDataObj->dateTime->format('H:i') : $dateTime->format('H:i'))}}"/>
+            <label for="timeStart" title="Начало аренды">Время начала аренды</label>
+            <input type="time" step="60" name="timeStart" id="timeStart" class="form-control" value="{{old('timeStart',$eventDataObj->dateTime ? $eventDataObj->dateTime->format('H:i') : $dateTime->format('H:i'))}}"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
             <label for="sum" title="Стоимость">Стоимость</label>
-            <input type="number" name="sum" id="sum" class="form-control" value="{{old('sum',$eventDataObj->sum)}}" required/>
+            <input type="number" name="sum[]" id="sum" class="form-control" value="{{$eventDataObj->sum}}" required/>
         </div>
     </div>
 

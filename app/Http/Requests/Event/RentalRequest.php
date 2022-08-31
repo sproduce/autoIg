@@ -20,7 +20,7 @@ class RentalRequest extends FormRequest
     protected function prepareForValidation()
     {
         $input=parent::all();
-        $dateTime = date("Y-m-d H:i:00",strtotime($input['date'].' '.$input['time']));
+        $dateTime = date("Y-m-d H:i:00",strtotime($input['dateStart'].' '.$input['timeStart']));
         $this->merge(['dateTime' => $dateTime,]);
     }
 
@@ -36,10 +36,12 @@ class RentalRequest extends FormRequest
             'id' => 'integer|nullable',
             'carId' => 'integer|required',
             'contractId' => 'required',
-            'date' => 'required',
-            'time' => 'required',
+            'dateStart' => 'required',
+            'timeStart' => 'required',
             'dateTime' => 'required',
-            'sum' => 'integer|required',
+            //'sum' => 'integer|nullable',
+            'sum' => 'array',
+            'sum.*' => 'integer',
             'duration' => 'integer|required|max:1440',
         ];
     }

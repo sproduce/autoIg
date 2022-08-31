@@ -9,6 +9,8 @@
 @section('content')
 
 <form method="POST" action="/rentEvent/{{$eventObj->id}}">
+    <input type="number" name="parentId" value="{{old('parentId',$parentId ?? $eventDataObj->parentId)}}" hidden/>
+    <input type="number" name="duration" value="1440" hidden/>
     @csrf
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
@@ -68,16 +70,16 @@
 
 
     </div>
-    <div class="form-row text-center">
-        <div class="form-group col-md-2 input-group-sm">
-            <label for="dateFinish" title="Окончание аренды">Дата окончания аренды</label>
-            <input type="date" name="dateFinish" id="dateFinish" class="form-control" readonly/>
-        </div>
-        <div class="form-group col-md-3 input-group-sm">
-            <label for="timeFinish" title="Окончание аренды">Время окончания аренды</label>
-            <input type="time" step="60" name="timeFinish" id="timeFinish" class="form-control" value="{{$dateTime->format('H:i')}}"/>
-        </div>
-    </div>
+{{--    <div class="form-row text-center">--}}
+{{--        <div class="form-group col-md-2 input-group-sm">--}}
+{{--            <label for="dateFinish" title="Окончание аренды">Дата окончания аренды</label>--}}
+{{--            <input type="date" name="dateFinish" id="dateFinish" class="form-control" readonly/>--}}
+{{--        </div>--}}
+{{--        <div class="form-group col-md-3 input-group-sm">--}}
+{{--            <label for="timeFinish" title="Окончание аренды">Время окончания аренды</label>--}}
+{{--            <input type="time" step="60" name="timeFinish" id="timeFinish" class="form-control" value="{{$dateTime->format('H:i')}}"/>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
         <div class="form-row text-center inputLine">
             <div class="col-1">
