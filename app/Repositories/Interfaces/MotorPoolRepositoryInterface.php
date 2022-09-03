@@ -8,7 +8,7 @@ interface MotorPoolRepositoryInterface
 {
     public function addCar(carConfiguration $carConfiguration): carConfiguration;
     public function getCars();
-    public function getCar($carId):carConfiguration;
+    public function getCar($carId): carConfiguration;
 
     public function getCarFullInfo($carId);
     public function getLastCars($kol);

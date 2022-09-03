@@ -150,18 +150,16 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     }
 
 
-    public function getLastTimeSheet(carConfiguration $carObj, rentEvent $eventObj): ?timeSheet
+    public function getLastTimeSheet(carConfiguration $carObj, rentEvent $eventObj): timeSheet
     {
-        $timeSheetResult = timeSheet::where('carId',$carObj->id)
-            ->where('eventId',$eventObj->id)
-            ->orderBy('dateTime','DESC')
-            ->first();
-        return $timeSheetResult;
+        $timeSheetRequest = timeSheet::where('eventId',$eventObj->id)->where('carId',$carObj->id);
+        $timeSheetResult = $timeSheetRequest->orderBy('dateTime','DESC')->first();
+        return $timeSheetResult ?? new timeSheet();
     }
 
 
 
-    public function getTimeSheetByEvent(rentEvent $eventObj, $eventDataId): ?timeSheet
+    public function getTimeSheetByEvent(rentEvent $eventObj, $eventDataId): timeSheet
     {
         $timeSheetResult = timeSheet::where('eventId',$eventObj->id)
             ->where('dataId',$eventDataId)

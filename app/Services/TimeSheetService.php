@@ -1,7 +1,9 @@
 <?php
 namespace App\Services;
 use App\Models\carConfiguration;
+use App\Models\timeSheet;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
+use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\RentEventRepository;
 use App\Repositories\ToPaymentRepository;
@@ -9,12 +11,18 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
 Class TimeSheetService{
-    private $timeSheetRep,$toPaymentRep;
+    private $timeSheetRep,$toPaymentRep,$motoPoolRep,$rentEventRep;
 
-    function __construct(TimeSheetRepositoryInterface $timeSheetRep,ToPaymentRepository $toPaymentRep)
-    {
-        $this->timeSheetRep=$timeSheetRep;
-        $this->toPaymentRep=$toPaymentRep;
+    function __construct(
+        TimeSheetRepositoryInterface $timeSheetRep,
+        ToPaymentRepository $toPaymentRep,
+        MotorPoolRepositoryInterface $motorPoolRep,
+        RentEventRepositoryInterface $rentEventRep
+    ){
+        $this->timeSheetRep = $timeSheetRep;
+        $this->toPaymentRep = $toPaymentRep;
+        $this->motoPoolRep = $motorPoolRep;
+        $this->rentEventRep = $rentEventRep;
     }
 
     public function getCarsTimeSheets($periodDate,$accuracyH)
@@ -92,10 +100,10 @@ Class TimeSheetService{
     {
         $timeSheetId=$timeSheetArray['timeSheetId'];
         $dateTime=$timeSheetArray['date'].' '.$timeSheetArray['time'];
-        $timesheetData['dateTime']=date("Y-m-d H:i:00",strtotime($dateTime));
-        $timesheetData['duration']=$timeSheetArray['duration'];
-        $timesheetData['sum']=$timeSheetArray['sum'];
-        $timesheetData['mileage']=$timeSheetArray['mileage'];
+        $timesheetData['dateTime'] = date("Y-m-d H:i:00",strtotime($dateTime));
+        $timesheetData['duration'] = $timeSheetArray['duration'];
+        $timesheetData['sum'] = $timeSheetArray['sum'];
+        $timesheetData['mileage'] = $timeSheetArray['mileage'];
         $this->timeSheetRep->updateTimeSheet($timeSheetId,$timesheetData);
     }
 
@@ -105,5 +113,28 @@ Class TimeSheetService{
         $timeSheetObj=$this->timeSheetRep->getTimeSheet($timeSheetId);
 
     }
+
+
+    public function getLastRecord($eventId,$carId)
+    {
+        $eventObj = $this->rentEventRep->getEvent($eventId);
+        $carObj = $this->motoPoolRep->getCar($carId);
+        $lastTimeSheetObj = $this->timeSheetRep->getLastTimeSheet($carObj,$eventObj);
+        if ($lastTimeSheetObj->dateTime){
+            $dateTimeEnd = $lastTimeSheetObj->dateTime->addMinute($lastTimeSheetObj->duration)->format('d-m-Y H:i');
+        } else {
+            $dateTimeEnd = '';
+        }
+
+        $collectInfo = collect([
+            'carId' => $carObj->id,
+            'timeSheetId' => $lastTimeSheetObj->id,
+            'carNickName' => $carObj->nickName,
+            'dateTimeEnd' => $dateTimeEnd,
+        ]);
+        return $collectInfo;
+    }
+
+
 
 }

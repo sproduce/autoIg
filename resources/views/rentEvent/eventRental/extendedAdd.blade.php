@@ -7,14 +7,13 @@
 @endif
 
 @section('content')
-    <div class="row mb-3">
-        <div class="col-4">
-            @if($additionalDataArray->get('qw'))
-                Последнее событие  {{$lastTimeSheet->dateTime->addMinute($lastTimeSheet->duration)->format('d-m-Y H:i')}}
-            @else
-                События не найдены
-            @endif
-        </div>
+    <div class="row mb-5">
+        <div class="col-2">Последнее событие </div>
+        <div class="col-1"><strong>Дата:</strong></div>
+        <div class="col-2" id="dateTimeEnd"> </div>
+        <div class="col-1"><strong>Машина:</strong></div>
+        <div class="col-2" id="carNickName"></div>
+        <div class="col-1" id="extendButton"><i class="btn btn-ssm btn-outline-success far fa-calendar-plus" title="Продлить"></i></div>
 
     </div>
 
@@ -112,6 +111,7 @@
 
     $(function() {
         $('#formSubmit').prop('disabled', true);
+        getLastEvent();
     });
 
     $("#contractId").change(function(){
@@ -131,9 +131,9 @@
         $('#formSubmit').prop('disabled', false);
         if (kolDay){$('.inputLine').remove();}
         for(var i=0;i<kolDay;i++){
-            var dayFrom=startDate.getDate();
+            var dayFrom = startDate.getDate();
             startDate.setDate(startDate.getDate()+1);
-            var dayTo=startDate.getDate();
+            var dayTo = startDate.getDate();
             copyLine.find("label").text(dayFrom+' - '+dayTo);
             copyLine.insertBefore("#last-row");
             copyLine=$('.inputLine:first').clone(true);
@@ -167,6 +167,34 @@
         }
     });
 
+    $("#carId").change(function(){
+        getLastEvent();
+    })
+
+    function getLastEvent(){
+        $.getJSON('/timesheet/getLastRecord/'+{{$eventObj->id}}+'/'+$("#carId").val(),function(data){
+            // dateTimeObj = new Date(data.timeSheet.dateTime);
+            if (data.timeSheetId){
+                $("#extendButton").show();
+                $("#dateTimeEnd").text(data.dateTimeEnd);
+            } else {
+                $("#dateTimeEnd").text("Нет события");
+                $("#extendButton").hide();
+            }
+
+            if (data.carId){
+                $("#carNickName").text(data.carNickName);
+            } else {
+                $("#carNickName").text("Не указана");
+            }
+        });
+
+        $("#extendButton").click(function() {
+            alert('продление');
+        });
+
+
+    }
 
 </script>
 @endsection

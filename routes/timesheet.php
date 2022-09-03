@@ -30,3 +30,5 @@ Route::get('/listEvents',[TimeSheetController::class,'listEvents']);
 
 Route::get('/carContracts',[TimeSheetController::class,'carContractDialog']);
 Route::post('/addContract',[TimeSheetController::class,'addContractTimeSheet']);
+
+Route::get('/getLastRecord/{eventId}/{carId?}',[TimeSheetController::class,'getLastRecord']);

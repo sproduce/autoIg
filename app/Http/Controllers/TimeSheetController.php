@@ -228,4 +228,12 @@ class TimeSheetController extends Controller
         ]);
     }
 
+
+    public function getLastRecord($eventId,$carId=null)
+    {
+        $timeSheetObj = $this->timeSheetServ->getLastRecord($eventId,$carId);
+        return response()->json($timeSheetObj);
+    }
+
+
 }
