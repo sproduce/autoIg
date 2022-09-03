@@ -51,7 +51,8 @@ Class EventRentalService implements EventServiceInterface {
 
    public function getAdditionalViewDataArray()
    {
-       return ['lastTimeSheet'];
+       //$this->timeSheetRep->getLastTimeSheet();
+       return collect(['lastTimeSheet']);
    }
 
    public function store()

@@ -7,6 +7,16 @@
 @endif
 
 @section('content')
+    <div class="row mb-3">
+        <div class="col-4">
+            @if($additionalDataArray->get('qw'))
+                Последнее событие  {{$lastTimeSheet->dateTime->addMinute($lastTimeSheet->duration)->format('d-m-Y H:i')}}
+            @else
+                События не найдены
+            @endif
+        </div>
+
+    </div>
 
 <form method="POST" action="/rentEvent/{{$eventObj->id}}">
     <input type="number" name="parentId" value="{{old('parentId',$parentId ?? $eventDataObj->parentId)}}" hidden/>

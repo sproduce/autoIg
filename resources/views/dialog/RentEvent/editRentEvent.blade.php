@@ -17,11 +17,11 @@
     </div>
     <div class="row">
         <div class="col-4">Оплата часть</div>
-        <div class="col-8"><input type="color" value="" name="colorPartPay" id="colorPartPay"/></div>
+        <div class="col-8"><input type="color" value="{{$rentEventObj->colorPartPay}}" name="colorPartPay" id="colorPartPay"/></div>
     </div>
     <div class="row">
         <div class="col-4">Оплата все</div>
-        <div class="col-8"><input type="color" value="" name="colorPay" id="colorPay"/></div>
+        <div class="col-8"><input type="color" value="{{$rentEventObj->colorPay}}" name="colorPay" id="colorPay"/></div>
     </div>
     <div class="row">
         <div class="col-4">Поведение</div>

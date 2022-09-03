@@ -59,6 +59,8 @@ Class RentEventService{
         $rentEventId = $eventArray['id'];
         $rentEventArray['name'] = $eventArray['name'];
         $rentEventArray['color'] = $eventArray['color'];
+        $rentEventArray['colorPartPay'] = $eventArray['colorPartPay'];
+        $rentEventArray['colorPay'] = $eventArray['colorPay'];
         $rentEventArray['action'] = $eventArray['action'];
         $rentEventArray['priority'] = $eventArray['priority'] ?? 0;
         $rentEventArray['duration'] = $eventArray['duration'] ?? 1;

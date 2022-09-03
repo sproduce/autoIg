@@ -45,13 +45,17 @@ class RentEventController extends Controller
         $serviceObj = $this->rentEventServ->getEventService($eventObj);
         $eventDataObj = $serviceObj->getEventInfo(null);
 
+        $carObj = $this->motorPoolServ->getCar($carIdDate->get('carId'));
+        $additionalDataArray = $serviceObj->getAdditionalViewDataArray();
+
         $viewDataArray = [
-            'carObj' => $this->motorPoolServ->getCar($carIdDate->get('carId')),
+            'carObj' => $carObj,
             'contractObj' => $this->contractServ->getContract($carIdDate->get('contractId')),
             'needParent' => $needParent['needParent'],
             'dateTime' => $carIdDate->get('date'),
             'eventObj' => $eventObj,
             'eventDataObj' => $eventDataObj,
+            'additionalDataArray' => $additionalDataArray,
             'parentId' => $carIdDate->get('parentId'),
             ];
 
@@ -156,6 +160,8 @@ class RentEventController extends Controller
             'id' => 'required',
             'name' => '',
             'color' => '',
+            'colorPay' => '',
+            'colorPartPay' => '',
             'action' =>'',
             'priority' => 'nullable|integer',
             'duration' => 'nullable|integer',

@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property $id
  * @property $name
  * @property $color
+ * @property $colorPartPay
+ * @property $colorPay
  * @property $action
  * @property $priority
  * @property $duration
@@ -21,7 +23,7 @@ class rentEvent extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'color','action'];
+    protected $fillable = ['name', 'color','action','colorPay','colorPartPay'];
 
 
     public function operationType()
