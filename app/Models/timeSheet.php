@@ -47,7 +47,7 @@ class timeSheet extends Model
 
     public function toPayment()
     {
-        return $this->hasOne(toPayment::class,'timeSheetId','id')->whereColumn('id','pId');
+        return $this->hasOne(toPayment::class,'timeSheetId','id')->whereColumn('id','pId')->withDefault();
     }
 
 

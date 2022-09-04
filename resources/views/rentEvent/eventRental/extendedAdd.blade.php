@@ -24,13 +24,13 @@
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Автомобиль">Машина</label>
-                <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                <a href="/motorPool/addCarTo" id="addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
             <input id="carText" class="form-control" value="{{$carObj->nickName}}" readonly required />
             <input id="carId" name="carId" class="form-control" value="{{$carObj->id}}" hidden />
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Договор"> Договор </label>
-                <a href="/contract/addContractTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                <a href="/contract/addContractTo" id="addContract" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
 
             @if ($contractObj->id)
                 <input id="contractText" name="contractText"  class="form-control" value="{{$contractObj->number}}" disabled />
@@ -109,6 +109,9 @@
 @section('js')
 <script>
 
+    var lastEvent;
+
+
     $(function() {
         $('#formSubmit').prop('disabled', true);
         getLastEvent();
@@ -143,7 +146,19 @@
         $("#timeFinish").val($("#timeStart").val());
     });
 
+    $("#extendButton").click(function() {
+        $("#dateStart").attr('readonly', true);
+        $("#timeStart").attr('readonly', true);
+        $("#addCar").remove();
+        $("#addContract").remove();
+        eventDateEnd = new Date(lastEvent.dateTimeEnd+' UTC');
+        eventDateEnd.toISOString(true);
+        $("#dateStart").val(eventDateEnd.toISOString().substring(0,10));
+        $("#timeStart").val(eventDateEnd.toISOString().substring(11,16));
 
+        console.log(eventDateEnd.toISOString());
+        console.log(eventDateEnd);
+    });
 
     $("#addDay").click(function(){
         $("#timeDuration").val(parseInt($("#timeDuration").val())+1);
@@ -177,6 +192,7 @@
             if (data.timeSheetId){
                 $("#extendButton").show();
                 $("#dateTimeEnd").text(data.dateTimeEnd);
+                lastEvent = data;
             } else {
                 $("#dateTimeEnd").text("Нет события");
                 $("#extendButton").hide();
@@ -188,12 +204,6 @@
                 $("#carNickName").text("Не указана");
             }
         });
-
-        $("#extendButton").click(function() {
-            alert('продление');
-        });
-
-
     }
 
 </script>

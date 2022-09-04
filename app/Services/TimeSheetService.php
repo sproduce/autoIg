@@ -5,6 +5,7 @@ use App\Models\timeSheet;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
+use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use App\Repositories\RentEventRepository;
 use App\Repositories\ToPaymentRepository;
 use Carbon\Carbon;
@@ -15,7 +16,7 @@ Class TimeSheetService{
 
     function __construct(
         TimeSheetRepositoryInterface $timeSheetRep,
-        ToPaymentRepository $toPaymentRep,
+        ToPaymentRepositoryInterface $toPaymentRep,
         MotorPoolRepositoryInterface $motorPoolRep,
         RentEventRepositoryInterface $rentEventRep
     ){
@@ -120,12 +121,15 @@ Class TimeSheetService{
         $eventObj = $this->rentEventRep->getEvent($eventId);
         $carObj = $this->motoPoolRep->getCar($carId);
         $lastTimeSheetObj = $this->timeSheetRep->getLastTimeSheet($carObj,$eventObj);
+       //echo $lastTimeSheetObj->toPayment()->get()->sum;
         if ($lastTimeSheetObj->dateTime){
-            $dateTimeEnd = $lastTimeSheetObj->dateTime->addMinute($lastTimeSheetObj->duration)->format('d-m-Y H:i');
+            $dateTimeEnd = $lastTimeSheetObj->dateTime->addMinute($lastTimeSheetObj->duration)->format('Y-m-d H:i');
         } else {
             $dateTimeEnd = '';
         }
-
+//        $toPaymentModel = $lastTimeSheetObj->toPayment();
+//        $toPaymentModel->dd();
+        //$contractModel = $toPaymentModel->contract();
         $collectInfo = collect([
             'carId' => $carObj->id,
             'timeSheetId' => $lastTimeSheetObj->id,

@@ -29,6 +29,6 @@ public function search(SearchContractRequest $searchContractObj);
 
 public function getContractsByCarId($carId);
 
-
+    public function getContractByTimeSheet($timeSheetId);
 
 }
