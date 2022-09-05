@@ -121,7 +121,7 @@ Class TimeSheetService{
         $eventObj = $this->rentEventRep->getEvent($eventId);
         $carObj = $this->motoPoolRep->getCar($carId);
         $lastTimeSheetObj = $this->timeSheetRep->getLastTimeSheet($carObj,$eventObj);
-       //echo $lastTimeSheetObj->toPayment()->get()->sum;
+        $contractObj = $lastTimeSheetObj->toPayment()->first()->contract()->first();
         if ($lastTimeSheetObj->dateTime){
             $dateTimeEnd = $lastTimeSheetObj->dateTime->addMinute($lastTimeSheetObj->duration)->format('Y-m-d H:i');
         } else {
@@ -135,6 +135,10 @@ Class TimeSheetService{
             'timeSheetId' => $lastTimeSheetObj->id,
             'carNickName' => $carObj->nickName,
             'dateTimeEnd' => $dateTimeEnd,
+            'contractNumber' => $contractObj->number,
+            'contractId' => $contractObj->id,
+            'contractPrice' => $contractObj->price,
+
         ]);
         return $collectInfo;
     }

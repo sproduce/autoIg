@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContractIdRequest;
+use \App\Http\Requests\Filters;
 use App\Http\Requests\ContractRequest;
 use App\Http\Requests\DateSpan;
 use App\Http\Requests\Payment\ToPaymentRequest;
@@ -126,10 +127,10 @@ class ContractController extends Controller
     }
 
 
-    public function addContractToDialog()
+    public function addContractToDialog(Filters\ToPaymentRequest $requestData)
     {
-        $contractsObj = $this->contractServ->getLastContracts(7);
-        return view('dialog.Contract.addContractTo',['contractsObj' => $contractsObj]);
+        //$contractsObj = $this->contractServ->getLastContracts($requestData,7);
+        return view('dialog.Contract.addContractTo');
     }
 
 

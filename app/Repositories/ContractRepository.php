@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Repositories;
+use App\Http\Requests\Filters;
 use App\Http\Requests\Search\SearchContractRequest;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Models\rentContract;
 use App\Models\rentContractStatus;
 use App\Models\rentContractType;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ContractRepository implements ContractRepositoryInterface
 {
@@ -70,7 +73,18 @@ class ContractRepository implements ContractRepositoryInterface
     public function search(SearchContractRequest $searchContractObj)
     {
         $searchText = $searchContractObj->get('searchText');
-        return rentContract::query()->where('number','LIKE','%'.$searchText.'%')->get();
+        $searchContract = DB::table('rent_contracts')
+            ->leftJoin('car_configurations','car_configurations.id','=','rent_contracts.carId')
+            ->where('number','LIKE','%'.$searchText.'%');
+        //$searchContract = rentContract::query()
+        $resultContract = $searchContract->get();
+        //$resultContract->dd();
+        $resultContract->each(function ($item, $key) {
+            if ($item->start) {
+                $item->start = Carbon::parse($item->start);
+            }
+        });
+        return  $resultContract;
     }
 
     public function getContractTypeFirst()
@@ -92,6 +106,11 @@ class ContractRepository implements ContractRepositoryInterface
     public function getContractByTimeSheet($timeSheetId)
     {
         //return rentContract::query()->
+    }
+
+    public function getFilterContracts(Filters\ToPaymentRequest $requestData)
+    {
+        // TODO: Implement getFilterContracts() method.
     }
 
 

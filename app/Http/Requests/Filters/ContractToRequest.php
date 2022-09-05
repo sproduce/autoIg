@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Search;
+namespace App\Http\Requests\Filters;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SearchContractRequest extends FormRequest
+class ContractToRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class SearchContractRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,7 +24,6 @@ class SearchContractRequest extends FormRequest
     public function rules()
     {
         return [
-            'searchText' => 'required',
             'subjectFrom' => 'int|nullable',
             'subjectTo' => 'int|nullable',
             'carId' => 'int|nullable',

@@ -1,5 +1,7 @@
 <?php
 namespace App\Services;
+
+use \App\Http\Requests\Filters;
 use App\Http\Requests\ContractRequest;
 use App\Http\Requests\Payment\ToPaymentRequest;
 use App\Http\Requests\Search\SearchContractRequest;
@@ -89,7 +91,7 @@ Class ContractService{
     }
 
 
-    public function getLastContracts($kol)
+    public function getLastContracts(Filters\ToPaymentRequest $requestData,$kol)
     {
         return $this->contractRep->getLastContracts($kol);
     }

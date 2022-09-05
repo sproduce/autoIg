@@ -7,14 +7,20 @@
 @endif
 
 @section('content')
-    <div class="row mb-5">
+    <div class="row">
         <div class="col-2">Последнее событие </div>
         <div class="col-1"><strong>Дата:</strong></div>
         <div class="col-2" id="dateTimeEnd"> </div>
         <div class="col-1"><strong>Машина:</strong></div>
         <div class="col-2" id="carNickName"></div>
-        <div class="col-1" id="extendButton"><i class="btn btn-ssm btn-outline-success far fa-calendar-plus" title="Продлить"></i></div>
+        <div class="col-1"><strong>Договор:</strong></div>
+        <div class="col-2" id="contractNumber"></div>
 
+    </div>
+    <div class="row mb-5 mt-1">
+        <div class="col-1" id="extendButton">
+            <button class="btn btn-ssm btn-outline-success">Продлить</button>
+        </div>
     </div>
 
 <form method="POST" action="/rentEvent/{{$eventObj->id}}">
@@ -155,9 +161,9 @@
         eventDateEnd.toISOString(true);
         $("#dateStart").val(eventDateEnd.toISOString().substring(0,10));
         $("#timeStart").val(eventDateEnd.toISOString().substring(11,16));
-
-        console.log(eventDateEnd.toISOString());
-        console.log(eventDateEnd);
+        $("#contractText").val(lastEvent.contractNumber);
+        $("#contractId").val(lastEvent.contractId);
+        $(".inputLineSum").val(lastEvent.contractPrice);
     });
 
     $("#addDay").click(function(){
@@ -202,6 +208,11 @@
                 $("#carNickName").text(data.carNickName);
             } else {
                 $("#carNickName").text("Не указана");
+            }
+            if (data.contractId){
+                $("#contractNumber").text(data.contractNumber);
+            } else {
+                $("#contractNumber").text("Не договора");
             }
         });
     }
