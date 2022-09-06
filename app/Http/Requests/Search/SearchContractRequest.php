@@ -24,7 +24,7 @@ class SearchContractRequest extends FormRequest
     public function rules()
     {
         return [
-            'searchText' => 'required',
+            'searchText' => '',
             'subjectFrom' => 'int|nullable',
             'subjectTo' => 'int|nullable',
             'carId' => 'int|nullable',

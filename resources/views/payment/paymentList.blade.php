@@ -106,7 +106,7 @@
                             @endif
                         </div>
                         <div class="col-1">
-                            <a class="btn btn-ssm btn-outline-warning @if($payment->balance == 0)disable-link @endif" href="/payment/edit/{{$payment->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                            <a class="btn btn-ssm btn-outline-warning @if($payment->balance == $payment->payment && $payment->payment)disable-link @endif" href="/payment/edit/{{$payment->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
                             <a href="/payment/delete?paymentId={{$payment->id}}" class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить платеж?')"><i class="fas fa-trash"></i> </a>
                         </div>
                     </div>

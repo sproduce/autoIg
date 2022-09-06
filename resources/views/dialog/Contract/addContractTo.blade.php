@@ -19,6 +19,13 @@
 
 
 <script>
+    $(function() {
+        if($("#carId").val()){
+            searchContract();
+        }
+
+    });
+
     $(".carSearch").click(function(){
         $("#contractId").val($(this).attr("data-contractSearchId")).change();
         $("#contractText").val($(this).attr("data-contractSearchText")).change();
@@ -26,14 +33,23 @@
     });
 
     $("#search").keyup(function(){
-        if($("#search").val().length>0)
-        $("#carSearch").load("/contract/search?searchText="+$("#search").val(),function(){
+        if($("#search").val().length>0){
+            searchContract();
+        }
+    });
+
+    function searchContract(){
+        url="/contract/search?searchText="+$("#search").val();
+        if ($("#carId").val()) url+="&carId="+$("#carId").val();
+        if ($("#subjectId").val()) url+="&subjectId="+$("#subjectId").val();
+        $("#carSearch").load(url,function(){
             $(".carSearch").click(function(){
                 $("#contractId").val($(this).attr("data-contractSearchId")).change();
                 $("#contractText").val($(this).attr("data-contractSearchText")).change();
                 $('#modal').modal('toggle');
             });
         });
-    });
+    }
+
 </script>
 

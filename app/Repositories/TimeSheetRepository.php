@@ -61,9 +61,15 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
             ->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and carId=?',[$startDate,$finishDate,$carId])
             ->orWhereBetween('dateTime',[$startDate,$finishDate])
             ->where('carId','=',$carId)
+            ->whereNull('time_sheets.deleted_at')
             ->orderBy('dateTime')
             ->get();
     }
+
+
+
+
+
 
     public function getContractTimeSheets($contractId)
     {
@@ -120,6 +126,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
             ->whereBetween('dateTime',[$startDate,$finishDate])
             ->groupBy(['eventId','dataId'])
             ->where('carId',$carId)
+            ->whereNull('time_sheets.deleted_at')
             ->orderBy('dateTime')
             ->get();
 
@@ -138,6 +145,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         return timeSheet::query()
             ->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])
             ->orWhereBetween('dateTime',[$startDate,$finishDate])
+            ->whereNull('time_sheets.deleted_at')
             ->where('eventId','=',$eventId)
             ->orderBy('dateTime')
             ->get();
@@ -172,6 +180,24 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     public function delTimeSheet(timeSheet $timeSheetObj)
     {
         $timeSheetObj->delete();
+    }
+
+
+    public function getCarFullInfoByDay($carId, Carbon $timeSheetDate)
+    {
+        $searchTimeSheet = DB::table('time_sheets')
+            ->join('rent_events','rent_events.id','=','time_sheets.eventId')
+//            ->leftJoin('to_payments','to_payments.id','=','')
+            ->leftJoin('car_configurations','car_configurations.id','=','time_sheets.carId');
+        $searchResult = $searchTimeSheet->get();
+        return $searchResult;
+
+    }
+
+
+    public function getFullINfoByDay(Carbon $timeSheetDate)
+    {
+        // TODO: Implement getFullINfoByDay() method.
     }
 
 }

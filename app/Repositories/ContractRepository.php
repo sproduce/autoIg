@@ -73,16 +73,28 @@ class ContractRepository implements ContractRepositoryInterface
     public function search(SearchContractRequest $searchContractObj)
     {
         $searchText = $searchContractObj->get('searchText');
+        $searchCarId = $searchContractObj->get('carId');
+
+
         $searchContract = DB::table('rent_contracts')
             ->leftJoin('car_configurations','car_configurations.id','=','rent_contracts.carId')
+            ->leftJoin('rent_car_groups','rent_car_groups.id','=','rent_contracts.carGroupId')
+            ->join('rent_subjects as subjectFrom','subjectFrom.id','=','rent_contracts.subjectIdFrom')
+            ->join('rent_subjects as subjectTo','subjectTo.id','=','rent_contracts.subjectIdTo')
+            ->join('rent_contract_statuses','rent_contract_statuses.id','=','rent_contracts.statusId')
             ->select(['rent_contracts.*',
+                'subjectFrom.nickname as subjectFromNickname',
+                'subjectTo.nickname as subjectToNickname',
                 'car_configurations.nickName as carNickName',
+                'rent_contract_statuses.name as statusName',
+                'rent_car_groups.nickName as carGroupNickName',
                 ])
             ->where('number','LIKE','%'.$searchText.'%');
+            if ($searchCarId){
+                $searchContract->where('rent_contracts.carId','=',$searchCarId);
+            }
 
-        //$searchContract = rentContract::query()
         $resultContract = $searchContract->get();
-        //$resultContract->dd();
         $resultContract->each(function ($item, $key) {
             if ($item->start) {
                 $item->start = Carbon::parse($item->start);
