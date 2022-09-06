@@ -40,6 +40,7 @@ class EventRentalRepository implements EventRentalRepositoryInterface
             ->leftJoin('to_payments','to_payments.timeSheetId','=','time_sheets.id')
             ->where('time_sheets.eventId','=',$eventId)
             ->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? and eventId=?',[$startDate,$finishDate,$eventId])
+            ->whereNull('time_sheets.deleted_at')
             ->orderByDesc('time_sheets.dateTime')
             ->select([
                 'rent_event_rentals.id as id',

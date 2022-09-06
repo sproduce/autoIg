@@ -75,7 +75,11 @@ class ContractRepository implements ContractRepositoryInterface
         $searchText = $searchContractObj->get('searchText');
         $searchContract = DB::table('rent_contracts')
             ->leftJoin('car_configurations','car_configurations.id','=','rent_contracts.carId')
+            ->select(['rent_contracts.*',
+                'car_configurations.nickName as carNickName',
+                ])
             ->where('number','LIKE','%'.$searchText.'%');
+
         //$searchContract = rentContract::query()
         $resultContract = $searchContract->get();
         //$resultContract->dd();

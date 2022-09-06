@@ -13,7 +13,7 @@
         <div class="row row-table">
             <div class="col-2">{{$contract->number}}</div>
             <div class="col-2"></div>
-            <div class="col-2">{{$contract->nickName}}</div>
+            <div class="col-2">{{$contract->carNickName}}</div>
             <div class="col-2"></div>
             <div class="col-2">{{$contract->start->format('d-m-Y')}}</div>
             <div class="col-1"></div>
