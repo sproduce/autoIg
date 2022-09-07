@@ -16,7 +16,7 @@
             <label for="contractText" title="Автомобиль">Машина</label>
             <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
                 <input id="carText" name="carTextOther" class="form-control" value="{{old('carTextOther',$eventDataObj->carTextOther ?? $carObj->nickName)}}" readonly />
-                <input id="carIdOther" name="carIdOther" class="form-control" value="{{old('carIdOther',$eventDataObj->carIdOther ?? $carObj->id)}}" hidden/>
+                <input id="carId" name="carIdOther" class="form-control" value="{{old('carIdOther',$eventDataObj->carIdOther ?? $carObj->id)}}" hidden/>
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Договор"> Договор </label>
