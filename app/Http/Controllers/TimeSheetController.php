@@ -103,6 +103,7 @@ class TimeSheetController extends Controller
         return view('dialog.TimeSheet.infoTimeSheet',[
             'timeSheets' => $timeSheetsObj,
             'carIdDate' => $carIdDate,
+            'carObj' => $carObj,
             'rentEventObjs' => $rentEventObjs,
             ]);
     }

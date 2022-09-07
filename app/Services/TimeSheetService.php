@@ -64,7 +64,19 @@ Class TimeSheetService{
 
     public function getCarTimeSheets(carConfiguration $carObj,CarbonPeriod $date)
     {
-        $result = $this->timeSheetRep->getCarTimeSheetByDate($carObj->id,$date);
+        //$result = $this->timeSheetRep->getCarTimeSheetByDate($carObj->id,$date);
+        $result = $this->timeSheetRep->getCarFullInfoByDay($carObj->id,$date);
+
+        $result->each(function ($item, $key) {
+            if ($item->toPaymentPaymentSum) {
+                if ($item->toPaymentSum == $item->toPaymentPaymentSum) {
+                    $item->eventColor = $item->eventColorPay;
+                } else {
+                    $item->eventColor = $item->eventColorPartPay;
+                }
+            }
+        });
+
 
         return $result;
     }

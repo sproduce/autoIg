@@ -38,7 +38,7 @@ interface TimeSheetRepositoryInterface
     public function getLastTimeSheet(carConfiguration $carObj,rentEvent $eventObj): timeSheet;
 
 
-    public function getCarFullInfoByDay($carId,Carbon $timeSheetDate);
+    public function getCarFullInfoByDay($carId,CarbonPeriod $timeSheetDate);
 
     public function getFullINfoByDay(Carbon $timeSheetDate);
 

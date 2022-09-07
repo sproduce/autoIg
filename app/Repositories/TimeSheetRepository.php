@@ -67,6 +67,50 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     }
 
 
+    public function getCarFullInfoByDay($carId, CarbonPeriod $timeSheetDate)
+    {
+        $startDate = $timeSheetDate->getStartDate()->format('Y-m-d H:i');
+        $finishDate = $timeSheetDate->getEndDate()->subMinute(1)->format('Y-m-d H:i');
+
+        $searchTimeSheet = DB::table('time_sheets')
+            ->whereNull('time_sheets.deleted_at')
+            ->where('time_sheets.carId','=',$carId)
+//            ->orWhereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? a',[$startDate,$finishDate,$carId])
+//            ->whereBetween('dateTime',[$startDate,$finishDate])
+            ->where(function($query) use ($startDate, $finishDate){
+                $query->whereBetween('dateTime',[$startDate,$finishDate]);
+                $query->orWhereRaw('DATE_ADD(dateTime,INTERVAL rent_events.duration MINUTE) BETWEEN ? and ?',[$startDate,$finishDate]);
+            })
+            ->join('rent_events','rent_events.id','=','time_sheets.eventId')
+            ->join('to_payments',function($join){
+                $join->on('to_payments.timeSheetId','=','time_sheets.id');
+                $join->on('to_payments.id','=','to_payments.pId');
+            })
+            ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
+            ->join('car_configurations','car_configurations.id','=','time_sheets.carId')
+            ->select([
+                'to_payments.sum as toPaymentSum',
+                'to_payments.paymentSum as toPaymentPaymentSum',
+                'car_configurations.nickName as carNickName',
+                'rent_events.name as eventName',
+                'rent_events.color as eventColor',
+                'rent_events.colorPartPay as eventColorPartPay',
+                'rent_events.colorPay as eventColorPay',
+                'rent_contracts.number as contractNumber',
+                'time_sheets.dateTime as timeSheetDateTime',
+                'time_sheets.id as timeSheetId',
+                ])
+        ;
+        $searchResult = $searchTimeSheet->get();
+
+        $searchResult->each(function ($item, $key) {
+                $item->timeSheetDateTime = Carbon::parse($item->timeSheetDateTime);
+        });
+
+
+        return $searchResult;
+
+    }
 
 
 
@@ -180,18 +224,6 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     public function delTimeSheet(timeSheet $timeSheetObj)
     {
         $timeSheetObj->delete();
-    }
-
-
-    public function getCarFullInfoByDay($carId, Carbon $timeSheetDate)
-    {
-        $searchTimeSheet = DB::table('time_sheets')
-            ->join('rent_events','rent_events.id','=','time_sheets.eventId')
-//            ->leftJoin('to_payments','to_payments.id','=','')
-            ->leftJoin('car_configurations','car_configurations.id','=','time_sheets.carId');
-        $searchResult = $searchTimeSheet->get();
-        return $searchResult;
-
     }
 
 

@@ -1,37 +1,47 @@
     <div class="modal-header text-center">
-        <h6 class="modal-title w-100 font-weight-bold">Подробно</h6>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
+        <div class="row w-100">
+            <div class="col-2"></div>
+            <div class="col-4"><strong>Машина </strong> {{$carObj->nickName}}</div>
+            <div class="col-4"><strong>Дата </strong> {{$carIdDate['date']->format('d-m-Y')}}</div>
+            <div class="col-1"></div>
+
+            <div class="col-1"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></div>
+        </div>
+
+
     </div>
     <div class="modal-body">
-        <div class="row align-items-center font-weight-bold">
-            <div class="col-3">Событие</div>
-            <div class="col-4">Дата</div>
-{{--            <div class="col-1">Сумма</div>--}}
-            <div class="col-2">Пробег</div>
-            <div class="col-2">Договор</div>
-
-        </div>
-
-        @foreach($timeSheets as $timeSheet)
-        <div class="row row-table">
-            <div class="col-3" style="background-color:{{$timeSheet->event->color}}">{{$timeSheet->event->name}}</div>
-            <div class="col-4" title="{{$timeSheet->comment}}">
-                {{$timeSheet->dateTime->format('d-m-Y H:i')}}
-                @if ($timeSheet->date_time_end)
-                    - {{$timeSheet->date_time_end->format('d-m-Y H:i')}}
-                @endif
+        @if($timeSheets->isEmpty())
+            <div class="row">
+                <div class="col-12 text-center"><strong>События не найдены</strong></div>
             </div>
-            <div class="col-2">{{$timeSheet->mileage}}</div>
-            <div class="col-2"></div>
-            <div class="col-1">
-                <a class="btn-ssm btn-outline-success" href="/timesheet/add?carId={{$carIdDate['carId']}}&date={{$carIdDate['date']->toDateString()}}&parentId={{$timeSheet->id}}" title="Добавить событие наследник">
-                    <i class="fas fa-folder-plus"></i>
-                </a>
+        @else
+            <div class="row align-items-center font-weight-bold">
+                <div class="col-2">Событие</div>
+                <div class="col-2 p-0">Дата начала</div>
+                <div class="col-2">Договор</div>
+                <div class="col-2">Стоимость</div>
+                <div class="col-2">Пробег</div>
             </div>
-        </div>
-        @endforeach
+
+            @foreach($timeSheets as $timeSheet)
+            <div class="row row-table">
+                <div class="col-2" style="background-color:{{$timeSheet->eventColor}}">{{$timeSheet->eventName}}</div>
+                <div class="col-2 p-0" title="">{{$timeSheet->timeSheetDateTime->format('d-m-Y H:i')}}</div>
+                <div class="col-2">{{$timeSheet->contractNumber}}</div>
+                <div class="col-2">{{$timeSheet->toPaymentSum}}</div>
+                <div class="col-2"></div>
+                <div class="col-1"></div>
+                <div class="col-1">
+                    <a class="btn-ssm btn-outline-success" href="/timesheet/add?carId={{$carIdDate['carId']}}&date={{$carIdDate['date']->toDateString()}}&parentId={{$timeSheet->timeSheetId}}" title="Добавить событие наследник">
+                        <i class="fas fa-folder-plus"></i>
+                    </a>
+                </div>
+            </div>
+            @endforeach
+        @endif
     </div>
 
     <div class="modal-footer d-flex justify-content-center">
