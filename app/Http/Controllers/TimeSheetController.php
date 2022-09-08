@@ -7,6 +7,7 @@ use App\Http\Requests\DateSpan;
 use App\Http\Requests\Event\EventRequest;
 use App\Http\Requests\EventIdRequest;
 use App\Repositories\ContractRepository;
+use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use App\Repositories\RentEventRepository;
@@ -90,7 +91,7 @@ class TimeSheetController extends Controller
     }
 
 
-    public function infoDialog(CarIdDate $carIdDateRequest,RentEventRepository $rentEventRep)
+    public function infoDialog(CarIdDate $carIdDateRequest,RentEventRepository $rentEventRep,ContractRepositoryInterface $contractRepObj)
     {
         $carIdDate = $carIdDateRequest->validated();
         $rentEventObjs = $rentEventRep->getEvents();
@@ -98,7 +99,7 @@ class TimeSheetController extends Controller
         $datePeriod = $carIdDateRequest->getCarbonPeriodDay();
         $carObj = $this->motorPoolRep->getCar($carIdDate['carId']);
 
-        $timeSheetsObj = $this->timeSheetServ->getCarTimeSheets($carObj,$datePeriod);
+        $timeSheetsObj = $this->timeSheetServ->getCarTimeSheets($carObj,$datePeriod,$contractRepObj);
 
         return view('dialog.TimeSheet.infoTimeSheet',[
             'timeSheets' => $timeSheetsObj,

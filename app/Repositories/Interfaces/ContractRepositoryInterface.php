@@ -33,4 +33,8 @@ interface ContractRepositoryInterface
 
     public function getContractByTimeSheet($timeSheetId);
 
+
+    public function getContractFullInfo($contractId);
+
+
 }

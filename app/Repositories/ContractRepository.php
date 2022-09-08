@@ -89,7 +89,10 @@ class ContractRepository implements ContractRepositoryInterface
                 'rent_contract_statuses.name as statusName',
                 'rent_car_groups.nickName as carGroupNickName',
                 ])
-            ->where('number','LIKE','%'.$searchText.'%');
+            ->orWhere('subjectFrom.nickName','LIKE','%'.$searchText.'%')
+            ->orWhere('subjectTo.nickName','LIKE','%'.$searchText.'%')
+            ->orWhere('number','LIKE','%'.$searchText.'%');
+
             if ($searchCarId){
                 $searchContract->where('rent_contracts.carId','=',$searchCarId);
             }
@@ -127,6 +130,12 @@ class ContractRepository implements ContractRepositoryInterface
     public function getFilterContracts(Filters\ToPaymentRequest $requestData)
     {
         // TODO: Implement getFilterContracts() method.
+    }
+
+
+    public function getContractFullInfo($contractId)
+    {
+
     }
 
 

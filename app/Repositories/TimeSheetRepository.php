@@ -33,13 +33,21 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         $resultCollection = DB::table('time_sheets')
             ->join('rent_events','time_sheets.eventId','=','rent_events.id')
             ->leftJoin('car_configurations','time_sheets.carId','=','car_configurations.id')
+            ->leftJoin('to_payments',function($join){
+                $join->on('to_payments.timeSheetId','=','time_sheets.id');
+                $join->on('to_payments.id','=','to_payments.pId');
+            })
             ->WhereBetween('dateTime',[$startDate,$finishDate])
             ->whereNull('time_sheets.deleted_at')
             ->orderByDesc('time_sheets.dateTime')
             ->get([
                 'time_sheets.*',
+                'to_payments.sum as toPaymentSum',
+                'to_payments.paymentSum as toPaymentPaymentSum',
                 'rent_events.priority as eventPriority',
                 'rent_events.name as eventName',
+                'rent_events.colorPartPay as eventColorPartPay',
+                'rent_events.colorPay as eventColorPay',
                 'car_configurations.nickName as carNickName',
             ]);
 
@@ -70,8 +78,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     public function getCarFullInfoByDay($carId, CarbonPeriod $timeSheetDate)
     {
         $startDate = $timeSheetDate->getStartDate()->format('Y-m-d H:i');
-        $finishDate = $timeSheetDate->getEndDate()->subMinute(1)->format('Y-m-d H:i');
-
+        $finishDate = $timeSheetDate->getEndDate()->format('Y-m-d H:i');
         $searchTimeSheet = DB::table('time_sheets')
             ->whereNull('time_sheets.deleted_at')
             ->where('time_sheets.carId','=',$carId)
@@ -97,6 +104,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
                 'rent_events.colorPartPay as eventColorPartPay',
                 'rent_events.colorPay as eventColorPay',
                 'rent_contracts.number as contractNumber',
+                'rent_contracts.id as contractId',
                 'time_sheets.dateTime as timeSheetDateTime',
                 'time_sheets.id as timeSheetId',
                 ])

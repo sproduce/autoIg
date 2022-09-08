@@ -1,7 +1,9 @@
 <?php
 namespace App\Services;
 use App\Models\carConfiguration;
+use App\Models\rentContract;
 use App\Models\timeSheet;
+use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
@@ -28,18 +30,25 @@ Class TimeSheetService{
 
     public function getCarsTimeSheets($periodDate,$accuracyH)
     {
-        $accuracyMin=$accuracyH*60;
+        $accuracyMin = $accuracyH*60;
         $timeSheetsArray = $this->timeSheetRep->getTimeSheetsArray($periodDate);
-        $timeSheetsCollection=collect($timeSheetsArray);
-        $periodTimeSheet=$timeSheetsCollection->whereBetween('dateTime',[$periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d')])->sortBy('dateTime');
+        $timeSheetsCollection = collect($timeSheetsArray);
+        $periodTimeSheet = $timeSheetsCollection->whereBetween('dateTime',[$periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d')])->sortBy('dateTime');
             foreach($periodTimeSheet as $dayTimeSheet){
-                $currentDateTime=Carbon::parse($dayTimeSheet->dateTime);
-                $fromBox=ceil($periodDate->getStartDate()->DiffInMinutes($currentDateTime)/$accuracyMin);
-                if ($fromBox==$periodDate->getStartDate()->DiffInMinutes($currentDateTime)/$accuracyMin){
+                if ($dayTimeSheet->toPaymentPaymentSum) {
+                    if ($dayTimeSheet->toPaymentSum == $dayTimeSheet->toPaymentPaymentSum) {
+                        $dayTimeSheet->color = $dayTimeSheet->eventColorPay;
+                    } else {
+                        $dayTimeSheet->color = $dayTimeSheet->eventColorPartPay;
+                    }
+                }
+                $currentDateTime = Carbon::parse($dayTimeSheet->dateTime);
+                $fromBox = ceil($periodDate->getStartDate()->DiffInMinutes($currentDateTime)/$accuracyMin);
+                if ($fromBox == $periodDate->getStartDate()->DiffInMinutes($currentDateTime)/$accuracyMin){
                     $fromBox++;
                 }
-                $toBox=$fromBox+ceil($dayTimeSheet->duration/$accuracyMin);
-                for($i=$fromBox;$i<$toBox;$i++){
+                $toBox = $fromBox+ceil($dayTimeSheet->duration/$accuracyMin);
+                for($i = $fromBox;$i<$toBox;$i++){
                     $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['data']=$dayTimeSheet;
                     if ($i==$fromBox){
                         $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['first']=true;
@@ -62,12 +71,12 @@ Class TimeSheetService{
 
     }
 
-    public function getCarTimeSheets(carConfiguration $carObj,CarbonPeriod $date)
+    public function getCarTimeSheets(carConfiguration $carObj,CarbonPeriod $date,ContractRepositoryInterface $contractRep)
     {
         //$result = $this->timeSheetRep->getCarTimeSheetByDate($carObj->id,$date);
         $result = $this->timeSheetRep->getCarFullInfoByDay($carObj->id,$date);
 
-        $result->each(function ($item, $key) {
+        $result->each(function ($item, $key) use (&$contractRep) {
             if ($item->toPaymentPaymentSum) {
                 if ($item->toPaymentSum == $item->toPaymentPaymentSum) {
                     $item->eventColor = $item->eventColorPay;
@@ -75,6 +84,10 @@ Class TimeSheetService{
                     $item->eventColor = $item->eventColorPartPay;
                 }
             }
+            $contractObj = $contractRep->getContract($item->contractId);
+            $item->contract= $contractObj;
+
+
         });
 
 

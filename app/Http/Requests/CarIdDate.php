@@ -39,7 +39,7 @@ class CarIdDate extends FormRequest
     public function getCarbonPeriodDay(): CarbonPeriod
     {
         $input = parent::all(['date']);
-        $periodDate = new CarbonPeriod($input['date']->startOfDay(),$input['date']->addDay(1));
+        $periodDate = new CarbonPeriod($input['date']->startOfDay(),$input['date']->addDay(1)->startOfDay());
         return  $periodDate;
     }
 

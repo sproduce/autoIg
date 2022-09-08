@@ -40,6 +40,13 @@
 
     <div class="container-fluid overflow-auto" id="scrollTimeSheet">
 
+{{--        <div class="row flex-nowrap">--}}
+{{--            <div class="p-0 text-center carInfoSize border"><div class="p-0">1</div></div>--}}
+{{--            @foreach($periodDate as $date)--}}
+{{--                <div class="daySize4h p-0 text-center border"></div>--}}
+{{--            @endforeach--}}
+{{--        </div>--}}
+
         <div class="row flex-nowrap">
             <div class="col p-0 text-center border carInfoSize">
                 <div class="p-0">#</div>
@@ -103,7 +110,7 @@
 @section('js')
     <script>
         $(function() {
-
+            console.log($(".daySize4h").width()*4);
         });
 
         $(".timeClickable").dblclick(function(e) {

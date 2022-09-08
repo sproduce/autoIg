@@ -30,8 +30,10 @@
             <div class="row row-table">
                 <div class="col-2" style="background-color:{{$timeSheet->eventColor}}">{{$timeSheet->eventName}}</div>
                 <div class="col-2 p-0" title="">{{$timeSheet->timeSheetDateTime->format('d-m-Y H:i')}}</div>
-                <div class="col-2">{{$timeSheet->contractNumber}}</div>
-                <div class="col-2">{{$timeSheet->toPaymentSum}}</div>
+                <div class="col-2"><i class="fas fa-info-circle text-primary"
+                                      title="{{$timeSheet->contract->subjectFrom->nickname}}&#013;{{$timeSheet->contract->subjectTo->nickname}}&#013;{{$timeSheet->contract->status->name}}&#013;{{$timeSheet->contract->type->name}}">
+                                   </i> {{$timeSheet->contractNumber}}</div>
+                <div class="col-2 text-right">{{$timeSheet->toPaymentSum}} p.</div>
                 <div class="col-2"></div>
                 <div class="col-1"></div>
                 <div class="col-1">
