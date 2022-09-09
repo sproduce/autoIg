@@ -30,6 +30,15 @@
                 <input type="number" class="form-control" name="addDays" value="{{$addDays}}"/>
             </div>
             <div class="form-group col-md-2 input-group-sm">
+                <select name="carGroup" class="form-control">
+                    <option value="0">Выбрать группу</option>
+                    @foreach($carGroupObj as $carGroup)
+                        <option value="{{$carGroup->id}}">{{$carGroup->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group col-md-2 input-group-sm">
                 <input type="submit" class="btn btn-sm btn-primary" value="Показать"/>
             </div>
         </div>
