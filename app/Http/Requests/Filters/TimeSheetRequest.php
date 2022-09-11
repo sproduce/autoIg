@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Filters;
 
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TimeSheetRequest extends FormRequest
@@ -13,8 +15,33 @@ class TimeSheetRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
+
+    protected function prepareForValidation()
+    {
+        $input = parent::all();
+        if (empty($input['carGroupId'])){
+            $this->merge(['carGroupId' => null]);
+        }
+
+        if (empty($input['currentDate'])){
+            $date = CarbonImmutable::today();
+        } else{
+            $date = new CarbonImmutable($input['currentDate']);
+        }
+        $date = $date->setTimeFrom(Carbon::now());
+        $this->merge(['currentDate' => $date]);
+
+        if (empty($inpud['subDays'])){
+            $this->merge(['subDays' => 12]);
+        }
+        if (empty($inpud['addDays'])){
+            $this->merge(['addDays' => 7]);
+        }
+
+    }
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -24,7 +51,10 @@ class TimeSheetRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'currentDate' => 'date',
+            'subDays' => 'integer',
+            'addDays' => 'integer',
+            'carGroupId' => 'integer|nullable',
         ];
     }
 }

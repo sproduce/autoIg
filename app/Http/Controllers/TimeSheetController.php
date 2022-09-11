@@ -6,6 +6,7 @@ use App\Http\Requests\CarIdDate;
 use App\Http\Requests\DateSpan;
 use App\Http\Requests\Event\EventRequest;
 use App\Http\Requests\EventIdRequest;
+use App\Http\Requests\Filters;
 use App\Repositories\ContractRepository;
 use App\Repositories\Interfaces\CarGroupRepositoryInterface;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
@@ -38,42 +39,34 @@ class TimeSheetController extends Controller
     }
 
 
-    public function show()
+    public function show(Filters\TimeSheetRequest $timeSheetRequest)
     {
-        $validate = $this->request->validate(['currentDate'=>'date','subDays'=>'','addDays'=>'','rentCarGroup'=>'']);
-
-        if (isset($validate['currentDate'])){
-            $currentDate = CarbonImmutable::create($validate['currentDate']);
-        } else {
-            $currentDate = CarbonImmutable::today();
-        }
-        if (isset($validate['subDays'])){
-            $subDays = $validate['subDays'];
-        } else {
-            $subDays = 12;
-        }
-        if (isset($validate['addDays'])){
-            $addDays = $validate['addDays'];
-        } else {
-            $addDays = 7;
-        }
+        $currentDate = $timeSheetRequest->get('currentDate');
+        $subDays = $timeSheetRequest->get('subDays');
+        $addDays = $timeSheetRequest->get('addDays');
+        $carGroupId = $timeSheetRequest->get('carGroupId');
 
         $dateFrom = $currentDate->subDays($subDays);
-        $dateTo = $currentDate->addDays($addDays);
+        $dateTo = $currentDate->addDays($subDays);
+
         $periodDate = CarbonPeriod::create($dateFrom,$dateTo);
         $accuracy = 4;
         $timeSheetArray = $this->timeSheetServ->getCarsTimeSheets($periodDate,$accuracy);
-        $motorPoolObj = $this->motorPoolRep->getCars();
+        //$motorPoolObj = $this->motorPoolRep->getCars();
+        $motorPoolObj = $this->motorPoolRep->getCarsByGroup($carGroupId);
         $carGroupObj = $this->carGroupRep->getCarGroups();
 
-        return view('timeSheet.list', ['timeSheetArray' => $timeSheetArray,
-                                            'periodDate' => $periodDate,
-                                            'currentDate' => $currentDate,
-                                            'motorPoolObj' => $motorPoolObj,
-                                            'carGroupObj' => $carGroupObj,
-                                            'accuracy' => $accuracy,
-                                            'subDays' => $subDays,
-                                            'addDays' => $addDays]);
+        return view('timeSheet.list', [
+            'timeSheetArray' => $timeSheetArray,
+            'periodDate' => $periodDate,
+            'currentDate' => $currentDate,
+            'motorPoolObj' => $motorPoolObj,
+            'carGroupObj' => $carGroupObj,
+            'accuracy' => $accuracy,
+            'subDays' => $subDays,
+            'addDays' => $addDays,
+            'carGroupId' => $carGroupId,
+        ]);
     }
 
 

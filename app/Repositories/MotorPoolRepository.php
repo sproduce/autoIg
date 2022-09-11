@@ -21,8 +21,20 @@ class MotorPoolRepository implements MotorPoolRepositoryInterface
 
     public function getCars()
     {
-        return carConfiguration::all();
+        return carConfiguration::query()->get();
     }
+
+    public function getCarsByGroup($groupId = null)
+    {
+        $carRequest = carConfiguration::query();
+        if ($groupId){
+            $carRequest->join('rent_car_group_links','rent_car_group_links.carId','=','car_configurations.id');
+            $carRequest->where('rent_car_group_links.groupId','=',$groupId);
+        }
+        $carResult = $carRequest->get();
+        return $carResult;
+    }
+
 
     public function getCar($carId): carConfiguration
     {
