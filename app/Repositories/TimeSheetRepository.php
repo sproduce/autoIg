@@ -56,7 +56,6 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
               if ($item->dateTime){
                   $item->dateTime = Carbon::parse($item->dateTime);
               }
-
           });
 
           return $resultCollection;
@@ -80,17 +79,18 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     {
         $startDate = $timeSheetDate->getStartDate()->format('Y-m-d H:i');
         $finishDate = $timeSheetDate->getEndDate()->format('Y-m-d H:i');
+
         $searchTimeSheet = DB::table('time_sheets')
             ->whereNull('time_sheets.deleted_at')
             ->where('time_sheets.carId','=',$carId)
 //            ->orWhereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? a',[$startDate,$finishDate,$carId])
 //            ->whereBetween('dateTime',[$startDate,$finishDate])
             ->where(function($query) use ($startDate, $finishDate){
-                $query->whereBetween('dateTime',[$startDate,$finishDate]);
+                $query->whereBetween('time_sheets.dateTime',[$startDate,$finishDate]);
                 $query->orWhereRaw('DATE_ADD(dateTime,INTERVAL rent_events.duration MINUTE) BETWEEN ? and ?',[$startDate,$finishDate]);
             })
             ->join('rent_events','rent_events.id','=','time_sheets.eventId')
-            ->join('to_payments',function($join){
+            ->leftJoin('to_payments',function($join){
                 $join->on('to_payments.timeSheetId','=','time_sheets.id');
                 $join->on('to_payments.id','=','to_payments.pId');
             })

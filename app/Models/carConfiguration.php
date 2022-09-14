@@ -37,7 +37,7 @@ class carConfiguration extends Model
         $generationId,$typeId,$engineTypeId,$transmissionTypeId,$hp,$dateStart,$dateFinish,$comment,$displacement,
         $regNumber,$vin,$nickName,$color,$year;
 
-
+    protected $dates = ['dateStart','dateFinish'];
 
     public function generation()
     {

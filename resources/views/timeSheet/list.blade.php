@@ -60,7 +60,7 @@
                 <div class="p-0">#</div>
             </div>
             @foreach($periodDate as $date)
-                @if($date==$currentDate)
+                @if($date == $currentDate)
                     <div class="col daySize4h p-0 text-center border bg-primary">
                         <div class="p-0">{{$date->isoFormat('ddd')}}<br/>{{$date->isoFormat('D')}}</div>
                     </div>
@@ -81,11 +81,8 @@
                     <div class="p-0"><a href="/timesheet/car?carId={{$car->id}}">{{$car->nickName}}</a></div>
                 </div>
                 @for($i=0;$i<$periodDate->count();$i++)
-                    <div class="col p-0 daySize4h border timeClickable" data-datetime="{{$periodDate->getStartDate()->addDays($i)->format('Y-m-d')}}">
+                    <div class="col p-0 daySize4h border timeClickable @if (!$periodDate->getStartDate()->addDays($i)->between($car->dateStart,$car->dateFinish)) bg-secondary @endif " data-datetime="{{$periodDate->getStartDate()->addDays($i)->format('Y-m-d')}}">
                         @if(isset($timeSheetArray[$car->id]))
-                            @php
-                                ksort($timeSheetArray[$car->id]);
-                            @endphp
                             @forelse($timeSheetArray[$car->id] as $timeSheet)
                                 <div class="p-0 row m-0">
                                     @for($j=1;$j<=6;$j++)

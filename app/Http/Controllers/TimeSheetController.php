@@ -52,8 +52,10 @@ class TimeSheetController extends Controller
         $periodDate = CarbonPeriod::create($dateFrom,$dateTo);
         $accuracy = 4;
         $timeSheetArray = $this->timeSheetServ->getCarsTimeSheets($periodDate,$accuracy);
-        //$motorPoolObj = $this->motorPoolRep->getCars();
-        $motorPoolObj = $this->motorPoolRep->getCarsByGroup($carGroupId);
+
+        $motorPoolObj = $this->timeSheetServ->getActualCarsByGroup($periodDate,$carGroupId);
+        //$motorPoolObj =
+
         $carGroupObj = $this->carGroupRep->getCarGroups();
 
         return view('timeSheet.list', [

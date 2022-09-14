@@ -97,7 +97,7 @@
 {{--    </div>--}}
 
         <div class="form-row text-center inputLine">
-            <div class="col-1">
+            <div class="col-3">
                 <label></label>
             </div>
             <div class="input-group col-3 mb-3">
@@ -140,10 +140,21 @@
         $('#formSubmit').prop('disabled', false);
         if (kolDay){$('.inputLine').remove();}
         for(var i=0;i<kolDay;i++){
-            var dayFrom = startDate.getDate();
+            let dayFrom = startDate.getDate();
+            let monthFrom = startDate.getMonth()+1;
+            let yearFrom = startDate.getFullYear();
+            if (dayFrom<10) dayFrom = '0'+ dayFrom;
+            if (monthFrom<10) monthFrom = '0'+ monthFrom;
+            let stringFrom = dayFrom+'-'+monthFrom+'-'+yearFrom;
+
             startDate.setDate(startDate.getDate()+1);
-            var dayTo = startDate.getDate();
-            copyLine.find("label").text(dayFrom+' - '+dayTo);
+            let dayTo = startDate.getDate();
+            let monthTo = startDate.getMonth()+1;
+            let yearTo = startDate.getFullYear();
+            if (dayTo<10) dayTo = '0'+ dayTo;
+            if (monthTo<10) monthTo = '0'+ monthTo;
+            let stringTo = dayTo+'-'+monthTo+'-'+yearTo;
+            copyLine.find("label").text(stringFrom+'  '+stringTo);
             copyLine.insertBefore("#last-row");
             copyLine=$('.inputLine:first').clone(true);
         }

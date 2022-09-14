@@ -14,7 +14,7 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
 Class TimeSheetService{
-    private $timeSheetRep,$toPaymentRep,$motoPoolRep,$rentEventRep;
+    private $timeSheetRep,$toPaymentRep,$motorPoolRep,$rentEventRep;
 
     function __construct(
         TimeSheetRepositoryInterface $timeSheetRep,
@@ -24,7 +24,7 @@ Class TimeSheetService{
     ){
         $this->timeSheetRep = $timeSheetRep;
         $this->toPaymentRep = $toPaymentRep;
-        $this->motoPoolRep = $motorPoolRep;
+        $this->motorPoolRep = $motorPoolRep;
         $this->rentEventRep = $rentEventRep;
     }
 
@@ -32,9 +32,10 @@ Class TimeSheetService{
     {
         $accuracyMin = $accuracyH*60;
         $timeSheetsArray = $this->timeSheetRep->getTimeSheetsArray($periodDate);
-        $timeSheetsCollection = collect($timeSheetsArray);
-        $periodTimeSheet = $timeSheetsCollection->whereBetween('dateTime',[$periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d')])->sortBy('dateTime');
-            foreach($periodTimeSheet as $dayTimeSheet){
+        //$timeSheetsArray->dd();
+        //$timeSheetsCollection = collect($timeSheetsArray);
+        //$periodTimeSheet = $timeSheetsCollection->whereBetween('dateTime',[$periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d')])->sortBy('dateTime');
+            foreach($timeSheetsArray as $dayTimeSheet){
                 if ($dayTimeSheet->toPaymentPaymentSum) {
                     if ($dayTimeSheet->toPaymentSum == $dayTimeSheet->toPaymentPaymentSum) {
                         $dayTimeSheet->eventColor = $dayTimeSheet->eventColorPay;
@@ -43,27 +44,52 @@ Class TimeSheetService{
                     }
                 }
                 $currentDateTime = Carbon::parse($dayTimeSheet->dateTime);
+
+                $dayTimeSheet->carActual = false;
+
                 $fromBox = ceil($periodDate->getStartDate()->DiffInMinutes($currentDateTime)/$accuracyMin);
                 if ($fromBox == $periodDate->getStartDate()->DiffInMinutes($currentDateTime)/$accuracyMin){
                     $fromBox++;
                 }
                 $toBox = $fromBox+ceil($dayTimeSheet->duration/$accuracyMin);
                 for($i = $fromBox;$i<$toBox;$i++){
-                    $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['data']=$dayTimeSheet;
-                    if ($i==$fromBox){
-                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['first']=true;
+                    $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['data'] = $dayTimeSheet;
+                    if ($i == $fromBox){
+                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['first'] = true;
                     } else {
-                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['first']=false;
+                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['first'] = false;
                     }
-                    if ($i==$toBox-1){
-                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['last']=true;
+                    if ($i == $toBox-1){
+                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['last'] = true;
                     } else {
-                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['last']=false;
+                        $resultArray[$dayTimeSheet->carId][$dayTimeSheet->eventPriority][$i]['last'] = false;
                     }
                 }
             }
         return $resultArray ?? [];
     }
+
+
+    public function getActualCarsByGroup(CarbonPeriod $periodDate,$carGroupId)
+    {
+        $motorPoolsObj = $this->motorPoolRep->getCarsByGroup($carGroupId);
+
+        $gapStart = $periodDate->getStartDate();
+        $gapFinish = $periodDate->getEndDate();
+        foreach($motorPoolsObj as $key => $motorPoolObj){
+            if (is_null($motorPoolObj->dateFinish)){
+                $motorPoolObj->dateFinish = Carbon::parse('9999-12-30');
+            }
+            if ($motorPoolObj->dateStart->gt($gapFinish)|| $motorPoolObj->dateFinish->lt($gapStart)){
+                unset($motorPoolsObj[$key]);
+            }
+
+        }
+
+        return $motorPoolsObj;
+    }
+
+
 
 
     public function addTimeSheet()
@@ -145,7 +171,7 @@ Class TimeSheetService{
     public function getLastRecord($eventId,$carId)
     {
         $eventObj = $this->rentEventRep->getEvent($eventId);
-        $carObj = $this->motoPoolRep->getCar($carId);
+        $carObj = $this->motorPoolRep->getCar($carId);
         $lastTimeSheetObj = $this->timeSheetRep->getLastTimeSheet($carObj,$eventObj);
         $contractObj = $lastTimeSheetObj->toPayment()->first()->contract()->first();
         if ($lastTimeSheetObj->dateTime){
