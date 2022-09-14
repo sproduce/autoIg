@@ -46,6 +46,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
                 'to_payments.paymentSum as toPaymentPaymentSum',
                 'rent_events.priority as eventPriority',
                 'rent_events.name as eventName',
+                'rent_events.color as eventColor',
                 'rent_events.colorPartPay as eventColorPartPay',
                 'rent_events.colorPay as eventColorPay',
                 'car_configurations.nickName as carNickName',

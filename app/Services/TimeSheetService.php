@@ -37,9 +37,9 @@ Class TimeSheetService{
             foreach($periodTimeSheet as $dayTimeSheet){
                 if ($dayTimeSheet->toPaymentPaymentSum) {
                     if ($dayTimeSheet->toPaymentSum == $dayTimeSheet->toPaymentPaymentSum) {
-                        $dayTimeSheet->color = $dayTimeSheet->eventColorPay;
+                        $dayTimeSheet->eventColor = $dayTimeSheet->eventColorPay;
                     } else {
-                        $dayTimeSheet->color = $dayTimeSheet->eventColorPartPay;
+                        $dayTimeSheet->eventColor = $dayTimeSheet->eventColorPartPay;
                     }
                 }
                 $currentDateTime = Carbon::parse($dayTimeSheet->dateTime);

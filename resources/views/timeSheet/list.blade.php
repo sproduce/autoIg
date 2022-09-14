@@ -90,7 +90,7 @@
                                 <div class="p-0 row m-0">
                                     @for($j=1;$j<=6;$j++)
                                         @if(isset($timeSheet[$i*6+$j]['data']))
-                                            <div class="durationSize @if($timeSheet[$i*6+$j]['first']) rounded-left @endif @if($timeSheet[$i*6+$j]['last']) rounded-right @endif" data-id="{{$timeSheet[$i*6+$j]['data']->dataId}}" data-datestart="{{$timeSheet[$i*6+$j]['data']->dateTime}}" title="{{$timeSheet[$i*6+$j]['data']->eventName}}" style="background-color:{{$timeSheet[$i*6+$j]['data']->color}};" ></div>
+                                            <div class="durationSize @if($timeSheet[$i*6+$j]['first']) rounded-left @endif @if($timeSheet[$i*6+$j]['last']) rounded-right @endif" data-id="{{$timeSheet[$i*6+$j]['data']->dataId}}" data-datestart="{{$timeSheet[$i*6+$j]['data']->dateTime}}" title="{{$timeSheet[$i*6+$j]['data']->eventName}}" style="background-color:{{$timeSheet[$i*6+$j]['data']->eventColor}};" ></div>
                                         @else
                                             <div class="durationSize"></div>
                                         @endif

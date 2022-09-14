@@ -30,6 +30,7 @@ class MotorPoolRepository implements MotorPoolRepositoryInterface
         if ($groupId){
             $carRequest->join('rent_car_group_links','rent_car_group_links.carId','=','car_configurations.id');
             $carRequest->where('rent_car_group_links.groupId','=',$groupId);
+            $carRequest->select('car_configurations.*');
         }
         $carResult = $carRequest->get();
         return $carResult;
