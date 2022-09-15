@@ -67,7 +67,8 @@
                 @else
                     <div class="col daySize4h p-0 text-center border">
                         <div class="p-0">{{$date->isoFormat('ddd')}}<br/>
-                            <a href="/timesheet/days">{{$date->isoFormat('D')}}</a>
+{{--                            <a href="/timesheet/days">{{$date->isoFormat('D')}}</a>--}}
+                            {{$date->format('d')}}
                         </div>
                     </div>
                 @endif
@@ -78,7 +79,10 @@
         @foreach($motorPoolObj as $car)
             <div class="row flex-nowrap carInfo" data-carid="{{$car->id}}">
                 <div class="col p-0 text-left border carInfoSize">
-                    <div class="p-0"><a href="/timesheet/car?carId={{$car->id}}">{{$car->nickName}}</a></div>
+                    <div class="p-0">
+                        {{$car->nickName}}
+{{--                        <a href="/timesheet/car?carId={{$car->id}}">{{$car->nickName}}</a>--}}
+                    </div>
                 </div>
                 @for($i=0;$i<$periodDate->count();$i++)
                     <div class="col p-0 daySize4h border timeClickable @if (!$periodDate->getStartDate()->addDays($i)->between($car->dateStart,$car->dateFinish)) bg-secondary @endif " data-datetime="{{$periodDate->getStartDate()->addDays($i)->format('Y-m-d')}}">

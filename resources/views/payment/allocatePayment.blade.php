@@ -10,24 +10,37 @@
 @section('content')
 
 
-    <div class="form-group row">
-
-        <label class="col-sm-1 col-form-label pr-0" for="id" title="Платеж"><strong>Платеж :</strong></label>
-        <div class="col-sm-1 pt-2">
-            {{$paymentObj->id}}
-        </div>
-
-        <label class="col-sm-2 col-form-label pr-0" for="id" title="Тип платежа"><strong>Тип платежа :</strong></label>
-        <div class="col-sm-2 pt-2">
-            {{$paymentObj->operationType->name}}
-        </div>
-
-        <label class="col-sm-2 col-form-label pr-0" for="payment" title="Сумма"><strong>Сумма/Остаток :</strong></label>
-        <div class="col-sm-2 pt-2">
-                {{$paymentObj->payment}}/{{$paymentObj->balance}}
-        </div>
-
+    <div class="row">
+        <div class="col-1" title="Дата"><strong>Дата :</strong></div>
+        <div class="col-3">{{$paymentObj->dateTime->format('d-m-Y h:i')}} </div>
+        <div class="col-2" title="Тип платежа"><strong>Тип платежа :</strong></div>
+        <div class="col-2">{{$paymentObj->operationType->name}}</div>
+        <div class="col-2" title="Сумма"><strong>Сумма/Остаток :</strong></div>
+        <div class="col-2">{{$paymentObj->payment}}/{{$paymentObj->balance}}</div>
     </div>
+    <div class="row">
+        <div class="col-2" title="Имя"><strong>Имя :</strong></div>
+        <div class="col-2">{{$paymentObj->name}} </div>
+        <div class="col-1" title="Счет"><strong>Счет :</strong></div>
+        <div class="col-3">{{$paymentObj->account->name}}</div>
+        <div class="col-2" title="Субьект"><strong>Субьект :</strong></div>
+        <div class="col-2">{{$paymentObj->subject->nickname}}</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2" title="Машина"><strong>Машина :</strong></div>
+        <div class="col-2">{{$paymentObj->car->nickName}}</div>
+        <div class="col-2" title="Договор"><strong>Договор :</strong></div>
+        <div class="col-2">
+            @if ($paymentObj->contract->id)
+                {{$paymentObj->contract->number}}
+                <i class="fas fa-info-circle text-primary" title="{{$paymentObj->contract->subjectFrom->nickname}}&#013;{{$paymentObj->contract->subjectTo->nickname}}&#013;{{$paymentObj->contract->status->name}}&#013;{{$paymentObj->contract->type->name}}"></i>
+            @endif
+        </div>
+        <div class="col-2" title="Группа"><strong>Группа :</strong></div>
+        <div class="col-2">{{$paymentObj->carGroup->nickName}}</div>
+    </div>
+
+
     <input hidden disabled class="form-control-plaintext" id="paymentSum" value="{{$paymentObj->payment-$paymentObj->balance}}"/>
 
     <div class="row align-items-center font-weight-bold border">
