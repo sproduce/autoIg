@@ -12,7 +12,6 @@ interface EventRentalRepositoryInterface
     public function addEventRental(rentEventRental $rentEventRentalObj): rentEventRental;
     public function getEventRentalsByContract($contractId);
 
-
     public function getEventRentalFullInfo($eventId,$dataId);
 
     public function getEventRentals($eventId,CarbonPeriod $datePeriod);

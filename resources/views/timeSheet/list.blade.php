@@ -62,13 +62,13 @@
             @foreach($periodDate as $date)
                 @if($date == $currentDate)
                     <div class="col daySize4h p-0 text-center border bg-primary">
-                        <div class="p-0">{{$date->isoFormat('ddd')}}<br/>{{$date->isoFormat('D')}}</div>
+                        <div class="p-0">{{$date->isoFormat('ddd')}}<br/> {{$date->format('d/m/y')}}</div>
                     </div>
                 @else
                     <div class="col daySize4h p-0 text-center border">
                         <div class="p-0">{{$date->isoFormat('ddd')}}<br/>
 {{--                            <a href="/timesheet/days">{{$date->isoFormat('D')}}</a>--}}
-                            {{$date->format('d')}}
+                            {{$date->format('d/m/y')}}
                         </div>
                     </div>
                 @endif

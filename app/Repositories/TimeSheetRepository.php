@@ -218,7 +218,12 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         return $timeSheetResult ?? new timeSheet();
     }
 
-
+    public function getLastTimeSheetId($carId, $eventId): timeSheet
+    {
+        $timeSheetRequest = timeSheet::where('eventId',$eventId)->where('carId',$carId);
+        $timeSheetResult = $timeSheetRequest->orderBy('dateTime','DESC')->first();
+        return $timeSheetResult ?? new timeSheet();
+    }
 
     public function getTimeSheetByEvent(rentEvent $eventObj, $eventDataId): timeSheet
     {

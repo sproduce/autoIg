@@ -96,11 +96,11 @@
 {{--        </div>--}}
 {{--    </div>--}}
 
-        <div class="form-row text-center inputLine">
+        <div class="form-row text-center inputLine mb-1">
             <div class="col-3">
-                <label></label>
+                <label class="m-0 pt-1"></label>
             </div>
-            <div class="input-group col-3 mb-3">
+            <div class="input-group col-3">
                 <input type="text" name="sum[]" class="form-control form-control-sm inputLineSum" value="{{$contractObj->price ?:0}}" autocomplete="off">
             </div>
         </div>
@@ -121,6 +121,7 @@
     $(function() {
         $('#formSubmit').prop('disabled', true);
         getLastEvent();
+        $('.inputLineSum').hide();
     });
 
     $("#contractId").change(function(){
@@ -134,6 +135,7 @@
     });
 
     $("#timeDuration").change(function(){
+        $('.inputLineSum').show();
         var startDate = new Date($('#dateStart').val());
         var copyLine = $('.inputLine:first').clone(true);
         var kolDay = parseInt($("#timeDuration").val());
@@ -154,7 +156,7 @@
             if (dayTo<10) dayTo = '0'+ dayTo;
             if (monthTo<10) monthTo = '0'+ monthTo;
             let stringTo = dayTo+'-'+monthTo+'-'+yearTo;
-            copyLine.find("label").text(stringFrom+'  '+stringTo);
+            copyLine.find("label").text(stringFrom+' - '+stringTo);
             copyLine.insertBefore("#last-row");
             copyLine=$('.inputLine:first').clone(true);
         }

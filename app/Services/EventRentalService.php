@@ -59,49 +59,51 @@ Class EventRentalService implements EventServiceInterface {
    {
         $eventRentalRequest = app()->make(Event\RentalRequest::class);
         $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);
-
         $dateTimeCarbon = Carbon::parse($eventRentalRequest->get('dateTime'));
 
-        foreach ($eventRentalRequest->get('sum') as $sum){
-            DB::beginTransaction();
-            try {
-                $eventRentalModel = $this->eventRentalRep->getEventRental($eventRentalRequest->get('id'));
-                $eventRentalModel->contractId = $eventRentalRequest->get('contractId');
-                $eventRentalModel = $this->eventRentalRep->addEventRental($eventRentalModel);
+        $lastTimeSheet = $this->timeSheetRep->getLastTimeSheetId($eventRentalRequest->get('carId'),$this->eventObj->id);
 
-                $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventRentalModel->id);
+        if ($dateTimeCarbon->gte($lastTimeSheet->dateTime->addMinute($this->eventObj->duration)))
+            foreach ($eventRentalRequest->get('sum') as $sum){
+                DB::beginTransaction();
+                try {
+                    $eventRentalModel = $this->eventRentalRep->getEventRental($eventRentalRequest->get('id'));
+                    $eventRentalModel->contractId = $eventRentalRequest->get('contractId');
+                    $eventRentalModel = $this->eventRentalRep->addEventRental($eventRentalModel);
 
-                $timeSheetModel->carId = $eventRentalRequest->get('carId');
-                $timeSheetModel->eventId = $this->eventObj->id;
-                $timeSheetModel->dataId = $eventRentalModel->id;
-                $timeSheetModel->dateTime = $dateTimeCarbon->toDateTimeString();
-                $timeSheetModel->comment = $eventRentalRequest->get('comment');
-                $timeSheetModel->duration = $eventRentalRequest->get('duration');
-                $timeSheetModel->color = $this->eventObj->color;
-                $timeSheetModel->pId = $eventTimeSheetRequest->get('parentId');
+                    $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventRentalModel->id);
 
-                $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
+                    $timeSheetModel->carId = $eventRentalRequest->get('carId');
+                    $timeSheetModel->eventId = $this->eventObj->id;
+                    $timeSheetModel->dataId = $eventRentalModel->id;
+                    $timeSheetModel->dateTime = $dateTimeCarbon->toDateTimeString();
+                    $timeSheetModel->comment = $eventRentalRequest->get('comment');
+                    $timeSheetModel->duration = $eventRentalRequest->get('duration');
+                    $timeSheetModel->color = $this->eventObj->color;
+                    $timeSheetModel->pId = $eventTimeSheetRequest->get('parentId');
+
+                    $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 
 
-                $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+                    $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
 
-                $toPaymentModel->timeSheetId = $timeSheetModel->id;
-                $toPaymentModel->sum = $sum;
+                    $toPaymentModel->timeSheetId = $timeSheetModel->id;
+                    $toPaymentModel->sum = $sum;
 
-                $toPaymentModel->contractId = $eventRentalRequest->get('contractId');
-                $contractModel = $this->contractRep->getContract($eventRentalRequest->get('contractId'));
+                    $toPaymentModel->contractId = $eventRentalRequest->get('contractId');
+                    $contractModel = $this->contractRep->getContract($eventRentalRequest->get('contractId'));
 
-                $toPaymentModel->subjectIdFrom = $contractModel->subjectIdTo;
-                $toPaymentModel->subjectIdTo = $contractModel->subjectIdFrom;
-                $toPaymentModel->payUp =  $timeSheetModel->dateTime->addMinutes($timeSheetModel->duration);
+                    $toPaymentModel->subjectIdFrom = $contractModel->subjectIdTo;
+                    $toPaymentModel->subjectIdTo = $contractModel->subjectIdFrom;
+                    $toPaymentModel->payUp =  $timeSheetModel->dateTime->addMinutes($timeSheetModel->duration);
 
-                $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
-                DB::commit();
-            } catch (\Exception $e) {
-                DB::rollback();
+                    $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
+                    DB::commit();
+                } catch (\Exception $e) {
+                    DB::rollback();
+                }
+                $dateTimeCarbon->addDay();
             }
-            $dateTimeCarbon->addDay();
-        }
    }
 
     public function getViews()
