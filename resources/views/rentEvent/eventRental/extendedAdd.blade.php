@@ -131,8 +131,14 @@
     });
 
     $("#timeStart").change(function(){
-        $("#timeFinish").val($("#timeStart").val());
+        compareDateTime();
+
     });
+
+    $("#dateStart").change(function(){
+        compareDateTime();
+    });
+
 
     $("#timeDuration").change(function(){
         $('.inputLineSum').show();
@@ -170,10 +176,10 @@
         $("#timeStart").attr('readonly', true);
         $("#addCar").remove();
         $("#addContract").remove();
-        eventDateEnd = new Date(lastEvent.dateTimeEnd+' UTC');
-        eventDateEnd.toISOString(true);
-        $("#dateStart").val(eventDateEnd.toISOString().substring(0,10));
-        $("#timeStart").val(eventDateEnd.toISOString().substring(11,16));
+        eventDateEnd = new Date(lastEvent.dateTimeEnd);
+        // eventDateEnd.toISOString(true);
+        $("#dateStart").val(new Date(eventDateEnd.getTime()-eventDateEnd.getTimezoneOffset()*60000).toISOString().substring(0,10));
+        $("#timeStart").val(new Date(eventDateEnd.getTime()-eventDateEnd.getTimezoneOffset()*60000).toISOString().substring(11,16));
         $("#contractText").val(lastEvent.contractNumber);
         $("#contractId").val(lastEvent.contractId);
         $(".inputLineSum").val(lastEvent.contractPrice);
@@ -204,6 +210,21 @@
     $("#carId").change(function(){
         getLastEvent();
     })
+
+
+    function compareDateTime(){
+        lastDate = new Date(lastEvent.dateTimeEnd);
+        startDate = new Date($("#dateStart").val()+' '+$("#timeStart").val());
+        if (lastDate.getTime()>startDate.getTime()){
+            alert('Выбранная дата раньше окончания предидущего события.');
+            $("#dateStart").val(new Date(lastDate.getTime()-lastDate.getTimezoneOffset()*60000).toISOString().substring(0,10));
+            $("#timeStart").val(new Date(lastDate.getTime()-lastDate.getTimezoneOffset()*60000).toISOString().substring(11,16));
+        }
+
+
+
+    }
+
 
     function getLastEvent(){
         $.getJSON('/timesheet/getLastRecord/'+{{$eventObj->id}}+'/'+$("#carId").val(),function(data){
