@@ -5,6 +5,7 @@ namespace App\Http\Requests\Filters;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Http\FormRequest;
+use League\Flysystem\Config;
 
 class TimeSheetRequest extends FormRequest
 {
@@ -30,14 +31,14 @@ class TimeSheetRequest extends FormRequest
         } else{
             $date = new CarbonImmutable($input['currentDate']);
         }
-        $date = $date->setTimeFrom(Carbon::now());
+        $date = $date->setTimeFrom(Carbon::now()->startOfDay());
         $this->merge(['currentDate' => $date]);
 
         if (empty($inpud['subDays'])){
-            $this->merge(['subDays' => 12]);
+            $this->merge(['subDays' => config('global.timeSheetBefore')]);
         }
         if (empty($inpud['addDays'])){
-            $this->merge(['addDays' => 7]);
+            $this->merge(['addDays' => config('global.timeSheetAfter')]);
         }
 
     }

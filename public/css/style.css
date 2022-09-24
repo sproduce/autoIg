@@ -22,7 +22,11 @@
 }
 
 
-
+.carSticky {
+    position: sticky;
+    left: -14px;
+    /*width: 100%*/
+}
 
 .clickable:hover{
     background: #d5e6a2;

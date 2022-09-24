@@ -62,8 +62,10 @@ Class EventRentalService implements EventServiceInterface {
         $dateTimeCarbon = Carbon::parse($eventRentalRequest->get('dateTime'));
 
         $lastTimeSheet = $this->timeSheetRep->getLastTimeSheetId($eventRentalRequest->get('carId'),$this->eventObj->id);
-
-        if ($dateTimeCarbon->gte($lastTimeSheet->dateTime->addMinute($this->eventObj->duration)))
+        if ($lastTimeSheet->id){
+            $lastDateTime = $lastTimeSheet->dateTime->addMinute($this->eventObj->duration);
+        } else $lastDateTime = Carbon::parse(0);
+        if ($dateTimeCarbon->gte($lastDateTime))
             foreach ($eventRentalRequest->get('sum') as $sum){
                 DB::beginTransaction();
                 try {
