@@ -75,7 +75,6 @@ class ContractRepository implements ContractRepositoryInterface
         $searchText = $searchContractObj->get('searchText');
         $searchCarId = $searchContractObj->get('carId');
 
-
         $searchContract = DB::table('rent_contracts')
             ->leftJoin('car_configurations','car_configurations.id','=','rent_contracts.carId')
             ->leftJoin('rent_car_groups','rent_car_groups.id','=','rent_contracts.carGroupId')
@@ -89,12 +88,15 @@ class ContractRepository implements ContractRepositoryInterface
                 'rent_contract_statuses.name as statusName',
                 'rent_car_groups.nickName as carGroupNickName',
                 ])
-            ->orWhere('subjectFrom.nickName','LIKE','%'.$searchText.'%')
-            ->orWhere('subjectTo.nickName','LIKE','%'.$searchText.'%')
-            ->orWhere('number','LIKE','%'.$searchText.'%');
+            ->where(function($query) use ($searchText){
+                $query->orWhere('subjectFrom.nickName','LIKE','%'.$searchText.'%')
+                    ->orWhere('subjectTo.nickName','LIKE','%'.$searchText.'%')
+                    ->orWhere('number','LIKE','%'.$searchText.'%');
+            });
+
 
             if ($searchCarId){
-                $searchContract->where('rent_contracts.carId','=',$searchCarId);
+               $searchContract->where('rent_contracts.carId','=',$searchCarId);
             }
 
         $resultContract = $searchContract->get();

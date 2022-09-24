@@ -143,8 +143,8 @@ class ContractController extends Controller
 
     public function dialogInfo()
     {
-        $validate=$this->request->validate(['contractId'=>'required|integer']);
-        $contractObj=$this->contractServ->getContract($validate['contractId']);
+        $validate = $this->request->validate(['contractId'=>'required|integer']);
+        $contractObj = $this->contractServ->getContract($validate['contractId']);
 
         return view('dialog.Contract.FullInfoContract',['contract'=>$contractObj]);
     }
@@ -152,7 +152,7 @@ class ContractController extends Controller
 
     public function getContractInfo($id)
     {
-        $contractObj=$this->contractServ->getContract($id);
+        $contractObj = $this->contractServ->getContract($id);
         return response()->json($contractObj);
     }
 

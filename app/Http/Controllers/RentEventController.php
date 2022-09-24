@@ -114,7 +114,7 @@ class RentEventController extends Controller
         $eventObj = $this->rentEventServ->getRentEvent($eventId);
         $serviceObj = $this->rentEventServ->getEventService($eventObj);
         $serviceObj->destroy($dataId);
-        return redirect('/timesheet/list');
+        return  redirect()->back();
     }
 
 
