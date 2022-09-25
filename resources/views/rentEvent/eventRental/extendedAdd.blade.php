@@ -1,20 +1,14 @@
-@extends( ($needParent) ? '../adminIndex' : '../cleanIndex')
-
-@if($needParent)
-    @section('header')
-        <h6 class="modal-title w-100 font-weight-bold text-center">Событие {{$eventObj->name}}</h6>
-    @endsection
-@endif
-
 @section('content')
     <div class="row">
-        <div class="col-2">Последнее событие </div>
-        <div class="col-1"><strong>Дата:</strong></div>
-        <div class="col-2" id="dateTimeEnd"> </div>
-        <div class="col-1"><strong>Машина:</strong></div>
-        <div class="col-2" id="carNickName"></div>
+        <div class="col-2"><strong>Последнее событие</strong></div>
+        <div class="col-1" id="eventName"></div>
+
+        <div class="col-2"><strong>Дата начало - конец:</strong></div>
+        <div class="col-3 p-0">
+            <span id="dateTimeBegin"></span> - <span id="dateTimeEnd"></span>
+        </div>
         <div class="col-1"><strong>Договор:</strong></div>
-        <div class="col-2" id="contractNumber"></div>
+        <div class="col-3 p-0" id="contractNumber"></div>
 
     </div>
     <div class="row mb-5 mt-1">
@@ -28,12 +22,15 @@
     <input type="number" name="duration" value="1440" hidden/>
     @csrf
     <div class="form-row text-center">
-        <div class="form-group col-md-3 input-group-sm">
-            <label for="contractText" title="Автомобиль">Машина</label>
-                <a href="/motorPool/addCarTo" id="addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
-            <input id="carText" class="form-control" value="{{$carObj->nickName}}" readonly required />
-            <input id="carId" name="carId" class="form-control" value="{{$carObj->id}}" hidden />
-        </div>
+        @if (!$carObj->id)
+            <div class="form-group col-md-3 input-group-sm">
+                <label for="contractText" title="Автомобиль">Машина</label>
+                    <a href="/motorPool/addCarTo" id="addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                <input id="carText" class="form-control" value="{{$carObj->nickName}}" readonly required />
+
+            </div>
+        @endif
+        <input id="carId" name="carId" class="form-control" value="{{$carObj->id}}" hidden />
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Договор"> Договор </label>
                 <a href="/contract/addContractTo" id="addContract" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
@@ -119,6 +116,7 @@
 
 
     $(function() {
+        $("#extendButton").hide();
         $('#formSubmit').prop('disabled', true);
         getLastEvent();
         $('.inputLineSum').hide();
@@ -230,23 +228,20 @@
         $.getJSON('/timesheet/getLastRecord/'+{{$eventObj->id}}+'/'+$("#carId").val(),function(data){
             // dateTimeObj = new Date(data.timeSheet.dateTime);
             if (data.timeSheetId){
+                buttonInfo = "";
                 $("#extendButton").show();
+                $("#dateTimeBegin").text(data.dateTimeBegin);
                 $("#dateTimeEnd").text(data.dateTimeEnd);
+                $("#eventName").text(data.eventName);
+                $("#contractNumber").text(data.contractNumber);
+
                 lastEvent = data;
             } else {
-                $("#dateTimeEnd").text("Нет события");
+                $("#dateTimeBegin").text("N/A");
+                $("#dateTimeEnd").text("N/A");
+                $("#eventName").text("N/A");
+                $("#contractNumber").text("N/A");
                 $("#extendButton").hide();
-            }
-
-            if (data.carId){
-                $("#carNickName").text(data.carNickName);
-            } else {
-                $("#carNickName").text("Не указана");
-            }
-            if (data.contractId){
-                $("#contractNumber").text(data.contractNumber);
-            } else {
-                $("#contractNumber").text("Не договора");
             }
         });
     }

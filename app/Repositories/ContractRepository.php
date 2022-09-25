@@ -124,11 +124,6 @@ class ContractRepository implements ContractRepositoryInterface
         return rentContract::query()->where('carId',$carId)->whereNull('finishFact')->get();
     }
 
-    public function getContractByTimeSheet($timeSheetId)
-    {
-        //return rentContract::query()->
-    }
-
     public function getFilterContracts(Filters\ToPaymentRequest $requestData)
     {
         // TODO: Implement getFilterContracts() method.

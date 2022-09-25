@@ -3,7 +3,10 @@
 
 @if($needParent)
     @section('header')
-        <h6 class="modal-title w-100 font-weight-bold text-center">Событие {{$eventObj->name}}</h6>
+        @if($carObj->id)
+            <h6 class="w-100 text-left"><strong>Машина: </strong> {{$carObj->nickName}}</h6>
+        @endif
+            <h6 class="w-100 text-left"><strong>Событие: </strong>{{$eventObj->name}}</h6>
     @endsection
 @endif
 

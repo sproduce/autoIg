@@ -47,8 +47,17 @@ class timeSheet extends Model
 
     public function toPayment()
     {
-        return $this->hasOne(toPayment::class,'timeSheetId','id')->whereColumn('id','pId')->withDefault();
+        if ($this->id){
+            return $this->hasOne(toPayment::class,'timeSheetId','id')->whereColumn('id','pId')->withDefault();
+        } else {
+            return new toPayment();
+        }
+
     }
+
+
+
+
 
 
     protected function getDateTimeEndAttribute()

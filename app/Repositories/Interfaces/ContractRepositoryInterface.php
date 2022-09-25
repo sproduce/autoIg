@@ -31,9 +31,6 @@ interface ContractRepositoryInterface
 
     public function getContractsByCarId($carId);
 
-    public function getContractByTimeSheet($timeSheetId);
-
-
     public function getContractFullInfo($contractId);
 
 

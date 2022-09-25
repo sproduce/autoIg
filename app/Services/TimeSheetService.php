@@ -168,16 +168,22 @@ Class TimeSheetService{
     }
 
 
-    public function getLastRecord($eventId,$carId)
+    public function getLastRecord($eventId,$carId,ContractRepositoryInterface $contractRep)
     {
         $eventObj = $this->rentEventRep->getEvent($eventId);
         $carObj = $this->motorPoolRep->getCar($carId);
         $lastTimeSheetObj = $this->timeSheetRep->getLastTimeSheet($carObj,$eventObj);
-        $contractObj = $lastTimeSheetObj->toPayment()->first()->contract()->first();
+
+        $toPaymentObj = $this->toPaymentRep->getToPaymentByTimeSheet($lastTimeSheetObj->id);
+
+        $contractObj = $contractRep->getContract($toPaymentObj->contractId);
+
         if ($lastTimeSheetObj->dateTime){
+            $dateTimeBegin = $lastTimeSheetObj->dateTime->format('Y-m-d H:i');
             $dateTimeEnd = $lastTimeSheetObj->dateTime->addMinute($lastTimeSheetObj->duration)->format('Y-m-d H:i');
         } else {
-            $dateTimeEnd = '';
+            $dateTimeBegin = null;
+            $dateTimeEnd = null;
         }
 //        $toPaymentModel = $lastTimeSheetObj->toPayment();
 //        $toPaymentModel->dd();
@@ -186,6 +192,8 @@ Class TimeSheetService{
             'carId' => $carObj->id,
             'timeSheetId' => $lastTimeSheetObj->id,
             'carNickName' => $carObj->nickName,
+            'eventName' => $eventObj->name,
+            'dateTimeBegin' => $dateTimeBegin,
             'dateTimeEnd' => $dateTimeEnd,
             'contractNumber' => $contractObj->number,
             'contractId' => $contractObj->id,

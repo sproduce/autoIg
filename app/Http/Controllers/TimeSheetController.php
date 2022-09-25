@@ -232,9 +232,9 @@ class TimeSheetController extends Controller
     }
 
 
-    public function getLastRecord($eventId,$carId=null)
+    public function getLastRecord($eventId,$carId=null,ContractRepositoryInterface $contractRep)
     {
-        $timeSheetObj = $this->timeSheetServ->getLastRecord($eventId,$carId);
+        $timeSheetObj = $this->timeSheetServ->getLastRecord($eventId,$carId,$contractRep);
         return response()->json($timeSheetObj);
     }
 
