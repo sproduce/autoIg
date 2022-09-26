@@ -181,15 +181,14 @@
         $("#contractText").val(lastEvent.contractNumber);
         $("#contractId").val(lastEvent.contractId);
         $(".inputLineSum").val(lastEvent.contractPrice);
+        addDay(1);
     });
 
     $("#addDay").click(function(){
-        $("#timeDuration").val(parseInt($("#timeDuration").val())+1);
-        $("#timeDuration").change();
+        addDay(1);
     });
     $("#add7Day").click(function(){
-        $("#timeDuration").val(parseInt($("#timeDuration").val())+7);
-        $("#timeDuration").change();
+        addDay(7);
     });
 
     $("#timeFinish").change(function(){
@@ -205,10 +204,16 @@
         }
     });
 
+
     $("#carId").change(function(){
         getLastEvent();
     })
 
+
+    function addDay(kol){
+        $("#timeDuration").val(parseInt($("#timeDuration").val())+kol);
+        $("#timeDuration").change();
+    }
 
     function compareDateTime(){
         lastDate = new Date(lastEvent.dateTimeEnd);
