@@ -11,12 +11,12 @@
 <form method="POST" action="/rentEvent/{{$eventObj->id}}">
     <input type="number" name="id" value="{{old('id',$eventDataObj->id)}}" hidden/>
     <input type="number" name="parentId" value="{{old('parentId',$parentId ?? $eventDataObj->parentId)}}" hidden/>
-
     @csrf
+
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="carText" title="Автомобиль">Машина</label>
-            <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser ml-2"><i class="fas fa-search-plus"></i></a>
+            <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success DialogUser ml-2"><i class="fas fa-search-plus"></i></a>
             <a class="btn btn-ssm btn-outline-danger ml-2" id="carClear"><i class="fas fa-eraser"></i></a>
             <input id="carText" class="form-control" value="{{old('carText',$eventDataObj->carText ?? $carObj->nickName)}}" readonly />
             <input id="carId" name="carId" class="form-control" value="{{old('carId',$eventDataObj->carId ?? $carObj->id)}}" hidden/>

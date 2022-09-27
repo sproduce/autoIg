@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property int $culprit
+ * @property $comment
  */
 
 
 class rentEventCrash extends Model
 {
     use HasFactory;
-    protected $fillable = ['comment','culprit','sum'];
+    protected $fillable = ['comment','culprit'];
+    private $coment,$culprit;
 }

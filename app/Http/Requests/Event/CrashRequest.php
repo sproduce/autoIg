@@ -16,6 +16,25 @@ class CrashRequest extends FormRequest
         return true;
     }
 
+
+    protected function prepareForValidation()
+    {
+        $input=parent::all();
+        if (empty($input['mileage'])){
+            $this->merge(['mileage' => 0]);
+        }
+        if (empty($input['sum'])){
+            $this->merge(['sum' => 0]);
+        }
+
+
+        $dateTime = date("Y-m-d H:i:00",strtotime($input['date'].' '.$input['time']));
+        $this->merge(['dateTime' => $dateTime,]);
+    }
+
+
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +43,13 @@ class CrashRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id' => 'integer|nullable',
+            'carId' => 'integer|required',
+            'mileage' => 'integer',
+            'sum' => 'integer',
+            'culprit' => 'integer|required',
+            'dateTime' => 'required',
+            'comment' => 'string|nullable',
         ];
     }
 }
