@@ -38,6 +38,8 @@
 
 
 @section('js')
+    <script src="{{ asset('js/rentEvent.js') }}" defer></script>
+
     <script>
         $( "#eventId" ).change(function() {
             $("#placeholderSelect").remove();

@@ -140,7 +140,6 @@ Class EventRentalService implements EventServiceInterface {
         } catch (\Exception $e) {
             DB::rollback();
         }
-
     }
 
 

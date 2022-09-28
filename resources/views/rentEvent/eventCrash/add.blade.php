@@ -24,34 +24,34 @@
     <div class="form-row text-center">
         <div class="form-group col-md-2 input-group-sm">
             <label for="date" title="Дата события">Дата события</label>
-            <input type="date" name="date" id="date" class="form-control" step="any" value="{{$dateTime->format('Y-m-d')}}"/>
+            <input type="date" name="date" id="date" class="form-control" step="any" value="{{old('date',$eventDataObj->dateTime ? $eventDataObj->dateTime->toDateString() : $dateTime->toDateString())}}"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
             <label for="time" title="Время события">Время события</label>
-            <input type="time" step="60" name="time" id="time" class="form-control" step="any" value="{{$dateTime->format('H:i')}}"/>
+            <input type="time" step="60" name="time" id="time" class="form-control" step="any" value="{{old('date', $eventDataObj->dateTime ? $eventDataObj->dateTime->format('H:i') : $dateTime->format('H:i'))}}"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
             <label for="mileage" title="Пробег">Пробег</label>
-            <input type="number" name="mileage" id="mileage" class="form-control"/>
+            <input type="number" name="mileage" id="mileage" class="form-control" value="{{old('mileage',$eventDataObj->mileage)}}"/>
         </div>
     </div>
     <div class="form-row text-center">
         <div class="form-group col-md-2 input-group-sm">
             <label for="culprit" title="Виновник ДТП">Виновник ДТП</label>
             <select name="culprit" id="culprit"  class="form-control" >
-                <option value="1">Водитель</option>
-                <option value="0">3-я сторона</option>
+                <option value="1" @if(old('culprit',$eventDataObj->culprit)==1) selected @endif>Водитель</option>
+                <option value="0" @if(old('culprit',$eventDataObj->culprit)==0) selected @endif>3-я сторона</option>
             </select>
         </div>
         <div class="form-group col-md-2 input-group-sm">
             <label for="sum" title="Сумма убытка">Сумма убытка</label>
-            <input type="number" name="sum" id="sum" class="form-control"/>
+            <input type="number" name="sum" id="sum" class="form-control" value="{{old('sum',$eventDataObj->sum)}}"/>
         </div>
     </div>
     <div class="form-row text-center">
         <div class="form-group col-md-6 input-group-sm">
             <label for="comment" title="Комментарий">Комментарий</label>
-            <input type="text" name="comment" id="comment" class="form-control"/>
+            <input type="text" name="comment" id="comment" class="form-control" value="{{old('comment',$eventDataObj->comment)}}"/>
         </div>
     </div>
 

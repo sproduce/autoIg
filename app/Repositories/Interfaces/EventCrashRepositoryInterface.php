@@ -12,4 +12,9 @@ interface EventCrashRepositoryInterface
     public function getEventCrashByContract($contractId);
     public function getEventCrash($id);
     public function getEventCrashes($eventId,CarbonPeriod $datePeriod);
+
+    public function getEventFullInfo($eventId, $dataId);
+
+    public function delEvent(rentEventCrash $eventCrash);
+
 }

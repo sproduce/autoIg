@@ -31,12 +31,25 @@ Class EventCrashService implements EventServiceInterface {
     public function index(CarbonPeriod $datePeriod)
     {
       $resultEvents = $this->eventCrashRep->getEventCrashes($this->eventObj->id,$datePeriod);
+
       return $resultEvents;
     }
 
     public function destroy($dataId)
     {
-    // TODO: Implement destroy() method.
+        echo $dataId;
+        $eventCrashModel = $this->eventCrashRep->getEventCrash($dataId);
+        $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventCrashModel->id);
+        $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+        DB::beginTransaction();
+        try {
+            $this->toPaymentRep->delToPayment($toPaymentModel);
+            $this->timeSheetRep->delTimeSheet($timeSheetModel);
+            $this->eventCrashRep->delEvent($eventCrashModel);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
     }
 
     public function getAdditionalViewDataArray()
@@ -46,7 +59,8 @@ Class EventCrashService implements EventServiceInterface {
 
     public function getEventInfo($dataId = null)
     {
-        return $this->eventCrashRep->getEventCrash($dataId);
+        $result = $this->eventCrashRep->getEventFullInfo($this->eventObj->id,$dataId);
+        return $result;
     }
 
     public function getEventModel($modelId = null)
@@ -66,6 +80,8 @@ Class EventCrashService implements EventServiceInterface {
         try {
             $eventCrashModel = $this->eventCrashRep->getEventCrash($eventCrashRequest->get('id'));
             $eventCrashModel->culprit = $eventCrashRequest->get('culprit');
+            $eventCrashModel->comment = $eventCrashRequest->get('comment');
+
             $eventCrashModel = $this->eventCrashRep->addEventCrash($eventCrashModel);
 
 
@@ -95,10 +111,6 @@ Class EventCrashService implements EventServiceInterface {
             DB::rollback();
         }
 
-
-
-
-        exit();
     }
 
 
