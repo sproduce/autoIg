@@ -4,12 +4,12 @@ function deleteEvent(current)
 {
     $currentLine = $(current).parent().closest('.row');
      if (confirm('Удалить событие?')){
-         $(current).prop('disabled',true);
-         $currentLine.css('textDecoration', 'line-through');
-         console.log($currentLine.data('event'));
-         console.log($currentLine.data('id'));
+         url= "/rentEvent/"+$currentLine.data('event')+"/"+$currentLine.data('id')+"/destroy";
+         $.get(url).done(function(){
+             $(current).prop('disabled',true);
+             $currentLine.css('textDecoration', 'line-through');
+         });
      }
-
 
 }
 
