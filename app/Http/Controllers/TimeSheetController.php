@@ -211,7 +211,7 @@ class TimeSheetController extends Controller
         $periodDate = $dateSpan->getCarbonPeriod();
         $eventId = $eventIdrequest->getEventId();
         $eventObj = $rentEventRep->getEvent($eventId);
-        $rentEvents=$rentEventRep->getEvents();
+        $rentEvents = $rentEventRep->getEvents();
         return view('timeSheet.events',[
             'eventObj' => $eventObj,
             'rentEvents' => $rentEvents,
@@ -220,12 +220,16 @@ class TimeSheetController extends Controller
     }
 
 
-    public function listEvents(DateSpan $dateSpan)
+    public function listEvents(DateSpan $dateSpan,RentEventRepositoryInterface  $rentEventRep)
     {
         $periodDate = $dateSpan->getCarbonPeriod();
         $eventsArray = $this->timeSheetServ->getAllTimeSheets($periodDate);
+        $carsObj = $this->motorPoolRep->getCars();
+        $rentEvents = $rentEventRep->getEvents();
         //$eventsArray->dd();
         return view('timeSheet.allEvents',[
+            'carsObj' => $carsObj,
+            'eventsObj' =>$rentEvents,
             'eventsArray' => $eventsArray,
             'periodDate' => $periodDate,
         ]);
