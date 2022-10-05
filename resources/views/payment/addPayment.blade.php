@@ -59,13 +59,16 @@
             </div>
             <div class="col-3">
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-3 p-0">
                        Субьект
                     </div>
-                    <div class="col-1">
+                    <div class="col-1 p-0">
                         <a href="/subject/addSubjectTo/subject" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
                     </div>
-                    <div class="col-7">
+                    <div class="col-1 p-0">
+                        <a class="btn btn-ssm btn-outline-danger clearButton"><i class="fas fa-eraser"></i></a>
+                    </div>
+                    <div class="col-7 p-0">
                         <input id="subjectText" name="subjectText" value="{{old('subjectText',$paymentObj->subject->nickname)}}" readonly/>
                         <input name="subjectId" id="subjectId" value="{{old('subjectId',$paymentObj->subjectId)}}"  hidden />
                     </div>
@@ -84,38 +87,47 @@
             </div>
             <div class="col-3">
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-3 p-0">
                         Машина
                     </div>
-                    <div class="col-1">
-                        <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                    <div class="col-1 p-0">
+                        <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success DialogUser"><i class="fas fa-search-plus"></i></a>
                     </div>
-                    <div class="col-7">
+                    <div class="col-1 p-0">
+                        <a class="btn btn-ssm btn-outline-danger clearButton"><i class="fas fa-eraser"></i></a>
+                    </div>
+                    <div class="col-7 p-0">
                         <input id="carText" name="carText" value="{{old('carText',$paymentObj->car->nickName)}}" readonly/>
                         <input name="carId" id="carId" value="{{old('carId',$paymentObj->carId)}}"  hidden />
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-3 p-0">
                         Группа
                     </div>
-                    <div class="col-1">
-                        <a href="/carGroup/addCarGroupTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                    <div class="col-1 p-0">
+                        <a href="/carGroup/addCarGroupTo" class="btn btn-ssm btn-outline-success DialogUser"><i class="fas fa-search-plus"></i></a>
                     </div>
-                    <div class="col-7">
+                    <div class="col-1 p-0">
+                        <a class="btn btn-ssm btn-outline-danger clearButton"><i class="fas fa-eraser"></i></a>
+                    </div>
+                    <div class="col-7 p-0">
                         <input id="carGroupText" name="carGroupText" value="{{old('carGroupText',$paymentObj->carGroup->nickName)}}" readonly/>
                         <input name="carGroupId" id="carGroupId" value="{{old('carGroupId',$paymentObj->carGroupId)}}"  hidden />
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-3 p-0">
                         Договор
                     </div>
-                    <div class="col-1">
+                    <div class="col-1 p-0">
                         <a href="/contract/addContractTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
                     </div>
-                    <div class="col-7">
+                    <div class="col-1 p-0">
+                        <a class="btn btn-ssm btn-outline-danger clearButton"><i class="fas fa-eraser"></i></a>
+                    </div>
+                    <div class="col-7 p-0">
                         <input id="contractText" name="contractText" value="{{old('contractText',$paymentObj->contract->number)}}" readonly/>
                         <input name="contractId" id="contractId" value="{{old('contractId',$paymentObj->contractId)}}"  hidden />
                     </div>

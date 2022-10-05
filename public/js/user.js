@@ -41,17 +41,3 @@ function ShowImage(imageUrl){
     $('#modal').modal('toggle');
 }
 
-
-
-
-
-
-function Login(){
-    //window.location.href = "/clients/getClients";
-    if(Cookies.get("aToken")==undefined){
-        DialogUserSMin("/dialogna/dialogLogin");
-    } else {
-        window.location.href = "/clients/getClients";
-    }
-}
-
