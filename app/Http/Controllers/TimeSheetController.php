@@ -220,13 +220,13 @@ class TimeSheetController extends Controller
     }
 
 
-    public function listEvents(DateSpan $dateSpan,RentEventRepositoryInterface  $rentEventRep)
+    public function listEvents(DateSpan $dateSpan,RentEventRepositoryInterface  $rentEventRep,Filters\EventListRequest $eventListRequest)
     {
         $periodDate = $dateSpan->getCarbonPeriod();
         $eventsArray = $this->timeSheetServ->getAllTimeSheets($periodDate);
         $carsObj = $this->motorPoolRep->getCars();
         $rentEvents = $rentEventRep->getEvents();
-        //$eventsArray->dd();
+
         return view('timeSheet.allEvents',[
             'carsObj' => $carsObj,
             'eventsObj' =>$rentEvents,

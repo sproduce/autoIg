@@ -13,7 +13,7 @@ class EventListRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class EventListRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'dateFrom' =>'',
+            'dateTo' => '',
+            'eventId' => '',
+            'carId' => '',
+            'deleted' =>'',
         ];
     }
 }

@@ -155,18 +155,28 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->join('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
             ->join('rent_events','rent_events.id','=','time_sheets.eventId')
             ->join('pay_operation_types','pay_operation_types.id','=','rent_events.payOperationTypeId')
-            ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
+            ->join('rent_contracts','rent_contracts.id','=','to_payments.contractId')
             ->whereRaw('to_payments.id = to_payments.pId')
             ->where('to_payments.sum','>',0);
         if ($rentPayment->contractId){
             $resultCollectionRequest->where('to_payments.contractId','=',$rentPayment->contractId);
         }
+
+
         if ($rentPayment->payOperationTypeId){
            $resultCollectionRequest->where('rent_events.payOperationTypeId','=',$rentPayment->payOperationTypeId);
         }
+
+
         if ($rentPayment->carId){
-            $resultCollectionRequest->where('time_sheets.carId','=',$rentPayment->carId);
+            $carId = $rentPayment->carId;
+            $resultCollectionRequest->where(function($query) use ($carId){
+
+             $query->whereRaw('to_payments.contractId = rent_contracts.id')
+                 ->where('rent_contracts.carId','=',$carId);
+            });
         }
+
 
         if ($rentPayment->subjectId){
             $resultCollectionRequest->where('to_payments.subjectIdFrom','=',$rentPayment->subjectId);
