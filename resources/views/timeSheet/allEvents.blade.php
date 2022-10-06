@@ -3,6 +3,9 @@
 @php
 //https://stackoverflow.com/questions/17714705/how-to-use-checkbox-inside-select-option
 @endphp
+    @section('css')
+
+    @endsection
 @section('header')
     <form method="GET" action="" class="w-100">
         <div class="row">

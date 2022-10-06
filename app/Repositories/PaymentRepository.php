@@ -98,7 +98,7 @@ class PaymentRepository implements PaymentRepositoryInterface
 
     public function getPaymentsByContract($contractId)
     {
-        return rentPayment::where('contractId',$contractId)->orderByDesc('dateTime')->get();
+        return rentPayment::where('contractId',$contractId)->orderBy('dateTime')->get();
     }
 
 

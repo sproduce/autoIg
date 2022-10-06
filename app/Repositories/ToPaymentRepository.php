@@ -44,6 +44,42 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         return $resultCollection;
     }
 
+
+
+    public function getToPaymentsParentByContract($contractId): Collection
+    {
+        $resultCollection = DB::table('to_payments')
+            ->leftjoin('time_sheets','time_sheets.id', '=' ,'to_payments.timeSheetId')
+            ->leftjoin('rent_events','rent_events.id','=','time_sheets.eventId')
+            ->leftjoin('pay_operation_types','pay_operation_types.id','=','rent_events.payOperationTypeId')
+            ->select([
+                'to_payments.sum as paymentsSum',
+                'to_payments.paymentSum as paymentsPaymentSum',
+                'to_payments.comment as paymentsComment',
+                'to_payments.paymentId as paymentsPaymentId',
+                'time_sheets.dateTime as sheetsDateTime',
+                'rent_events.name as eventsName',
+                'rent_events.color as eventsColor',
+                'rent_events.action as eventsAction',
+                'pay_operation_types.name as operationTypeName',
+            ])
+            ->whereNull('to_payments.deleted_at')
+            ->whereNull('time_sheets.deleted_at')
+            ->where('to_payments.contractId','=',$contractId)
+            ->whereRaw('to_payments.id=to_payments.pId')
+            ->orderBy('time_sheets.dateTime')
+            ->get();
+
+        $resultCollection->each(function ($item, $key) {
+            $item->sheetsDateTime=Carbon::parse($item->sheetsDateTime);
+        });
+
+        return $resultCollection;
+    }
+
+
+
+
     public function getToPayment($toPaymentId): toPayment
     {
         return toPayment::find($toPaymentId) ??new toPayment();

@@ -5,26 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>CRM</title>
-
-        <!-- Scripts -->
-
-
-        <!-- Styles -->
         <link href="/css/app.css" rel="stylesheet">
         <link href="/css/dashboard.css" rel="stylesheet">
         <link href="/css/style.css?version={{config('global.version')}}" rel="stylesheet">
+        @yield('css')
     </head>
 
     <body class="antialiased">
-
         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
             <div id="modal-dialog" class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content" id="modal-content"></div>
             </div>
         </div>
-
-
-
 
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/"> CRM</a>
