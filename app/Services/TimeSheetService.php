@@ -12,6 +12,7 @@ use App\Repositories\RentEventRepository;
 use App\Repositories\ToPaymentRepository;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use App\Http\Requests\Filters;
 
 Class TimeSheetService{
     private $timeSheetRep,$toPaymentRep,$motorPoolRep,$rentEventRep;
@@ -126,9 +127,11 @@ Class TimeSheetService{
     }
 
 
-    public function getAllTimeSheets(CarbonPeriod $datePeriod)
+    public function getAllTimeSheets(CarbonPeriod $datePeriod,Filters\EventListRequest $eventListRequest=null)
     {
-        return $this->timeSheetRep->getTimeSheetsArray($datePeriod);
+
+        $result = $this->timeSheetRep->getTimeSheetsArray($datePeriod,$eventListRequest);
+        return $result;
     }
 
     public function getContractTimeSheets($contractId)

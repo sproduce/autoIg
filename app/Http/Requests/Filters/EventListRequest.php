@@ -24,11 +24,9 @@ class EventListRequest extends FormRequest
     public function rules()
     {
         return [
-            'dateFrom' =>'',
-            'dateTo' => '',
             'eventId' => '',
             'carId' => '',
-            'deleted' =>'',
+            'deleted' => '',
         ];
     }
 }

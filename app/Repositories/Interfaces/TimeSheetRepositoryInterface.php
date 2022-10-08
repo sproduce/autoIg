@@ -3,13 +3,14 @@
 namespace App\Repositories\Interfaces;
 
 
+use App\Http\Requests\Filters\EventListRequest;
 use App\Models\carConfiguration;
 use App\Models\rentEvent;
 use App\Models\timeSheet;
 use Carbon\Carbon;
-use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Collection;
+use App\Http\Requests\Filters;
 
 interface TimeSheetRepositoryInterface
 {
@@ -19,7 +20,7 @@ interface TimeSheetRepositoryInterface
 
     public function getTimeSheetsByEvent($eventId,CarbonPeriod  $datePeriod);
     public function getTimeSheet($timeSheetId): timeSheet;
-    public function getTimeSheetsArray(CarbonPeriod $datePeriod);
+    public function getTimeSheetsArray(CarbonPeriod $datePeriod,Filters\EventListRequest $eventListRequest=null);
     public function getTimeSheetByDate($date);
     public function getTimeSheetById($id);
 

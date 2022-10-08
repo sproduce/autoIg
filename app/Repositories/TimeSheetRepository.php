@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
-
+use App\Http\Requests\Filters;
 
 class TimeSheetRepository implements TimeSheetRepositoryInterface
 {
@@ -25,7 +25,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         return timeSheet::find($timeSheetId) ?? new timeSheet();
     }
 
-    public function getTimeSheetsArray(CarbonPeriod $datePeriod)
+    public function getTimeSheetsArray(CarbonPeriod $datePeriod,Filters\EventListRequest $eventListRequest=null)
     {
         $startDate = $datePeriod->getStartDate()->format('Y-m-d H:i');
         $finishDate = $datePeriod->getEndDate()->subMinute(1)->format('Y-m-d H:i');
@@ -39,8 +39,9 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
             })
             ->WhereBetween('dateTime',[$startDate,$finishDate])
             ->whereNull('time_sheets.deleted_at')
-            ->orderByDesc('time_sheets.dateTime')
-            ->get([
+            ->orderByDesc('time_sheets.dateTime');
+
+        $resultCollection = $resultCollection->get([
                 'time_sheets.*',
                 'to_payments.sum as toPaymentSum',
                 'to_payments.paymentSum as toPaymentPaymentSum',
