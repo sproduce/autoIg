@@ -41,6 +41,14 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
             ->whereNull('time_sheets.deleted_at')
             ->orderByDesc('time_sheets.dateTime');
 
+        if ($eventListRequest->get('carId')){
+            $resultCollection =  $resultCollection->whereIn('car_configurations.id',$eventListRequest->get('carId'));
+        }
+
+        if ($eventListRequest->get('eventId')){
+            $resultCollection =  $resultCollection->whereIn('rent_events.id',$eventListRequest->get('eventId'));
+        }
+
         $resultCollection = $resultCollection->get([
                 'time_sheets.*',
                 'to_payments.sum as toPaymentSum',
@@ -51,6 +59,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
                 'rent_events.colorPartPay as eventColorPartPay',
                 'rent_events.colorPay as eventColorPay',
                 'car_configurations.nickName as carNickName',
+                'car_configurations.id as carId',
             ]);
 
           $resultCollection->each(function ($item, $key) {

@@ -24,8 +24,10 @@ class EventListRequest extends FormRequest
     public function rules()
     {
         return [
-            'eventId' => '',
-            'carId' => '',
+            'eventId' => 'array|nullable',
+            'eventId.*' => 'integer|min:1',
+            'carId' => 'array|nullable',
+            'carId.*' => 'integer|min:1',
             'deleted' => '',
         ];
     }
