@@ -19,28 +19,52 @@
             </div>
         @else
             <div class="row align-items-center font-weight-bold">
-                <div class="col-2">Событие</div>
-                <div class="col-2 p-0">Дата начала</div>
-                <div class="col-2">Договор</div>
-                <div class="col-2">Стоимость</div>
-                <div class="col-2">Пробег</div>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-2">Событие</div>
+                        <div class="col-2 p-0">Дата начала</div>
+                        <div class="col-2">Договор</div>
+                        <div class="col-2">Стоимость</div>
+                        <div class="col-2">Пробег</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-2 p-0">Дата окончания</div>
+                        <div class="col-2"></div>
+                        <div class="col-2">Оплачено</div>
+                        <div class="col-2"></div>
+                    </div>
+                </div>
+
             </div>
 
             @foreach($timeSheets as $timeSheet)
             <div class="row row-table">
-                <div class="col-2" style="background-color:{{$timeSheet->eventColor}}">{{$timeSheet->eventName}}</div>
-                <div class="col-2 p-0" title="">{{$timeSheet->timeSheetDateTime->format('d-m-Y H:i')}}</div>
-                <div class="col-2"><i class="fas fa-info-circle text-primary"
-                                      title="{{$timeSheet->contract->subjectFrom->nickname}}&#013;{{$timeSheet->contract->subjectTo->nickname}}&#013;{{$timeSheet->contract->status->name}}&#013;{{$timeSheet->contract->type->name}}">
-                                   </i> {{$timeSheet->contractNumber}}</div>
-                <div class="col-2 text-right">{{$timeSheet->toPaymentSum}} p.</div>
-                <div class="col-2"></div>
-                <div class="col-1"></div>
-                <div class="col-1">
-                    <a class="btn-ssm btn-outline-success" href="/timesheet/add?carId={{$carIdDate['carId']}}&date={{$carIdDate['date']->toDateString()}}&parentId={{$timeSheet->timeSheetId}}" title="Добавить событие наследник">
-                        <i class="fas fa-folder-plus"></i>
-                    </a>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-2" style="background-color:{{$timeSheet->eventColor}}">{{$timeSheet->eventName}}</div>
+                        <div class="col-2 p-0" title="">{{$timeSheet->timeSheetDateTime->format('d-m-Y H:i')}}</div>
+                        <div class="col-2"><i class="fas fa-info-circle text-primary"
+                                              title="{{$timeSheet->contract->subjectFrom->nickname}}&#013;{{$timeSheet->contract->subjectTo->nickname}}&#013;{{$timeSheet->contract->status->name}}&#013;{{$timeSheet->contract->type->name}}">
+                            </i> {{$timeSheet->contractNumber}}</div>
+                        <div class="col-2 text-right">{{$timeSheet->toPaymentSum}} p.</div>
+                        <div class="col-2"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1">
+                            <a class="btn-ssm btn-outline-success" href="/timesheet/add?carId={{$carIdDate['carId']}}&date={{$carIdDate['date']->toDateString()}}&parentId={{$timeSheet->timeSheetId}}" title="Добавить событие наследник">
+                                <i class="fas fa-folder-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-2 p-0" title="">{{$timeSheet->timeSheetDateTime->format('d-m-Y H:i')}}</div>
+                        <div class="col-2"></div>
+                        <div class="col-2 text-right">{{$timeSheet->toPaymentPaymentSum}} p.</div>
+                        <div class="col-2"></div>
+                    </div>
                 </div>
+
             </div>
             @endforeach
         @endif

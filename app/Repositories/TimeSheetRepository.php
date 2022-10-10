@@ -40,14 +40,16 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
             ->WhereBetween('dateTime',[$startDate,$finishDate])
             ->whereNull('time_sheets.deleted_at')
             ->orderByDesc('time_sheets.dateTime');
+        if ($eventListRequest){
+            if ($eventListRequest->get('carId')){
+                $resultCollection =  $resultCollection->whereIn('car_configurations.id',$eventListRequest->get('carId'));
+            }
 
-        if ($eventListRequest->get('carId')){
-            $resultCollection =  $resultCollection->whereIn('car_configurations.id',$eventListRequest->get('carId'));
+            if ($eventListRequest->get('eventId')){
+                $resultCollection =  $resultCollection->whereIn('rent_events.id',$eventListRequest->get('eventId'));
+            }
         }
 
-        if ($eventListRequest->get('eventId')){
-            $resultCollection =  $resultCollection->whereIn('rent_events.id',$eventListRequest->get('eventId'));
-        }
 
         $resultCollection = $resultCollection->get([
                 'time_sheets.*',
