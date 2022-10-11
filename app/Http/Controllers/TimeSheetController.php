@@ -230,7 +230,7 @@ class TimeSheetController extends Controller
 
         return view('timeSheet.allEvents',[
             'carsObj' => $carsObj,
-            'eventsObj' =>$rentEvents,
+            'eventsObj' => $rentEvents,
             'carsId' => $eventListRequest->get('carId'),
             'eventsId' => $eventListRequest->get('eventId'),
             'eventsArray' => $eventsArray,

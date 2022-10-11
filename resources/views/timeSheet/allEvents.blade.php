@@ -44,32 +44,35 @@
 
 @section('content')
     <div class="row align-items-center font-weight-bold border">
-        <div class="col-3 text-center">
-            Дата
-        </div>
-        <div class="col-3">
-            Событие
-        </div>
-        <div class="col-3">
-            Машина
-        </div>
-        <div class="col-3">
-            Комментарий
-        </div>
+        <div class="col-2">Дата</div>
+        <div class="col-2">Машина</div>
+        <div class="col-2">Событие</div>
+        <div class="col-2">Договор</div>
+        <div class="col-2">Сумма</div>
+        <div class="col-2">Комментарий</div>
     </div>
 
     @foreach($eventsArray as $event)
-        <div class="row row-table">
-            <div class="col-3">
-                {{$event->dateTime->format('d-m-Y H:i')}}
+        <div class="row row-table" data-event="{{$event->eventId}}" data-id="{{$event->dataId}}">
+            <div class="col-2" title="{{$event->dateTime->format('H:i')}}">
+                <a href="/rentEvent/{{$event->eventId}}/{{$event->dataId ?? 0}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                {{$event->dateTime->toDateString()}}
             </div>
-            <div class="col-3">
-                {{$event->eventName}}
-            </div>
-            <div class="col-3">
+
+            <div class="col-2">
+                <a href="/motorPool/carInfo/{{$event->carId ?? 0}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
                 {{$event->carNickName}}
             </div>
-            <div class="col-3">
+            <div class="col-2">
+                {{$event->eventName}}
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-2">
+                {{$event->toPaymentSum}} / {{$event->toPaymentPaymentSum}}
+            </div>
+            <div class="col-2">
                 {{$event->comment}}
             </div>
 

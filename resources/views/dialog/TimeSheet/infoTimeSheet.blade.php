@@ -58,7 +58,7 @@
                     </div>
                     <div class="row">
                         <div class="col-2"></div>
-                        <div class="col-2 p-0" title="">{{$timeSheet->timeSheetDateTime->format('d-m-Y H:i')}}</div>
+                        <div class="col-2 p-0" title="">{{$timeSheet->timeSheetDateTime->addMinute($timeSheet->timeSheetDuration)->format('d-m-Y H:i')}}</div>
                         <div class="col-2"></div>
                         <div class="col-2 text-right">{{$timeSheet->toPaymentPaymentSum}} p.</div>
                         <div class="col-2"></div>
