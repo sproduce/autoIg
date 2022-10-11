@@ -62,6 +62,7 @@ Class EventOtherService implements EventServiceInterface{
         try {
             $eventOtherModel = $this->eventOtherRep->getEvent($eventOtherRequest->get('idOther'));
             $eventOtherModel->comment = $eventOtherRequest->get('commentOther');
+            $eventOtherModel->contractId = $eventOtherRequest->get('contractIdOther');
             $eventOtherModel = $this->eventOtherRep->addEvent($eventOtherModel);
 
             $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventOtherModel->id);

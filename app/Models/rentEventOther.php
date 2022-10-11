@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
+ * @property int $contractId
  * @property $comment
  *
  */
@@ -16,6 +17,6 @@ class rentEventOther extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    private $id,$comment;
-    protected $fillable=['id','comment'];
+    private $id,$comment,$contractId;
+    protected $fillable=['id','comment','contractId'];
 }

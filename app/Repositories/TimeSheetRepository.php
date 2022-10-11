@@ -50,7 +50,6 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
             }
         }
 
-
         $resultCollection = $resultCollection->get([
                 'time_sheets.*',
                 'to_payments.sum as toPaymentSum',

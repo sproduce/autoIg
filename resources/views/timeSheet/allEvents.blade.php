@@ -46,8 +46,7 @@
     <div class="row align-items-center font-weight-bold border">
         <div class="col-2">Дата</div>
         <div class="col-2">Машина</div>
-        <div class="col-2">Событие</div>
-        <div class="col-2">Договор</div>
+        <div class="col-1">Событие</div>
         <div class="col-2">Сумма</div>
         <div class="col-2">Комментарий</div>
     </div>
@@ -63,17 +62,21 @@
                 <a href="/motorPool/carInfo/{{$event->carId ?? 0}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
                 {{$event->carNickName}}
             </div>
-            <div class="col-2">
+            <div class="col-1">
                 {{$event->eventName}}
-            </div>
-            <div class="col-2">
-
             </div>
             <div class="col-2">
                 {{$event->toPaymentSum}} / {{$event->toPaymentPaymentSum}}
             </div>
             <div class="col-2">
                 {{$event->comment}}
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-1 text-right">
+                <a class="btn btn-ssm btn-outline-warning" href="/rentEvent/{{$event->eventId}}/{{$event->dataId ?? 0}}/edit?needParent=1" title="Редактировать"> <i class="far fa-edit"></i></a>
+                <button class="btn btn-ssm btn-outline-danger deleteButton" title="Удалить"><i class="fas fa-trash"></i> </button>
             </div>
 
         </div>
@@ -82,12 +85,19 @@
 
 
 @section('js')
+    <script src="{{ asset('js/rentEvent.js') }}" defer></script>
 <script>
+
     $(function() {
+        $(".deleteButton").click(function(){
+            deleteEvent(this);
+        });
+
         $("#carSelect").change(function (){
             selectedOption = $("#carSelect option:selected");
             if (selectedOption.val()){
                 selectedOption.attr('disabled','disabled');
+                selectedOption.addClass("bg-info");
                 selectedOption.removeAttr('selected');
                 $("#carSelect option:first").removeAttr('selected');
                 $("#carSelect option:first").attr('selected','selected');
@@ -102,6 +112,7 @@
             if (selectedOption.val()){
                 selectedOption.attr('disabled','disabled');
                 selectedOption.removeAttr('selected');
+                selectedOption.addClass("bg-info");
                 $("#eventSelect option:first").removeAttr('selected');
                 $("#eventSelect option:first").attr('selected','selected');
                 newInput = $("#eventId").clone().removeAttr('id').val(selectedOption.val()).prop("disabled", false);

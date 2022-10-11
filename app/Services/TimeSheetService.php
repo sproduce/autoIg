@@ -37,11 +37,12 @@ Class TimeSheetService{
         //$timeSheetsCollection = collect($timeSheetsArray);
         //$periodTimeSheet = $timeSheetsCollection->whereBetween('dateTime',[$periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d')])->sortBy('dateTime');
             foreach($timeSheetsArray as $dayTimeSheet){
-                    if ($dayTimeSheet->toPaymentSum == $dayTimeSheet->toPaymentPaymentSum) {
-                        $dayTimeSheet->eventColor = $dayTimeSheet->eventColorPay;
-                    } else {
-                        $dayTimeSheet->eventColor = $dayTimeSheet->eventColorPartPay;
-                    }
+                if ($dayTimeSheet->toPaymentPaymentSum){
+                    $dayTimeSheet->eventColor = $dayTimeSheet->eventColorPartPay;
+                }
+                if ($dayTimeSheet->toPaymentSum == $dayTimeSheet->toPaymentPaymentSum) {
+                    $dayTimeSheet->eventColor = $dayTimeSheet->eventColorPay;
+                }
                 $currentDateTime = Carbon::parse($dayTimeSheet->dateTime);
 
                 $dayTimeSheet->carActual = false;
@@ -65,6 +66,7 @@ Class TimeSheetService{
                     }
                 }
             }
+
         return $resultArray ?? [];
     }
 
@@ -103,10 +105,11 @@ Class TimeSheetService{
 
         $result->each(function ($item, $key) use (&$contractRep) {
 
+                if ($item->toPaymentPaymentSum){
+                    $item->eventColor = $item->eventColorPartPay;
+                }
                 if ($item->toPaymentSum == $item->toPaymentPaymentSum) {
                     $item->eventColor = $item->eventColorPay;
-                } else {
-                    $item->eventColor = $item->eventColorPartPay;
                 }
 
             $contractObj = $contractRep->getContract($item->contractId);
@@ -114,7 +117,6 @@ Class TimeSheetService{
 
 
         });
-
 
         return $result;
     }
