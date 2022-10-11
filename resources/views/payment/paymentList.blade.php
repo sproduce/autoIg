@@ -80,7 +80,7 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-1
-                            @if ($payment->balance == 0)
+                            @if ($payment->balance == 0 && $payment->payment)
                                 notAllocate
                             @else
                                 @if ($payment->payment == $payment->balance)

@@ -26,4 +26,6 @@ interface PaymentRepositoryInterface
 
     public function getPaymentsByContract($contractId);
 
+    public function contractPriceReCount($contractId): int;
+
 }

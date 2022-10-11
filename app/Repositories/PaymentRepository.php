@@ -102,5 +102,10 @@ class PaymentRepository implements PaymentRepositoryInterface
     }
 
 
+    public function contractPriceReCount($contractId): int
+    {
+
+    }
+
 }
 

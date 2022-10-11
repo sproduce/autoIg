@@ -118,4 +118,10 @@ Class ContractService{
     }
 
 
+    public function contractPriceReCount($contractId)
+    {
+
+    }
+
+
 }
