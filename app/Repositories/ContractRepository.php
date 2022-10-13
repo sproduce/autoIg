@@ -37,12 +37,14 @@ class ContractRepository implements ContractRepositoryInterface
 
     public function getContracts($typeId=null)
     {
-        $query=rentContract::query();
+        $query = rentContract::query();
         if($typeId){
             $query->where('typeId',$typeId);
         }
         return $query->get()->sortByDesc('start');
     }
+
+
     public function addContract($contractArray)
     {
         return rentContract::create($contractArray);

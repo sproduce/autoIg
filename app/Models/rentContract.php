@@ -65,4 +65,9 @@ class rentContract extends Model
         return $this->hasOne(rentSubject::class,'id','subjectIdTo')->withDefault();
     }
 
+    public function payments()
+    {
+        return $this->hasMany(rentPayment::class,'contractId','id');
+    }
+
 }

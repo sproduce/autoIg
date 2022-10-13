@@ -120,7 +120,7 @@
                         <div class="col-2">{{$payment->nickName}}</div>
                         <div class="col-1"></div>
                         <div class="col-1">
-                            <a href="/payment/allocatePayment/{{$payment->id}}" class="btn btn-ssm btn-outline-info"> <i class="fas fa-expand-arrows-alt" title="Распределить"></i></a>
+                            <a href="/payment/allocatePayment/{{$payment->id}}" class="btn btn-ssm btn-outline-info @if($payment->balance == $payment->payment && $payment->payment)disable-link @endif"> <i class="fas fa-expand-arrows-alt" title="Распределить"></i></a>
                             <a href="/payment/allocatePaymentErase/{{$payment->id}}" class="btn btn-ssm btn-outline-danger"> <i class="fas fa-eraser" title="Отменить распределение"></i></a>
                         </div>
                     </div>

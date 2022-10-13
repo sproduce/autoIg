@@ -92,7 +92,7 @@ class PaymentRepository implements PaymentRepositoryInterface
 
     public function delPayment($id)
     {
-        $payment=rentPayment::find($id);
+        $payment = rentPayment::find($id);
         $payment->delete();
     }
 
@@ -104,7 +104,7 @@ class PaymentRepository implements PaymentRepositoryInterface
 
     public function contractPriceReCount($contractId): int
     {
-
+        return rentPayment::sum('payment')->where('contractId','=',$contractId);
     }
 
 }

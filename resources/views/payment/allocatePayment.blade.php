@@ -119,6 +119,7 @@
 
         $(".allocate").click(function(){
             hiddenInput = $(this).next(".hiddenInput");
+            paymentMaxSum = parseInt($('#paymentSum').val());
 
             if ($(this).is(':checked')) {
                 hiddenInput.val(hiddenInput.data('paymentsum'));

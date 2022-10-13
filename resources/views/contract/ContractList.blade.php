@@ -67,10 +67,11 @@
                                 <div class="col-12">
                                     <div class="row"> {{--line 1--}}
                                         <div class="col-1 text-left pl-0">{{$loop->iteration}}.</div>
-                                        <div class="col-2">{{$contract->start}}</div>
+                                        <div class="col-2" title="{{$contract->start->format('H-i')}}">{{$contract->start->format('d-m-Y')}}</div>
                                         <div class="col-2">{{$contract->carGroup->nickName}}</div>
                                         <div class="col-3">{{$contract->subjectFrom->nickname}}</div>
-                                        <div class="col-1 text-right">{{$contract->deposit}}</div>
+
+                                        <div class="col-1 text-right p-0">{{$contract->payments->sum('payment')}} p.</div>
                                         <div class="col-2">{{$contract->status->name}}</div>
                                         <div class="col-1 p-0 text-center">
                                             <a class="btn btn-ssm btn-outline-warning" href="/contract/edit/{{$contract->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>

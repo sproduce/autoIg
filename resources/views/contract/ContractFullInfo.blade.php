@@ -68,7 +68,7 @@
                     <div class="col-2">{{$payment->balance}}</div>
                     <div class="col-2">{{$payment->account->nickName}}</div>
                     <div class="col-3">{{$payment->operationType->name}}</div>
-                    <div class="col-1"><a href="/payment/allocatePayment/{{$payment->id}}" class="btn btn-ssm btn-outline-info"> <i class="fas fa-expand-arrows-alt" title="Распределить"></i></a></div>
+                    <div class="col-1"><a href="/payment/allocatePayment/{{$payment->id}}" class="btn btn-ssm btn-outline-info  @if ($payment->payment == $payment->balance)disable-link @endif"> <i class="fas fa-expand-arrows-alt" title="Распределить"></i></a></div>
                 </div>
             @endforeach
 

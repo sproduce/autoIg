@@ -30,13 +30,13 @@ Class ContractService{
     public function getContracts(CarbonPeriod $periodDate,$typeId)
     {
             if ($typeId){
-                $currentTypeObj=$this->contractRep->getContractType($typeId);
+                $currentTypeObj = $this->contractRep->getContractType($typeId);
             } else {
-                $currentTypeObj=$this->contractRep->getContractTypeFirst();
+                $currentTypeObj = $this->contractRep->getContractTypeFirst();
             }
 
-            $contractTypesObj=$this->contractRep->getContractTypes();
-            $contractsObj=$this->contractRep->getContracts($currentTypeObj->id);
+            $contractTypesObj = $this->contractRep->getContractTypes();
+            $contractsObj = $this->contractRep->getContracts($currentTypeObj->id);
 
             $contractsCollect=collect(['contractTypes'=>$contractTypesObj,'contracts'=>$contractsObj,'currentContractType'=>$currentTypeObj]);
         return $contractsCollect;

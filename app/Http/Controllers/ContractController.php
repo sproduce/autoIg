@@ -47,11 +47,12 @@ class ContractController extends Controller
 
     public function show(DateSpan $dateSpan)
     {
-        $dateFromTo=$dateSpan->validated();
-        $periodDate=new CarbonPeriod($dateFromTo['fromDate'],$dateFromTo['toDate']);
-        $currentContractFilter=$this->request->validate(['typeId'=>'nullable|integer']);
-        $typeId=$currentContractFilter['typeId'] ?? null;
-        $contractsCollect=$this->contractServ->getContracts($periodDate,$typeId);
+        $dateFromTo = $dateSpan->validated();
+        $periodDate = new CarbonPeriod($dateFromTo['fromDate'],$dateFromTo['toDate']);
+        $currentContractFilter = $this->request->validate(['typeId'=>'nullable|integer']);
+        $typeId = $currentContractFilter['typeId'] ?? null;
+        $contractsCollect = $this->contractServ->getContracts($periodDate,$typeId);
+
         return view('contract.ContractList', ['contractsCollect' => $contractsCollect,
                                                     'periodDate' => $periodDate]);
     }
@@ -107,6 +108,7 @@ class ContractController extends Controller
         $contractPayments = $paymentRep->getPaymentsByContract($contractId);
         $contractService = $toPaymentRep->getToPaymentsParentByContract($contractId);
         $contractObj = $this->contractServ->getContract($contractId);
+
         return view('contract.ContractFullInfo',[
             'contractPayments' => $contractPayments,
             'rentContractObj' => $contractObj,
