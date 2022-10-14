@@ -55,7 +55,7 @@
         @csrf
         <input name="paymentId" value="{{$paymentObj->id}}" hidden/>
         @foreach($toPaymentsObj as $toPayment)
-            <div class="row row-table">
+            <div class="row row-table" data-id="{{$toPayment->id}}">
                 <div class="col-2">{{$toPayment->dateTime->format('d-m-Y H:i')}}</div>
                 <div class="col-2">{{$toPayment->name}}</div>
                 <div class="col-2">{{$toPayment->contractNumber}}</div>

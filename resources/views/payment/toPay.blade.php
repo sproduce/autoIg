@@ -74,7 +74,7 @@
     </form>
     @if(isset($toPayments))
         @foreach($toPayments as $toPayment)
-            <div class="row row row-table">
+            <div class="row row row-table" data-id="{{$toPayment->toPaymentId}}">
                 <div class="col-12">
                     <div class="row">
                         <div class="col-1 p-0" title="{{$toPayment->timeSheetDateTime->format('H:i')}}">

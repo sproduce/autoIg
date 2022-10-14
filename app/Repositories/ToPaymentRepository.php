@@ -54,6 +54,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->leftjoin('pay_operation_types','pay_operation_types.id','=','rent_events.payOperationTypeId')
             ->select([
                 'to_payments.sum as paymentsSum',
+                'to_payments.id as paymentsId',
                 'to_payments.paymentSum as paymentsPaymentSum',
                 'to_payments.comment as paymentsComment',
                 'to_payments.paymentId as paymentsPaymentId',
@@ -193,16 +194,15 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->join('pay_operation_types','pay_operation_types.id','=','rent_events.payOperationTypeId')
             ->join('rent_contracts','rent_contracts.id','=','to_payments.contractId')
             ->whereRaw('to_payments.id = to_payments.pId')
+            ->whereRaw('to_payments.sum <> to_payments.paymentSum')
             ->where('to_payments.sum','>',0);
         if ($rentPayment->contractId){
             $resultCollectionRequest->where('to_payments.contractId','=',$rentPayment->contractId);
         }
 
-
         if ($rentPayment->payOperationTypeId){
            $resultCollectionRequest->where('rent_events.payOperationTypeId','=',$rentPayment->payOperationTypeId);
         }
-
 
         if ($rentPayment->carId){
             $carId = $rentPayment->carId;
@@ -212,7 +212,6 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
                  ->where('rent_contracts.carId','=',$carId);
             });
         }
-
 
         if ($rentPayment->subjectId){
             $resultCollectionRequest->where('to_payments.subjectIdFrom','=',$rentPayment->subjectId);
@@ -234,28 +233,13 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->orderBy('id')
             ->get();
        $resultCollection = $resultCollectionRequest->get();
-//        echo DB::table('to_payments')
-//            ->join('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
-//            ->join('rent_events','rent_events.id','=','time_sheets.eventId')
-//            ->whereRaw('to_payments.id = to_payments.pId')
-//            ->where('to_payments.contractId','=',$rentPayment->contractId)
-//            ->where('rent_events.payOperationTypeId','=',$rentPayment->payOperationTypeId)
-//            ->where(function($query) use ($paymentId){
-//                $query->where('to_payments.paymentId','=',$paymentId);
-//                $query->orWhereNull('to_payments.paymentId');
-//            })
-//
-//            ->select('to_payments.*','rent_events.name','time_sheets.dateTime')
-//            ->orderBy('dateTime')
-//            ->orderBy('id')
-//            ->toSql();
 
-       //$resultCollection->dd();
        $resultCollection->each(function ($item, $key) {
            if ($item->dateTime) {
                $item->dateTime = Carbon::parse($item->dateTime);
            }
        });
+
        return  $resultCollection;
    }
 

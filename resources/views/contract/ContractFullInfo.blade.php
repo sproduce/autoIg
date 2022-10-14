@@ -53,7 +53,7 @@
 
 
             @foreach($contractPayments as $payment)
-                <div class="row row-table" >
+                <div class="row row-table" data-id="{{$payment->id}}">
                     <div class="col-2" title="{{$payment->dateTime->format('H:i')}}">{{$payment->dateTime->format('d-m-Y')}}</div>
                     <div class="col-1 text-right p-0
                     @if ($payment->balance == 0)
@@ -97,7 +97,7 @@
         @endif
 
             @foreach($contractService as $service)
-                <div class="row row-table">
+                <div class="row row-table" data-id="{{$service->paymentsId}}">
                     <div class="col-1 p-0" title="{{$service->sheetsDateTime->format('H:i')}}">{{$service->sheetsDateTime->format('d-m-Y')}}</div>
                     <div class="col-2">{{$service->eventsName}}</div>
                     <div class="col-2 @if($service->paymentsSum>0)pl-3 @endif">
