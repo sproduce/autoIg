@@ -9,7 +9,9 @@
 
 @section('content')
 
-
+<div class="row">
+    <div class="col-2"><a href="/contract/contractFullInfo/{{$paymentObj->contract->id}}" class="btn btn-ssm btn-secondary">К договору</a></div>
+</div>
     <div class="row">
         <div class="col-1" title="Дата"><strong>Дата :</strong></div>
         <div class="col-3">{{$paymentObj->dateTime->format('d-m-Y h:i')}} </div>

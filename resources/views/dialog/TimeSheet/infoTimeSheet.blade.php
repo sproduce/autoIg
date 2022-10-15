@@ -62,6 +62,11 @@
                         <div class="col-2"></div>
                         <div class="col-2 text-right">{{$timeSheet->toPaymentPaymentSum}} p.</div>
                         <div class="col-2"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"><a class="btn-ssm btn-outline-danger deleteButton" onclick="return confirm('Удалить событие?');" href="/" title="Удалить событие">
+                                <i class="fas fa-trash"></i>
+                            </a></div>
+
                     </div>
                 </div>
 

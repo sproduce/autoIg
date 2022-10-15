@@ -55,7 +55,7 @@
             @foreach($contractPayments as $payment)
                 <div class="row row-table" data-id="{{$payment->id}}">
                     <div class="col-2" title="{{$payment->dateTime->format('H:i')}}">{{$payment->dateTime->format('d-m-Y')}}</div>
-                    <div class="col-1 text-right p-0
+                    <div class="col-1 text-right
                     @if ($payment->balance == 0)
                                     notAllocate
                                 @else
@@ -64,8 +64,8 @@
                                     @else
                                         partAllocate
                                     @endif
-                                 @endif">{{$payment->payment}}</div>
-                    <div class="col-2">{{$payment->balance}}</div>
+                                 @endif">{{$payment->payment}} p.</div>
+                    <div class="col-2 text-right">{{$payment->remaind}} p.</div>
                     <div class="col-2">{{$payment->account->nickName}}</div>
                     <div class="col-3">{{$payment->operationType->name}}</div>
                     <div class="col-1"><a href="/payment/allocatePayment/{{$payment->id}}" class="btn btn-ssm btn-outline-info  @if ($payment->payment == $payment->balance)disable-link @endif"> <i class="fas fa-expand-arrows-alt" title="Распределить"></i></a></div>
