@@ -120,6 +120,8 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
                 'time_sheets.dateTime as timeSheetDateTime',
                 'time_sheets.id as timeSheetId',
                 'time_sheets.duration as timeSheetDuration',
+                'time_sheets.eventId as timeSheetEventId',
+                'time_sheets.dataId as timeSheetDataId',
                 ])
         ;
         $searchResult = $searchTimeSheet->get();
