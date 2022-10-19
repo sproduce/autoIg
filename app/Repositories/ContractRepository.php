@@ -138,4 +138,20 @@ class ContractRepository implements ContractRepositoryInterface
     }
 
 
+    public function updateActualContractPrice()
+    {
+        // TODO: Implement updateActualContractPrice() method.
+    }
+
+    public function getContractPaymentSum($contractId)
+    {
+        // TODO: Implement getContractPaymentSum() method.
+    }
+
+
+    public function getContractToPaymentSum($contractId)
+    {
+        // TODO: Implement getContractToPaymentSum() method.
+    }
+
 }

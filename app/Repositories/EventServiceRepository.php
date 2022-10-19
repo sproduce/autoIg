@@ -49,7 +49,10 @@ class EventServiceRepository implements EventServiceRepositoryInterface
 
 
         $resultEventObj =  $resultEventObj ?? new rentEventService();
-        $resultEventObj->dateTime =  Carbon::parse($resultEventObj->dateTime);
+        if ($resultEventObj->dateTime){
+            $resultEventObj->dateTime =  Carbon::parse($resultEventObj->dateTime);
+        }
+
 
         return $resultEventObj;
     }

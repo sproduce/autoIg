@@ -33,5 +33,10 @@ interface ContractRepositoryInterface
 
     public function getContractFullInfo($contractId);
 
+    public function updateActualContractPrice();
+
+    public function getContractPaymentSum($contractId);
+
+    public function getContractToPaymentSum($contractId);
 
 }

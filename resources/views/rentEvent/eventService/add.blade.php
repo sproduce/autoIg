@@ -48,7 +48,7 @@
         </div>
         <div class="form-group col-md-2 input-group-sm">
             <label for="time" title="Время события">Время события</label>
-            <input type="time" name="time" id="time" class="form-control" value="{{old('date', $eventDataObj->dateTime ? $eventDataObj->dateTime->format('H:i') : $dateTime->format('H:i'))}}"/>
+            <input type="time" name="time" id="time" class="form-control" value="{{old('time', $eventDataObj->dateTime ? $eventDataObj->dateTime->format('H:i') : $dateTime->format('H:i'))}}"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
             <label for="mileage" title="Пробег">Пробег</label>

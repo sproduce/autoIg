@@ -72,7 +72,7 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->get();
 
         $resultCollection->each(function ($item, $key) {
-            $item->sheetsDateTime=Carbon::parse($item->sheetsDateTime);
+            $item->sheetsDateTime = Carbon::parse($item->sheetsDateTime);
         });
 
         return $resultCollection;

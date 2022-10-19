@@ -38,7 +38,8 @@ Class ContractService{
             $contractTypesObj = $this->contractRep->getContractTypes();
             $contractsObj = $this->contractRep->getContracts($currentTypeObj->id);
 
-            $contractsCollect=collect(['contractTypes'=>$contractTypesObj,'contracts'=>$contractsObj,'currentContractType'=>$currentTypeObj]);
+
+            $contractsCollect = collect(['contractTypes'=>$contractTypesObj,'contracts'=>$contractsObj,'currentContractType'=>$currentTypeObj]);
         return $contractsCollect;
     }
 

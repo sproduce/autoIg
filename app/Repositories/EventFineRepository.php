@@ -122,7 +122,6 @@ class EventFineRepository implements EventFineRepositoryInterface
             ])
             ->first();
 
-
         $resultEventObj =  $resultEventObj ?? new rentEventFine();
 
         if($resultEventObj->dateTimeFine){

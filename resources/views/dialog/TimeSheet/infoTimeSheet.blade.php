@@ -18,7 +18,7 @@
                 <div class="col-12 text-center"><strong>События не найдены</strong></div>
             </div>
         @else
-            <div class="row align-items-center font-weight-bold">
+            <div class="row align-items-center font-weight-bold mb-2">
                 <div class="col-12">
                     <div class="row">
                         <div class="col-2">Событие</div>
@@ -39,7 +39,7 @@
             </div>
 
             @foreach($timeSheets as $timeSheet)
-            <div class="row row-table">
+            <div class="row row-table @if (!$loop->first) border-top border-dark @endif">
                 <div class="col-12">
                     <div class="row">
                         <div class="col-2" style="background-color:{{$timeSheet->eventColor}}">{{$timeSheet->eventName}}</div>
@@ -63,9 +63,14 @@
                         <div class="col-2 text-right">{{$timeSheet->toPaymentPaymentSum}} p.</div>
                         <div class="col-2"></div>
                         <div class="col-1"></div>
-                        <div class="col-1"><a class="btn-ssm btn-outline-danger deleteButton" onclick="return confirm('Удалить событие?');" href="/rentEvent/{{$timeSheet->timeSheetEventId}}/{{$timeSheet->timeSheetDataId}}/destroy" title="Удалить событие">
+                        <div class="col-1 p-0">
+                            <a class="btn-ssm btn-outline-warning" href="/rentEvent/{{$timeSheet->timeSheetEventId}}/{{$timeSheet->timeSheetDataId}}/edit?needParent=1" title="Редактировать событие">
+                                <i class="far fa-edit"></i>
+                            </a>
+                            <a class="btn-ssm btn-outline-danger" onclick="return confirm('Удалить событие?');" href="/rentEvent/{{$timeSheet->timeSheetEventId}}/{{$timeSheet->timeSheetDataId}}/destroy" title="Удалить событие">
                                 <i class="fas fa-trash"></i>
-                            </a></div>
+                            </a>
+                        </div>
 
                     </div>
                 </div>

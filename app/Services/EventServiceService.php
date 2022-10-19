@@ -65,7 +65,8 @@ Class EventServiceService implements EventServiceInterface{
             $eventServiceModel->comment = $eventServiceRequest->get('comment');
             $eventServiceModel->contractId = $eventServiceRequest->get('contractId');
             $eventServiceModel->subjectId = $eventServiceRequest->get('subjectId');
-            $eventServiceModel->sum = $eventServiceRequest->get('sum');
+            //$eventServiceModel->sum = $eventServiceRequest->get('sum');
+
             $eventServiceModel = $this->eventServiceRep->addEvent($eventServiceModel);
 
             $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventServiceModel->id);

@@ -11,6 +11,7 @@ use App\Repositories\ContractRepository;
 use App\Repositories\Interfaces\CarGroupRepositoryInterface;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
+use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use App\Repositories\RentEventRepository;
 use App\Repositories\TimeSheetRepository;
@@ -92,7 +93,7 @@ class TimeSheetController extends Controller
     }
 
 
-    public function infoDialog(CarIdDate $carIdDateRequest,RentEventRepository $rentEventRep,ContractRepositoryInterface $contractRepObj)
+    public function infoDialog(CarIdDate $carIdDateRequest,RentEventRepository $rentEventRep,ContractRepositoryInterface $contractRepObj,PaymentRepositoryInterface $paymentRepObj)
     {
         $carIdDate = $carIdDateRequest->validated();
         $rentEventObjs = $rentEventRep->getEvents();
