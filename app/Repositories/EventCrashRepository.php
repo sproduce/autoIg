@@ -79,7 +79,10 @@ public function getEventCrashByContract($contractId)
             ])
             ->first();
         $resultEventObj =  $resultEventObj ?? new rentEventCrash();
-        $resultEventObj->dateTime =  Carbon::parse($resultEventObj->dateTime);
+        if ($resultEventObj->dateTime){
+            $resultEventObj->dateTime =  Carbon::parse($resultEventObj->dateTime);
+        }
+
 
         return $resultEventObj;
     }

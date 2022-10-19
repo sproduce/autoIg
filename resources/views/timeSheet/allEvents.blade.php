@@ -6,6 +6,9 @@
 @section('header')
     <form method="GET" action="" class="w-100">
         <div class="row">
+            <div class="col-1 input-group-sm">
+                <a href="/timesheet/add" class="btn btn-ssm btn-outline-success" title="добавить событие"><i class="far fa-plus-square"></i></a>
+            </div>
             <div class="col-2 input-group-sm">
                 <input class="form-control" type="date" id="fromDate" name="fromDate" value="{{$periodDate->getStartDate()->format('Y-m-d')}}"/>
             </div>
@@ -34,7 +37,7 @@
                 <input class="form-check-input" type="checkbox" id="delete" name="delete"/>
                 <label for="delete">Удаленные</label>
             </div>
-            <div class="col-2 input-group-sm">
+            <div class="col-1 input-group-sm">
                 <button class="btn btn-sm btn-success" type="submit">Показать</button>
             </div>
         </div>
