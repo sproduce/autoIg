@@ -192,10 +192,10 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->join('time_sheets','time_sheets.id','=','to_payments.timeSheetId')
             ->join('rent_events','rent_events.id','=','time_sheets.eventId')
             ->join('pay_operation_types','pay_operation_types.id','=','rent_events.payOperationTypeId')
-            ->join('rent_contracts','rent_contracts.id','=','to_payments.contractId')
+            ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
             ->whereRaw('to_payments.id = to_payments.pId')
-            ->whereRaw('to_payments.sum <> to_payments.paymentSum')
-            ->where('to_payments.sum','>',0);
+            ->whereRaw('to_payments.sum <> to_payments.paymentSum');
+
         if ($rentPayment->contractId){
             $resultCollectionRequest->where('to_payments.contractId','=',$rentPayment->contractId);
         }
@@ -214,7 +214,14 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         }
 
         if ($rentPayment->subjectId){
-            $resultCollectionRequest->where('to_payments.subjectIdFrom','=',$rentPayment->subjectId);
+            $subjectId = $rentPayment->subjectId;
+            $resultCollectionRequest->where(function($query) use ($subjectId){
+
+                $query->where('to_payments.subjectIdFrom','=',$subjectId)->orWhere('to_payments.subjectIdTo','=',$subjectId);
+
+
+            });
+
         }
 
        $resultCollectionRequest->whereNull('to_payments.deleted_at')
@@ -230,8 +237,8 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
                 'time_sheets.dateTime',
                 'rent_contracts.number as contractNumber')
             ->orderBy('dateTime')
-            ->orderBy('id')
-            ->get();
+            ->orderBy('id');
+
        $resultCollection = $resultCollectionRequest->get();
 
        $resultCollection->each(function ($item, $key) {
