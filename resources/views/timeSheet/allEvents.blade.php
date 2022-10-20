@@ -56,9 +56,13 @@
 
     @foreach($eventsArray as $event)
         <div class="row row-table" data-id="{{$event->id}}" data-event="{{$event->eventId}}" data-id="{{$event->dataId}}">
-            <div class="col-2" title="{{$event->dateTime->format('H:i')}}">
+            <div class="col-2 text-right">
                 <a href="/rentEvent/{{$event->eventId}}/{{$event->dataId ?? 0}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-                {{$event->dateTime->toDateString()}}
+                {{$event->dateTime->format("d-m-y")}} {{$event->dateTime->format("H:i")}}
+                @if($event->dateTimeEnd)
+                    <br/>
+                    {{$event->dateTimeEnd->format("d-m-y")}} {{$event->dateTimeEnd->format("H:i")}}
+                @endif
             </div>
 
             <div class="col-2">

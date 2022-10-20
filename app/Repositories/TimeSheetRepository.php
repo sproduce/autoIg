@@ -39,7 +39,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
             })
             ->WhereBetween('dateTime',[$startDate,$finishDate])
             ->whereNull('time_sheets.deleted_at')
-            ->orderByDesc('time_sheets.dateTime');
+            ->orderBy('time_sheets.dateTime');
 
         if ($eventListRequest){
             if ($eventListRequest->get('carId')){
@@ -66,6 +66,12 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
           $resultCollection->each(function ($item, $key) {
               if ($item->dateTime){
                   $item->dateTime = Carbon::parse($item->dateTime);
+                  if ($item->duration>1){
+                      $item->dateTimeEnd = Carbon::parse($item->dateTime)->addMinute($item->duration);
+                  } else {
+                      $item->dateTimeEnd = null;
+                  }
+
               }
           });
 
