@@ -6,8 +6,10 @@ use App\Models\rentEvent;
 use App\Http\Requests\Event;
 use App\Repositories\EventServiceRepository;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
+use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
+use App\Repositories\MotorPoolRepository;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
 
@@ -57,6 +59,8 @@ Class EventServiceService implements EventServiceInterface{
     {
         $eventServiceRequest = app()->make(Event\ServiceRequest::class);
         $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);
+        $carRepObj = new MotorPoolRepository();
+        $carObj = $carRepObj->getCar($eventServiceRequest->get('carId'));
         //$eventTimeSheetRequest->dd();
         DB::beginTransaction();
         try {
@@ -88,6 +92,8 @@ Class EventServiceService implements EventServiceInterface{
 
             $toPaymentModel->timeSheetId = $timeSheetModel->id;
             $toPaymentModel->sum = $eventServiceRequest->get('sum');
+            $toPaymentModel->subjectIdTo = $eventServiceRequest->get('subjectId');
+            $toPaymentModel->subjectIdFrom = $carObj->subjectIdOwner;
             $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
             DB::commit();
         } catch (\Exception $e) {
