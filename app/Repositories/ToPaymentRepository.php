@@ -61,6 +61,9 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
                 'time_sheets.dateTime as sheetsDateTime',
                 'rent_events.name as eventsName',
                 'rent_events.color as eventsColor',
+                'rent_events.colorPartPay as eventsColorPartPay',
+                'rent_events.colorPay as eventsColorPay',
+
                 'rent_events.action as eventsAction',
                 'pay_operation_types.name as operationTypeName',
             ])

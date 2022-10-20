@@ -19,6 +19,7 @@ use App\Services\ContractService;
 use App\Services\MotorPoolService;
 use App\Services\CarDriverService;
 
+use App\Services\PaymentService;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 
@@ -102,11 +103,11 @@ class ContractController extends Controller
 
     public function contractFullInfo($contractId,
         PaymentRepositoryInterface $paymentRep,
-        ToPaymentRepositoryInterface $toPaymentRep
+        PaymentService $paymentServ
     ){
 
         $contractPayments = $paymentRep->getPaymentsByContract($contractId);
-        $contractService = $toPaymentRep->getToPaymentsParentByContract($contractId);
+        $contractService = $paymentServ->getToPaymentsByContract($contractId);
         $contractObj = $this->contractServ->getContract($contractId);
 
         return view('contract.ContractFullInfo',[

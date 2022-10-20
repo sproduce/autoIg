@@ -102,17 +102,7 @@
                     <div class="col-2">{{$service->eventsName}}</div>
                     <div class="col-2 @if($service->paymentsSum>0)pl-3 @endif">
                         <div class="row">
-                            <div class="col-6 p-0 text-right
-                             @if ($service->paymentsPaymentSum == 0)
-                                notAllocate
-                             @else
-                                @if ($service->paymentsSum == $service->paymentsPaymentSum)
-                                    fullAllocate
-                                @else
-                                    partAllocate
-                                @endif
-                             @endif
-                            ">{{$service->paymentsSum}}</div>
+                            <div class="col-6 p-0 text-right" style="background-color:{{$service->eventColor}}">{{$service->paymentsSum}}</div>
                             <div class="col-6 p-0 text-right">{{$service->paymentsPaymentSum}}</div>
                         </div>
                     </div>

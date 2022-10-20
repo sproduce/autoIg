@@ -109,6 +109,23 @@ Class PaymentService{
     }
 
 
+    public function getToPaymentsByContract($contractId)
+    {
+        $resultPayments = $this->toPaymentRep->getToPaymentsParentByContract($contractId);
+        //$resultPayments->dd();
+        foreach($resultPayments as $payment){
+            if ($payment->paymentsPaymentSum){
+                $payment->eventColor = $payment->eventsColorPartPay;
+            }
+            if ($payment->paymentsSum == $payment->paymentsPaymentSum) {
+                $payment->eventColor = $payment->eventsColorPay;
+            }
+        }
+        return $resultPayments;
+    }
+
+
+
 
     public function getPayment($paymentId): rentPayment
     {
