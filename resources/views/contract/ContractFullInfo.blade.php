@@ -48,14 +48,14 @@
                 <div class="col-3">Тип платежа</div>
                 <div class="col-1"></div>
             </div>
-        @endif
+
 
 
 
             @foreach($contractPayments as $payment)
                 <div class="row row-table" data-id="{{$payment->id}}">
                     <div class="col-2" title="{{$payment->dateTime->format('H:i')}}">{{$payment->dateTime->format('d-m-Y')}}</div>
-                    <div class="col-1 text-right
+                    <div class="col-1 p-0 text-right
                     @if ($payment->balance == 0)
                                     notAllocate
                                 @else
@@ -71,7 +71,11 @@
                     <div class="col-1"><a href="/payment/allocatePayment/{{$payment->id}}" class="btn btn-ssm btn-outline-info  @if ($payment->payment == $payment->balance)disable-link @endif"> <i class="fas fa-expand-arrows-alt" title="Распределить"></i></a></div>
                 </div>
             @endforeach
-
+            <div class="row">
+                <div class="col-2"><strong>Итого:</strong></div>
+                <div class="col-1 p-0 text-right">{{$contractPayments->sum('payment')}} p.</div>
+            </div>
+        @endif
 
             <div class="row mt-4">
                 <div class="col-12 text-center">
@@ -94,7 +98,7 @@
                 <div class="col-3">Тип платежа</div>
                 <div class="col-2">Комменатрий</div>
             </div>
-        @endif
+
 
             @foreach($contractService as $service)
                 <div class="row row-table" data-id="{{$service->paymentsId}}">
@@ -102,15 +106,20 @@
                     <div class="col-2">{{$service->eventsName}}</div>
                     <div class="col-2 @if($service->paymentsSum>0)pl-3 @endif">
                         <div class="row">
-                            <div class="col-6 p-0 text-right" style="background-color:{{$service->eventColor}}">{{$service->paymentsSum}}</div>
-                            <div class="col-6 p-0 text-right">{{$service->paymentsPaymentSum}}</div>
+                            <div class="col-6 p-0 text-right" style="background-color:{{$service->eventColor}}">{{$service->paymentsSum}} p.</div>
+                            <div class="col-6 p-0 text-right">{{$service->paymentsPaymentSum}} p.</div>
                         </div>
                     </div>
                     <div class="col-3">{{$service->operationTypeName}}</div>
                     <div class="col-2">{{$service->paymentsComment}}</div>
                 </div>
             @endforeach
+            <div class="row">
+                <div class="col-3"><strong>Итого :</strong></div>
+                <div class="col-1 text-right p-0">{{$contractService->sum('paymentsSum')}} p.</div>
 
+            </div>
+        @endif
     @endsection
 
     @section('js')

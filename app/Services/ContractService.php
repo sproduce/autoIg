@@ -42,8 +42,10 @@ Class ContractService{
             $contractsObj = $this->contractRep->getContracts($currentTypeObj->id);
 
             $contractsObj->each(function ($item,$key){
-                $contractToPayments = $this->toPaymentRep->getToPaymentsByContract($item->id);
+                $contractToPayments = $this->toPaymentRep->getToPaymentsParentByContract($item->id);
+
                 $contractToPaymentSum = $contractToPayments->sum('paymentsSum');
+
                 $contractPayments = $this->paymentRep->getPaymentsByContract($item->id);
                 $contractPaymentSum = $contractPayments->sum('payment');
                 $item->balance = $contractPaymentSum - $contractToPaymentSum;

@@ -107,7 +107,9 @@ class ContractController extends Controller
     ){
 
         $contractPayments = $paymentRep->getPaymentsByContract($contractId);
+        //$contractPayments->dd();
         $contractService = $paymentServ->getToPaymentsByContract($contractId);
+        //$contractService->dd();
         $contractObj = $this->contractServ->getContract($contractId);
 
         return view('contract.ContractFullInfo',[

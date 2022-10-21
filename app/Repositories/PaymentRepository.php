@@ -101,6 +101,7 @@ class PaymentRepository implements PaymentRepositoryInterface
         return rentPayment::where('contractId',$contractId)
             ->select('rent_payments.*')
             ->selectRaw('rent_payments.payment-rent_payments.balance as remaind')
+            ->whereNull('rent_payments.deleted_at')
             ->orderBy('dateTime')->get();
     }
 
