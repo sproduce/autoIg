@@ -112,8 +112,9 @@ Class PaymentService{
     public function getToPaymentsByContract($contractId)
     {
         $resultPayments = $this->toPaymentRep->getToPaymentsParentByContract($contractId);
-        //$resultPayments->dd();
+
         foreach($resultPayments as $payment){
+            $payment->eventColor = $payment->eventsColor;
             if ($payment->paymentsPaymentSum){
                 $payment->eventColor = $payment->eventsColorPartPay;
             }
@@ -121,6 +122,7 @@ Class PaymentService{
                 $payment->eventColor = $payment->eventsColorPay;
             }
         }
+
         return $resultPayments;
     }
 

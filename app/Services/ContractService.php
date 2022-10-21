@@ -8,23 +8,26 @@ use App\Http\Requests\Search\SearchContractRequest;
 use App\Models\rentContract;
 use App\Models\toPayment;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
+use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\CarbonPeriod;
 
 
 Class ContractService{
-    private $contractRep,$toPaymentRep,$contractModel,$toPaymentModel;
+    private $contractRep,$toPaymentRep,$paymentRep,$contractModel,$toPaymentModel;
 
     function __construct(
         ContractRepositoryInterface $contractRep,
         ToPaymentRepositoryInterface $toPaymentRep,
         rentContract $contractModel,
-        toPayment $toPaymentModel
+        toPayment $toPaymentModel,
+        PaymentRepositoryInterface $paymentRep
     ){
         $this->contractRep = $contractRep;
         $this->toPaymentRep = $toPaymentRep;
         $this->contractModel = $contractModel;
         $this->toPaymentModel = $toPaymentModel;
+        $this->paymentRep = $paymentRep;
     }
 
     public function getContracts(CarbonPeriod $periodDate,$typeId)
@@ -37,6 +40,14 @@ Class ContractService{
 
             $contractTypesObj = $this->contractRep->getContractTypes();
             $contractsObj = $this->contractRep->getContracts($currentTypeObj->id);
+
+            $contractsObj->each(function ($item,$key){
+                $contractToPayments = $this->toPaymentRep->getToPaymentsByContract($item->id);
+                $contractToPaymentSum = $contractToPayments->sum('paymentsSum');
+                $contractPayments = $this->paymentRep->getPaymentsByContract($item->id);
+                $contractPaymentSum = $contractPayments->sum('payment');
+                $item->balance = $contractPaymentSum - $contractToPaymentSum;
+            });
 
 
             $contractsCollect = collect(['contractTypes'=>$contractTypesObj,'contracts'=>$contractsObj,'currentContractType'=>$currentTypeObj]);

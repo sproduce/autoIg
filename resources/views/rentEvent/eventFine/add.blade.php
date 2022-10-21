@@ -89,3 +89,13 @@
     </div>
 </form>
 @endsection
+
+
+@section('js')
+    <script>
+        $(":input").each(function(){
+            console.log($(this).attr('id'));
+        });
+
+    </script>
+@endsection
