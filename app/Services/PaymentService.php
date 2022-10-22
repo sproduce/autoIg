@@ -261,13 +261,18 @@ Class PaymentService{
                 $this->toPaymentRep->delToPayment($toPayment);
             }
         }
-
-
-
-
-
-
     }
+
+
+    public function getPaymentFullInfo($paymentId)
+    {
+        $paymentObj = $this->paymentRep->getPayment($paymentId);
+        $toPayments = $this->toPaymentRep->getToPaymentsByPayment($paymentObj);
+        $paymentFullInfo = collect(['paymentObj' =>$paymentObj,'toPaymentsObj'=>$toPayments]);
+
+        return $paymentFullInfo;
+    }
+
 
 
 

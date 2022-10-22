@@ -54,7 +54,10 @@
 
             @foreach($contractPayments as $payment)
                 <div class="row row-table" data-id="{{$payment->id}}">
-                    <div class="col-2" title="{{$payment->dateTime->format('H:i')}}">{{$payment->dateTime->format('d-m-Y')}}</div>
+                    <div class="col-2" title="{{$payment->dateTime->format('H:i')}}">
+                        <a class="btn-ssm btn-outline-info" href="/payment/info/{{$payment->id}}"><i class="fas fa-info-circle"></i></a>
+                        {{$payment->dateTime->format('d-m-Y')}}
+                    </div>
                     <div class="col-1 p-0 text-right
                     @if ($payment->balance == 0)
                                     notAllocate

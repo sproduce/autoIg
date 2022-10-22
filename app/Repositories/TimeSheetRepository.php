@@ -100,8 +100,6 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         $searchTimeSheet = DB::table('time_sheets')
             ->whereNull('time_sheets.deleted_at')
             ->where('time_sheets.carId','=',$carId)
-//            ->orWhereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ? a',[$startDate,$finishDate,$carId])
-//            ->whereBetween('dateTime',[$startDate,$finishDate])
             ->where(function($query) use ($startDate, $finishDate){
                 $query->whereBetween('time_sheets.dateTime',[$startDate,$finishDate]);
                 $query->orWhereRaw('DATE_ADD(dateTime,INTERVAL rent_events.duration MINUTE) BETWEEN ? and ?',[$startDate,$finishDate]);

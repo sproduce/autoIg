@@ -89,6 +89,7 @@
                                     partAllocate
                                 @endif
                              @endif">
+                            <a class="btn-ssm btn-outline-info" href="/payment/info/{{$payment->id}}"><i class="fas fa-info-circle"></i></a>
                             {{$loop->iteration}}.
                         </div>
                         <div class="col-1 text-right">

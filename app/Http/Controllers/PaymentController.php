@@ -194,4 +194,15 @@ class PaymentController extends Controller
     }
 
 
+    public function paymentFullInfo($paymentId)
+    {
+        $paymentFullinfoObj = $this->paymentServ->getPaymentFullInfo($paymentId);
+
+        return view('payment.paymentInfo',[
+            'paymentFullInfoObj' => $paymentFullinfoObj,
+        ]);
+    }
+
+
+
 }
