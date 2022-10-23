@@ -23,7 +23,7 @@ class SubjectRepository implements SubjectRepositoryInterface
 
     public function getSubjects()
     {
-        return rentSubject::all();
+        return rentSubject::query()->orderBy('nickname')->get();
     }
 
     public function getSubjectsCarOwner()

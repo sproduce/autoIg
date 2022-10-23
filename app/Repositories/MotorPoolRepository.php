@@ -21,7 +21,7 @@ class MotorPoolRepository implements MotorPoolRepositoryInterface
 
     public function getCars()
     {
-        return carConfiguration::query()->get();
+        return carConfiguration::query()->orderBy('nickName')->get();
     }
 
     public function getCarsByGroup($groupId = null)
