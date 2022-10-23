@@ -294,5 +294,13 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
         return $result;
     }
 
+
+    public function getToPaymentChilds($toPaymentId)
+    {
+        $result = toPayment::where('pId',$toPaymentId)->whereColumn('id','<>','pId')->get();
+        return $result;
+    }
+
+
 }
 

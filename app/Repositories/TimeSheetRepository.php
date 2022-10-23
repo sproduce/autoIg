@@ -113,6 +113,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
             ->join('car_configurations','car_configurations.id','=','time_sheets.carId')
             ->select([
                 'to_payments.sum as toPaymentSum',
+                'to_payments.id as toPaymentId',
                 'to_payments.paymentSum as toPaymentPaymentSum',
                 'car_configurations.nickName as carNickName',
                 'rent_events.name as eventName',

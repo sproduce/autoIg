@@ -26,6 +26,8 @@ interface ToPaymentRepositoryInterface
     public function getToPaymentsByOperationType();
     public function getToPayment($toPaymentId): toPayment;
 
+    public function getToPaymentChilds($toPaymentId);
+
     public function getToPaymentByTimeSheet($timeSheetId): toPayment;
 
     public function addToPayment(toPayment $toPaymentObj): toPayment;
@@ -40,4 +42,7 @@ interface ToPaymentRepositoryInterface
     public function getToPaymentsParentByPayment(rentPayment $paymentObj);
 
     public function getToPaymentsByPayment(rentPayment $paymentObj);
+
+
+
 }

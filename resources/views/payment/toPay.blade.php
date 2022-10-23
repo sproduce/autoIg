@@ -103,7 +103,7 @@
                                         partAllocate
                                     @endif
                                  @endif">
-                            {{$toPayment->paymentSum}}
+                            <a class="btn-ssm btn-outline-info" href="/payment/toPaymentInfo/{{$toPayment->toPaymentId}}"><i class="fas fa-info-circle"></i></a>{{$toPayment->paymentSum}}
                         </div>
                         <div class="col-2">
 

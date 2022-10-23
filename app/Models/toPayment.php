@@ -42,7 +42,21 @@ class toPayment extends Model
     }
 
 
+    public function payment()
+    {
+        return $this->hasOne(rentPayment::class,'id','paymentId')->withDefault();
+    }
 
+    public function subjectFrom()
+    {
+        return $this->hasOne(rentSubject::class,'id','subjectIdFrom')->withDefault();
+    }
+
+
+    public function subjectTo()
+    {
+        return $this->hasOne(rentSubject::class,'id','subjectIdTo')->withDefault();
+    }
 
 
 }

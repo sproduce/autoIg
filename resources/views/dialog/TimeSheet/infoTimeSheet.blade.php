@@ -39,7 +39,7 @@
             </div>
 
             @foreach($timeSheets as $timeSheet)
-            <div class="row row-table @if (!$loop->first) border-top border-dark @endif">
+            <div class="row row-table @if (!$loop->first) border-top border-dark @endif" data-timesheetid="{{$timeSheet->timeSheetId}}">
                 <div class="col-12">
                     <div class="row">
                         <div class="col-2" style="background-color:{{$timeSheet->eventColor}}">{{$timeSheet->eventName}}</div>
@@ -50,7 +50,10 @@
                         <div class="col-2 text-right">{{$timeSheet->toPaymentSum}} p.</div>
                         <div class="col-2"></div>
                         <div class="col-1"></div>
-                        <div class="col-1">
+                        <div class="col-1 p-0">
+                            @if($timeSheet->toPaymentPaymentSum)
+                                <a class="btn-ssm btn-outline-info" title="Платежи" href="/payment/toPaymentInfo/{{$timeSheet->toPaymentId}}"><i class="fas fa-info-circle"></i></a>
+                            @endif
                             <a class="btn-ssm btn-outline-success" href="/timesheet/add?carId={{$carIdDate['carId']}}&date={{$carIdDate['date']->toDateString()}}&parentId={{$timeSheet->timeSheetId}}" title="Добавить событие наследник">
                                 <i class="fas fa-folder-plus"></i>
                             </a>

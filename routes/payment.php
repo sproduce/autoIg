@@ -38,3 +38,4 @@ Route::post('/allocatePayment',[PaymentController::class,'saveAllocatePayment'])
 
 
 Route::get('/info/{paymentId}',[PaymentController::class,'paymentFullInfo']);
+Route::get('/toPaymentInfo/{paymentId}',[PaymentController::class,'toPaymentFullInfo']);

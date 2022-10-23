@@ -274,6 +274,20 @@ Class PaymentService{
     }
 
 
+    public function getToPaymentFullInfo($toPaymentId)
+    {
+        $toPaymentObj = $this->toPaymentRep->getToPayment($toPaymentId);
+
+        if ($toPaymentObj->paymentSum&&!$toPaymentObj->paymentId){
+            $toPaymentChildsObj = $this->toPaymentRep->getToPaymentChilds($toPaymentId);
+        } else {
+            $toPaymentChildsObj = collect([$toPaymentObj]);
+        }
+
+        $toPaymentFullInfo = collect(['toPaymentObj' => $toPaymentObj,'toPaymentChildsObj' => $toPaymentChildsObj]);
+        return $toPaymentFullInfo;
+    }
+
 
 
 
