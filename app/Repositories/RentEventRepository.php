@@ -10,7 +10,7 @@ class RentEventRepository implements RentEventRepositoryInterface
 
     public function getEvents()
     {
-        return rentEvent::all();
+        return rentEvent::query()->orderBy('name')->get();
     }
 
     public function getEvent($id):rentEvent
