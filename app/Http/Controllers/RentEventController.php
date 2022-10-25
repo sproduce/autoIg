@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CarIdDate;
 use App\Http\Requests\DateSpan;
 use App\Http\Requests\NeedParent;
+use App\Imports\FineImport;
 use App\Repositories\PaymentRepository;
 use App\Services\ContractService;
 use App\Services\MotorPoolService;
 use App\Services\RentEventService;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class RentEventController extends Controller
@@ -172,5 +174,21 @@ class RentEventController extends Controller
 
         return  redirect()->back();
     }
+
+
+    public function test()
+    {
+        echo "test";
+         //Excel::import(new FineImport(),'fine.xls');
+        //$array = Excel::toArray(new FineImport(),'fine.xls');
+        //$array = (new FineImport)->toCollection('fine.xls');
+        $array = (new FineImport)->toArray('fine.xls');
+        //$import = new FineImport();
+        //$import->import('fine.xls');
+
+        //Excel::import(new FineImport(),'fine.xls');
+        var_dump($array);
+    }
+
 
 }
