@@ -43,7 +43,7 @@ class PaymentController extends Controller
     {
         $paymentObj = new rentPayment();
 
-        $paymentGuideObj=$this->paymentServ->getPaymentGuide();
+        $paymentGuideObj = $this->paymentServ->getPaymentGuide();
         return view('payment.addPayment',['paymentGuide' => $paymentGuideObj ,'paymentObj' => $paymentObj]);
     }
 
@@ -213,5 +213,23 @@ class PaymentController extends Controller
         ]);
 
     }
+
+
+    public function addBetweenAccounts()
+    {
+        $paymentAccountsObj = $this->paymentServ->getAccounts();
+        $paymentObj = new rentPayment();
+        return view('payment.addBetweenAccounts',[
+            'paymentAccountsObj' =>  $paymentAccountsObj,
+            'paymentObj' => $paymentObj,
+        ]);
+    }
+
+    public function storeBetweenAccounts()
+    {
+
+    }
+
+
 
 }

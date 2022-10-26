@@ -7,8 +7,8 @@
 @endsection
 
 @php
-    $accounts=$paymentGuide->get('accounts');
-    $operationTypes=$paymentGuide->get('operationTypes');
+    $accounts = $paymentGuide->get('accounts');
+    $operationTypes = $paymentGuide->get('operationTypes');
 @endphp
 
 @section('content')
@@ -193,8 +193,6 @@
         $("#dateTime").val(currentDate.toJSON().slice(0,16));
         return false;
     });
-
-
 
 
 </script>

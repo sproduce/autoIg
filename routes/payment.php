@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
 
 
-
 route::get('/list',[PaymentController::class,'show']);
 route::get('/add',[PaymentController::class,'addDialog']);
 route::post('/add',[PaymentController::class,'add']);
@@ -39,3 +38,7 @@ Route::post('/allocatePayment',[PaymentController::class,'saveAllocatePayment'])
 
 Route::get('/info/{paymentId}',[PaymentController::class,'paymentFullInfo']);
 Route::get('/toPaymentInfo/{paymentId}',[PaymentController::class,'toPaymentFullInfo']);
+
+
+Route::get('/addBetweenAccounts',[PaymentController::class,'addBetweenAccounts']);
+Route::post('/storeBetweenAccounts',[PaymentController::class,'storeBetweenAccounts']);
