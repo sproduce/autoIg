@@ -1,8 +1,8 @@
 @extends('../adminIndex')
 
 @php
-    $contractTypes=$directoryObj->get('type');
-    $contractStatuses=$directoryObj->get('status');
+    $contractTypes = $directoryObj->get('type');
+    $contractStatuses = $directoryObj->get('status');
 @endphp
 @section('header')
     @if ($rentContractObj->id)

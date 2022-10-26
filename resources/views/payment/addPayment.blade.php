@@ -12,6 +12,22 @@
 @endphp
 
 @section('content')
+
+    <div class="card text-center">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active">Платеж</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/payment/addBetweenAccounts">Между счетами</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+
+
+
     <form method="POST" action="/payment/add">
         @if ($paymentObj->id)
             <input type="number" name="id" id="id" value="{{$paymentObj->id}}" hidden/>
@@ -31,7 +47,7 @@
         </div>
 
         <div class="row">
-            <div class="col-3">
+            <div class="col-3 text-left">
                 @foreach($accounts as $account)
                     <div class="row">
                         <div class="col-12 clickable">
@@ -41,7 +57,7 @@
                     </div>
                 @endforeach
             </div>
-            <div class="col-2 border-right">
+            <div class="col-2 border-right text-left">
                 @foreach($operationTypes as $operationType)
                     <div class="row">
                         <div class="col-12 clickable">
@@ -175,7 +191,7 @@
             </div>
         </div>
     </form>
-
+        </div>>
 
 @endsection
 
