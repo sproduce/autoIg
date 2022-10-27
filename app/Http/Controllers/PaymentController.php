@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AllocatePaymentRequest;
 use App\Http\Requests\CopyToPayRequest;
 use App\Http\Requests\DateSpan;
+use App\Http\Requests\Payment\BetweenAccountsRequest;
 use App\Http\Requests\PaymentRequest;
 use App\Http\Requests\Filters;
 use App\Models\rentPayment;
@@ -225,9 +226,11 @@ class PaymentController extends Controller
         ]);
     }
 
-    public function storeBetweenAccounts()
-    {
 
+    public function storeBetweenAccounts(BetweenAccountsRequest $betweenPay)
+    {
+        $this->paymentServ->storeBetweenAccounts($betweenPay);
+        return redirect('/payment/list');
     }
 
 

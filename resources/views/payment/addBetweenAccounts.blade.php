@@ -65,7 +65,7 @@
                 @foreach($paymentAccountsObj as $account)
                     <div class="row">
                         <div class="col-12 clickable">
-                            <input type="radio"  name="payAccountIdFrom" @if (old('payAccountId',$paymentObj->payAccountId) ==$account->id) checked @endif value="{{$account->id}}" required>
+                            <input type="radio"  name="payAccountIdFrom" @if (old('payAccountIdFrom') == $account->id) checked @endif value="{{$account->id}}" required>
                             {{$account->nickName}}
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                 @foreach($paymentAccountsObj as $account)
                     <div class="row">
                         <div class="col-12 clickable">
-                            <input type="radio"  name="payAccountIdTo" @if (old('payAccountId',$paymentObj->payAccountId) ==$account->id) checked @endif value="{{$account->id}}" required>
+                            <input type="radio"  name="payAccountIdTo" @if (old('payAccountIdTo') == $account->id) checked @endif value="{{$account->id}}" required>
                             {{$account->nickName}}
                         </div>
                     </div>

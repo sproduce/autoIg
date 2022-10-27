@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CarIdDate;
 use App\Http\Requests\DateSpan;
+use App\Http\Requests\Event\FineRequest;
 use App\Http\Requests\NeedParent;
 use App\Imports\FineImport;
 use App\Repositories\PaymentRepository;
@@ -178,16 +179,22 @@ class RentEventController extends Controller
 
     public function test()
     {
-        echo "test";
-         //Excel::import(new FineImport(),'fine.xls');
+
+        $requestFine =new FineRequest();
+        //app()->make(Event\FineRequest::class);
+        $requestFine->replace(['sum1'=>'q']);
+        //$requestFine->validated();
+        echo $requestFine->get('sum');
+        //echo "test";
+         $result = Excel::toArray(new FineImport(),'fine.xls');
         //$array = Excel::toArray(new FineImport(),'fine.xls');
         //$array = (new FineImport)->toCollection('fine.xls');
-        $array = (new FineImport)->toArray('fine.xls');
+        //$array = (new FineImport)->toArray('fine.xls');
         //$import = new FineImport();
         //$import->import('fine.xls');
 
         //Excel::import(new FineImport(),'fine.xls');
-        var_dump($array);
+        var_dump($result);
     }
 
 

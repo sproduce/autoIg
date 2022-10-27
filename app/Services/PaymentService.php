@@ -2,6 +2,7 @@
 namespace App\Services;
 use App\Http\Requests\CopyToPayRequest;
 use App\Http\Requests\DateSpan;
+use App\Http\Requests\Payment;
 use App\Models\rentPayment;
 use App\Repositories\ContractRepository;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
@@ -13,7 +14,7 @@ use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use App\Http\Requests\Filters;
-
+use Illuminate\Support\Facades\DB;
 
 
 Class PaymentService{
@@ -129,7 +130,7 @@ Class PaymentService{
 
 
 
-    public function getPayment($paymentId): rentPayment
+    public function getPayment($paymentId=null): rentPayment
     {
         return $this->paymentRep->getPayment($paymentId);
     }
@@ -287,6 +288,38 @@ Class PaymentService{
         $toPaymentFullInfo = collect(['toPaymentObj' => $toPaymentObj,'toPaymentChildsObj' => $toPaymentChildsObj]);
         return $toPaymentFullInfo;
     }
+
+
+    public function storeBetweenAccounts(Payment\BetweenAccountsRequest $betweenPay)
+    {
+        $paymentFromObj = $this->getPayment();
+        $paymentToObj = $this->getPayment();
+        DB::beginTransaction();
+        try {
+            $paymentFromObj->dateTime = $betweenPay->get('dateTime');
+            $paymentFromObj->payment = $betweenPay->get('payment')*-1;
+            $paymentFromObj->comm = $betweenPay->get('commFrom');
+            $paymentFromObj->payAccountId = $betweenPay->get('payAccountIdFrom');
+            $paymentFromObj->comment = "Перевод между счетами";
+            $paymentFromObj->carGroupId = $betweenPay->get('carGroupId');
+            $this->addPayment($paymentFromObj);
+
+            $paymentToObj->dateTime = $betweenPay->get('dateTime');
+            $paymentToObj->payment = $betweenPay->get('payment');
+            $paymentToObj->comm = $betweenPay->get('commTo');
+            $paymentToObj->payAccountId = $betweenPay->get('payAccountIdTo');
+            $paymentToObj->comment = $betweenPay->get('comment');
+            $paymentToObj->carGroupId = $betweenPay->get('carGroupId');
+            $this->addPayment($paymentToObj);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
+    }
+
+
+
+
 
 
 

@@ -16,6 +16,22 @@ class BetweenAccountsRequest extends FormRequest
         return true;
     }
 
+
+    protected function prepareForValidation()
+    {
+        $input = parent::all(['commFrom','commTo']);
+
+        if (empty($input['commFrom'])){
+            $this->merge(['commFrom' => 0]);
+        }
+        if (empty($input['commTo'])){
+            $this->merge(['commTo' => 0]);
+        }
+    }
+
+
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -28,8 +44,9 @@ class BetweenAccountsRequest extends FormRequest
            'payment' => 'integer|required',
            'commFrom' => 'integer|required',
            'commTo' => 'integer|required',
-           'payAccountIdFrom' => 'integer|required',
+           'payAccountIdFrom' => 'integer|required|different:payAccountIdTo',
            'payAccountIdTo' => 'integer|required',
+           'carGroupId' => 'integer|nullable',
            'comment' => 'string|nullable',
         ];
     }
