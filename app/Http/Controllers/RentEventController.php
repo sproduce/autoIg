@@ -62,7 +62,7 @@ class RentEventController extends Controller
             'parentId' => $carIdDate->get('parentId'),
             ];
 
-        $additionalDataArray = $serviceObj->getAdditionalViewDataArray();
+        //$additionalDataArray = $serviceObj->getAdditionalViewDataArray();
 
 //        $viewAdditionalArray = $serviceObj->getAdditionalViewDataArray();
 //        $viewArray = array_merge($viewDataArray,$viewAdditionalArray);
@@ -95,7 +95,6 @@ class RentEventController extends Controller
             'eventDataObj' => $eventDataObj,
         ];
         return view('rentEvent.'.$eventObj->action.'.add',$viewDataArray);
-
     }
 
     public function show($eventId,$dataId)
@@ -124,7 +123,7 @@ class RentEventController extends Controller
 
     public function list()
     {
-        $rentEventsObj=$this->rentEventServ->getRentEvents();
+        $rentEventsObj = $this->rentEventServ->getRentEvents();
 
         return view('rentEvent.rentEventList',['rentEvents'=>$rentEventsObj]);
     }
@@ -137,9 +136,9 @@ class RentEventController extends Controller
 
     public function add()
     {
-        $validate=$this->request->validate(['name'=>'required',
-            'color'=>'required',
-            'action'=>'required'
+        $validate = $this->request->validate(['name'=>'required',
+            'color' => 'required',
+            'action' => 'required'
         ]);
 
         $this->rentEventServ->addRentEvent($validate);
@@ -149,9 +148,9 @@ class RentEventController extends Controller
 
     public function editDialog(PaymentRepository $paymentRep)
     {
-        $event=$this->request->validate(['eventId'=>'required']);
-        $rentEventObj=$this->rentEventServ->getRentEvent($event['eventId']);
-        $paymentTypes=$paymentRep->getOperationTypes();
+        $event = $this->request->validate(['eventId'=>'required']);
+        $rentEventObj = $this->rentEventServ->getRentEvent($event['eventId']);
+        $paymentTypes = $paymentRep->getOperationTypes();
         return view('dialog.RentEvent.editRentEvent',['rentEventObj' => $rentEventObj,
             'paymentTypes' => $paymentTypes]);
     }
@@ -177,15 +176,21 @@ class RentEventController extends Controller
     }
 
 
+    public function swert()
+    {
+       echo "1";
+    }
+    
     public function test()
     {
 
-        $requestFine =new FineRequest();
+        $requestFine = new FineRequest();
         //app()->make(Event\FineRequest::class);
         $requestFine->replace(['sum1'=>'q']);
         //$requestFine->validated();
         echo $requestFine->get('sum');
         //echo "test";
+        
          $result = Excel::toArray(new FineImport(),'fine.xls');
         //$array = Excel::toArray(new FineImport(),'fine.xls');
         //$array = (new FineImport)->toCollection('fine.xls');
