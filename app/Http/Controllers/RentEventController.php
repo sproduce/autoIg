@@ -6,7 +6,7 @@ use App\Http\Requests\CarIdDate;
 use App\Http\Requests\DateSpan;
 use App\Http\Requests\Event\FineRequest;
 use App\Http\Requests\NeedParent;
-use App\Imports\FineImport;
+use App\Imports\GibddFineImport;
 use App\Repositories\PaymentRepository;
 use App\Services\ContractService;
 use App\Services\MotorPoolService;
@@ -184,22 +184,24 @@ class RentEventController extends Controller
     public function test()
     {
 
-        $requestFine = new FineRequest();
+        //$requestFine = new FineRequest();
         //app()->make(Event\FineRequest::class);
-        $requestFine->replace(['sum1'=>'q']);
+        //$requestFine->replace(['sum1'=>'q']);
         //$requestFine->validated();
-        echo $requestFine->get('sum');
+        //echo $requestFine->get('sum');
         //echo "test";
         
-         $result = Excel::toArray(new FineImport(),'fine.xls');
+        
+         //$result = Excel::toArray(new FineImport(),'fine.xls');
         //$array = Excel::toArray(new FineImport(),'fine.xls');
         //$array = (new FineImport)->toCollection('fine.xls');
         //$array = (new FineImport)->toArray('fine.xls');
-        //$import = new FineImport();
-        //$import->import('fine.xls');
+//        $import = new \App\Imports\GibddFineImport();
+//        $import->import('fine.xls');
 
-        //Excel::import(new FineImport(),'fine.xls');
-        var_dump($result);
+        Excel::import(new GibddFineImport(),'fine.xls');
+        //echo  strtotime(0000-00-00);
+        //var_dump($result);
     }
 
 
