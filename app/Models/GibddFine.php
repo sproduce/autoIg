@@ -22,8 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $okato
  * @property $accountReceiver
  * @property $bankReceiver
- * @property $dateFine
- * @property $timeFine
+ * @property $dateTimeFine
  * @property $place
  * @property $koap
  * @property $sale
@@ -38,6 +37,6 @@ class GibddFine extends Model
 {
     use HasFactory;
     private  $id,$sts,$regnumber,$decreeNumber,$sum,$dateDecree,$datePayMax,$unit,$receiver,$inn,$kpp,$bik, $kbk, $okato, $accountReceiver, $bankReceiver, $dateFine, $timeFine, $place, $koap, $sale, $dateSale, $sumSale, $entity, $closed, $timeSheetId;
-    protected $fillable = ['sts','regnumber','decreeNumber','sum','dateDecree','datePayMax','unit','receiver','inn','kpp','bik','kbk','okato','accountReceiver','bankReceiver','dateFine','timeFine','place','koap','sale','dateSale','sumSale','entity','closed','timeSheetId'];
-    
+    protected $fillable = ['sts','regnumber','decreeNumber','sum','dateDecree','datePayMax','unit','receiver','inn','kpp','bik','kbk','okato','accountReceiver','bankReceiver','dateTimeFine','place','koap','sale','dateSale','sumSale','entity','closed','timeSheetId'];
+    protected $dates = ['dateDecree','datePayMax','dateTimeFine','dateSale'];
 }

@@ -31,8 +31,7 @@ class CreateGibddFinesTable extends Migration
             $table->string('okato');
             $table->string('bankReceiver');
             $table->string('accountReceiver');
-            $table->date('dateFine');
-            $table->time('timeFine');
+            $table->dateTime('dateTimeFine');
             $table->string('place');
             $table->string('koap');
             $table->integer('sale');

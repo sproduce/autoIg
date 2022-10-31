@@ -112,9 +112,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"  href="/rentEvent/test">
+                            <a class="nav-link"  href="/gibddfine">
                                 <i class="fas fa-bars"></i>
-                                Excel
+                                Штафы ГИБДД
                             </a>
                         </li>
                     </ul>

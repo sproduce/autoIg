@@ -71,6 +71,10 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/additional.php'));
+            Route::prefix('gibddfine')
+                ->middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/gibddfine.php'));
         });
     }
 

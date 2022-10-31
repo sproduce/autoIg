@@ -198,8 +198,8 @@ class RentEventController extends Controller
         //$array = (new FineImport)->toArray('fine.xls');
 //        $import = new \App\Imports\GibddFineImport();
 //        $import->import('fine.xls');
-
-        Excel::import(new GibddFineImport(),'fine.xls');
+$gibddFineRep = new \App\Repositories\GibddFineRepository();
+        Excel::import(new GibddFineImport($gibddFineRep),'fine.xls');
         //echo  strtotime(0000-00-00);
         //var_dump($result);
     }

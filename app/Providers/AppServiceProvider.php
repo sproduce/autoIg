@@ -26,6 +26,7 @@ use App\Repositories\EventCrashRepository;
 use App\Repositories\PhotoRepository;
 use App\Repositories\ToPaymentRepository;
 use App\Repositories\AdditionalRepository;
+use App\Repositories\GibddFineRepository;
 
 use App\Repositories\Interfaces\BrandRepositoryInterface;
 use App\Repositories\Interfaces\ModelRepositoryInterface;
@@ -43,6 +44,8 @@ use App\Repositories\Interfaces\EventCrashRepositoryInterface;
 use App\Repositories\Interfaces\PhotoRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use App\Repositories\Interfaces\AdditionalRepositoryInterface;
+use App\Repositories\Interfaces\GibddFineRepositoryInterface;
+
 
 
 class AppServiceProvider extends ServiceProvider
@@ -72,7 +75,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(CarDriverRepositoryInterface::class,CarDriverRepository::class);
         $this->app->bind(SubjectRepositoryInterface::class,SubjectRepository::class);
-
+        
+        $this->app->bind(GibddFineRepositoryInterface::class, GibddFineRepository::class);
 
     }
 
