@@ -26,7 +26,6 @@ class GibddFineImport implements ToModel, WithValidation, SkipsOnFailure
     
     public function model(array $row)
     {
-        
         if (strtotime($row[20])<0){
             $row[20] = $row[4];
         }

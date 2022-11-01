@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Services\GibddFineService;
+use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\GibddFineImport;
 
 class GibddFineController extends Controller
 {
@@ -21,6 +24,44 @@ class GibddFineController extends Controller
     
     
     
+    public function parceExcelFile($fileName) 
+    {
+        $gibddFineRep = new \App\Repositories\GibddFineRepository();
+        Excel::import(new GibddFineImport($gibddFineRep),$fileName);
+        
+        
+    }
+    
+    
+    
+    
+    
+    public function mail() 
+    {
+        $storagePath = Storage::disk('fines')->path('');
+        
+        $client = \Webklex\IMAP\Facades\Client::account('default');
+        $client->connect();
+        $folders = $client->getFolders();
+        foreach ($folders as $folder){
+            if($folder->path == "FINES"){
+                 $messages = $folder->messages()->all()->get();
+                 foreach ($messages as $message){
+                     $flags = $message->getFlags();
+                     if ($flags->get('seen') != "Seen"){
+                         $attachments = $message->getAttachments();
+                         $attachments[0]->save($storagePath,null);
+                         echo  $storagePath.$attachments[0]->getName();
+                         //var_dump($attachments);
+                         //echo $flags->get('seen');
+                         $this->parceExcelFile($storagePath.$attachments[0]->getName());
+                         echo "<br/>";
+                     }
+                 }
+
+            }
+        }
+    }
     
     
 }
