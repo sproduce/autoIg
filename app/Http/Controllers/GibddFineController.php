@@ -27,7 +27,7 @@ class GibddFineController extends Controller
     public function parceExcelFile($fileName) 
     {
         $gibddFineRep = new \App\Repositories\GibddFineRepository();
-        Excel::import(new GibddFineImport($gibddFineRep),$fileName);
+        Excel::import(new GibddFineImport($gibddFineRep,$fileName),$fileName);
         
         
     }
@@ -51,16 +51,18 @@ class GibddFineController extends Controller
                      if ($flags->get('seen') != "Seen"){
                          $attachments = $message->getAttachments();
                          $attachments[0]->save($storagePath,null);
-                         echo  $storagePath.$attachments[0]->getName();
+                         //echo  $storagePath.$attachments[0]->getName();
                          //var_dump($attachments);
                          //echo $flags->get('seen');
                          $this->parceExcelFile($storagePath.$attachments[0]->getName());
-                         echo "<br/>";
+                         $message->setFlag('Seen');
+                         //echo "<br/>";
                      }
                  }
 
             }
         }
+        return redirect('/gibddfine');
     }
     
     

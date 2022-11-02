@@ -16,13 +16,13 @@ class CreateGibddFinesTable extends Migration
         Schema::create('gibdd_fines', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('sts');
-            $table->string('regnumber');
+            $table->string('sts')->nullable();
+            $table->string('regnumber')->nullable();
             $table->string('decreeNumber')->unique();
             $table->date('dateDecree');
             $table->date('datePayMax');
             $table->integer('sum');
-            $table->string('unit');
+            $table->string('unit')->nullable();
             $table->string('receiver');
             $table->string('inn');
             $table->string('kpp');
@@ -31,15 +31,17 @@ class CreateGibddFinesTable extends Migration
             $table->string('okato');
             $table->string('bankReceiver');
             $table->string('accountReceiver');
-            $table->dateTime('dateTimeFine');
-            $table->string('place');
-            $table->string('koap');
-            $table->integer('sale');
-            $table->date('dateSale');
-            $table->integer('sumSale');
+            $table->dateTime('dateTimeFine')->nullable();
+            $table->string('place')->nullable();
+            $table->string('koap')->nullable();
+            $table->integer('sale')->nullable();
+            $table->date('dateSale')->nullable();
+            $table->integer('sumSale')->nullable();
             $table->string('entity')->nullable();
             $table->boolean('closed')->nullable();
             $table->integer('timeSheetId')->nullable();
+            $table->string('fromFile')->nullable();
+            $table->date('dateFile')->nullable();
         });
     }
 

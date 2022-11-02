@@ -143,7 +143,7 @@ return [
     */
     'options' => [
         'delimiter' => '/',
-        'fetch' => \Webklex\PHPIMAP\IMAP::FT_UID,
+        'fetch' => \Webklex\PHPIMAP\IMAP::FT_PEEK,//FT_UID
         'sequence' => \Webklex\PHPIMAP\IMAP::ST_UID,
         'fetch_body' => true,
         'fetch_flags' => true,

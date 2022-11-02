@@ -10,17 +10,17 @@ use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 
 class GibddFineImport implements ToModel, WithValidation, SkipsOnFailure
 {
-    private $gibddFineRep;
+    private $gibddFineRep,$fromFile;
     use SkipsFailures;
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    function __construct(\App\Repositories\Interfaces\GibddFineRepositoryInterface $gibddRep)
+    function __construct(\App\Repositories\Interfaces\GibddFineRepositoryInterface $gibddRep,$fromFile)
     {
         $this->gibddFineRep = $gibddRep;
-                
+        $this->fromFile = $fromFile;
     }
     
     
@@ -29,30 +29,35 @@ class GibddFineImport implements ToModel, WithValidation, SkipsOnFailure
         if (strtotime($row[20])<0){
             $row[20] = $row[4];
         }
-
+        $fileName = basename($this->fromFile);
+        preg_match("/\d{2}.\d{2}.\d{4}/",  $fileName, $dateFile);
         $fineObj = $this->gibddFineRep->getFineByNumber($row[2]);
-        $fineObj->sts = $row[0];
-        $fineObj->regnumber = $row[1];
-        $fineObj->decreeNumber = $row[2];
+        
+                
+        $fineObj->sts = $fineObj->sts ?? $row[0];
+        $fineObj->regnumber = $fineObj->regnumber ?? $row[1];
+        $fineObj->decreeNumber = $fineObj->decreeNumber ?? $row[2];
         $fineObj->sum = $row[3];
-        $fineObj->dateDecree = date('Y-m-d',strtotime($row[4]));
-        $fineObj->datePayMax = date('Y-m-d',strtotime($row[5]));
-        $fineObj->unit = $row[6];
-        $fineObj->receiver = $row[7];
-        $fineObj->inn = $row[8];
-        $fineObj->kpp = $row[9];
-        $fineObj->bik = $row[10];
-        $fineObj->kbk = $row[11];
-        $fineObj->okato = $row[12];
-        $fineObj->bankReceiver = $row[13];
-        $fineObj->accountReceiver = $row[14];
-        $fineObj->dateTimeFine = date('Y-m-d H:i',strtotime($row[15]." ".$row[16]));
-        $fineObj->place = $row[17];
-        $fineObj->koap = $row[18];
-        $fineObj->sale = $row[19];
-        $fineObj->dateSale = date('Y-m-d',strtotime($row[20]));
-        $fineObj->sumSale = $row[21];
-        $fineObj->entity = $row[22];
+        $fineObj->dateDecree = $fineObj->dateDecree ?? date('Y-m-d',strtotime($row[4]));
+        $fineObj->datePayMax = $fineObj->datePayMax ?? date('Y-m-d',strtotime($row[5]));
+        $fineObj->unit = $fineObj->unit ?? $row[6];
+        $fineObj->receiver = $fineObj->receiver ?? $row[7];
+        $fineObj->inn = $fineObj->inn ?? $row[8];
+        $fineObj->kpp = $fineObj->kpp ?? $row[9];
+        $fineObj->bik = $fineObj->bik ?? $row[10];
+        $fineObj->kbk = $fineObj->kbk ?? $row[11];
+        $fineObj->okato = $fineObj->okato ?? $row[12];
+        $fineObj->bankReceiver = $fineObj->bankReceiver ?? $row[13];
+        $fineObj->accountReceiver = $fineObj->accountReceiver ?? $row[14];
+        $fineObj->dateTimeFine = $fineObj->dateTimeFine ?? date('Y-m-d H:i',strtotime($row[15]." ".$row[16]));
+        $fineObj->place = $fineObj->place ?? $row[17];
+        $fineObj->koap = $fineObj->koap ?? $row[18];
+        $fineObj->sale = $fineObj->sale ?? $row[19];
+        $fineObj->dateSale = $fineObj->dateSale ?? date('Y-m-d',strtotime($row[20]));
+        $fineObj->sumSale = $fineObj->sumSale ?? $row[21];
+        $fineObj->entity = $fineObj->entity ?? $row[22];
+        $fineObj->fromFile = $fileName;
+        $fineObj->dateFile = date('Y-m-d',strtotime($dateFile[0]));
         if (!$fineObj->id){
             $fineObj->closed = 0;
             $fineObj->timeSheetId = null;
