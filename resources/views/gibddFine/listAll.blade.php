@@ -27,7 +27,7 @@
             <div class="row align-items-center font-weight-bold border">
                 <div class="col-2">Машина</div>
                 <div class="col-3">Номер постановления</div>
-                <div class="col-2">Оплатить до</div>
+                <div class="col-2">Время нарушения</div>
                 <div class="col-2">Сумма</div>
                 <div class="col-3">Место нарушения</div>
             </div>

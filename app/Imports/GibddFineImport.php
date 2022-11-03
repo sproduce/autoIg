@@ -58,8 +58,8 @@ class GibddFineImport implements ToModel, WithValidation, SkipsOnFailure
         $fineObj->entity = $fineObj->entity ?? $row[22];
         $fineObj->fromFile = $fileName;
         $fineObj->dateFile = date('Y-m-d',strtotime($dateFile[0]));
+        $fineObj->closed = 0;
         if (!$fineObj->id){
-            $fineObj->closed = 0;
             $fineObj->timeSheetId = null;
         }
         
