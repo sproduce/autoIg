@@ -47,13 +47,13 @@ return [
     'accounts' => [
 
         'default' => [// account identifie
-            'host'  => env('IMAP_HOST', 'imap.yandex.ru'),
+            'host'  => env('IMAP_HOST', 'imap.domain.ru'),
             'port'  => env('IMAP_PORT', 993),
             'protocol'  => env('IMAP_PROTOCOL', 'imap'), //might also use imap, [pop3 or nntp (untested)]
             'encryption'    => env('IMAP_ENCRYPTION', 'ssl'), // Supported: false, 'ssl', 'tls', 'notls', 'starttls'
             'validate_cert' => env('IMAP_VALIDATE_CERT', true),
-            'username' => env('IMAP_USERNAME', 'crm@auto-ig.ru'),
-            'password' => env('IMAP_PASSWORD', 'crm123456crm'),
+            'username' => env('IMAP_USERNAME', 'crm@domain.ru'),
+            'password' => env('IMAP_PASSWORD', 'passwd'),
             'authentication' => env('IMAP_AUTHENTICATION', null),
             'proxy' => [
                 'socket' => null,
@@ -143,7 +143,7 @@ return [
     */
     'options' => [
         'delimiter' => '/',
-        'fetch' => \Webklex\PHPIMAP\IMAP::FT_PEEK,//FT_UID
+        'fetch' => \Webklex\PHPIMAP\IMAP::FT_PEEK,
         'sequence' => \Webklex\PHPIMAP\IMAP::ST_UID,
         'fetch_body' => true,
         'fetch_flags' => true,
