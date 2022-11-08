@@ -197,7 +197,8 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->leftJoin('pay_operation_types','pay_operation_types.id','=','rent_events.payOperationTypeId')
             ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
             ->whereRaw('to_payments.id = to_payments.pId')
-            ->whereRaw('to_payments.sum <> to_payments.paymentSum');
+            ->whereRaw('to_payments.sum <> to_payments.paymentSum')
+            ->where('to_payments.sum','<>',0);
 
         if ($rentPayment->contractId){
             $resultCollectionRequest->where('to_payments.contractId','=',$rentPayment->contractId);
@@ -243,7 +244,8 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             ->orderBy('dateTime')
             ->orderBy('id');
  
-            
+//            echo  $resultCollectionRequest->toSql();
+//            exit();
        $resultCollection = $resultCollectionRequest->get();
 
        $resultCollection->each(function ($item, $key) {

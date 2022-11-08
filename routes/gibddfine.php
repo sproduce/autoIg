@@ -10,4 +10,5 @@ use App\Http\Controllers\GibddFineController;
 Route::get('/',[GibddFineController::class,'index']);
 
 Route::get('/mail',[GibddFineController::class,'mail']);
+Route::get('/test',[GibddFineController::class,'test']);
 

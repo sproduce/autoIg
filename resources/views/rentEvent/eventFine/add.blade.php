@@ -8,6 +8,7 @@
 @endif
 
 @section('content')
+        
     <form method="POST" action="/rentEvent/{{$eventObj->id}}">
     @csrf
 
@@ -18,7 +19,7 @@
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Автомобиль">
                 Машина
-                <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+                <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
             </label>
             <input id="carText" name="carText" class="form-control" value="{{old('carText',$eventDataObj->carText ?? $carObj->nickName)}}" readonly />
             <input id="carId" name="carId" class="form-control" value="{{old('carIdOther',$eventDataObj->carId ?? $carObj->id)}}" hidden/>

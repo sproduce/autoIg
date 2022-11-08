@@ -27,11 +27,14 @@ class DocumentTitleRequest extends FormRequest
             'id' => 'integer|nullable',
             'parentId' => 'integer|nullable',
             'carId' => 'integer|required',
+            'subjectId' => 'integer|required',
             'date' => 'date|required',
             'sum' => 'integer|nullable',
             'regNumber' => 'string|nullable',
             'number' => 'string|nullable',
-            'passport' => 'string|nullable',
+            'issued' => 'string|nullable',
+            'marks' => 'string|nullable',
+            'color' => 'string|nullable',
             'comment' => 'string|nullable',
         ];
     }

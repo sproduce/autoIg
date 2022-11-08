@@ -64,8 +64,10 @@ Class EventDocumentTitleService implements EventServiceInterface{
         try {
             $eventDocumentTitleModel = $this->eventDocumentTitleRep->getEvent($eventDocumentTitleRequest->get('id'));
             $eventDocumentTitleModel->number = $eventDocumentTitleRequest->get('number');
+            $eventDocumentTitleModel->color = $eventDocumentTitleRequest->get('color');
             $eventDocumentTitleModel->passport = $eventDocumentTitleRequest->get('passport');
             $eventDocumentTitleModel->regNumber = $eventDocumentTitleRequest->get('regNumber');
+            $eventDocumentTitleModel->issued = $eventDocumentTitleRequest->get('issued');
             $eventDocumentTitleModel = $this->eventDocumentTitleRep->addEvent($eventDocumentTitleModel);
             $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventDocumentTitleModel->id);
 
@@ -81,6 +83,7 @@ Class EventDocumentTitleService implements EventServiceInterface{
 
             $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
             $toPaymentModel->timeSheetId = $timeSheetModel->id;
+            $toPaymentModel->subjectIdTo = $eventDocumentTitleRequest->get('subjectId');
             $toPaymentModel->sum = $eventDocumentTitleRequest->get('sum');
 
             $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);

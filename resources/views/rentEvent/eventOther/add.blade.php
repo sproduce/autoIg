@@ -14,7 +14,7 @@
     <div class="form-row text-center">
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Автомобиль">Машина</label>
-            <a href="/payment/addCar" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+            <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
                 <input id="carText" name="carTextOther" class="form-control" value="{{old('carTextOther',$eventDataObj->carTextOther ?? $carObj->nickName)}}" readonly />
                 <input id="carId" name="carIdOther" class="form-control" value="{{old('carIdOther',$eventDataObj->carIdOther ?? $carObj->id)}}" hidden/>
         </div>

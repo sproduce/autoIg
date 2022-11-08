@@ -66,4 +66,13 @@ class GibddFineController extends Controller
     }
     
     
+    
+    
+    public function test(\Illuminate\Http\Request $request) 
+    {
+        $request->all() + [''];
+        $eventFineServ = new \App\Services\EventFineService();
+        //$eventFineServ->store();
+        
+    }
 }
