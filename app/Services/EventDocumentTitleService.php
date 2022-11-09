@@ -68,6 +68,8 @@ Class EventDocumentTitleService implements EventServiceInterface{
             $eventDocumentTitleModel->passport = $eventDocumentTitleRequest->get('passport');
             $eventDocumentTitleModel->regNumber = $eventDocumentTitleRequest->get('regNumber');
             $eventDocumentTitleModel->issued = $eventDocumentTitleRequest->get('issued');
+            $eventDocumentTitleModel->subjectId = $eventDocumentTitleRequest->get('subjectId');
+            $eventDocumentTitleModel->marks = $eventDocumentTitleRequest->get('marks');
             $eventDocumentTitleModel = $this->eventDocumentTitleRep->addEvent($eventDocumentTitleModel);
             $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventDocumentTitleModel->id);
 
@@ -104,7 +106,20 @@ Class EventDocumentTitleService implements EventServiceInterface{
 
     public function destroy($dataId)
     {
-
+        $eventDocumentTitleModel = $this->eventDocumentTitleRep->getEvent($dataId);
+        $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventDocumentTitleModel->id);
+        $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+        DB::beginTransaction();
+        try {
+            $this->toPaymentRep->delToPayment($toPaymentModel);
+            $this->timeSheetRep->delTimeSheet($timeSheetModel);
+            $this->eventDocumentTitleRep->delEvent($eventDocumentTitleModel);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
+        
+        
     }
 
 

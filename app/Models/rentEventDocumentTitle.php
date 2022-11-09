@@ -15,12 +15,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property $color
  * @property $issued
  * @property $marks
+ * @property $subjectId
  */
 
 class rentEventDocumentTitle extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    private $id,$number,$regNumber,$passport,$color,$issued,$marks;
-    protected $fillable = ['number','regNumber','passport','color','issued','marks'];
+    private $id,$number,$regNumber,$passport,$color,$issued,$marks,$subjectId;
+    protected $fillable = ['number','regNumber','passport','color','issued','marks','subjectId'];
 }

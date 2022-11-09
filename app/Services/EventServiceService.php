@@ -104,7 +104,19 @@ Class EventServiceService implements EventServiceInterface{
 
     public function destroy($dataId)
     {
-        // TODO: Implement destroy() method.
+        $eventServiceModel = $this->eventServiceRep->getEvent($dataId);
+        $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventServiceModel->id);
+        $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
+        DB::beginTransaction();
+        try {
+            $this->toPaymentRep->delToPayment($toPaymentModel);
+            $this->timeSheetRep->delTimeSheet($timeSheetModel);
+            $this->eventServiceRep->delEvent($eventServiceModel);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
+
     }
 
 

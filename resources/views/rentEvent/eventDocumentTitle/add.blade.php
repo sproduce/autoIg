@@ -56,12 +56,12 @@
          <div class="form-row text-center">
             <div class="form-group col-md-4 input-group-sm">
                 <label for="issued" title="Выдан">Выдан</label>
-                <input type="text" name="issued" id="issued" value="{{old('issued',$eventDataObj->color)}}" class="form-control" required/>
+                <input type="text" name="issued" id="issued" value="{{old('issued',$eventDataObj->issued)}}" class="form-control" required/>
             </div>
             
             <div class="form-group col-md-4 input-group-sm">
                 <label for="marks" title="Особые отметки">Особые отметки</label>
-                <input type="text" name="marks" id="marks" value="{{old('marks',$eventDataObj->comment)}}" class="form-control"/>
+                <input type="text" name="marks" id="marks" value="{{old('marks',$eventDataObj->marks)}}" class="form-control"/>
             </div>
              <div class="form-group col-md-4 input-group-sm">
                 <label for="comment" title="Комменатрий">Комменатрий</label>

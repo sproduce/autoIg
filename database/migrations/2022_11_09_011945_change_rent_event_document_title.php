@@ -16,6 +16,7 @@ class ChangeRentEventDocumentTitle extends Migration
          Schema::table('rent_event_document_titles', function (Blueprint $table) {
             $table->string('color');
             $table->string('issued');
+            $table->unsignedBigInteger('subjectId');
             $table->string('marks')->nullable();
             $table->string('comment')->nullable();
             $table->string('passport')->nullable()->change();

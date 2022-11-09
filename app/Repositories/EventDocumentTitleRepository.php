@@ -28,6 +28,7 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
         $resultEventObj = DB::table('time_sheets')
             ->join('rent_event_document_titles','rent_event_document_titles.id','=','time_sheets.dataId')
             ->leftJoin('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
+            ->leftJoin('rent_subjects','rent_subjects.id', '=', 'rent_event_document_titles.subjectId')
             ->leftJoin('to_payments','to_payments.timeSheetId','=','time_sheets.id')
             ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
             ->where('time_sheets.eventId','=',$eventId)
@@ -37,14 +38,20 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
                 'rent_event_document_titles.regNumber as regNumber',
                 'rent_event_document_titles.number as number',
                 'rent_event_document_titles.passport as passport',
+                'rent_event_document_titles.color as color',
+                'rent_event_document_titles.issued as issued',
+                'rent_event_document_titles.marks as marks',
 
                 'car_configurations.nickName as carText',
                 'car_configurations.id as carId',
 
                 'rent_contracts.id as contractId',
                 'rent_contracts.number as contractNumber',
-
-                'to_payments.sum as sumPayment',
+                
+                'rent_subjects.id as subjectId',
+                'rent_subjects.nickname as subjectNickname',
+                
+                'to_payments.sum as sum',
                 'time_sheets.dateTime as date',
                 'time_sheets.comment as comment',
                 'time_sheets.pId as parentId',
@@ -96,7 +103,7 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
 
     public function delEvent(rentEventDocumentTitle $rentEventDocumentTitle)
     {
-        // TODO: Implement delEvent() method.
+        $rentEventDocumentTitle->delete();
     }
 
 

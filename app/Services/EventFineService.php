@@ -108,7 +108,6 @@ Class EventFineService implements EventServiceInterface {
 
     public function destroy($dataId)
     {
-
         $eventFineModel = $this->eventFineRep->getEvent($dataId);
         $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventFineModel->id);
         $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
