@@ -27,11 +27,15 @@
                 <input id="subjectText" name="subjectText" value="{{old('subjectText',$eventDataObj->subjectNickname)}}" class="form-control"  readonly/>
                 <input name="subjectId" id="subjectId" value="{{old('subjectId',$eventDataObj->subjectId)}}" hidden/>
             </div>
-            <div class="form-group col-md-3 input-group-sm">
-                <label for="date" title="Дата постановки на учет">Дата постановки на учет</label>
+            <div class="form-group col-md-2 input-group-sm">
+                <label for="date" title="Дата события">Дата события</label>
                 <input type="date" name="date" id="date" class="form-control" value="{{old('date',$eventDataObj->date ? $eventDataObj->date->toDateString() : $dateTime->toDateString())}}"/>
             </div>
-            <div class="form-group col-md-3 input-group-sm">
+            <div class="form-group col-md-2 input-group-sm">
+                <label for="dateDocument" title="Дата выдачи">Дата выдачи</label>
+                <input type="date" name="dateDocument" id="dateDocument" class="form-control" value="{{old('dateDocument',$eventDataObj->dateDocument)}}"/>
+            </div>
+            <div class="form-group col-md-2 input-group-sm">
                 <label for="sum" title="Сумма">Сумма</label>
                 <input type="number" name="sum" id="sum" value="{{old('sum',$eventDataObj->sum)}}" class="form-control" required/>
             </div>

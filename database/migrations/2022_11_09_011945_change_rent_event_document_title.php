@@ -16,6 +16,7 @@ class ChangeRentEventDocumentTitle extends Migration
          Schema::table('rent_event_document_titles', function (Blueprint $table) {
             $table->string('color');
             $table->string('issued');
+            $table->date('dateDocument')->nullable();
             $table->unsignedBigInteger('subjectId');
             $table->string('marks')->nullable();
             $table->string('comment')->nullable();
@@ -31,7 +32,7 @@ class ChangeRentEventDocumentTitle extends Migration
     public function down()
     {
          Schema::table('rent_event_document_titles', function (Blueprint $table) {
-            $table->dropColumn(['color','issued','marks','comment']);
+            $table->dropColumn(['color','issued','marks','comment','dateDocument','subjectId']);
         });
     }
 }

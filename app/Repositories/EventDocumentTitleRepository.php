@@ -41,6 +41,7 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
                 'rent_event_document_titles.color as color',
                 'rent_event_document_titles.issued as issued',
                 'rent_event_document_titles.marks as marks',
+                'rent_event_document_titles.dateDocument as dateDocument',
 
                 'car_configurations.nickName as carText',
                 'car_configurations.id as carId',
@@ -58,9 +59,11 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
             ])
             ->first();
         $resultEventObj =  $resultEventObj ?? new rentEventDocumentTitle();
-
-        $resultEventObj->date = Carbon::parse($resultEventObj->date);
-
+        
+        
+        if($resultEventObj->date){
+            $resultEventObj->date = Carbon::parse($resultEventObj->date);
+        }
 
         return $resultEventObj;
     }

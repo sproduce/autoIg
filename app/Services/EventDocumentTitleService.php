@@ -70,6 +70,8 @@ Class EventDocumentTitleService implements EventServiceInterface{
             $eventDocumentTitleModel->issued = $eventDocumentTitleRequest->get('issued');
             $eventDocumentTitleModel->subjectId = $eventDocumentTitleRequest->get('subjectId');
             $eventDocumentTitleModel->marks = $eventDocumentTitleRequest->get('marks');
+            $eventDocumentTitleModel->dateDocument = $eventDocumentTitleRequest->get('dateDocument');
+            
             $eventDocumentTitleModel = $this->eventDocumentTitleRep->addEvent($eventDocumentTitleModel);
             $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventDocumentTitleModel->id);
 
