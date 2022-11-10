@@ -36,5 +36,5 @@ function initDialogWindow()
 
 
 function clearButton(current){
-    $(current).closest('div.row').find('input').each(function(){$(this).val("")});
+    $(current).closest('div.clearRow').find('input').each(function(){$(this).val("")});
 }

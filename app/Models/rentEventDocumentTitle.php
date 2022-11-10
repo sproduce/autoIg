@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property $issued
  * @property $marks
  * @property $subjectId
+ * @property $ownerSubjectId
  * @property $dateDocument
  */
 
@@ -23,7 +24,7 @@ class rentEventDocumentTitle extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    private $id,$number,$regNumber,$passport,$color,$issued,$marks,$subjectId,$dateDocument;
-    protected $fillable = ['number','regNumber','passport','color','issued','marks','subjectId','dateDocument'];
+    private $id,$number,$regNumber,$passport,$color,$issued,$marks,$subjectId,$dateDocument,$ownerSubjectId;
+    protected $fillable = ['number','regNumber','passport','color','issued','marks','subjectId','dateDocument','ownerSubjectId'];
     protected $dates = ['dateDocument'];
 }

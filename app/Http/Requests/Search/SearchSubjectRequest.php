@@ -25,6 +25,7 @@ class SearchSubjectRequest extends FormRequest
     {
         return [
             'searchText' => 'required',
+            'carOwner' => 'integer|nullable',
         ];
     }
 }

@@ -74,7 +74,7 @@
                     </div>
             </div>
             <div class="col-3">
-                <div class="row">
+                <div class="row clearRow">
                     <div class="col-3 p-0">
                        Субьект
                     </div>
@@ -102,7 +102,7 @@
 
             </div>
             <div class="col-3">
-                <div class="row">
+                <div class="row clearRow">
                     <div class="col-3 p-0">
                         Машина
                     </div>
@@ -118,7 +118,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row clearRow">
                     <div class="col-3 p-0">
                         Группа
                     </div>
@@ -133,7 +133,7 @@
                         <input name="carGroupId" id="carGroupId" value="{{old('carGroupId',$paymentObj->carGroupId)}}"  hidden />
                     </div>
                 </div>
-                <div class="row">
+                <div class="row clearRow">
                     <div class="col-3 p-0">
                         Договор
                     </div>

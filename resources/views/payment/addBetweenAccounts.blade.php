@@ -82,7 +82,7 @@
                 @endforeach
             </div>
             <div class="col-4">
-            <div class="row">
+            <div class="row clearRow">
                 <div class="col-3 p-0">
                     Группа
                 </div>

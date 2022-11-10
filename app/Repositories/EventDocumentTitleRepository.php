@@ -29,6 +29,7 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
             ->join('rent_event_document_titles','rent_event_document_titles.id','=','time_sheets.dataId')
             ->leftJoin('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
             ->leftJoin('rent_subjects','rent_subjects.id', '=', 'rent_event_document_titles.subjectId')
+            ->leftJoin('rent_subjects as ownerSubject','ownerSubject.id', '=', 'rent_event_document_titles.ownerSubjectId')
             ->leftJoin('to_payments','to_payments.timeSheetId','=','time_sheets.id')
             ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
             ->where('time_sheets.eventId','=',$eventId)
@@ -52,6 +53,9 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
                 'rent_subjects.id as subjectId',
                 'rent_subjects.nickname as subjectNickname',
                 
+                'ownerSubject.id as ownerSubjectId',
+                'ownerSubject.nickname as ownerSubjectNickname',
+                
                 'to_payments.sum as sum',
                 'time_sheets.dateTime as date',
                 'time_sheets.comment as comment',
@@ -63,6 +67,9 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
         
         if($resultEventObj->date){
             $resultEventObj->date = Carbon::parse($resultEventObj->date);
+        }
+        if($resultEventObj->dateDocument){
+            $resultEventObj->dateDocument = Carbon::parse($resultEventObj->dateDocument);
         }
 
         return $resultEventObj;

@@ -69,6 +69,7 @@ Class EventDocumentTitleService implements EventServiceInterface{
             $eventDocumentTitleModel->regNumber = $eventDocumentTitleRequest->get('regNumber');
             $eventDocumentTitleModel->issued = $eventDocumentTitleRequest->get('issued');
             $eventDocumentTitleModel->subjectId = $eventDocumentTitleRequest->get('subjectId');
+            $eventDocumentTitleModel->ownerSubjectId = $eventDocumentTitleRequest->get('ownerSubjectId');
             $eventDocumentTitleModel->marks = $eventDocumentTitleRequest->get('marks');
             $eventDocumentTitleModel->dateDocument = $eventDocumentTitleRequest->get('dateDocument');
             
@@ -97,6 +98,8 @@ Class EventDocumentTitleService implements EventServiceInterface{
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
+            echo  $e->getMessage();
+            exit();
         }
 
     }
