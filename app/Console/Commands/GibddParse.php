@@ -27,14 +27,19 @@ class GibddParse extends Command
      */
     protected $description = 'Command description';
 
+    private $gibddServ,$fineServ;
+    
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(GibddFineService $gibddServ, \App\Services\EventFineService $fineServ)
     {
         parent::__construct();
+        $this->gibddServ = $gibddServ;
+        $this->fineServ = $fineServ;
+                
     }
 
     
@@ -42,10 +47,16 @@ class GibddParse extends Command
     {
         $gibddFineRep = new \App\Repositories\GibddFineRepository();
         Excel::import(new GibddFineImport($gibddFineRep,$fileName),$fileName);
-        
-        
+
     }
     
+        
+    private function addFineEvent()
+    {
+        $finesObj = $this->gibddServ->getFinesWithoutOfTimeSheet();
+        $this->info($finesObj->count());
+        $this->info("Get Fine Out timeSheet ");
+    }
     
     
     
@@ -80,6 +91,12 @@ class GibddParse extends Command
 
             }
         }
+        
+        
+        
+        $this->addFineEvent();
+        
+        
         return 0;
     }
 }

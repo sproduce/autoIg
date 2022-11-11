@@ -41,6 +41,9 @@ Class RentEventService{
         return (new $serviceName($this->contractRep,$this->timeSheetRep,$this->toPaymentRep,$eventObj));
     }
 
+    
+    
+    
 
     public function getRentEvent($eventId):rentEvent
     {

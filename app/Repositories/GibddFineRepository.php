@@ -20,4 +20,11 @@ class GibddFineRepository implements GibddFineRepositoryInterface
     }
     
     
+    
+    public function getFinesWithoutOfTimeSheet() 
+    {
+        $result = GibddFine::whereNull('timeSheetId');
+        return $result;
+    }
+    
 }

@@ -19,5 +19,14 @@ Class GibddFineService{
     }
 
 
+    
+    public function getFinesWithoutOfTimeSheet() 
+    {
+        return $this->gibddFineRep->getFinesWithOutOfTimeSheet();
+    }
+    
+    
+    
+    
 
 }
