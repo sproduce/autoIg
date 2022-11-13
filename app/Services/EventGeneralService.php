@@ -53,7 +53,7 @@ Class EventGeneralService implements EventServiceInterface{
 
 
 
-    public function store()
+    public function store($dataCollection = null)
     {
         $eventGeneralRequest = app()->make(Event\GeneralRequest::class);
         $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);

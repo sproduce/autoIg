@@ -33,7 +33,7 @@ Class RentEventService{
         return $rentEventsObj;
     }
 
-
+   
     public function getEventService(rentEvent $eventObj): EventServiceInterface
     {
         $serviceName = '\App\Services\\'.ucfirst($eventObj->action).'Service';
@@ -42,10 +42,14 @@ Class RentEventService{
     }
 
     
-    
+    function getEventData(rentEvent $eventObj)
+    {
+        
+    }
     
 
-    public function getRentEvent($eventId):rentEvent
+    
+    public function getRentEvent($eventId): rentEvent
     {
         $rentEventObj = $this->rentEventRep->getEvent($eventId);
         return $rentEventObj;

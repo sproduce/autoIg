@@ -143,5 +143,14 @@ class EventFineRepository implements EventFineRepositoryInterface
     }
 
 
+    public function getUnaddedFines() 
+    {
+      
+        
+    }
+    
+    
+    
+    
 }
 

@@ -23,18 +23,26 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
         return $rentEventDocumentTitle;
     }
 
-    public function getEventFullInfo($eventId, $dataId)
+    public function getEventFullInfo($eventId, $filter)
     {
-        $resultEventObj = DB::table('time_sheets')
+        $resultQueryEventObj = DB::table('time_sheets')
             ->join('rent_event_document_titles','rent_event_document_titles.id','=','time_sheets.dataId')
             ->leftJoin('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
             ->leftJoin('rent_subjects','rent_subjects.id', '=', 'rent_event_document_titles.subjectId')
             ->leftJoin('rent_subjects as ownerSubject','ownerSubject.id', '=', 'rent_event_document_titles.ownerSubjectId')
             ->leftJoin('to_payments','to_payments.timeSheetId','=','time_sheets.id')
             ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
-            ->where('time_sheets.eventId','=',$eventId)
-            ->where('time_sheets.dataId','=',$dataId)
-            ->select([
+            ->where('time_sheets.eventId','=',$eventId);
+                
+            if (isset($filter['dataId'])){
+                $resultQueryEventObj->where('time_sheets.dataId','=',$filter['dataId']);
+            }
+            
+            if (isset($filter['number'])){
+                $resultQueryEventObj->where('rent_event_document_titles.number','=',$filter['number']);
+            }
+            
+            $resultQueryEventObj->select([
                 'rent_event_document_titles.id as id',
                 'rent_event_document_titles.regNumber as regNumber',
                 'rent_event_document_titles.number as number',
@@ -60,8 +68,8 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
                 'time_sheets.dateTime as date',
                 'time_sheets.comment as comment',
                 'time_sheets.pId as parentId',
-            ])
-            ->first();
+            ]);
+        $resultEventObj = $resultQueryEventObj->first();
         $resultEventObj =  $resultEventObj ?? new rentEventDocumentTitle();
         
         

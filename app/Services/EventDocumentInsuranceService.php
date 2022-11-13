@@ -54,7 +54,7 @@ Class EventDocumentInsuranceService implements EventServiceInterface{
 
 
 
-    public function store()
+    public function store($dataCollection = null)
     {
         $eventDocumentInsuranceRequest = app()->make(Event\DocumentInsuranceRequest::class);
         $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);

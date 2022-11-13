@@ -71,7 +71,7 @@ Class EventCrashService implements EventServiceInterface {
     {
         // TODO: Implement getViews() method.
     }
-    public function store()
+    public function store($dataCollection = null)
     {
         $eventCrashRequest = app()->make(Event\CrashRequest::class);
         $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);

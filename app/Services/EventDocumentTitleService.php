@@ -30,6 +30,16 @@ Class EventDocumentTitleService implements EventServiceInterface{
         $this->eventObj = $eventObj;
     }
 
+    
+    function setEventObj(rentEvent $eventObj) 
+    {
+        if ($eventObj->duration=="eventDocumentTitle"&& $eventObj->id){
+            $this->eventObj = $eventObj;
+        }
+        
+    }
+    
+    
     public function index(CarbonPeriod $datePeriod)
     {
         $resultEvents = $this->eventDocumentTitleRep->getEvents($this->eventObj->id,$datePeriod);
@@ -45,9 +55,20 @@ Class EventDocumentTitleService implements EventServiceInterface{
 
     public function getEventInfo($dataId = null)
     {
-        return $this->eventDocumentTitleRep->getEventFullInfo($this->eventObj->id,$dataId);
+        $filter = ['dataId' => $dataId];
+        return $this->eventDocumentTitleRep->getEventFullInfo($this->eventObj->id,$filter);
     }
 
+    
+    function getEventInfoByNumber($number) 
+    {
+         $filter = ['number' => $number];
+         return $this->eventDocumentTitleRep->getEventFullInfo($this->eventObj->id,$filter);
+    }
+    
+    
+    
+    
     public function getAdditionalViewDataArray()
     {
 
@@ -55,7 +76,7 @@ Class EventDocumentTitleService implements EventServiceInterface{
 
 
 
-    public function store()
+    public function store($dataCollection = null)
     {
         $eventDocumentTitleRequest = app()->make(Event\DocumentTitleRequest::class);
         $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);

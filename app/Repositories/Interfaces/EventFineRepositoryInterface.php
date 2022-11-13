@@ -18,4 +18,11 @@ interface EventFineRepositoryInterface
 
 
     public function getEventFullInfo($eventId,$dataId);
+   
+    
+    
+    public function getUnaddedFines();
+
+    
+    
 }

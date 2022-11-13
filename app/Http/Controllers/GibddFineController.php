@@ -68,10 +68,15 @@ class GibddFineController extends Controller
     
     
     
-    public function test(\Illuminate\Http\Request $request) 
+    public function test() 
     {
-        $request->all() + [''];
-        $eventFineServ = new \App\Services\EventFineService();
+        $finesObj = $this->gibddFineServ->getFinesWithoutOfTimeSheet();
+         foreach ($finesObj as $fineObj){
+            echo $fineObj->sts."<br/>";
+        }
+        echo "test";
+        //$request->all() + [''];
+        //$eventFineServ = new \App\Services\EventFineService();
         //$eventFineServ->store();
         
     }

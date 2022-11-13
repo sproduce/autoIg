@@ -28,6 +28,16 @@ Class EventFineService implements EventServiceInterface {
         $this->eventObj = $eventObj;
     }
 
+    
+    
+    public function setEventObj(rentEvent $eventObj) 
+    {
+        if ($eventObj->duration=="eventFine"&& $eventObj->id){
+            $this->eventObj = $eventObj;
+        }
+        
+    }
+    
 
     public function index(CarbonPeriod $datePeriod)
     {
@@ -51,10 +61,15 @@ Class EventFineService implements EventServiceInterface {
     }
 
 
-    public function store()
+    public function store($dataCollection = null)
     {
-        $eventFineRequest = app()->make(Event\FineRequest::class);
-        $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);
+        if ($dataCollection){
+            $eventFineRequest = $dataCollection;
+        } else {
+            $eventFineRequest = app()->make(Event\FineRequest::class);
+        }
+        
+        //$eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);
 
         DB::beginTransaction();
         try {
@@ -79,7 +94,7 @@ Class EventFineService implements EventServiceInterface {
             $timeSheetModel->comment = $eventFineRequest->get('comment');
             $timeSheetModel->duration = $this->eventObj->duration;
             $timeSheetModel->color = $this->eventObj->color;
-            $timeSheetModel->pId = $eventTimeSheetRequest->get('parentId');
+            $timeSheetModel->pId = $eventFineRequest->get('parentId');
 
             $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 

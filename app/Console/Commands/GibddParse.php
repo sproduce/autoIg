@@ -8,7 +8,7 @@ use App\Services\GibddFineService;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\GibddFineImport;
-
+use App\Services\RentEventService;
 
 
 class GibddParse extends Command
@@ -27,19 +27,19 @@ class GibddParse extends Command
      */
     protected $description = 'Command description';
 
-    private $gibddServ,$fineServ;
+    private $gibddFineServ,$rentEventServ;
     
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct(GibddFineService $gibddServ, \App\Services\EventFineService $fineServ)
+    public function __construct(GibddFineService $gibddServ, RentEventService $rentEvetServ)
     {
         parent::__construct();
-        $this->gibddServ = $gibddServ;
-        $this->fineServ = $fineServ;
-                
+        $this->gibddFineServ = $gibddServ;
+        $this->rentEventServ = $rentEvetServ;
+        
     }
 
     
@@ -53,9 +53,22 @@ class GibddParse extends Command
         
     private function addFineEvent()
     {
-        $finesObj = $this->gibddServ->getFinesWithoutOfTimeSheet();
+        $eventTitleObj = $this->rentEventServ->getRentEvent(16);
+        $eventFineObj = $this->rentEventServ->getRentEvent(1);
+        
+        $eventTitleServ = $this->rentEventServ->getEventService($eventTitleObj);
+        $eventFineServ = $this->rentEventServ->getEventService($eventFineObj);
+        
+        $finesObj = $this->gibddFineServ->getFinesWithoutOfTimeSheet();
         $this->info($finesObj->count());
-        $this->info("Get Fine Out timeSheet ");
+        foreach ($finesObj as $fineObj){
+            $titleObj = $eventTitleServ->getEventInfoByNumber($fineObj->sts);
+            //$this->info("Get Fine Out timeSheet ".$fineObj->sts."  ".$titleObj->carId."  ".$titleObj->carText);
+            $this->info($titleObj->carId." (".$titleObj->carText.") ".$fineObj->dateDecree." ".$fineObj->dateTimeFine." ".$fineObj->decreeNumber." ".$fineObj->dateSale." ".$fineObj->sumSale." ".$fineObj->datePayMax." ".$fineObj->sum." add parse");
+        }
+//        $this->fineServ->store();
+//        $this->info($finesObj->count());
+//        $this->info("Get Fine Out timeSheet ");
     }
     
     
@@ -65,7 +78,7 @@ class GibddParse extends Command
      *
      * @return int
      */
-    public function handle(GibddFineService $gibddFineServ)
+    public function handle()
     {
         $storagePath = Storage::disk('fines')->path('');
         $this->info("Storage path ".$storagePath);

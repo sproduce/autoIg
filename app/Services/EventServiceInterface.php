@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 
-
+use App\Models\rentEvent;
 
 use Carbon\CarbonPeriod;
 
@@ -13,7 +13,7 @@ interface EventServiceInterface
 
     public function getEventModel($modelId = null);
 
-    public function store();
+    public function store($dataCollection = null);
 
     public function destroy($dataId);
 
@@ -21,4 +21,6 @@ interface EventServiceInterface
 
     public function getEventInfo($dataId = null);
 
+    public function setEventObj(rentEvent $eventObj);
+    
 }

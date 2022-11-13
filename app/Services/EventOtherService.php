@@ -53,7 +53,7 @@ Class EventOtherService implements EventServiceInterface{
 
 
 
-    public function store()
+    public function store($dataCollection = null)
     {
         $eventOtherRequest = app()->make(Event\OtherRequest::class);
         $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);

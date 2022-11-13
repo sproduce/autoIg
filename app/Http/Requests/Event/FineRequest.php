@@ -52,13 +52,14 @@ class FineRequest extends FormRequest
             'dateOrder' => 'date|required',
             'dateFine' => 'date|required',
             'timeFine' => 'date_format:H:i|required',
-            'uin' => 'string|nullable',
+            'uin' => 'string|required',
             'datePaySale' => 'date|nullable',
             'datePayMax' => 'date|nullable',
             'sumSale' => 'integer|required',
             'sum' => 'integer|required',
             'comment' => 'string|nullable',
             'dateTimeFine' => 'required',
+            'parentId' => 'integer|nullable',
         ];
     }
 }

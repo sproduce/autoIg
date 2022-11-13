@@ -55,7 +55,7 @@ Class EventRentalService implements EventServiceInterface {
        return collect(['lastTimeSheet']);
    }
 
-   public function store()
+   public function store($dataCollection = null)
    {
         $eventRentalRequest = app()->make(Event\RentalRequest::class);
         $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);
