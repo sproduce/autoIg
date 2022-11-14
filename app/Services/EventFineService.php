@@ -29,15 +29,6 @@ Class EventFineService implements EventServiceInterface {
     }
 
     
-    
-    public function setEventObj(rentEvent $eventObj) 
-    {
-        if ($eventObj->duration=="eventFine"&& $eventObj->id){
-            $this->eventObj = $eventObj;
-        }
-        
-    }
-    
 
     public function index(CarbonPeriod $datePeriod)
     {
@@ -102,11 +93,12 @@ Class EventFineService implements EventServiceInterface {
             $toPaymentModel = $this->toPaymentRep->getToPaymentByTimeSheet($timeSheetModel->id);
             $toPaymentModel->payUp = $eventFineModel->datePaySale;
             $toPaymentModel->timeSheetId = $timeSheetModel->id;
-            $toPaymentModel->sum = $eventFineRequest->get('sumSale');
+            $toPaymentModel->sum = $eventFineRequest->get('sumSale')*-1;
 
             $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
 
             DB::commit();
+            return $timeSheetModel->id;
         } catch (\Exception $e) {
             DB::rollback();
         }

@@ -154,4 +154,10 @@ class ContractRepository implements ContractRepositoryInterface
         // TODO: Implement getContractToPaymentSum() method.
     }
 
+    
+    public function getContractByCarIdDate($carId,$date)
+    {
+        return rentContractType::where('carId','=',$carId)->whereRaw('? between start and finish', [$date])->first();
+    }
+    
 }

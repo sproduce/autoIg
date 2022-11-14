@@ -138,4 +138,11 @@ Class ContractService{
     }
 
 
+    function getContractByCarIdDate($carId,$date) 
+    {
+        
+    }
+    
+    
+    
 }

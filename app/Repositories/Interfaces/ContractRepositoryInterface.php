@@ -38,5 +38,8 @@ interface ContractRepositoryInterface
     public function getContractPaymentSum($contractId);
 
     public function getContractToPaymentSum($contractId);
+    
+    public function getContractByCarIdDate($carId,$date);
 
+    
 }

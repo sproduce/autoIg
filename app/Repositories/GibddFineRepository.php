@@ -16,6 +16,7 @@ class GibddFineRepository implements GibddFineRepositoryInterface
     public function getFineByNumber($decreeNumber): GibddFine
     {
         $result = GibddFine::where('decreeNumber',$decreeNumber)->first();
+        
         return $result ?? new GibddFine();
     }
     
@@ -23,7 +24,7 @@ class GibddFineRepository implements GibddFineRepositoryInterface
     
     public function getFinesWithoutOfTimeSheet() 
     {
-        $result = GibddFine::whereNull('timeSheetId')->whereNotNull('sts')->orderBy('id')->get();
+        $result = GibddFine::whereNull('timeSheetId')->whereNotNull('sts')->whereNotNull('dateTimeFine')->orderBy('id')->get();
         return $result;
     }
     

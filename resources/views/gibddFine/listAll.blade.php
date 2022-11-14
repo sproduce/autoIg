@@ -18,7 +18,7 @@
                     <a class="nav-link" href="">Оплаченные</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/gibddfine/mail">Загрузить</a>
+                    <a class="nav-link" href="">Загрузить</a>
                 </li>
             </ul>
         </div>
@@ -33,10 +33,10 @@
             </div>
             
             @foreach($finesObj as $fine)
-                <div class="row border-top mt-1">
+                <div class="row border-top mt-1 @if($fine->timeSheetId)bg-success @endif">
                     <div class="col-2 text-right p-0">{{$fine->regnumber}}</div>
                     <div class="col-3">{{$fine->decreeNumber}}</div>
-                    <div class="col-2">{{$fine->dateTimeFine->format('d-m-Y H:i')}}</div>
+                    <div class="col-2"> @if($fine->dateTimeFine){{$fine->dateTimeFine->format('d-m-Y H:i')}} @endif</div>
                     <div class="col-2">{{$fine->sum}} p.</div>
                     <div class="col-3" title="{{$fine->koap}}">{{$fine->place}}</div>
                 </div>

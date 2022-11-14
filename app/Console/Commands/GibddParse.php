@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Services\GibddFineService;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\GibddFineImport;
 use App\Services\RentEventService;
@@ -63,8 +64,24 @@ class GibddParse extends Command
         $this->info($finesObj->count());
         foreach ($finesObj as $fineObj){
             $titleObj = $eventTitleServ->getEventInfoByNumber($fineObj->sts);
-            //$this->info("Get Fine Out timeSheet ".$fineObj->sts."  ".$titleObj->carId."  ".$titleObj->carText);
-            $this->info($titleObj->carId." (".$titleObj->carText.") ".$fineObj->dateDecree." ".$fineObj->dateTimeFine." ".$fineObj->decreeNumber." ".$fineObj->dateSale." ".$fineObj->sumSale." ".$fineObj->datePayMax." ".$fineObj->sum." add parse");
+            if ($titleObj->carId){
+                $this->info($titleObj->carId." (".$titleObj->carText.") ".$fineObj->dateDecree->format('d-m-Y')." ".$fineObj->dateTimeFine." ".$fineObj->decreeNumber." ".$fineObj->dateSale->format('d-m-Y')." ".$fineObj->sumSale." ".$fineObj->datePayMax->format('d-m-Y')." ".$fineObj->sum." add parse");
+                $dataCollection = collect([
+                    'dateOrder' => $fineObj->dateDecree->format('Y-m-d'),
+                    'datePayMax' => $fineObj->datePayMax->format('Y-m-d'),
+                    'datePaySale' => $fineObj->dateSale->format('Y-m-d'),
+                    'dateTimeFine' => $fineObj->dateTimeFine,
+                    'sum' => $fineObj->sum,
+                    'sumSale' => $fineObj->sumSale,
+                    'carId' => $titleObj->carId,
+                    'uin' => $fineObj->decreeNumber,
+                    'comment' => "Automat add",
+                    'parentId' => null,
+                ]);
+                $timeSheetId = $eventFineServ->store($dataCollection);
+                $fineObj->timeSheetId = $timeSheetId;
+                $fineObj->save();
+            }
         }
 //        $this->fineServ->store();
 //        $this->info($finesObj->count());

@@ -38,6 +38,7 @@ class GibddFineImport implements ToModel, WithValidation, SkipsOnFailure
         $fineObj->regnumber = $fineObj->regnumber ?? $row[1];
         $fineObj->decreeNumber = $fineObj->decreeNumber ?? $row[2];
         $fineObj->sum = $row[3];
+        
         $fineObj->dateDecree = $fineObj->dateDecree ?? date('Y-m-d',strtotime($row[4]));
         $fineObj->datePayMax = $fineObj->datePayMax ?? date('Y-m-d',strtotime($row[5]));
         $fineObj->unit = $fineObj->unit ?? $row[6];
@@ -49,7 +50,8 @@ class GibddFineImport implements ToModel, WithValidation, SkipsOnFailure
         $fineObj->okato = $fineObj->okato ?? $row[12];
         $fineObj->bankReceiver = $fineObj->bankReceiver ?? $row[13];
         $fineObj->accountReceiver = $fineObj->accountReceiver ?? $row[14];
-        $fineObj->dateTimeFine = $fineObj->dateTimeFine ?? date('Y-m-d H:i',strtotime($row[15]." ".$row[16]));
+        if ($row[15])
+            $fineObj->dateTimeFine = $fineObj->dateTimeFine ?? date('Y-m-d H:i',strtotime($row[15]." ".$row[16]));
         $fineObj->place = $fineObj->place ?? $row[17];
         $fineObj->koap = $fineObj->koap ?? $row[18];
         $fineObj->sale = $fineObj->sale ?? $row[19];
