@@ -6,6 +6,13 @@ use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\GibddFineImport;
 
+use Carbon\Carbon;
+
+
+
+use App\Services\RentEventService;
+
+
 class GibddFineController extends Controller
 {
     private $gibddFineServ;
@@ -68,13 +75,20 @@ class GibddFineController extends Controller
     
     
     
-    public function test() 
+    public function test(RentEventService $rentEventServ) 
     {
-        $finesObj = $this->gibddFineServ->getFinesWithoutOfTimeSheet();
-         foreach ($finesObj as $fineObj){
-            echo $fineObj->sts."<br/>";
-        }
-        echo "test";
+        $eventRentalObj = $rentEventServ->getRentEvent(2);
+        $eventRentalServ = $rentEventServ->getEventService($eventRentalObj);
+        $carbonDateTime = new Carbon('2022-11-10 17:15:00');
+        
+        
+        $result = $eventRentalServ->getNearestEvent($carbonDateTime, 11);
+      var_dump($result);
+//        $finesObj = $this->gibddFineServ->getFinesWithoutOfTimeSheet();
+//         foreach ($finesObj as $fineObj){
+//            echo $fineObj->sts."<br/>";
+//        }
+//        echo "test";
         //$request->all() + [''];
         //$eventFineServ = new \App\Services\EventFineService();
         //$eventFineServ->store();

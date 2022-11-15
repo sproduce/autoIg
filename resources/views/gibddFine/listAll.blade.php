@@ -35,10 +35,12 @@
             @foreach($finesObj as $fine)
                 <div class="row border-top mt-1 @if($fine->timeSheetId)bg-success @endif">
                     <div class="col-2 text-right p-0">{{$fine->regnumber}}</div>
-                    <div class="col-3">{{$fine->decreeNumber}}</div>
+                    <div class="col-2">{{$fine->decreeNumber}}</div>
                     <div class="col-2"> @if($fine->dateTimeFine){{$fine->dateTimeFine->format('d-m-Y H:i')}} @endif</div>
                     <div class="col-2">{{$fine->sum}} p.</div>
-                    <div class="col-3" title="{{$fine->koap}}">{{$fine->place}}</div>
+                    <div class="col-2" title="{{$fine->koap}}">{{$fine->place}}</div>
+                    <div class="col-2">{{$fine->dateFile}}</div>
+                    
                 </div>
             @endforeach
             

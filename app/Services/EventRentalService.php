@@ -22,7 +22,7 @@ Class EventRentalService implements EventServiceInterface {
         rentEvent $eventObj
     ){
         $this->contractRep = $contractRep;
-        $this->eventRentalRep = new EventRentalRepository();
+        $this->eventRentalRep = new EventRentalRepository($eventObj);
         $this->timeSheetRep = $timeSheetRep;
         $this->toPaymentRep = $toPaymentRep;
         $this->eventObj = $eventObj;
@@ -30,7 +30,7 @@ Class EventRentalService implements EventServiceInterface {
 
     public function getNearestEvent(Carbon $dateTime,$carId)
     {
-    
+        return $this->eventRentalRep->getNearestEvent($dateTime, $carId);
     }
 
     private function addEvent()

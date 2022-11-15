@@ -57,6 +57,8 @@ class GibddParse extends Command
         $eventTitleObj = $this->rentEventServ->getRentEvent(16);
         $eventFineObj = $this->rentEventServ->getRentEvent(1);
         
+        
+        
         $eventTitleServ = $this->rentEventServ->getEventService($eventTitleObj);
         $eventFineServ = $this->rentEventServ->getEventService($eventFineObj);
         

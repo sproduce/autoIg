@@ -5,6 +5,8 @@ namespace App\Repositories\Interfaces;
 
 use App\Models\rentEventRental;
 use Carbon\CarbonPeriod;
+use Carbon\Carbon;
+
 
 interface EventRentalRepositoryInterface
 {
@@ -17,5 +19,5 @@ interface EventRentalRepositoryInterface
     public function getEventRentals($eventId,CarbonPeriod $datePeriod);
 
     public function delEvent(rentEventRental $rentEventRental);
-
+    public function getNearestEvent(Carbon $dateTime,$carId=null);
 }

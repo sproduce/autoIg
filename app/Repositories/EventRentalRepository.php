@@ -11,6 +11,15 @@ use Illuminate\Support\Facades\DB;
 
 class EventRentalRepository implements EventRentalRepositoryInterface
 {
+    
+    private $eventObj;
+    function __construct(
+            \App\Models\rentEvent $eventObj
+        ){
+        $this->eventObj = $eventObj;
+    }
+    
+    
     public function getEventRental($id): rentEventRental
     {
         return rentEventRental::find($id)?? new rentEventRental;
@@ -101,5 +110,27 @@ class EventRentalRepository implements EventRentalRepositoryInterface
     {
         $rentEventRental->delete();
     }
+    
+    
+    public function getNearestEvent(Carbon $dateTime,$carId=null)
+    {
+        //SELECT * FROM `time_sheets` WHERE carId=29 and eventId=2 and dateTime<'2022-03-30 18:00' order by dateTime desc limit 1
+        $requestEventObj = DB::table('time_sheets')
+                ->join('rent_event_rentals','rent_event_rentals.id','=','time_sheets.dataId')
+                ->where('time_sheets.eventId','=',$this->eventObj->id)
+                ->where('time_sheets.carId','=',$carId)
+                ->where('time_sheets.dateTime','<=',$dateTime->toDateTimeString())
+                ->orderByDesc('time_sheets.dateTime')
+                ->select([
+                    'time_sheets.dateTime as dateTime',
+                    'time_sheets.duration as duration',
+                    'rent_event_rentals.contractId as contractId',
+                ])->take(1);
+        echo  $requestEventObj->toSql();
+        return $requestEventObj->first();
+    }
+    
+    
+    
 }
 
