@@ -30,6 +30,13 @@ Class EventDocumentInsuranceService implements EventServiceInterface{
         $this->eventObj = $eventObj;
     }
 
+    
+    public function getNearestEvent(Carbon $dateTime,$carId)
+    {
+        
+    }
+    
+    
     public function index(CarbonPeriod $datePeriod)
     {
         $resultEvents = $this->eventDocumentInsuranceRep->getEvents($this->eventObj->id,$datePeriod);

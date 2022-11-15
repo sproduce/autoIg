@@ -29,6 +29,12 @@ Class EventGeneralService implements EventServiceInterface{
         $this->eventObj = $eventObj;
     }
 
+    
+    public function getNearestEvent(Carbon $dateTime,$carId)
+    {
+        
+    }
+    
     public function index(CarbonPeriod $datePeriod)
     {
         $resultEvent = $this->eventGeneralRep->getEvents($this->eventObj->id,$datePeriod);

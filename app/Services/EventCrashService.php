@@ -28,6 +28,11 @@ Class EventCrashService implements EventServiceInterface {
     }
 
 
+    public function getNearestEvent(Carbon $dateTime,$carId)
+    {
+        
+    }
+    
     public function index(CarbonPeriod $datePeriod)
     {
       $resultEvents = $this->eventCrashRep->getEventCrashes($this->eventObj->id,$datePeriod);

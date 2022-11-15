@@ -31,6 +31,11 @@ Class EventServiceService implements EventServiceInterface{
         $this->contractRep = $contractRep;
     }
 
+    public function getNearestEvent(Carbon $dateTime,$carId)
+    {
+        
+    }
+    
     public function index(CarbonPeriod $datePeriod)
     {
         $resultEvent = $this->eventServiceRep->getEvents($this->eventObj->id,$datePeriod);

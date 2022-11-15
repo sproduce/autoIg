@@ -29,6 +29,10 @@ Class EventFineService implements EventServiceInterface {
     }
 
     
+    public function getNearestEvent(Carbon $dateTime,$carId)
+    {
+        
+    }
 
     public function index(CarbonPeriod $datePeriod)
     {

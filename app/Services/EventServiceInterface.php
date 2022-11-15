@@ -4,7 +4,7 @@ namespace App\Services;
 use App\Models\rentEvent;
 
 use Carbon\CarbonPeriod;
-
+use Carbon\Carbon;
 interface EventServiceInterface
 {
     public function index(CarbonPeriod $datePeriod);
@@ -20,5 +20,8 @@ interface EventServiceInterface
     public function getViews();
 
     public function getEventInfo($dataId = null);
+    
+    public function getNearestEvent(Carbon $dateTime,$carId);
+
     
 }

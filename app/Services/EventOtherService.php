@@ -29,6 +29,12 @@ Class EventOtherService implements EventServiceInterface{
         $this->eventObj = $eventObj;
     }
 
+    
+    public function getNearestEvent(Carbon $dateTime,$carId)
+    {
+        
+    }
+    
     public function index(CarbonPeriod $datePeriod)
     {
         $resultEvent = $this->eventOtherRep->getEvents($this->eventObj->id,$datePeriod);

@@ -28,7 +28,10 @@ Class EventRentalService implements EventServiceInterface {
         $this->eventObj = $eventObj;
     }
 
-
+    public function getNearestEvent(Carbon $dateTime,$carId)
+    {
+    
+    }
 
     private function addEvent()
     {

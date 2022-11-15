@@ -31,6 +31,11 @@ Class EventDocumentTitleService implements EventServiceInterface{
     }
 
     
+    public function getNearestEvent(Carbon $dateTime,$carId)
+    {
+        
+    }
+    
     function setEventObj(rentEvent $eventObj) 
     {
         if ($eventObj->duration=="eventDocumentTitle"&& $eventObj->id){
