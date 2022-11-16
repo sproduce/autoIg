@@ -9,6 +9,7 @@ use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\CarbonPeriod;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 
@@ -60,9 +61,12 @@ Class EventGeneralService implements EventServiceInterface{
 
 
     public function store($dataCollection = null)
-    {
-        $eventGeneralRequest = app()->make(Event\GeneralRequest::class);
-        $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);
+    {  
+        if ($dataCollection){
+            $eventGeneralRequest = $dataCollection;
+        } else {
+            $eventGeneralRequest = app()->make(Event\GeneralRequest::class);
+        }
 
         DB::beginTransaction();
         try {
@@ -77,7 +81,7 @@ Class EventGeneralService implements EventServiceInterface{
             $timeSheetModel->dateTime = $eventGeneralRequest->get('dateTime');
             $timeSheetModel->duration = $this->eventObj->duration;
             $timeSheetModel->color = $this->eventObj->color;
-            $timeSheetModel->pId = $eventTimeSheetRequest->get('parentId');
+            $timeSheetModel->pId =  $eventGeneralRequest->get('parentId');
 
             $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 
@@ -95,6 +99,8 @@ Class EventGeneralService implements EventServiceInterface{
 
             $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
             DB::commit();
+            return $timeSheetModel->id;
+            
         } catch (\Exception $e) {
             DB::rollback();
         }

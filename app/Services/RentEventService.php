@@ -29,7 +29,7 @@ Class RentEventService{
 
     public function getRentEvents()
     {
-        $rentEventsObj=$this->rentEventRep->getEvents();
+        $rentEventsObj = $this->rentEventRep->getEvents();
         return $rentEventsObj;
     }
 

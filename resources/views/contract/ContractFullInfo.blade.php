@@ -115,6 +115,10 @@
                     </div>
                     <div class="col-3">{{$service->operationTypeName}}</div>
                     <div class="col-2">{{$service->paymentsComment}}</div>
+                    <div class="col-2">
+                        
+                    </div>
+
                 </div>
             @endforeach
             <div class="row">

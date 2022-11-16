@@ -51,13 +51,45 @@ class GibddParse extends Command
 
     }
     
+
+    
+    
+    private function addChildFine($carId,$timeSheetId,$dateTime)
+    {
+        $eventRentalObj = $this->rentEventServ->getRentEvent(2);
+        $eventGeneralObj = $this->rentEventServ->getRentEvent(11);
         
+        
+        $eventRentalServ = $this->rentEventServ->getEventService($eventRentalObj);
+        $eventGeneralServ = $this->rentEventServ->getEventService($eventGeneralObj);
+        
+        $nearestRental = $eventRentalServ->getNearestEvent($dateTime, $carId);
+        
+        if ($nearestRental){
+            $this->info("Id rental ".$nearestRental->id);
+            
+            $dataCollection = collect([
+                'contractId' => $nearestRental->contractId,
+                'sum' => 'integer|required',
+                'comment' => 'string|nullable',
+                'dateTime' => 'required',
+                'parentId' => 'integer|nullable',
+                ]);
+            
+        }
+        
+        
+        
+    }
+    
+    
+    
+    
     private function addFineEvent()
     {
         $eventTitleObj = $this->rentEventServ->getRentEvent(16);
         $eventFineObj = $this->rentEventServ->getRentEvent(1);
-        
-        
+
         
         $eventTitleServ = $this->rentEventServ->getEventService($eventTitleObj);
         $eventFineServ = $this->rentEventServ->getEventService($eventFineObj);
@@ -82,12 +114,11 @@ class GibddParse extends Command
                 ]);
                 $timeSheetId = $eventFineServ->store($dataCollection);
                 $fineObj->timeSheetId = $timeSheetId;
-                $fineObj->save();
+                //$fineObj->save();
+                $this->addChildFine($titleObj->carId, $timeSheetId, $fineObj->dateTimeFine);
             }
         }
-//        $this->fineServ->store();
-//        $this->info($finesObj->count());
-//        $this->info("Get Fine Out timeSheet ");
+
     }
     
     

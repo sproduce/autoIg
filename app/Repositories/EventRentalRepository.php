@@ -125,8 +125,9 @@ class EventRentalRepository implements EventRentalRepositoryInterface
                     'time_sheets.dateTime as dateTime',
                     'time_sheets.duration as duration',
                     'rent_event_rentals.contractId as contractId',
+                    'rent_event_rentals.id as id',
                 ])->take(1);
-        echo  $requestEventObj->toSql();
+        
         return $requestEventObj->first();
     }
     

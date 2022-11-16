@@ -41,6 +41,7 @@ class GeneralRequest extends FormRequest
             'time' => 'date_format:H:i|required',
             'comment' => 'string|nullable',
             'dateTime' => 'required',
+            'parentId' => 'integer|nullable',
         ];
     }
 }
