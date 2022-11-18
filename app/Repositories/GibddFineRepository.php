@@ -28,4 +28,12 @@ class GibddFineRepository implements GibddFineRepositoryInterface
         return $result;
     }
     
+    
+    
+    
+    public function setFinesPaid() 
+    {
+        
+    }
+    
 }

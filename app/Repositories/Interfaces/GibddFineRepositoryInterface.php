@@ -10,5 +10,6 @@ interface GibddFineRepositoryInterface
     public function getActualFines();
     public function getFineByNumber($decreeNumber): GibddFine;
     public function getFinesWithoutOfTimeSheet();
+    public function setFinesPaid();
 
 }

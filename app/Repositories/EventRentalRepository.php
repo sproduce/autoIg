@@ -120,15 +120,21 @@ class EventRentalRepository implements EventRentalRepositoryInterface
                 ->where('time_sheets.eventId','=',$this->eventObj->id)
                 ->where('time_sheets.carId','=',$carId)
                 ->where('time_sheets.dateTime','<=',$dateTime->toDateTimeString())
+                ->whereNull('rent_event_rentals.deleted_at')
                 ->orderByDesc('time_sheets.dateTime')
                 ->select([
                     'time_sheets.dateTime as dateTime',
                     'time_sheets.duration as duration',
+                    'time_sheets.carId as carId',
                     'rent_event_rentals.contractId as contractId',
                     'rent_event_rentals.id as id',
                 ])->take(1);
+        $resultEventObj = $requestEventObj->first();
         
-        return $requestEventObj->first();
+        if ($resultEventObj){
+            $resultEventObj->dateTime =  Carbon::parse($resultEventObj->dateTime);
+        }
+        return $resultEventObj;
     }
     
     

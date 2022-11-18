@@ -27,5 +27,11 @@ Class GibddFineService{
     
     
     
+    public function setFinesPaid() 
+    {
+        
+    }
+    
+    
 
 }

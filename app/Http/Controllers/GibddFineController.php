@@ -79,10 +79,22 @@ class GibddFineController extends Controller
     {
         $eventRentalObj = $rentEventServ->getRentEvent(2);
         $eventRentalServ = $rentEventServ->getEventService($eventRentalObj);
-        $carbonDateTime = new Carbon('2021-12-16 04:22',11);
+        $carbonDateTime = new Carbon('2021-12-16 04:22');
         
         
         $result = $eventRentalServ->getNearestEvent($carbonDateTime, 11);
+        
+        
+        $dateTimeStart = $result->dateTime;
+        $dateTimeEnd = $result->dateTime->addMinute($result->duration);
+        echo $result->duration;
+        var_dump($dateTimeStart);
+         var_dump($result->dateTime->addMinute($result->duration));
+         exit();
+        if ($carbonDateTime->between($dateTimeStart,$dateTimeEnd)){
+            echo "!!!!!!!";
+        }
+        
       var_dump($result);
 //        $finesObj = $this->gibddFineServ->getFinesWithoutOfTimeSheet();
 //         foreach ($finesObj as $fineObj){
@@ -94,4 +106,16 @@ class GibddFineController extends Controller
         //$eventFineServ->store();
         
     }
+    
+    
+    public function test1() 
+    {
+        $foo  = new Carbon();
+        $start = $foo;
+        $finish = $foo->addDay(2);
+        echo $start->format('d-m-Y H:i');
+    }
+    
+    
+    
 }

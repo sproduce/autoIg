@@ -71,6 +71,10 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/additional.php'));
+            Route::prefix('printDocument')
+                ->middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/printDocument.php'));
             Route::prefix('gibddfine')
                 ->middleware('web')
                 ->namespace($this->namespace)

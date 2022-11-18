@@ -11,6 +11,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\GibddFineImport;
 use App\Services\RentEventService;
 
+use Carbon\Carbon;
+
 
 class GibddParse extends Command
 {
@@ -54,11 +56,10 @@ class GibddParse extends Command
 
     
     
-    private function addChildFine($carId,$timeSheetId,$dateTime)
+    private function addChildFine($carId,$timeSheetId,$dateTime,$sum)
     {
         $eventRentalObj = $this->rentEventServ->getRentEvent(2);
-        $eventGeneralObj = $this->rentEventServ->getRentEvent(11);
-        
+        $eventGeneralObj = $this->rentEventServ->getRentEvent(17);
         
         $eventRentalServ = $this->rentEventServ->getEventService($eventRentalObj);
         $eventGeneralServ = $this->rentEventServ->getEventService($eventGeneralObj);
@@ -66,20 +67,22 @@ class GibddParse extends Command
         $nearestRental = $eventRentalServ->getNearestEvent($dateTime, $carId);
         
         if ($nearestRental){
-            $this->info("Id rental ".$nearestRental->id);
-            
-            $dataCollection = collect([
-                'contractId' => $nearestRental->contractId,
-                'sum' => 'integer|required',
-                'comment' => 'string|nullable',
-                'dateTime' => 'required',
-                'parentId' => 'integer|nullable',
-                ]);
-            
+
+            $dateTimeStart = $nearestRental->dateTime;
+            $dateTimeEnd = $nearestRental->dateTime->clone()->addMinute($nearestRental->duration);
+
+            if ($dateTime->between($dateTimeStart,$dateTimeEnd)){
+                $this->info("Id rental ".$nearestRental->id);
+                $dataCollection = collect([
+                    'contractId' => $nearestRental->contractId,
+                    'sum' => $sum,
+                    'comment' => "Automat add",
+                    'dateTime' => $dateTime,
+                    'parentId' => $timeSheetId,
+                    ]);
+                $eventGeneralServ->store($dataCollection);    
+            }
         }
-        
-        
-        
     }
     
     
@@ -114,8 +117,8 @@ class GibddParse extends Command
                 ]);
                 $timeSheetId = $eventFineServ->store($dataCollection);
                 $fineObj->timeSheetId = $timeSheetId;
-                //$fineObj->save();
-                $this->addChildFine($titleObj->carId, $timeSheetId, $fineObj->dateTimeFine);
+                $fineObj->save();
+                $this->addChildFine($titleObj->carId, $timeSheetId, $fineObj->dateTimeFine,$fineObj->sumSale);
             }
         }
 
@@ -142,16 +145,14 @@ class GibddParse extends Command
                      $flags = $message->getFlags();
                      if ($flags->get('seen') != "Seen"){
                          $attachments = $message->getAttachments();
-                         $attachments[0]->save($storagePath,null);
-                         //echo  $storagePath.$attachments[0]->getName();
-                         //var_dump($attachments);
-                         //echo $flags->get('seen');
-                         
-                         $this->parceExcelFile($storagePath.$attachments[0]->getName());
-                         //$message->setFlag('Seen');
+                         //$this->info("file ".$storagePath);
+                         if (isset($attachments[0])){
+                            $attachments[0]->save($storagePath,null);
+                            $this->parceExcelFile($storagePath.$attachments[0]->getName());
+                         }
+                         $message->setFlag('Seen');
                      }
                  }
-
             }
         }
         
