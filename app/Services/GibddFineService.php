@@ -29,7 +29,7 @@ Class GibddFineService{
     
     public function setFinesPaid() 
     {
-        
+        $this->gibddFineRep->setFinesPaid();
     }
     
     

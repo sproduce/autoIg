@@ -98,7 +98,7 @@ class GibddParse extends Command
         $eventFineServ = $this->rentEventServ->getEventService($eventFineObj);
         
         $finesObj = $this->gibddFineServ->getFinesWithoutOfTimeSheet();
-        $this->info($finesObj->count());
+        //$this->info($finesObj->count());
         foreach ($finesObj as $fineObj){
             $titleObj = $eventTitleServ->getEventInfoByNumber($fineObj->sts);
             if ($titleObj->carId){
@@ -137,27 +137,22 @@ class GibddParse extends Command
         $this->info("Storage path ".$storagePath);
         $client = \Webklex\IMAP\Facades\Client::account('default');
         $client->connect();
-        $folders = $client->getFolders();
-        foreach ($folders as $folder){
-            if($folder->path == "FINES"){
-                 $messages = $folder->messages()->all()->get();
-                 foreach ($messages as $message){
-                     $flags = $message->getFlags();
-                     if ($flags->get('seen') != "Seen"){
-                         $attachments = $message->getAttachments();
-                         //$this->info("file ".$storagePath);
-                         if (isset($attachments[0])){
-                            $attachments[0]->save($storagePath,null);
-                            $this->parceExcelFile($storagePath.$attachments[0]->getName());
-                         }
-                         $message->setFlag('Seen');
-                     }
-                 }
+        $folder = $client->getFolderByName('FINES');
+            //$folder->messages()->setFetchOrderDesc();
+        $query = $folder->messages();
+        //$messages = $folder->messages()->setFetchOrderAsc()->all()->get();
+        $messages = $query->unseen()->get();
+        foreach ($messages as $message){
+            $this->gibddFineServ->setFinesPaid();
+            $attachments = $message->getAttachments();
+            if (isset($attachments[0])){
+                $attachments[0]->save($storagePath,null);
+                $this->info("Parce file name ".$attachments[0]->getName());
+                $this->parceExcelFile($storagePath.$attachments[0]->getName());
             }
+            $message->setFlag('Seen');
         }
-        
-        
-        
+
         $this->addFineEvent();
         
         

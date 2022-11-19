@@ -8,7 +8,7 @@ class GibddFineRepository implements GibddFineRepositoryInterface
 {
     public function getActualFines() 
     {
-        $result = GibddFine::where('closed',0)->get();
+        $result = GibddFine::get();
         return $result;
     }
 
@@ -33,7 +33,7 @@ class GibddFineRepository implements GibddFineRepositoryInterface
     
     public function setFinesPaid() 
     {
-        
+        GibddFine::query()->where('closed','=',0)->update(['closed' => 1]);
     }
     
 }
