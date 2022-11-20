@@ -12,4 +12,6 @@ Route::get('/',[GibddFineController::class,'index']);
 Route::get('/mail',[GibddFineController::class,'mail']);
 Route::get('/test',[GibddFineController::class,'test']);
 Route::get('/test1',[GibddFineController::class,'test1']);
+Route::get('/testAuto',[GibddFineController::class,'testAuto']);
+
 
