@@ -3,8 +3,9 @@
 namespace App\Repositories;
 use App\Repositories\Interfaces\CarGroupRepositoryInterface;
 use App\Models\rentCarGroup;
-
 use App\Models\rentCarGroupLink;
+
+
 use Illuminate\Support\Carbon;
 
 
@@ -97,5 +98,12 @@ class CarGroupRepository implements CarGroupRepositoryInterface
     }
 
 
+    public function getCarGroupLink($carGroupLinkId = null): rentCarGroupLink
+    {
+        
+    }
+    
+    
+    
 }
 

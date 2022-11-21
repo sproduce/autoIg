@@ -74,5 +74,11 @@ Class CarGroupService{
         return $this->carGroupRep->getCarGroupsByCar($carId);
     }
 
+    
+    public function getCarGroupLink($carGroupId = null) 
+    {
+        
+    }
+    
 
 }

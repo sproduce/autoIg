@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Interfaces;
 use App\Models\rentCarGroup;
+use App\Models\rentCarGroupLink;
+
 
 interface CarGroupRepositoryInterface
 {
@@ -22,5 +24,8 @@ interface CarGroupRepositoryInterface
 
     public function getCarGroupsByCar($carId);
 
+    public function getCarGroupLink($carGroupLinkId =null): rentCarGroupLink;
 
+    
+    
 }

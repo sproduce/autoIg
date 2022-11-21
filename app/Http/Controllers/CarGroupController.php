@@ -5,14 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CarIdRequest;
 use App\Repositories\CarGroupRepository;
 use App\Services\CarGroupService;
+use App\Services\MotorPoolService;
+
+
 
 class CarGroupController extends Controller
 {
-    private $carGroupServ,$carGroupRep;
-    function __construct(CarGroupService $carGroupServ,CarGroupRepository $carGroupRepository)
-    {
+    private $carGroupServ,$carGroupRep,$carServ;
+    function __construct(
+            CarGroupService $carGroupServ,
+            CarGroupRepository $carGroupRepository,
+            MotorPoolService $carServ
+        ){
         $this->carGroupServ = $carGroupServ;
         $this->carGroupRep = $carGroupRepository;
+        $this->carServ = $carServ;
     }
 
 
@@ -82,4 +89,36 @@ class CarGroupController extends Controller
     }
 
 
+    public function carInCarGroups(CarIdRequest $carIdRequest) 
+    {
+        $carId = $carIdRequest->carId;
+        $carGroups = $this->carGroupRep->getCarGroupsByCar($carId);
+        $carObj = $this->carServ->getCar($carId);
+        return view('carGroup.CarInCarGroups',['carObj' => $carObj,'carGroups' => $carGroups]);
+    }
+    
+    
+    
+    public function addCarInCarGroupDialog(CarIdRequest $carIdRequest) 
+    {
+        $carGroups = $this->carGroupServ->getCarGroups();
+        $carObj = $this->carServ->getCar($carIdRequest->carId);
+        
+        return view('dialog.CarGroup.addCarInCarGroup',['carObj' => $carObj,'carGroups' => $carGroups]);
+    }
+    
+    
+    public function CarInCarGroupDialog() 
+    {
+        return view('dialog.CarGroup.addCarInCarGroup',['carObj' => $carObj,'carGroups' => $carGroups]);
+    }    
+    
+    
+    
+    public function storeCarInCarGroup() 
+    {
+        
+    }
+    
+    
 }

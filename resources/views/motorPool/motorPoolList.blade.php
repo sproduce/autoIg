@@ -33,11 +33,12 @@
                 <div class="col-3 pl-0">
                     <a href="/motorPool/carInfo/{{$car->id}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
                     {{$car->generation->model->brand->name}} | {{$car->generation->model->name}}
-                    @if ($car->linkCarGroup->count())
                         <div class="float-right">
-                            <i class="fas fa-users-cog" title="Принадлежит к группе машин"></i>
+                            <a href="/carGroup/carInCarGroups?carId={{$car->id}}">
+                                <i class="fas fa-users-cog @if ($car->linkCarGroup->count())text-success @else text-danger @endif"></i>
+                            </a>
                         </div>
-                    @endif
+                    
                 </div>
                 <div class="col-1">
                     {{$car->year}}

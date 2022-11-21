@@ -8,7 +8,6 @@
 
 @endphp
 @section('header')
-    <button class="btn btn-ssm btn-outline-success mr-3" onclick="addCar();" title="Добавить машину"><i class="far fa-plus-square"></i></button>
     <h6 class="m-0">Машины в группе</h6>
 @endsection
 

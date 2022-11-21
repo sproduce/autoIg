@@ -43,12 +43,6 @@
                                 Автопарк
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/carGroup/list">
-                                <i class="fas fa-users-cog"></i>
-                                Группа машин
-                            </a>
-                        </li>
 
 {{--                        <li class="nav-item">--}}
 {{--                            <a class="nav-link"  href="/carDriver/list">--}}
@@ -129,6 +123,12 @@
                             <a class="nav-link"  href="/reference/brand">
                                 <i class="fas fa-car"></i>
                                 Машины
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/carGroup/list">
+                                <i class="fas fa-users-cog"></i>
+                                Группы машин
                             </a>
                         </li>
 

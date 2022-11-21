@@ -121,7 +121,6 @@ class GibddParse extends Command
                 $this->addChildFine($titleObj->carId, $timeSheetId, $fineObj->dateTimeFine,$fineObj->sumSale);
             }
         }
-
     }
     
     
