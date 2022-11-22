@@ -24,8 +24,8 @@ interface CarGroupRepositoryInterface
 
     public function getCarGroupsByCar($carId);
 
-    public function getCarGroupLink($carGroupLinkId =null): rentCarGroupLink;
-
+    public function getCarGroupLink($carGroupLinkId = null): rentCarGroupLink;
+    public function storeCarGroupLink(rentCarGroupLink $rentCarGroupObj): rentCarGroupLink;
     
     
 }

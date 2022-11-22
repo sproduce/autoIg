@@ -4,8 +4,9 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<form method="POST" action="">
-    <input type="number" name="carId" value="{{$carObj->id}}" hidden/>
+<form method="POST" action="/carGroup/storeCarInCarGroup">
+    <input type="number" name="carId" value="{{old('carId',$carGroupLinkObj->carId)}}" hidden/>
+    <input type="number" name="id" value="{{old('id',$carGroupLinkObj->id)}}" hidden/>
     @csrf
     <div class="modal-body">
         <div class="container-fluid">
@@ -14,22 +15,27 @@
                 <div class="col-sm-8">
                     <select name="groupId">
                         @foreach($carGroups as $group)
-                        <option value="{{$group->id}}">{{$group->nickName}}</option>
+                        @if($group->id == $carGroupLinkObj->groupId)
+                            <option value="{{$group->id}}" selected>{{$group->nickName}}</option>
+                        @else
+                            <option value="{{$group->id}}">{{$group->nickName}}</option>
+                        @endif
+                            
                         @endforeach
 
                     </select>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-3 col-form-label" for="start">Добавлена</label>
-                <div class="col-sm-6">
-                    <input type="date" name="start" id="start" class="form-control form-control-sm" autocomplete="off" required/>
+                <label class="col-sm-4 col-form-label" for="start">Добавлена</label>
+                <div class="col-sm-8">
+                    <input type="date" name="start" value="{{old('start',$carGroupLinkObj->start ?$carGroupLinkObj->start->toDateString(): '')}}" id="start" class="form-control form-control-sm" autocomplete="off" required/>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-3 col-form-label" for="finish">Удалена</label>
-                <div class="col-sm-6">
-                    <input type="date" name="finish" id="finish" class="form-control form-control-sm" autocomplete="off"/>
+                <label class="col-sm-4 col-form-label" for="finish">Удалена</label>
+                <div class="col-sm-8">
+                    <input type="date" name="finish" id="finish" value="{{old('finish',$carGroupLinkObj->finish)}}" class="form-control form-control-sm" autocomplete="off"/>
                 </div>
             </div>
         </div>
@@ -39,3 +45,4 @@
     <div class="modal-footer d-flex justify-content-center">
         <input type="submit" class="btn btn-primary" value="Добавить">
     </div>
+</form>

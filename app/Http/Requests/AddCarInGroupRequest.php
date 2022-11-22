@@ -24,10 +24,11 @@ class AddCarInGroupRequest extends FormRequest
     public function rules()
     {
         return [
+             'id' => 'nullable|integer',
              'carId' => 'required|integer',
              'groupId' => 'required|integer',
-             'dateStart' => 'required|date',
-             'dateFinish' => 'nullable|date',
+             'start' => 'required|date',
+             'finish' => 'nullable|date',
         ];
     }
 }

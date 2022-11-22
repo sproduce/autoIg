@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CarIdRequest;
+use App\Http\Requests\AddCarInGroupRequest;
+
 use App\Repositories\CarGroupRepository;
 use App\Services\CarGroupService;
 use App\Services\MotorPoolService;
@@ -102,22 +104,31 @@ class CarGroupController extends Controller
     public function addCarInCarGroupDialog(CarIdRequest $carIdRequest) 
     {
         $carGroups = $this->carGroupServ->getCarGroups();
-        $carObj = $this->carServ->getCar($carIdRequest->carId);
-        
-        return view('dialog.CarGroup.addCarInCarGroup',['carObj' => $carObj,'carGroups' => $carGroups]);
+        //$carObj = $this->carServ->getCar($carIdRequest->carId);
+        $carGroupLinkObj = $this->carGroupServ->getCarGroupLink();
+        $carGroupLinkObj->carId = $carIdRequest->carId;
+        return view('dialog.CarGroup.addCarInCarGroup',['carGroupLinkObj' => $carGroupLinkObj,'carGroups' => $carGroups]);
     }
     
     
-    public function CarInCarGroupDialog() 
+    public function editCarInCarGroupDialog($carGroupLinkId) 
     {
-        return view('dialog.CarGroup.addCarInCarGroup',['carObj' => $carObj,'carGroups' => $carGroups]);
-    }    
-    
-    
-    
-    public function storeCarInCarGroup() 
-    {
+        $carGroupLinkObj = $this->carGroupServ->getCarGroupLink($carGroupLinkId);
+        $carGroups = $this->carGroupServ->getCarGroups();
+        return view('dialog.CarGroup.addCarInCarGroup',['carGroupLinkObj' => $carGroupLinkObj,'carGroups' => $carGroups]);
+    }
         
+
+    
+    public function storeCarInCarGroup(AddCarInGroupRequest $carGroupLinkRequest) 
+    {
+        $carGroupLinkObj = $this->carGroupServ->getCarGroupLink($carGroupLinkRequest->id);
+        $carGroupLinkObj->carId = $carGroupLinkRequest->carId;
+        $carGroupLinkObj->groupId = $carGroupLinkRequest->groupId;
+        $carGroupLinkObj->start = $carGroupLinkRequest->start;
+        $carGroupLinkObj->finish = $carGroupLinkRequest->finish;
+        $this->carGroupServ->storeCarInCarGroup($carGroupLinkObj);
+        return redirect()->back();
     }
     
     

@@ -2,7 +2,7 @@
 
 
 @section('header')
-<h6 class="m-0"><a class="btn btn-ssm btn-outline-success DialogUserMin mr-3" title="Добавить машину в группу" href="/carGroup/addCarInCarGroupDialog?carId={{$carObj->id}}"><i class="far fa-plus-square"></i></a> Машина <strong>{{$carObj->nickName}}</strong> в группах</h6>
+<h6 class="m-0"><a class="btn btn-ssm btn-outline-success DialogUserSMin mr-3" title="Добавить машину в группу" href="/carGroup/addCarInCarGroupDialog?carId={{$carObj->id}}"><i class="far fa-plus-square"></i></a> Машина <strong>{{$carObj->nickName}}</strong> в группах</h6>
 @endsection
 
 @section('content')
@@ -23,7 +23,7 @@
         </div>
 
         <div class="col-2">
-
+    
         </div>
     </div>
    
@@ -37,10 +37,15 @@
                {{$carGroup->nickName}}
             </div>
             <div class="col-2">
-                 {{$carGroup->start}}
+                 {{$carGroup->linkStart->format('d-m-Y')}}
             </div>
             <div class="col-2">
-                {{$carGroup->finish}}
+                @if ($carGroup->linkFinish)
+                    {{$carGroup->linkFinish->format('d-m-Y')}}
+                @endif
+            </div>
+            <div class="col-2">
+                <a class="btn btn-ssm btn-outline-warning DialogUserSMin" href="/carGroup/editCarInCarGroupDialog/{{$carGroup->carGroupLinkId}}" title="Редактировать"> <i class="far fa-edit"></i></a>
             </div>
         </div>
     @empty

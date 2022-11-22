@@ -22,6 +22,7 @@ class rentCarGroupLink extends Model
     protected $dates = ['start','finish'];
     use HasFactory;
 
+    
     public function car()
     {
         return $this->hasOne(carConfiguration::class,'id','carId')->withDefault();

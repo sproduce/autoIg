@@ -81,6 +81,7 @@ class CarGroupRepository implements CarGroupRepositoryInterface
                 'rent_car_groups.*',
                 'rent_car_group_links.start as linkStart',
                 'rent_car_group_links.finish as linkFinish',
+                'rent_car_group_links.id as carGroupLinkId',
             )
             ->get();
         $resultCarGroups->each(function ($item, $key) {
@@ -100,10 +101,15 @@ class CarGroupRepository implements CarGroupRepositoryInterface
 
     public function getCarGroupLink($carGroupLinkId = null): rentCarGroupLink
     {
-        
+        $result = rentCarGroupLink::find($carGroupLinkId);
+        return $result ?? new rentCarGroupLink();
     }
     
-    
+    public function storeCarGroupLink(rentCarGroupLink $rentCarGroupObj): rentCarGroupLink
+    {
+        $rentCarGroupObj->save();
+        return $rentCarGroupObj;
+    }
     
 }
 
