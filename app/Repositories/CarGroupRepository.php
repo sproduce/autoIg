@@ -111,5 +111,24 @@ class CarGroupRepository implements CarGroupRepositoryInterface
         return $rentCarGroupObj;
     }
     
+     public function getCarGroupLinkByCar($carId,Carbon $date): rentCarGroupLink
+     {
+        $currentDate = $date->format('Y-m-d');
+        
+        $result = rentCarGroupLink::where('carId','=',$carId)
+                ->where('start','<=',$currentDate)
+                ->where(function($query) use ($currentDate){
+                    $query->whereNull('finish');
+                    $query->orWhere('finish','>=',$currentDate);
+                })
+                ->first();
+        
+        return $result ?? new rentCarGroupLink();
+        
+     }
+    
+    
+    
+    
 }
 

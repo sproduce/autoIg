@@ -3,7 +3,7 @@
 namespace App\Repositories\Interfaces;
 use App\Models\rentCarGroup;
 use App\Models\rentCarGroupLink;
-
+use Illuminate\Support\Carbon;
 
 interface CarGroupRepositoryInterface
 {
@@ -26,6 +26,6 @@ interface CarGroupRepositoryInterface
 
     public function getCarGroupLink($carGroupLinkId = null): rentCarGroupLink;
     public function storeCarGroupLink(rentCarGroupLink $rentCarGroupObj): rentCarGroupLink;
-    
+    public function getCarGroupLinkByCar($carId,Carbon $date): rentCarGroupLink;
     
 }

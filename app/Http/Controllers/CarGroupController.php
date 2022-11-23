@@ -9,7 +9,7 @@ use App\Repositories\CarGroupRepository;
 use App\Services\CarGroupService;
 use App\Services\MotorPoolService;
 
-
+use Illuminate\Support\Carbon;
 
 class CarGroupController extends Controller
 {
@@ -130,6 +130,20 @@ class CarGroupController extends Controller
         $this->carGroupServ->storeCarInCarGroup($carGroupLinkObj);
         return redirect()->back();
     }
+    
+    public function getCarActualGroup($carId,$date) 
+    {
+        $carbonDate = new Carbon($date);
+        $carGroupLinkObj = $this->carGroupServ->getCarGroupLinkByCar($carId, $carbonDate);
+        if ($carGroupLinkObj->groupId){
+            $carGroupObj = $this->carGroupServ->getCarGroup($carGroupLinkObj->groupId);
+            return response()->json($carGroupObj);
+        }
+        
+        return null;
+    }
+    
+    
     
     
 }

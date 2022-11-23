@@ -3,7 +3,7 @@ namespace App\Services;
 use App\Repositories\Interfaces\CarGroupRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\rentCarGroupLink;
-
+use Illuminate\Support\Carbon;
 
 
 Class CarGroupService{
@@ -12,7 +12,7 @@ Class CarGroupService{
 
     function __construct(CarGroupRepositoryInterface $carGroupRepository,Request $request)
     {
-        $this->carGroupRep=$carGroupRepository;
+        $this->carGroupRep = $carGroupRepository;
         $this->request=$request;
     }
 
@@ -27,10 +27,13 @@ Class CarGroupService{
         return $this->carGroupRep->getLastCarGroups($kol);
     }
 
-    public function getCarGroup()
+    public function getCarGroup($carGroupId = null)
     {
-        $validate=$this->request->validate(['carGroupId'=>'required']);
-        return $this->carGroupRep->getCarGroup($validate['carGroupId']);
+        if (!$carGroupId){
+            $carGroupId = $this->request->validate(['carGroupId'=>'required']);
+        }
+        
+        return $this->carGroupRep->getCarGroup($carGroupId);
     }
 
 
@@ -89,6 +92,11 @@ Class CarGroupService{
         $this->carGroupRep->storeCarGroupLink($carGroupLinkObj);
     }
     
-    
+    public function getCarGroupLinkByCar($carId,Carbon $date): rentCarGroupLink 
+    {
+        return $this->carGroupRep->getCarGroupLinkByCar($carId, $date);
+    }
 
+    
+    
 }

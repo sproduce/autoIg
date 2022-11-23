@@ -146,6 +146,7 @@ Route::post('/carGroup/storeCarInCarGroup',[CarGroupController::class,'storeCarI
 
 Route::get('/carGroup/fullInfo',[CarGroupController::class,'info']);
 Route::get('/carGroup/info',[CarGroupController::class,'DialogInfo']);
+Route::get('/carGroup/getCarActualGroup/{carId}/{date}',[CarGroupController::class,'getCarActualGroup']);
 
 
 

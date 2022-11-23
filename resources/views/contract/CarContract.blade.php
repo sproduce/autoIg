@@ -44,31 +44,31 @@
                 </div>
 
                 <div class="form-row text-center mt-3">
-                    <div class="form-group col-md-3 input-group-sm">
+                    <div class="form-group col-md-3 input-group-sm clearRow">
                         <label for="carText" title="Машина">Машина</label>
                         <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
-                        <a class="btn btn-ssm btn-outline-danger ml-2" id="carClear"><i class="fas fa-eraser"></i></a>
+                        <a class="btn btn-ssm btn-outline-danger ml-2 clearButton"><i class="fas fa-eraser"></i></a>
                         <input id="carText" name="carText" class="form-control" value="{{old('carText',$rentContractObj->car->nickName)}}" readonly/>
                         <input name="carId" id="carId" value="{{old('carId',$rentContractObj->carId)}}" hidden/>
                     </div>
-                    <div class="form-group col-md-3 input-group-sm">
+                    <div class="form-group col-md-3 input-group-sm clearRow">
                         <label for="carGroupText" title="Группа машин">Группа машин</label>
-                        <a href="/carGroup/addCarGroupTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
-                        <a class="btn btn-ssm btn-outline-danger ml-2" id="carGroupClear"><i class="fas fa-eraser"></i></a>
+<!--                        <a href="/carGroup/addCarGroupTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
+                        <a class="btn btn-ssm btn-outline-danger ml-2 clearButton"><i class="fas fa-eraser"></i></a>-->
                         <input id="carGroupText" name="carGroupText" class="form-control" value="{{old('carGroupText',$rentContractObj->carGroup->nickName)}}" readonly/>
                         <input name="carGroupId" id="carGroupId" value="{{old('carGroupId',$rentContractObj->carGroupId)}}" hidden/>
                     </div>
-                    <div class="form-group col-md-3 input-group-sm">
+                    <div class="form-group col-md-3 input-group-sm clearRow">
                         <label for="subjectFromText" title="От кого">От кого</label>
                         <a href="/subject/addSubjectTo/subjectFrom" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
-                        <a class="btn btn-ssm btn-outline-danger ml-2" id="subjectFromClear"><i class="fas fa-eraser"></i></a>
+                        <a class="btn btn-ssm btn-outline-danger ml-2 clearButton"><i class="fas fa-eraser"></i></a>
                             <input id="subjectFromText" name="subjectFromText" value="{{old('subjectFromText',$rentContractObj->subjectFrom->nickname)}}" class="form-control"  readonly/>
                             <input name="subjectIdFrom" id="subjectFromId" value="{{old('subjectIdFrom',$rentContractObj->subjectIdFrom)}}" hidden/>
                     </div>
-                    <div class="form-group col-md-3 input-group-sm">
+                    <div class="form-group col-md-3 input-group-sm clearRow">
                         <label for="subjectToText" title="Клиент">Клиент</label>
                         <a href="/subject/addSubjectTo/subjectTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
-                        <a class="btn btn-ssm btn-outline-danger ml-2" id="subjectToClear"><i class="fas fa-eraser"></i></a>
+                        <a class="btn btn-ssm btn-outline-danger ml-2 clearButton"><i class="fas fa-eraser"></i></a>
                             <input id="subjectToText" class="form-control"  value="{{old('subjectToText',$rentContractObj->subjectTo->nickname)}}"readonly/>
                             <input name="subjectIdTo" id="subjectToId" value="{{old('subjectIdTo',$rentContractObj->subjectIdTo)}}" hidden/>
                     </div>
@@ -116,36 +116,27 @@
 @section('js')
     <script>
         $('#carId').change(function() {
-            $.get("/api/getCarGroups/"+$('#carId').val()).done(function( data ) {
-                if (data.length){
-                    $('#carGroupText').val(data[0].nickName);
-                    $('#carGroupId').val(data[0].id);
-                }
-            });
+           
             $.get("/api/getCarRentFrom/"+$('#carId').val()).done(function( data ) {
                     $('#subjectFromText').val(data.nickname);
                     $('#subjectFromId').val(data.id);
             });
-        });
-        $('#carClear').click(function() {
-                $('#carText').val("");
-                $('#carId').val("");
-        });
+                
+            $.get("/api/getCarActualGroup/"+$('#carId').val()+'/'+$('#start').val()).done(function( data ) {
+            if (data.id){
+                $('#carGroupText').val(data.nickName);
+                $('#carGroupId').val(data.id);
+            } else {
+                $('#carGroupText').val('');
+                $('#carGroupId').val();
+            }
 
-        $('#carGroupClear').click(function() {
-            $('#carGroupText').val("");
-            $('#carGroupId').val("");
+            });
+                
+                
         });
-        $('#subjectFromClear').click(function() {
-            $('#subjectFromText').val("");
-            $('#subjectFromId').val("");
-        });
-        $('#subjectToClear').click(function() {
-            $('#subjectToText').val("");
-            $('#subjectToId').val("");
-        });
-
-
+            
+        
 
     </script>
 @endsection

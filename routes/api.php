@@ -31,6 +31,9 @@ Route::get('/getContractInfo/{contractId}',[ContractController::class,'getContra
 
 
 Route::get('/getCarGroups/{carId}',[CarGroupController::class,'getCarGroupsApi']);
+Route::get('/getCarActualGroup/{carId}/{date}',[CarGroupController::class,'getCarActualGroup']);
+
+
 Route::get('/getCarRentFrom/{carId}',[MotorPoolController::class,'getCarRentFrom']);
 Route::get('/getCarInfo/{carId}?',[MotorPoolController::class,'getCarInfo']);
 Route::get('/getCarFullInfo/{carId}',[MotorPoolController::class,'getCarFullInfo']);

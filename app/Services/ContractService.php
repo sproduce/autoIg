@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 
-use \App\Http\Requests\Filters;
+use App\Http\Requests\Filters;
 use App\Http\Requests\ContractRequest;
 use App\Http\Requests\Payment\ToPaymentRequest;
 use App\Http\Requests\Search\SearchContractRequest;
@@ -96,9 +96,9 @@ Class ContractService{
 
     public function getContractDirectory()
     {
-    $orderCollection=collect([
-        'type'=>$this->contractRep->getContractTypes(),
-        'status'=>$this->contractRep->getContractStatuses(),
+    $orderCollection = collect([
+        'type' => $this->contractRep->getContractTypes(),
+        'status' => $this->contractRep->getContractStatuses(),
     ]);
 
     return $orderCollection;
