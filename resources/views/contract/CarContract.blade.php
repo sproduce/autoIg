@@ -53,8 +53,8 @@
                     </div>
                     <div class="form-group col-md-3 input-group-sm clearRow">
                         <label for="carGroupText" title="Группа машин">Группа машин</label>
-<!--                        <a href="/carGroup/addCarGroupTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
-                        <a class="btn btn-ssm btn-outline-danger ml-2 clearButton"><i class="fas fa-eraser"></i></a>-->
+                        <a href="/carGroup/addCarGroupTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser" id="carGroupSearch"><i class="fas fa-search-plus"></i></a>
+                        <a class="btn btn-ssm btn-outline-danger ml-2 clearButton"><i class="fas fa-eraser"></i></a>
                         <input id="carGroupText" name="carGroupText" class="form-control" value="{{old('carGroupText',$rentContractObj->carGroup->nickName)}}" readonly/>
                         <input name="carGroupId" id="carGroupId" value="{{old('carGroupId',$rentContractObj->carGroupId)}}" hidden/>
                     </div>
@@ -126,9 +126,11 @@
             if (data.id){
                 $('#carGroupText').val(data.nickName);
                 $('#carGroupId').val(data.id);
+                $('#carGroupSearch').addClass('disabled');
             } else {
                 $('#carGroupText').val('');
                 $('#carGroupId').val();
+                $('#carGroupSearch').removeClass('disabled');
             }
 
             });
