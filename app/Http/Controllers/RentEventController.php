@@ -73,8 +73,14 @@ class RentEventController extends Controller
     public function store($eventId)
     {
         $eventObj = $this->rentEventServ->getRentEvent($eventId);
+        
         $serviceObj = $this->rentEventServ->getEventService($eventObj);
         $serviceObj->store();
+        if ($this->request->file('file'))
+        {
+            
+        }
+       
         return redirect('/timesheet/listByEvent');
     }
 

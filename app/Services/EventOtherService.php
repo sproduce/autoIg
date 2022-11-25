@@ -11,7 +11,7 @@ use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\CarbonPeriod;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\timeSheet;
 
 Class EventOtherService implements EventServiceInterface{
 
@@ -60,7 +60,7 @@ Class EventOtherService implements EventServiceInterface{
 
 
 
-    public function store($dataCollection = null)
+    public function store($dataCollection = null): timeSheet
     {
         $eventOtherRequest = app()->make(Event\OtherRequest::class);
         $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);

@@ -13,6 +13,7 @@ use App\Repositories\MotorPoolRepository;
 use Carbon\CarbonPeriod;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Models\timeSheet;
 
 
 Class EventServiceService implements EventServiceInterface{
@@ -61,7 +62,7 @@ Class EventServiceService implements EventServiceInterface{
     }
 
 
-    public function store($dataCollection = null)
+    public function store($dataCollection = null): timeSheet
     {
         $eventServiceRequest = app()->make(Event\ServiceRequest::class);
         $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);

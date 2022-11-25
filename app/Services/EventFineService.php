@@ -11,6 +11,8 @@ use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
+use App\Models\timeSheet;
+
 
 Class EventFineService implements EventServiceInterface {
     private $eventFineRep,$timeSheetRep,$toPaymentRep,$eventObj,$contractRep;
@@ -56,7 +58,7 @@ Class EventFineService implements EventServiceInterface {
     }
 
 
-    public function store($dataCollection = null)
+    public function store($dataCollection = null): timeSheet
     {
         if ($dataCollection){
             $eventFineRequest = $dataCollection;
@@ -102,8 +104,9 @@ Class EventFineService implements EventServiceInterface {
             $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
 
             DB::commit();
-            return $timeSheetModel->id;
+            return $timeSheetModel;
         } catch (\Exception $e) {
+            echo $e->getMessage();
             DB::rollback();
         }
     }

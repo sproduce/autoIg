@@ -12,7 +12,7 @@ use App\Repositories\EventDocumentTitleRepository;
 use Carbon\CarbonPeriod;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\timeSheet;
 
 Class EventDocumentTitleService implements EventServiceInterface{
 
@@ -82,7 +82,7 @@ Class EventDocumentTitleService implements EventServiceInterface{
 
 
 
-    public function store($dataCollection = null)
+    public function store($dataCollection = null): timeSheet
     {
         $eventDocumentTitleRequest = app()->make(Event\DocumentTitleRequest::class);
         $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);

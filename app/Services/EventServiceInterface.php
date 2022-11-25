@@ -1,10 +1,12 @@
 <?php
 namespace App\Services;
 
-use App\Models\rentEvent;
 
 use Carbon\CarbonPeriod;
 use Carbon\Carbon;
+use App\Models\timeSheet;
+
+
 interface EventServiceInterface
 {
     public function index(CarbonPeriod $datePeriod);
@@ -13,7 +15,7 @@ interface EventServiceInterface
 
     public function getEventModel($modelId = null);
 
-    public function store($dataCollection = null);
+    public function store($dataCollection = null): timeSheet;
 
     public function destroy($dataId);
 

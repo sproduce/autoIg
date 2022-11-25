@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Support\Str;
 
 /**
  * @property int $id
@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $dataId
  * @property int $mileage
  * @property $color
+ * @property $uuid
  * @property int $duration
  * @property int $sum
  * @property int $contractId
@@ -28,11 +29,23 @@ class timeSheet extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    //private $id,$carId,$eventId,$dateTime,$comment,$dataId,$mileage,$color,$uuid,$duration,$sum,$contractId,$pId;
     //private $dateTime,$comment,$dataId,$eventId;
-    protected $fillable = ['carId', 'eventId','dateTime','comment','mileage','color','duration','dataId','pId'];
+    protected $fillable = ['carId', 'eventId','dateTime','comment','mileage','color','duration','dataId','pId','uuid'];
 
     protected $dates = ['dateTime','fromDate','toDate'];
 
+    
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($post) {
+            $post->uuid = (string)Str::uuid();
+        });
+    }
+    
+    
+    
     public function event()
     {
         return $this->hasOne(rentEvent::class,'id','eventId')->withDefault();

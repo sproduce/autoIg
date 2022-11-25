@@ -12,7 +12,7 @@ use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Carbon\CarbonPeriod;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\timeSheet;
 
 Class EventDocumentInsuranceService implements EventServiceInterface{
 
@@ -62,7 +62,7 @@ Class EventDocumentInsuranceService implements EventServiceInterface{
 
 
 
-    public function store($dataCollection = null)
+    public function store($dataCollection = null): timeSheet
     {
         $eventDocumentInsuranceRequest = app()->make(Event\DocumentInsuranceRequest::class);
         $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);

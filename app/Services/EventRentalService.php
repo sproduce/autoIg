@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use App\Http\Requests\Event;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\timeSheet;
 
 Class EventRentalService implements EventServiceInterface {
     private $eventRentalRep,$timeSheetRep,$toPaymentRep,$eventObj,$contractRep;
@@ -58,7 +58,7 @@ Class EventRentalService implements EventServiceInterface {
        return collect(['lastTimeSheet']);
    }
 
-   public function store($dataCollection = null)
+   public function store($dataCollection = null): timeSheet
    {
         $eventRentalRequest = app()->make(Event\RentalRequest::class);
         $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);

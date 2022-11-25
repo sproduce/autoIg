@@ -12,6 +12,9 @@ use Carbon\CarbonPeriod;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\timeSheet;
+
+
 Class EventCrashService implements EventServiceInterface {
     private $eventCrashRep,$timeSheetRep,$toPaymentRep,$eventObj,$contractRep;
 
@@ -77,7 +80,7 @@ Class EventCrashService implements EventServiceInterface {
     {
         // TODO: Implement getViews() method.
     }
-    public function store($dataCollection = null)
+    public function store($dataCollection = null): timeSheet
     {
         $eventCrashRequest = app()->make(Event\CrashRequest::class);
         $eventTimeSheetRequest = app()->make(Event\TimeSheetRequest::class);
