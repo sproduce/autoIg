@@ -2,7 +2,7 @@
 
 @if($needParent)
     @section('header')
-        <h6 class="modal-title w-100 font-weight-bold text-center">Событие {{$eventObj->name}}</h6>
+        <h6 class="modal-title w-100 font-weight-bold text-center" enctype="multipart/form-data">Событие {{$eventObj->name}}</h6>
     @endsection
 @endif
 
@@ -42,6 +42,15 @@
         </div>
     </div>
 
+    <div class="form-row text-center">
+        <div class="form-group col-md-4 input-group-sm">
+            <label for="photo" title="Фотографии">Фотографии</label>
+            <input type="file" multiple="true" name="photo[]" class="form-control-file" id="photo" required>
+        </div>
+    </div>    
+        
+        
+        
     <div class="form-row text-center" id="last-row">
         <div class="input-group col-1">
             @if ($eventDataObj->id)

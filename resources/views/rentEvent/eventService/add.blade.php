@@ -8,7 +8,7 @@
 
 @section('content')
 
-<form method="POST" action="/rentEvent/{{$eventObj->id}}">
+<form method="POST" action="/rentEvent/{{$eventObj->id}}" enctype="multipart/form-data">
     <input type="number" name="id" value="{{old('id',$eventDataObj->id)}}" hidden/>
     <input type="number" name="parentId" value="{{old('parentId',$parentId ?? $eventDataObj->parentId)}}" hidden/>
     @csrf
@@ -62,7 +62,13 @@
             <input type="text" name="comment" id="comment" value="{{old('comment',$eventDataObj->comment)}}" class="form-control"/>
         </div>
     </div>
-
+    
+    <div class="form-row text-center">
+        <div class="form-group col-md-4 input-group-sm">
+            <label for="photo" title="Фотографии">Фотографии</label>
+            <input type="file" multiple="true" name="photo[]" class="form-control-file" id="photo" required>
+        </div>
+    </div>
     <div class="form-row text-center" id="last-row">
         <div class="input-group col-1">
             @if ($eventDataObj->id)

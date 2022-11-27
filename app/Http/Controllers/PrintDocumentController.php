@@ -44,8 +44,21 @@ class PrintDocumentController extends Controller
     {
         return view('printDocument.document9');
     }
+    
+    
+    
     public function document10() 
     {
-        return view('printDocument.document10');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('test.docx');
+        $templateProcessor->setValue('brand','testBrand');   
+        $templateProcessor->setValue('model','testModel');   
+        
+        $templateProcessor->setValue('model1','testModel'); 
+        
+        
+        $templateProcessor->saveAs('/tmp/list.docx');
+        echo "test";
+        //return view('printDocument.document10');
+        
     }
 }
