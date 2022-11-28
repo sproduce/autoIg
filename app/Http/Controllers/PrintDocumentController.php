@@ -50,6 +50,7 @@ class PrintDocumentController extends Controller
     public function document10() 
     {
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('test.docx');
+        
         $templateProcessor->setValue('brand','testBrand');   
         $templateProcessor->setValue('model','testModel');   
         

@@ -5,7 +5,7 @@
 
 @section('header')
     <form method="GET" action="" class="w-100">
-        <div class="row">
+        <div class="row">   
             <div class="col-1 input-group-sm">
                 <a href="/timesheet/add" class="btn btn-ssm btn-outline-success" title="добавить событие"><i class="far fa-plus-square"></i></a>
             </div>

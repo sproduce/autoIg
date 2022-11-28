@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CarIdDate;
 use App\Http\Requests\DateSpan;
-use App\Http\Requests\Event\FineRequest;
 use App\Http\Requests\NeedParent;
 use App\Imports\GibddFineImport;
 use App\Repositories\PaymentRepository;
@@ -13,20 +12,23 @@ use App\Services\MotorPoolService;
 use App\Services\RentEventService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Services\PhotoService;
+
 
 
 class RentEventController extends Controller
 {
-    private $request,$rentEventServ,$motorPoolServ,$contractServ;
+    private $request,$rentEventServ,$motorPoolServ,$contractServ,$photoServ;
 
 
 
-    public function __construct(Request $request,RentEventService $rentEventServ,MotorPoolService $motorPoolServ,ContractService $contractServ)
+    public function __construct(Request $request,RentEventService $rentEventServ,MotorPoolService $motorPoolServ,ContractService $contractServ,PhotoService $photoServ)
     {
         $this->request = $request;
         $this->rentEventServ = $rentEventServ;
         $this->motorPoolServ = $motorPoolServ;
         $this->contractServ = $contractServ;
+        $this->photoServ = $photoServ;
     }
 
 
@@ -75,10 +77,11 @@ class RentEventController extends Controller
         $eventObj = $this->rentEventServ->getRentEvent($eventId);
         
         $serviceObj = $this->rentEventServ->getEventService($eventObj);
-        $serviceObj->store();
-        if ($this->request->file('file'))
+        $timeSheetObj = $serviceObj->store();
+        
+        if ($this->request->file('file')&&$timeSheetObj->id)
         {
-            
+            $this->photoServ->savePhoto($this->request->file('file'), $timeSheetObj->uuid);
         }
        
         return redirect('/timesheet/listByEvent');

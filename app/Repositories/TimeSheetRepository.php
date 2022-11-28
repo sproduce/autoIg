@@ -33,6 +33,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         $resultCollection = DB::table('time_sheets')
             ->join('rent_events','time_sheets.eventId','=','rent_events.id')
             ->leftJoin('car_configurations','time_sheets.carId','=','car_configurations.id')
+            
             ->leftJoin('to_payments',function($join){
                 $join->on('to_payments.timeSheetId','=','time_sheets.id');
                 $join->on('to_payments.id','=','to_payments.pId');

@@ -78,10 +78,11 @@
             <input type="text" name="comment" id="comment" value="{{old('comment',$eventDataObj->comment)}}" class="form-control"/>
         </div>
     </div>
-    <div class="form-row text-center">
+        
+     <div class="form-row text-center">
         <div class="form-group col-md-4 input-group-sm">
-            <label for="photo" title="Фотографии">Фотографии</label>
-            <input type="file" multiple="true" name="photo[]" class="form-control-file" id="photo" required>
+            <label for="file" title="Файлы">Добавить файлы</label>
+            <input type="file" multiple="true" name="file[]" class="form-control-file" id="file">
         </div>
     </div>
     <div class="form-row text-center" id="last-row">

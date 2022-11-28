@@ -29,9 +29,9 @@ public function getPhoto($id)
         return photo::where('photo',$hash)->first();
     }
 
-    public function addPhoto($hash)
+    public function addPhoto($hash,$fileType)
     {
-        return photo::create(['photo'=>$hash]);
+        return photo::create(['photo'=>$hash,'fileType'=>$fileType]);
     }
 
     public function saveLink($photoId, $uuid)
