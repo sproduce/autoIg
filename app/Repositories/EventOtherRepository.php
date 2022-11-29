@@ -54,6 +54,7 @@ class EventOtherRepository implements EventOtherRepositoryInterface
                 'rent_event_others.comment as comment',
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.pId as parentId',
+                'time_sheets.uuid as uuid',
             ])
 
 
@@ -87,6 +88,7 @@ class EventOtherRepository implements EventOtherRepositoryInterface
                 'rent_event_others.comment as commentOther',
                 'time_sheets.dateTime as dateTimeOther',
                 'time_sheets.pId as parentId',
+                'time_sheets.uuid as uuid',
             ])
             ->first();
 

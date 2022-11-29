@@ -68,6 +68,7 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
                 'time_sheets.dateTime as date',
                 'time_sheets.comment as comment',
                 'time_sheets.pId as parentId',
+                'time_sheets.uuid as uuid',
             ]);
         $resultEventObj = $resultQueryEventObj->first();
         $resultEventObj =  $resultEventObj ?? new rentEventDocumentTitle();
@@ -108,6 +109,7 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
                 'to_payments.sum as sumPayment',
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.comment as commentSheet',
+                'time_sheets.uuid as uuid',
             ])
             ->get();
 

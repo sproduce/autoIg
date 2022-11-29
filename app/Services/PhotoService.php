@@ -33,11 +33,12 @@ Class PhotoService
             $path = $this->getPathByHash($hash);
             Storage::disk('photo')->makeDirectory($path);
             $extension = $photo->getClientOriginalExtension();
+            $fileName = $photo->getClientOriginalName();
             $photo->storeAs($path,$hash.'.'.$extension,'photo');
-            $fileName = $path.'/'.$hash.'.'.$extension;
+            $fileType = Storage::disk('photo')->mimeType($path.'/'.$hash.'.'.$extension);
             //$photoPath = Storage::disk('photo')->path($path.'/'.$hash.'.'.$extension);
            
-            $photoObj = $this->photoRep->addPhoto($hash,Storage::disk('photo')->mimeType($fileName));
+            $photoObj = $this->photoRep->addPhoto($hash,$fileName,$fileType);
         }
     return $photoObj;
     }
@@ -58,4 +59,11 @@ Class PhotoService
 
 
 
+    public function getFiles($uuid) 
+    {
+        
+    }
+    
+    
+    
 }

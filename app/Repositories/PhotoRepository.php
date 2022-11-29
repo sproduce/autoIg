@@ -29,9 +29,9 @@ public function getPhoto($id)
         return photo::where('photo',$hash)->first();
     }
 
-    public function addPhoto($hash,$fileType)
+    public function addPhoto($hash,$fileName,$fileType)
     {
-        return photo::create(['photo'=>$hash,'fileType'=>$fileType]);
+        return photo::create(['photo'=>$hash,'fileType'=>$fileType,'fileName'=>$fileName]);
     }
 
     public function saveLink($photoId, $uuid)
@@ -39,4 +39,15 @@ public function getPhoto($id)
         photoLink::create(['linkUuid'=>$uuid,'photoId'=>$photoId]);
     }
 
+    public function getFiles($uuid) 
+    {
+        $query = DB::table('photos')->join('photo_links','photo_links.photoId','='.'photos.id')
+                ->where('photo_links.linkUuid','=',$uuid);
+        
+        $result = $query->get();
+               
+        return $result;
+    }
+    
+    
 }

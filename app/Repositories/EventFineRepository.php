@@ -58,6 +58,7 @@ class EventFineRepository implements EventFineRepositoryInterface
                 'to_payments.sum as sumPayment',
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.comment as commentSheet',
+                'time_sheets.uuid as uuid',
             ])
             ->get();
 
@@ -119,6 +120,7 @@ class EventFineRepository implements EventFineRepositoryInterface
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.comment as comment',
                 'time_sheets.pId as parentId',
+                'time_sheets.uuid as uuid',
             ])
             ->first();
 

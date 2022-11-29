@@ -44,6 +44,7 @@ class EventServiceRepository implements EventServiceRepositoryInterface
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.mileage as mileage',
                 'time_sheets.pId as parentId',
+                'time_sheets.uuid as uuid',
             ])
             ->first();
 
@@ -94,6 +95,7 @@ class EventServiceRepository implements EventServiceRepositoryInterface
                 'to_payments.sum as sum',
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.mileage as mileage',
+                'time_sheets.uuid as uuid',
             ])
             ->get();
 

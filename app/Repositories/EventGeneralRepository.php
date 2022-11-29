@@ -55,6 +55,7 @@ class EventGeneralRepository implements EventGeneralRepositoryInterface
 
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.comment as commentSheet',
+                'time_sheets.uuid as uuid',
             ])
             ->get();
 
@@ -82,6 +83,7 @@ class EventGeneralRepository implements EventGeneralRepositoryInterface
                 'rent_event_generals.comment as comment',
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.pId as parentId',
+                'time_sheets.uuid as uuid',
             ])
             ->first();
 

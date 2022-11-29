@@ -49,6 +49,7 @@ public function getEventCrashByContract($contractId)
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.mileage as mileage',
                 'time_sheets.pId as parentId',
+                'time_sheets.uuid as uuid',
             ])
             ->get();
         $resultEventsObj->each(function ($item, $key) {
@@ -76,6 +77,7 @@ public function getEventCrashByContract($contractId)
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.mileage as mileage',
                 'time_sheets.pId as parentId',
+                'time_sheets.uuid as uuid',
             ])
             ->first();
         $resultEventObj =  $resultEventObj ?? new rentEventCrash();

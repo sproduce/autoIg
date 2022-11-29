@@ -62,6 +62,7 @@ class EventRentalRepository implements EventRentalRepositoryInterface
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.duration as duration',
                 'time_sheets.pId as parentId',
+                'time_sheets.uuid as uuid',
             ])
             ->get();
 
@@ -94,6 +95,7 @@ class EventRentalRepository implements EventRentalRepositoryInterface
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.duration as duration',
                 'time_sheets.pId as parentId',
+                'time_sheets.uuid as uuid',
             ])
             ->first();
 
