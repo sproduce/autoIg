@@ -61,7 +61,7 @@ Class PhotoService
 
     public function getFiles($uuid) 
     {
-        
+        return $this->photoRep->getFiles($uuid);
     }
     
     

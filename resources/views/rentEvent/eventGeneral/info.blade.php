@@ -5,7 +5,7 @@
     </button>
 </div>
 <div class="modal-body">
-
+@include('rentEvent.fileInfo')
 </div>
 <div class="modal-footer">
 

@@ -41,7 +41,7 @@ public function getPhoto($id)
 
     public function getFiles($uuid) 
     {
-        $query = DB::table('photos')->join('photo_links','photo_links.photoId','='.'photos.id')
+        $query = photo::query()->join('photo_links','photo_links.photoId','=','photos.id')
                 ->where('photo_links.linkUuid','=',$uuid);
         
         $result = $query->get();
