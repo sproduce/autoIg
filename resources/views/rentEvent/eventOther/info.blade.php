@@ -14,6 +14,7 @@
 
         </div>
     </div>
+    @include('rentEvent.fileInfo')
 </div>
 <div class="modal-footer">
 

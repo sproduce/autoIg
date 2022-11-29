@@ -14,8 +14,9 @@ class ChangePhotosTable extends Migration
     public function up()
     {
          Schema::table('photos', function (Blueprint $table) {
-            $table->string('fileType')->nullable();
-            $table->string('fileName')->nullable();
+            $table->string('fileType');
+            $table->string('fileName');
+            $table->string('fileExt');
         });
     }
 
@@ -27,7 +28,7 @@ class ChangePhotosTable extends Migration
     public function down()
     {
          Schema::table('photos', function (Blueprint $table) {
-            $table->dropColumn(['fileType','fileName']);
+            $table->dropColumn(['fileType','fileName','fileExt']);
         });
           
     }

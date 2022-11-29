@@ -27,18 +27,20 @@ Class PhotoService
 
 
     private function saveFile(UploadedFile $photo){
+        
         $hash = sha1($photo->get());
         $photoObj = $this->photoRep->getPhotoByHash($hash);
         if (!$photoObj){
+            $extension = $photo->getClientOriginalExtension();
             $path = $this->getPathByHash($hash);
             Storage::disk('photo')->makeDirectory($path);
-            $extension = $photo->getClientOriginalExtension();
+            
             $fileName = $photo->getClientOriginalName();
             $photo->storeAs($path,$hash.'.'.$extension,'photo');
             $fileType = Storage::disk('photo')->mimeType($path.'/'.$hash.'.'.$extension);
             //$photoPath = Storage::disk('photo')->path($path.'/'.$hash.'.'.$extension);
            
-            $photoObj = $this->photoRep->addPhoto($hash,$fileName,$fileType);
+            $photoObj = $this->photoRep->addPhoto($hash,$fileName,$extension,$fileType);
         }
     return $photoObj;
     }
@@ -61,7 +63,7 @@ Class PhotoService
 
     public function getFiles($uuid) 
     {
-        
+        return $this->photoRep->getFiles($uuid);
     }
     
     

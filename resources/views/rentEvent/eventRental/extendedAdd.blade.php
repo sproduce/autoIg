@@ -101,8 +101,9 @@
                 <input type="text" name="sum[]" class="form-control form-control-sm inputLineSum" value="{{$contractObj->price ?:0}}" autocomplete="off">
             </div>
         </div>
-
-    <div class="form-row text-center" id="last-row">
+    <div class="row" id="last-row"></div>
+    @include("rentEvent.fileAdd")
+    <div class="form-row text-center">
         <div class="input-group col-1">
             <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Добавить"/>
         </div>

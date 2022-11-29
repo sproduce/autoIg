@@ -37,7 +37,8 @@
         <div class="col-2"><strong>Комментарий: </strong></div>
         <div class="col-10">{{$eventDataObj->comment}}</div>
     </div>
+    @include('rentEvent.fileInfo')
 </div>
 <div class="modal-footer">
-
+    
 </div>

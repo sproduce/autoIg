@@ -23,6 +23,7 @@
         <div class="col-3"><strong>Пробег : </strong></div>
         <div class="col-3"></div>
     </div>
+    @include('rentEvent.fileInfo')
 </div>
 <div class="modal-footer">
 
