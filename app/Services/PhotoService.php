@@ -26,7 +26,8 @@ Class PhotoService
     }
 
 
-    private function saveFile(UploadedFile $photo){
+    private function saveFile(UploadedFile $photo)
+    {
         
         $hash = sha1($photo->get());
         $photoObj = $this->photoRep->getPhotoByHash($hash);
@@ -42,9 +43,26 @@ Class PhotoService
            
             $photoObj = $this->photoRep->addPhoto($hash,$fileName,$extension,$fileType);
         }
-    return $photoObj;
+        return $photoObj;
     }
 
+    
+    private function setFilePath($fileObj)
+    {
+        $fileName = $this->getPathByHash($fileObj->photo).'/'.$fileObj->photo.'.'.$fileObj->fileExt;
+        $fileObj->setFilePath($fileName);
+        return $fileObj;
+    }
+    
+    public function getFileContent($fileId) 
+    {
+        $fileObj = $this->photoRep->getPhoto($fileId);
+        $fileObj = $this->setFilePath($fileObj);
+        
+    }
+    
+    
+    
 
     public function savePhoto($fileObj,$uuid)
     {
@@ -63,7 +81,23 @@ Class PhotoService
 
     public function getFiles($uuid) 
     {
-        return $this->photoRep->getFiles($uuid);
+        $filesObj = $this->photoRep->getFiles($uuid);
+        if (isset($filesObj)){
+            foreach($filesObj as $file){
+                $file = $this->setFilePath($file);
+            }
+        }
+        
+        return $filesObj;
+    }
+    
+    
+    
+    public function getFile($fileId) 
+    {
+        $fileObj = $this->photoRep->getPhoto($fileId);
+        $fileObj = $this->setFilePath($fileObj);
+        return $fileObj;
     }
     
     

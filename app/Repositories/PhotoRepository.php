@@ -20,7 +20,7 @@ public function getPhotoByHash($hash)
 
 public function getPhoto($id)
 {
-    // TODO: Implement getPhoto() method.
+    return photo::find($id);
 }
 
 
@@ -44,7 +44,7 @@ public function getPhoto($id)
         $query = photo::query()->join('photo_links','photo_links.photoId','=','photos.id')
                 ->where('photo_links.linkUuid','=',$uuid);
         
-        $result = $query->get();
+        $result = $query->select(['photos.*'])->get();
                
         return $result;
     }
