@@ -127,24 +127,19 @@ class GibddFineController extends Controller
     
     public function test1() 
     {
-//        $foo  = new Carbon();
-//        $start = $foo;
-//        $finish = $foo->addDay(2);
-//        echo $start->format('d-m-Y H:i');
+//echo config('rentEvent.eventFineChild');
         
-        
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://api.onlinegibdd.ru/v3/partner_fines/");
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: Bearer ".env('GIBDD_KEY'), "Content-Type: application/json"));
-        curl_setopt($ch, CURLOPT_POSTFIELDS, '{"status":"all","autos_ids":"1346848,1321925"}');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $response_json = curl_exec($ch);
-        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-        $responseArray = json_decode($response_json,true);
-        var_dump($responseArray);
-        
-        //echo $response_json;
+//        $ch = curl_init();
+//        curl_setopt($ch, CURLOPT_URL, "https://api.onlinegibdd.ru/v3/partner_fines/");
+//        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: Bearer ".env('GIBDD_KEY'), "Content-Type: application/json"));
+//        curl_setopt($ch, CURLOPT_POSTFIELDS, '{"status":"all","autos_ids":"1346848,1321925"}');
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//        $response_json = curl_exec($ch);
+//        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+//        curl_close($ch);
+//        $responseArray = json_decode($response_json,true);
+//        var_dump($responseArray);
+
         exit();
     }
     
