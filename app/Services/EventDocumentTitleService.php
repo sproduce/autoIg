@@ -154,5 +154,11 @@ Class EventDocumentTitleService implements EventServiceInterface{
         
     }
 
+    
+    
+    public function getNumbers() 
+    {
+        return $this->eventDocumentTitleRep->getNumbers($this->eventObj->id);
+    }
 
 }

@@ -13,4 +13,8 @@ interface EventDocumentTitleRepositoryInterface
     public function getEventFullInfo($eventId,$filter);
     public function getEvents($eventId,CarbonPeriod $datePeriod);
     public function delEvent(rentEventDocumentTitle $rentEventDocumentTitle);
+    
+    public function getNumbers($eventId);
+
+    
 }

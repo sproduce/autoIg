@@ -127,5 +127,18 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
     }
 
 
+    
+    public function getNumbers($eventId) 
+    {
+        $query = rentEventDocumentTitle::query()->join('time_sheets','time_sheets.dataId','=','rent_event_document_titles.id')
+                ->where('time_sheets.eventId','=',$eventId);
+        
+        $result = $query->pluck('rent_event_document_titles.number')->toArray();
+        return $result;
+    }
+    
+    
+    
+    
 }
 

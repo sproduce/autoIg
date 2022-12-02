@@ -15,11 +15,12 @@ use App\Services\RentEventService;
 
 class GibddFineController extends Controller
 {
-    private $gibddFineServ;
+    private $gibddFineServ,$rentEventServ;
     
-    public function __construct(GibddFineService $gibddFineServ)
+    public function __construct(GibddFineService $gibddFineServ,RentEventService $rentEventServ)
     {
         $this->gibddFineServ = $gibddFineServ;
+        $this->rentEventServ = $rentEventServ;
     }
     
     
@@ -121,7 +122,34 @@ class GibddFineController extends Controller
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
         $responseArray = json_decode($response_json,true);
-        var_dump($responseArray);
+        //var_dump($responseArray);
+        foreach($responseArray['data'] as $car){
+            $arrayRemoteCar[] = $car['auto_cdi'];
+        }
+        
+        $eventTitleObj = $this->rentEventServ->getRentEvent(config('rentEvent.eventTitle'));
+        $eventTitleServ = $this->rentEventServ->getEventService($eventTitleObj);
+        
+        $arrayLocalCar = $eventTitleServ->getNumbers();
+        
+        //var_dump($arrayRemoteCar);
+        
+        //var_dump($arrayLocalCar);
+        echo "Отсутствуют в системе<br/>";
+        $diffRemote = array_diff($arrayRemoteCar,$arrayLocalCar);
+        foreach($diffRemote as $remoteNumber){
+            echo $remoteNumber."<br/>";
+        }
+        
+        echo "<br/>Отсутствуют в API<br/>";
+        $diffLocal = array_diff($arrayLocalCar,$arrayRemoteCar);
+        foreach($diffLocal as $localNumber){
+            echo $localNumber."<br/>";
+        }
+        
+        
+        //var_dump($diffLocal);
+        
         exit();
     }
     
