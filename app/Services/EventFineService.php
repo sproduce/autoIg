@@ -106,8 +106,9 @@ Class EventFineService implements EventServiceInterface {
             DB::commit();
             return $timeSheetModel;
         } catch (\Exception $e) {
-            echo $e->getMessage();
             DB::rollback();
+            echo $e->getMessage();
+            exit();
         }
     }
 

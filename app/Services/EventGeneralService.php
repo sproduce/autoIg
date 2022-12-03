@@ -103,6 +103,8 @@ Class EventGeneralService implements EventServiceInterface{
             
         } catch (\Exception $e) {
             DB::rollback();
+            echo $e->getMessage();
+            exit();
         }
 
 

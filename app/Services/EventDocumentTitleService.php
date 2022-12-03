@@ -123,6 +123,7 @@ Class EventDocumentTitleService implements EventServiceInterface{
 
 
             DB::commit();
+            return $timeSheetModel;
         } catch (\Exception $e) {
             DB::rollback();
             echo  $e->getMessage();

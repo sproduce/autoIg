@@ -113,6 +113,7 @@ Class EventRentalService implements EventServiceInterface {
                 }
                 $dateTimeCarbon->addDay();
             }
+            return new timeSheet();
    }
 
     public function getViews()

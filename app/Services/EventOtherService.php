@@ -102,8 +102,11 @@ Class EventOtherService implements EventServiceInterface{
 
             $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
             DB::commit();
+            return $timeSheetModel;
         } catch (\Exception $e) {
             DB::rollback();
+            echo $e->getMessage();
+            exit();
         }
     }
 
