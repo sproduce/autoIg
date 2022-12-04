@@ -33,10 +33,10 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
             ->leftJoin('to_payments','to_payments.timeSheetId','=','time_sheets.id')
             ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
             ->where('time_sheets.eventId','=',$eventId);
-                
-            if (isset($filter['dataId'])){
+        
+        
                 $resultQueryEventObj->where('time_sheets.dataId','=',$filter['dataId']);
-            }
+        
             
             if (isset($filter['number'])){
                 $resultQueryEventObj->where('rent_event_document_titles.number','=',$filter['number']);
@@ -71,6 +71,7 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
                 'time_sheets.uuid as uuid',
             ]);
         $resultEventObj = $resultQueryEventObj->first();
+        
         $resultEventObj =  $resultEventObj ?? new rentEventDocumentTitle();
         
         
@@ -138,7 +139,10 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
     }
     
     
-    
+    public function getLastNumbers($param) 
+    {
+        //SELECT redt.* FROM rent_event_document_titles as redt,time_sheets as ts where redt.id=ts.dataId and ts.eventId=16 group by ts.carId order by order by redt.dateDocument
+    }//SELECT redt.*,min(ts.dateTime),ts.id FROM rent_event_document_titles redt join time_sheets ts on redt.id=ts.dataId and ts.eventId=16 and ts.carId=19 group by ts.carId
     
 }
 
