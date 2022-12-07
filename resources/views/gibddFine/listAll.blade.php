@@ -18,7 +18,7 @@
                     <a class="nav-link" href="">Оплаченные</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Загрузить</a>
+                    <a class="nav-link" href="">Все</a>
                 </li>
             </ul>
         </div>
@@ -26,9 +26,9 @@
             @if($finesObj->count())
             <div class="row align-items-center font-weight-bold border">
                 <div class="col-2">Машина</div>
-                <div class="col-3">Номер постановления</div>
+                <div class="col-2">Номер постановления</div>
                 <div class="col-2">Время нарушения</div>
-                <div class="col-2">Сумма</div>
+                <div class="col-1">Сумма</div>
                 <div class="col-3">Место нарушения</div>
             </div>
             
@@ -37,9 +37,9 @@
                     <div class="col-2 text-right p-0">{{$fine->regnumber}}</div>
                     <div class="col-2">{{$fine->decreeNumber}}</div>
                     <div class="col-2"> @if($fine->dateTimeFine){{$fine->dateTimeFine->format('d-m-Y H:i')}} @endif</div>
-                    <div class="col-2">{{$fine->sum}} p.</div>
+                    <div class="col-1">{{$fine->sum}} p.</div>
                     <div class="col-2" title="{{$fine->koap}}">{{$fine->place}}</div>
-                    <div class="col-2">{{$fine->dateFile}}</div>
+                    <div class="col-2">@if($fine->closed) Оплачен @endif</div>
                     
                 </div>
             @endforeach

@@ -8,7 +8,7 @@ class GibddFineRepository implements GibddFineRepositoryInterface
 {
     public function getActualFines() 
     {
-        $result = GibddFine::get();
+        $result = GibddFine::query()->orderBy('dateTimeFine')->get();
         return $result;
     }
 
@@ -16,7 +16,6 @@ class GibddFineRepository implements GibddFineRepositoryInterface
     public function getFineByNumber($decreeNumber): GibddFine
     {
         $result = GibddFine::where('decreeNumber',$decreeNumber)->first();
-        
         return $result ?? new GibddFine();
     }
     

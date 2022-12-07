@@ -34,11 +34,14 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
             ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
             ->where('time_sheets.eventId','=',$eventId);
         
-        
+       
+            if (array_key_exists('dataId',$filter)){
                 $resultQueryEventObj->where('time_sheets.dataId','=',$filter['dataId']);
-        
+            }
             
-            if (isset($filter['number'])){
+            
+            
+            if (array_key_exists('number',$filter)){
                 $resultQueryEventObj->where('rent_event_document_titles.number','=',$filter['number']);
             }
             

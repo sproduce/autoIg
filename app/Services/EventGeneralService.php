@@ -99,7 +99,7 @@ Class EventGeneralService implements EventServiceInterface{
 
             $toPaymentModel = $this->toPaymentRep->addToPayment($toPaymentModel);
             DB::commit();
-            return $timeSheetModel->id;
+            return $timeSheetModel;
             
         } catch (\Exception $e) {
             DB::rollback();

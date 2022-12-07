@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 use App\Repositories\Interfaces\GibddFineRepositoryInterface;
-
+use App\Models\GibddFine;
 
 Class GibddFineService{
 
@@ -33,5 +33,9 @@ Class GibddFineService{
     }
     
     
-
+    public function getFineByNumber($decreeNumber): GibddFine 
+    {
+        return $this->gibddFineRep->getFineByNumber($decreeNumber);
+    }
+    
 }
