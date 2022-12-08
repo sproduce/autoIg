@@ -32,6 +32,13 @@ class GibddFineController extends Controller
     
     
     
+    public function delEventFine() 
+    {
+        
+    }
+    
+    
+    
     public function parceExcelFile($fileName) 
     {
         $gibddFineRep = new \App\Repositories\GibddFineRepository();

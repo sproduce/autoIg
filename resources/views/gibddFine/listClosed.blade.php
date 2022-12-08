@@ -3,7 +3,7 @@
 
 @section('header')
 
-    <h6>Все штрафы</h6>
+    <h6>Оплаченные штрафы</h6>
 
 @endsection
 
@@ -25,7 +25,7 @@
         <div class="card-body">
             @if($finesObj->count())
             <div class="row align-items-center font-weight-bold border">
-                <div class="col-1 p-0">Машина</div>
+                <div class="col-1">Машина</div>
                 <div class="col-2">Номер постановления</div>
                 <div class="col-2">Время нарушения</div>
                 <div class="col-1">Сумма</div>
@@ -40,7 +40,7 @@
                     <div class="col-2">{{$fine->decreeNumber}}</div>
                     <div class="col-2"> @if($fine->dateTimeFine){{$fine->dateTimeFine->format('d-m-Y H:i')}} @endif</div>
                     <div class="col-1">{{$fine->sum}} p.</div>
-                    <div class="col-3" title="{{$fine->koap}}">{{$fine->place}}</div>
+                    <div class="col-2" title="{{$fine->koap}}">{{$fine->place}}</div>
                     <div class="col-2">@if($fine->closed) Оплачен @endif {{$fine->dateFile->format('d-m-Y')}}</div>
                     <div class="col-1">
                         @if($fine->timeSheetId)
