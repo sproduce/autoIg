@@ -3,7 +3,7 @@
 
 @section('header')
 
-    <h6>Все штрафы</h6>
+    <h6>Все штрафы   (#php artisan gibdd:parse) не оплаченные   (#php artisan gibdd:parse --all) все из API</h6>
 
 @endsection
 

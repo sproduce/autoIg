@@ -3,6 +3,13 @@
 
 @endsection
 
+@php
+    $filterEventsArray = $filterObj->get('eventId')??[];
+    $filterCarsArray = $filterObj->get('carId')??[];
+    $filterDelete = $filterObj->get('delete');
+@endphp
+
+
 @section('header')
     <form method="GET" action="" class="w-100">
         <div class="row">   
@@ -16,25 +23,31 @@
                 <input class="form-control" type="date" id="toDate" name="toDate" value="{{$periodDate->getEndDate()->format('Y-m-d')}}"/>
             </div>
             <div class="col-2 input-group-sm">
+                @foreach($filterEventsArray as $eventId)
+                    <input type="number" class="eventId" name="eventId[]" value="{{$eventId}}" hidden/>
+                @endforeach
                 <input type="number" id="eventId" class="eventId" name="eventId[]" disabled hidden/>
                 <select id="eventSelect">
                     <option value="0">Событие</option>
                     @foreach($eventsObj as $eventObj)
-                        <option value="{{$eventObj->id}}">{{$eventObj->name}}</option>
+                        <option value="{{$eventObj->id}}" @if(in_array($eventObj->id,$filterEventsArray))class="bg-info" disabled @endif>{{$eventObj->name}}</option>
                     @endforeach
                 </select>
             </div>
             <div class="col-2 input-group-sm">
+                @foreach($filterCarsArray as $carId)
+                    <input type="number" class="carId" name="carId[]" value="{{$carId}}" hidden/>
+                @endforeach
                 <input type="number" class="carId" id="carId" name="carId[]" disabled hidden/>
                 <select id="carSelect">
                     <option value="0">Машина</option>
                     @foreach($carsObj as $carObj)
-                        <option class="selectOption" value="{{$carObj->id}}">{{$carObj->nickName}}</option>
+                    <option value="{{$carObj->id}}" @if(in_array($carObj->id,$filterCarsArray))class="bg-info" disabled @endif>{{$carObj->nickName}}</option>
                     @endforeach
                 </select>
             </div>
             <div class="col-2 input-group-sm">
-                <input class="form-check-input" type="checkbox" id="delete" name="delete"/>
+                <input class="form-check-input" type="checkbox" id="delete" name="delete" @if($filterDelete) checked @endif/>
                 <label for="delete">Удаленные</label>
             </div>
             <div class="col-1 input-group-sm">
@@ -55,7 +68,7 @@
     </div>
 
     @foreach($eventsArray as $event)
-        <div class="row row-table" data-event="{{$event->eventId}}" data-id="{{$event->dataId}}">
+        <div class="row row-table @if($event->deleted_at)deleteLine @endif" data-event="{{$event->eventId}}" data-id="{{$event->dataId}}">
             <div class="col-2 text-right">
                 <a href="/rentEvent/{{$event->eventId}}/{{$event->dataId ?? 0}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
                 {{$event->dateTime->format("d-m-y")}} {{$event->dateTime->format("H:i")}}
@@ -82,8 +95,10 @@
 
             </div>
             <div class="col-1 text-right">
-                <a class="btn btn-ssm btn-outline-warning" href="/rentEvent/{{$event->eventId}}/{{$event->dataId ?? 0}}/edit?needParent=1" title="Редактировать"> <i class="far fa-edit"></i></a>
-                <button class="btn btn-ssm btn-outline-danger deleteButton" title="Удалить"><i class="fas fa-trash"></i> </button>
+                @if(!$event->deleted_at)
+                    <a class="btn btn-ssm btn-outline-warning" href="/rentEvent/{{$event->eventId}}/{{$event->dataId ?? 0}}/edit?needParent=1" title="Редактировать"> <i class="far fa-edit"></i></a>
+                    <button class="btn btn-ssm btn-outline-danger deleteButton" title="Удалить"><i class="fas fa-trash"></i> </button>
+                @endif
             </div>
 
         </div>

@@ -90,3 +90,8 @@ input.noBorderInput{
 a.disable-link{
     pointer-events: none;
 }
+
+
+.deleteLine {
+    text-decoration: line-through;
+}

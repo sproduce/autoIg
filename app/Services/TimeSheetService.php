@@ -129,7 +129,6 @@ Class TimeSheetService{
 
     public function getAllTimeSheets(CarbonPeriod $datePeriod,Filters\EventListRequest $eventListRequest=null)
     {
-
         $result = $this->timeSheetRep->getTimeSheetsArray($datePeriod,$eventListRequest);
         return $result;
     }

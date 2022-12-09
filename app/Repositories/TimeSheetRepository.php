@@ -39,7 +39,8 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
                 $join->on('to_payments.id','=','to_payments.pId');
             })
             ->WhereBetween('dateTime',[$startDate,$finishDate])
-            ->whereNull('time_sheets.deleted_at')
+                    
+            
             ->orderBy('time_sheets.dateTime');
 
         if ($eventListRequest){
@@ -48,6 +49,9 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
             }
             if ($eventListRequest->get('eventId')){
                 $resultCollection =  $resultCollection->whereIn('rent_events.id',$eventListRequest->get('eventId'));
+            }
+            if (!$eventListRequest->get('delete')){
+               $resultCollection = $resultCollection->whereNull('time_sheets.deleted_at');
             }
         }
 

@@ -232,10 +232,9 @@ class TimeSheetController extends Controller
         $rentEvents = $rentEventRep->getEvents();
 
         return view('timeSheet.allEvents',[
+            'filterObj' => $eventListRequest,
             'carsObj' => $carsObj,
             'eventsObj' => $rentEvents,
-            'carsId' => $eventListRequest->get('carId'),
-            'eventsId' => $eventListRequest->get('eventId'),
             'eventsArray' => $eventsArray,
             'periodDate' => $periodDate,
         ]);
