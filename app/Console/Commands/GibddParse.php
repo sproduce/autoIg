@@ -128,7 +128,7 @@ class GibddParse extends Command
             
             
             $gibddFineObj->sts = $carInfo['auto_cdi'];
-            $gibddFineObj->regnumber = $carInfo['auto_number'].$carInfo['auto_region'];;
+            $gibddFineObj->regnumber = $carInfo['auto_number'].$carInfo['auto_region'];
             
             
             $gibddFineObj->decreeNumber = $fine['bill_id'];
@@ -156,7 +156,7 @@ class GibddParse extends Command
             if ($fine['offense_date']){
                 $gibddFineObj->dateTimeFine = date('Y-m-d H:i',strtotime($fine['offense_date']." ".$fine['offense_time']));
             } else {
-                $gibddFineObj->dateTimeFine = date('Y-m-d 00:00',strtotime($fine['pay_bill_date']));
+                $gibddFineObj->dateTimeFine = null;
             }
             
             
