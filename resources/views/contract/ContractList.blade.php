@@ -58,7 +58,7 @@
                             <div class="col-2 p-0">Даты</div>
                             <div class="col-2 p-0">Группа / Машина</div>
                             <div class="col-3 p-0">От кого / Кому</div>
-                            <div class="col-1 p-0">Баланс</div>
+                            <div class="col-1 p-0">Баланс/Депозит</div>
                             <div class="col-2 p-0">Статус / Тариф</div>
                             <div class="col-1"></div>
                         </div>
@@ -91,7 +91,7 @@
                                         <div class="col-2">{{$contract->finish}}</div>
                                         <div class="col-2">{{$contract->car->nickName}}</div>
                                         <div class="col-3">{{$contract->subjectTo->nickname}}</div>
-                                        <div class="col-1 text-right"></div>
+                                        <div class="col-1 text-right p-0">{{$contract->depositBalance}} p.</div>
 
                                         <div class="col-2">{{$contract->price}}</div>
                                         <div class="col-1 text-center p-0 pt-1"></div>

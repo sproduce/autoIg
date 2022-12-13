@@ -22,6 +22,7 @@ class TimeSheetRequest extends FormRequest
         if (!$input['parentId']){
             $this->merge(['parentId' => null]);
         }
+
     }
 
 
@@ -35,6 +36,7 @@ class TimeSheetRequest extends FormRequest
     {
         return [
             'parentId' => 'integer|nullable',
+            'childAllow' => 'boolean|nullable',
         ];
     }
 }

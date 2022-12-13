@@ -92,6 +92,7 @@ Class EventFineService implements EventServiceInterface {
             $timeSheetModel->duration = $this->eventObj->duration;
             $timeSheetModel->color = $this->eventObj->color;
             $timeSheetModel->pId = $eventFineRequest->get('parentId');
+            $timeSheetModel->childAllow = $eventFineRequest->get('childAllow');
 
             $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 

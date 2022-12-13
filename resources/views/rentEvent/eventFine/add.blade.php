@@ -71,7 +71,12 @@
             <input type="number" name="sum" id="sum" value="{{old('sum',$eventDataObj->sum)}}" class="form-control"/>
         </div>
     </div>
-
+    <div class="form-row text-center">
+        <div class="form-group col-md-2 input-group-sm">
+            <input class="form-check-input" name="childAllow" type="checkbox" value="1" @if(old('childAllow',$eventDataObj->childAllow)) checked @endif id="childAllow">
+            <label for="childAllow" title="Разрешить наследника">Разрешить наследника</label>
+        </div>
+    </div>
     <div class="form-row text-center">
         <div class="form-group col-md-6 input-group-sm">
             <label for="comment" title="Комментарий">Комментарий</label>

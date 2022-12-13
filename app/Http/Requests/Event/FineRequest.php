@@ -32,6 +32,9 @@ class FineRequest extends FormRequest
 //            $this->merge(['sum' => 0,]);
 //        }
 
+        if (!isset($input['childAllow'])){
+            $this->merge(['childAllow' => 0]);
+        }
         $dateTime = date("Y-m-d H:i:00",strtotime($input['dateFine'].' '.$input['timeFine']));
         $this->merge(['dateTimeFine' => $dateTime,]);
     }
@@ -60,6 +63,7 @@ class FineRequest extends FormRequest
             'comment' => 'string|nullable',
             'dateTimeFine' => 'required',
             'parentId' => 'integer|nullable',
+            'childAllow' => 'boolean|nullable',
         ];
     }
 }

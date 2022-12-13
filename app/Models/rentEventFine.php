@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $sum
  * @property int $sumSale
  * @property $uin
+ * @property $childAllow
  *
  */
 

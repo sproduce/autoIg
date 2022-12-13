@@ -13,9 +13,9 @@ class ChangeTimeSheetTable extends Migration
      */
     public function up()
     {
-        Schema::table('time_sheets', function (Blueprint $table) {
-            $table->uuid('uuid');
-        });
+            Schema::table('time_sheets', function (Blueprint $table) {
+                $table->uuid('uuid');
+            });
         
         DB::statement('update time_sheets set uuid=uuid()');
         

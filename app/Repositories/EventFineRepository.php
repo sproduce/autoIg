@@ -121,6 +121,7 @@ class EventFineRepository implements EventFineRepositoryInterface
                 'time_sheets.comment as comment',
                 'time_sheets.pId as parentId',
                 'time_sheets.uuid as uuid',
+                'time_sheets.childAllow as childAllow',
             ])
             ->first();
 

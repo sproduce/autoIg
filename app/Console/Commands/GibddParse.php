@@ -106,11 +106,15 @@ class GibddParse extends Command
                     'uin' => $fineObj->decreeNumber,
                     'comment' => "Automat add",
                     'parentId' => null,
+                    'childAllow' => 1,
                 ]);
                 $timeSheetObj = $eventFineServ->store($dataCollection);
                 $fineObj->timeSheetId = $timeSheetObj->id;
                 $fineObj->save();
-                $this->addChildFine($titleObj->carId, $timeSheetObj->id, $fineObj->dateTimeFine,($fineObj->sumSale?$fineObj->sumSale:$fineObj->sum));
+                if ($timeSheetObj->childAllow){
+                    $this->addChildFine($titleObj->carId, $timeSheetObj->id, $fineObj->dateTimeFine,($fineObj->sumSale?$fineObj->sumSale:$fineObj->sum));
+                }
+                
             }
         }
     }

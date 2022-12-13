@@ -43,12 +43,24 @@ Class ContractService{
 
             $contractsObj->each(function ($item,$key){
                 $contractToPayments = $this->toPaymentRep->getToPaymentsParentByContract($item->id);
-
-                $contractToPaymentSum = $contractToPayments->sum('paymentsSum');
-
-                $contractPayments = $this->paymentRep->getPaymentsByContract($item->id);
-                $contractPaymentSum = $contractPayments->sum('payment');
-                $item->balance = $contractPaymentSum - $contractToPaymentSum;
+                $item->balance = 0;
+                $item->depositBalance = 0;
+                foreach($contractToPayments as $toPayment){
+                    if ($toPayment->eventsId !=config('rentEvent.eventDeposit')){
+                        $item->balance += $toPayment->paymentsPaymentSum - $toPayment->paymentsSum;
+                    } else {
+                        $item->depositBalance += $toPayment->paymentsPaymentSum;
+                    }
+                }
+                
+                
+//                $contractToPaymentSum = $contractToPayments->sum('paymentsSum');
+//
+//                $contractPayments = $this->paymentRep->getPaymentsByContract($item->id);
+//                $contractPaymentSum = $contractPayments->sum('payment');
+//                
+//                $item->balance = $contractPaymentSum - $contractToPaymentSum;
+                
             });
 
 

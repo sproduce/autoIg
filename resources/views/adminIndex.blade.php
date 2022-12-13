@@ -68,6 +68,12 @@
                                 События
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  href="/timesheet/listEvents?eventId[]={{config('rentEvent.eventFine')}}&eventId[]={{config('rentEvent.eventFineChild')}}">
+                                <i class="fas fa-calendar-alt"></i>
+                                События штраф
+                            </a>
+                        </li>
                     </ul>
 
 
