@@ -25,8 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //$schedule->call(new RentEventController())->everyMinute();
-        $schedule->command('event:addService')->everyMinute();
+        $schedule->command('gibdd:parse')->everySixHours();
     }
 
     /**

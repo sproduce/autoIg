@@ -47,7 +47,7 @@ class GibddParse extends Command
 
      
     
-    private function addChildFine($carId,$timeSheetId,$dateTime,$sum)
+    private function addChildFine($carId,$timeSheetId,$dateTime,$sum,$comment = "Automat add")
     {
         $eventRentalObj = $this->rentEventServ->getRentEvent(2);
         $eventGeneralObj = $this->rentEventServ->getRentEvent(17);
@@ -67,7 +67,7 @@ class GibddParse extends Command
                 $dataCollection = collect([
                     'contractId' => $nearestRental->contractId,
                     'sum' => $sum,
-                    'comment' => "Automat add",
+                    'comment' => $comment,
                     'dateTime' => $dateTime,
                     'parentId' => $timeSheetId,
                     ]);
@@ -91,7 +91,7 @@ class GibddParse extends Command
         $finesObj = $this->gibddFineServ->getFinesWithoutOfTimeSheet();
         //$this->info($finesObj->count());
         foreach ($finesObj as $fineObj){
-            echo $fineObj->id;
+            //echo $fineObj->id;
             $titleObj = $eventTitleServ->getEventInfoByNumber($fineObj->sts);
             if ($titleObj->carId){
                 //$this->info($titleObj->carId." (".$titleObj->carText.") ".$fineObj->dateDecree->format('d-m-Y')." ".$fineObj->dateTimeFine." ".$fineObj->decreeNumber." ".$fineObj->dateSale->format('d-m-Y')." ".$fineObj->sumSale." ".$fineObj->datePayMax->format('d-m-Y')." ".$fineObj->sum." add parse");
@@ -112,7 +112,8 @@ class GibddParse extends Command
                 $fineObj->timeSheetId = $timeSheetObj->id;
                 $fineObj->save();
                 if ($timeSheetObj->childAllow){
-                    $this->addChildFine($titleObj->carId, $timeSheetObj->id, $fineObj->dateTimeFine,($fineObj->sumSale?$fineObj->sumSale:$fineObj->sum));
+                    $commentChild = $timeSheetObj->dateTime->format('d-m-Y H:i')." УИН: ".$fineObj->decreeNumber;
+                    $this->addChildFine($titleObj->carId, $timeSheetObj->id, $fineObj->dateTimeFine,($fineObj->sumSale?$fineObj->sumSale:$fineObj->sum),$commentChild);
                 }
                 
             }

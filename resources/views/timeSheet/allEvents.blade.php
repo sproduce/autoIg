@@ -63,8 +63,13 @@
         <div class="col-2">Дата</div>
         <div class="col-2">Машина</div>
         <div class="col-1">Событие</div>
-        <div class="col-2">Сумма</div>
-        <div class="col-2">Комментарий</div>
+        <div class="col-2">
+            <div class="row">
+                <div class="col-5">Сумма</div>
+                <div class="col-6">Оплачено</div>
+            </div>
+        </div>
+        <div class="col-4">Комментарий</div>
     </div>
 
     @foreach($eventsArray as $event)
@@ -74,25 +79,30 @@
                 {{$event->dateTime->format("d-m-y")}} {{$event->dateTime->format("H:i")}}
                 @if($event->dateTimeEnd)
                     <br/>
-                    {{$event->dateTimeEnd->format("d-m-y")}} {{$event->dateTimeEnd->format("H:i")}}
+                    <span title="Оплатить до">
+                        {{$event->dateTimeEnd->format("d-m-y")}} {{$event->dateTimeEnd->format("H:i")}}
+                    </span>
                 @endif
             </div>
 
             <div class="col-2">
-                <a href="/motorPool/carInfo/{{$event->carId ?? 0}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-                {{$event->carNickName}}
+                @if($event->carId)
+                    <a href="/motorPool/carInfo/{{$event->carId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                    {{$event->carNickName}}
+                @endif
             </div>
             <div class="col-1">
                 {{$event->eventName}}
             </div>
             <div class="col-2">
-                {{$event->toPaymentSum}} / {{$event->toPaymentPaymentSum}}
+                <div class="row">
+                    <div class="col-5 text-right p-0">{{$event->toPaymentSum}}p.</div>
+                    <div class="col-1 p-0"></div>
+                    <div class="col-5 text-right p-0">{{$event->toPaymentPaymentSum}}p.</div>
+                </div>
             </div>
-            <div class="col-2">
+            <div class="col-4">
                 {{$event->comment}}
-            </div>
-            <div class="col-2">
-
             </div>
             <div class="col-1 text-right">
                 @if(!$event->deleted_at)

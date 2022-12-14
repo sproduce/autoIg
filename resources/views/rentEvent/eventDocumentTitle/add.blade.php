@@ -29,15 +29,15 @@
             </div>
             <div class="form-group col-md-2 input-group-sm">
                 <label for="date" title="Дата события">Дата события</label>
-                <input type="date" name="date" id="date" class="form-control" value="{{old('date',$eventDataObj->date ? $eventDataObj->date->toDateString() : $dateTime->toDateString())}}"/>
+                <input type="date" name="date" id="date" class="form-control" value="{{old('date',$eventDataObj->date ? $eventDataObj->date->toDateString() : $dateTime->toDateString())}}" required/>
             </div>
             <div class="form-group col-md-2 input-group-sm">
                 <label for="dateDocument" title="Дата выдачи">Дата выдачи</label>
-                <input type="date" name="dateDocument" id="dateDocument" class="form-control" value="{{old('dateDocument',$eventDataObj->dateDocument ? $eventDataObj->dateDocument->toDateString() : '')}}"/>
+                <input type="date" name="dateDocument" id="dateDocument" class="form-control" value="{{old('dateDocument',$eventDataObj->dateDocument ? $eventDataObj->dateDocument->toDateString() : '')}}" required/>
             </div>
             <div class="form-group col-md-2 input-group-sm">
                 <label for="sum" title="Сумма">Сумма</label>
-                <input type="number" name="sum" id="sum" value="{{old('sum',$eventDataObj->sum)}}" class="form-control" required/>
+                <input type="number" name="sum" id="sum" value="{{old('sum',$eventDataObj->sum)}}" class="form-control"/>
             </div>
         </div>
 
@@ -51,12 +51,12 @@
                 <input name="ownerSubjectId" id="ownerSubjectId" value="{{old('ownerSubjectId',$eventDataObj->ownerSubjectId)}}" hidden/>
             </div>
             <div class="form-group col-md-3 input-group-sm">
-                <label for="number" title="Номер СТС">Номер СТС</label>
+                <label for="number" title="Номер документа">Номер документа</label>
                 <input type="text" name="number" id="number" value="{{old('number',$eventDataObj->number)}}" class="form-control" required/>
             </div>
             <div class="form-group col-md-3 input-group-sm">
                 <label for="regNumber" title="Регистрационный знак">Регистрационный знак</label>
-                <input type="text" name="regNumber" id="regNumber" value="{{old('regNumber',$eventDataObj->regNumber)}}" class="form-control" required/>
+                <input type="text" name="regNumber" id="regNumber" value="{{old('regNumber',$eventDataObj->regNumber)}}" class="form-control"/>
             </div>
             <div class="form-group col-md-3 input-group-sm">
                 <label for="color" title="Цвет">Цвет</label>
@@ -93,4 +93,13 @@
             </div>
         </div>
     </form>
+@endsection
+
+        
+@section('js')
+    <script>
+         $("#date").focusout(function(){
+            $("#dateDocument").val($("#date").val());
+         });
+    </script>
 @endsection

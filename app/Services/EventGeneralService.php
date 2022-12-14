@@ -72,7 +72,7 @@ Class EventGeneralService implements EventServiceInterface{
         try {
 
             $eventGeneralModel = $this->eventGeneralRep->getEvent($eventGeneralRequest->get('id'));
-            $eventGeneralModel->comment = $eventGeneralRequest->get('comment');
+            
             $eventOtherModel = $this->eventGeneralRep->addEvent($eventGeneralModel);
 
             $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventOtherModel->id);
@@ -82,6 +82,7 @@ Class EventGeneralService implements EventServiceInterface{
             $timeSheetModel->duration = $this->eventObj->duration;
             $timeSheetModel->color = $this->eventObj->color;
             $timeSheetModel->pId =  $eventGeneralRequest->get('parentId');
+            $timeSheetModel->comment = $eventGeneralRequest->get('comment');
 
             $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
 

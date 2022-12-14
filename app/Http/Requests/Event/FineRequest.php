@@ -25,12 +25,6 @@ class FineRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $input = parent::all();
-//        if (!$input['sumSale']){
-//            $this->merge(['sumSale' => 0,]);
-//        }
-//        if (!$input['sum']){
-//            $this->merge(['sum' => 0,]);
-//        }
 
         if (!isset($input['childAllow'])){
             $this->merge(['childAllow' => 0]);

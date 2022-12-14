@@ -93,9 +93,11 @@ class EventServiceRepository implements EventServiceRepositoryInterface
                 'rent_subjects.id as subjectId',
                 'rent_subjects.nickname as subjectNickname',
                 'to_payments.sum as sum',
+                
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.mileage as mileage',
                 'time_sheets.uuid as uuid',
+                'time_sheets.comment as commentSheet',
             ])
             ->get();
 
