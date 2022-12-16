@@ -34,7 +34,9 @@ class EventDocumentInsuranceRepository implements EventDocumentInsuranceReposito
             ->select([
                 'rent_event_document_insurances.id as id',
                 'rent_event_document_insurances.expiration as expiration',
+                'rent_event_document_insurances.dateDocument as dateDocument',
                 'rent_event_document_insurances.number as number',
+                'rent_event_document_insurances.marks as marks',
 
                 'car_configurations.nickName as carText',
                 'car_configurations.id as carId',
@@ -62,7 +64,9 @@ class EventDocumentInsuranceRepository implements EventDocumentInsuranceReposito
     {
         $resultEventObj = DB::table('time_sheets')
             ->join('rent_event_document_insurances','rent_event_document_insurances.id','=','time_sheets.dataId')
-            ->leftJoin('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
+            ->join('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
+            ->join('rent_subjects as subject','subject.id','=','rent_event_document_insurances.subject')    
+            ->join('rent_subjects as subjectTo','subjectTo.id','=','rent_event_document_insurances.subjectTo')    
             ->leftJoin('to_payments','to_payments.timeSheetId','=','time_sheets.id')
             ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
             ->where('time_sheets.eventId','=',$eventId)
@@ -71,6 +75,9 @@ class EventDocumentInsuranceRepository implements EventDocumentInsuranceReposito
                 'rent_event_document_insurances.id as id',
                 'rent_event_document_insurances.number as number',
                 'rent_event_document_insurances.expiration as expiration',
+                'rent_event_document_insurances.dateDocument as dateDocument',
+                'rent_event_document_insurances.number as number',
+                'rent_event_document_insurances.marks as marks',
 
                 'car_configurations.nickName as carText',
                 'car_configurations.id as carId',
@@ -78,6 +85,13 @@ class EventDocumentInsuranceRepository implements EventDocumentInsuranceReposito
                 'rent_contracts.id as contractId',
                 'rent_contracts.number as contractNumber',
 
+                'subject.id as subjectId',
+                'subject.nickname as subjectNickname',
+                
+                'subjectTo.id as subjectToId',
+                'subjectTo.nickname as subjectToNickname',
+                
+                
                 'to_payments.sum as sum',
                 'time_sheets.dateTime as date',
                 'time_sheets.comment as comment',
@@ -89,6 +103,7 @@ class EventDocumentInsuranceRepository implements EventDocumentInsuranceReposito
 
         $resultEventObj->date = Carbon::parse($resultEventObj->date);
         $resultEventObj->expiration = Carbon::parse($resultEventObj->expiration);
+        $resultEventObj->dateDocument = Carbon::parse($resultEventObj->dateDocument);
 
         return $resultEventObj;
     }

@@ -18,5 +18,5 @@ class rentEventDocumentInsurance extends Model
     use HasFactory;
     use SoftDeletes;
     private $id,$number,$expiration;
-    protected $fillable = ['number','expiration'];
+    protected $fillable = ['number','expiration','dateDocument'];
 }

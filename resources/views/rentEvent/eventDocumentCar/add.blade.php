@@ -34,6 +34,10 @@
                 <label for="dateDocument" title="Дата выдачи">Дата выдачи</label>
                 <input type="date" name="dateDocument" id="dateDocument" class="form-control" value="{{old('dateDocument',$eventDataObj->dateDocument ? $eventDataObj->dateDocument->toDateString() : '')}}" required/>
             </div>
+            <div class="form-group col-md-2 input-group-sm">
+                <label for="sum" title="Сумма">Сумма</label>
+                <input type="number" name="sum" id="sum" value="{{old('sum',$eventDataObj->sum)}}" class="form-control"/>
+            </div>
         </div>
 
         <div class="form-row text-center">
@@ -41,16 +45,16 @@
                 <label for="subjectToText" title="Оформлено на">Оформлено на</label>
                 <a href="/subject/addSubjectTo/subjectTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
                 <a class="btn btn-ssm btn-outline-danger ml-2 clearButton" id="subjectClear"><i class="fas fa-eraser"></i></a>
-                <input id="subjectToText" name="subjectToText" value="{{old('subjectText',$eventDataObj->subjectNickname)}}" class="form-control" readonly/>
-                <input name="subjectToId" id="subjectToId" value="{{old('subjectId',$eventDataObj->subjectId)}}" hidden/>
+                <input id="subjectToText" name="subjectToText" value="{{old('subjectText',$eventDataObj->subjectToNickname)}}" class="form-control" readonly/>
+                <input name="subjectToId" id="subjectToId" value="{{old('subjectId',$eventDataObj->subjectToId)}}" hidden/>
             </div>
             <div class="form-group col-md-3 input-group-sm">
                 <label for="number" title="Номер">Номер</label>
                 <input type="text" name="number" id="number" class="form-control" value="{{old('sum',$eventDataObj->number)}}"/>
             </div>
             <div class="form-group col-md-2 input-group-sm">
-                <label for="dateDocument" title="Срок действия">Срок действия</label>
-                <input type="date" name="dateDocument" id="dateDocument" class="form-control" value="{{old('dateDocument',$eventDataObj->dateDocument ? $eventDataObj->dateDocument->toDateString() : '')}}" required/>
+                <label for="expiration" title="Действительно до">Действительно до</label>
+                <input type="date" name="expiration" id="expiration" class="form-control" value="{{old('expiration',$eventDataObj->expiration ? $eventDataObj->expiration->toDateString() : '')}}" required/>
             </div>
             <div class="form-group col-md-2 input-group-sm">
                 <div class="form-row">

@@ -27,10 +27,14 @@ class DocumentInsuranceRequest extends FormRequest
             'id' => 'integer|nullable',
             'parentId' => 'integer|nullable',
             'carId' => 'integer|required',
+            'subjectId' => 'integer|required',
+            'subjectToId' => 'integer|required',
             'date' => 'date|required',
+            'dateDocument' => 'date|required',
             'expiration' => 'date|required',
             'sum' => 'integer|nullable',
             'number' => 'string|nullable',
+            'marks' => 'string|nullable',
             'comment' => 'string|nullable',
         ];
     }

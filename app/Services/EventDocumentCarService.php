@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\rentEvent;
 use App\Http\Requests\Event;
 use App\Repositories\EventDocumentInsuranceRepository;
-use App\Repositories\EventOtherRepository;
+
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
@@ -14,7 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\timeSheet;
 
-Class EventDocumentInsuranceService implements EventServiceInterface{
+Class EventDocumentCarService implements EventServiceInterface{
 
     private $timeSheetRep,$toPaymentRep,$eventObj,$contractRep,$eventDocumentInsuranceRep;
 
@@ -72,7 +72,13 @@ Class EventDocumentInsuranceService implements EventServiceInterface{
 
             $eventDocumentInsuranceModel = $this->eventDocumentInsuranceRep->getEvent($eventDocumentInsuranceRequest->get('id'));
             $eventDocumentInsuranceModel->number = $eventDocumentInsuranceRequest->get('number');
+            $eventDocumentInsuranceModel->marks = $eventDocumentInsuranceRequest->get('marks');
+            $eventDocumentInsuranceModel->comment = $eventDocumentInsuranceRequest->get('comment');
             $eventDocumentInsuranceModel->expiration = $eventDocumentInsuranceRequest->get('expiration');
+            $eventDocumentInsuranceModel->dateDocument = $eventDocumentInsuranceRequest->get('dateDocument');
+            $eventDocumentInsuranceModel->subject = $eventDocumentInsuranceRequest->get('subjectId');
+            $eventDocumentInsuranceModel->subjectTo = $eventDocumentInsuranceRequest->get('subjectToId');
+            
 
             $eventDocumentInsuranceModel = $this->eventDocumentInsuranceRep->addEvent($eventDocumentInsuranceModel);
 

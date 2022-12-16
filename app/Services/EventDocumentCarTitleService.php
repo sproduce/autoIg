@@ -14,7 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\timeSheet;
 
-Class EventDocumentTitleService implements EventServiceInterface{
+Class EventDocumentCarTitleService implements EventServiceInterface{
 
     private $timeSheetRep,$toPaymentRep,$eventObj,$contractRep,$eventDocumentTitleRep;
 
