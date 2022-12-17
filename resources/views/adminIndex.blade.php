@@ -74,6 +74,12 @@
                                 События штраф
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  href="/timesheet/listByEvent">
+                                <i class="fas fa-calendar-alt"></i>
+                                События +
+                            </a>
+                        </li>
                     </ul>
 
 
