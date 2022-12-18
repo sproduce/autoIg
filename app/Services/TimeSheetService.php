@@ -15,18 +15,20 @@ use Carbon\CarbonPeriod;
 use App\Http\Requests\Filters;
 
 Class TimeSheetService{
-    private $timeSheetRep,$toPaymentRep,$motorPoolRep,$rentEventRep;
+    private $timeSheetRep,$toPaymentRep,$motorPoolRep,$rentEventRep,$rentEventService;
 
     function __construct(
         TimeSheetRepositoryInterface $timeSheetRep,
         ToPaymentRepositoryInterface $toPaymentRep,
         MotorPoolRepositoryInterface $motorPoolRep,
-        RentEventRepositoryInterface $rentEventRep
+        RentEventRepositoryInterface $rentEventRep,
+        RentEventService $rentEventService
     ){
         $this->timeSheetRep = $timeSheetRep;
         $this->toPaymentRep = $toPaymentRep;
         $this->motorPoolRep = $motorPoolRep;
         $this->rentEventRep = $rentEventRep;
+        $this->rentEventService = $rentEventService;
     }
 
     public function getCarsTimeSheets($periodDate,$accuracyH)
@@ -130,6 +132,22 @@ Class TimeSheetService{
     public function getAllTimeSheets(CarbonPeriod $datePeriod,Filters\EventListRequest $eventListRequest=null)
     {
         $result = $this->timeSheetRep->getTimeSheetsArray($datePeriod,$eventListRequest);
+        $eventObjArray = [];
+        
+        foreach ($result as $eventData){
+            if (!isset($eventObjArray[$eventData->eventId])){
+                $eventObjArray[$eventData->eventId] = $this->rentEventRep->getEvent($eventData->eventId);
+            }
+            $eventObj = $eventObjArray[$eventData->eventId];
+            
+            $eventServiceObj = $this->rentEventService->getEventService($eventObj);
+            $eventFullInfo = $eventServiceObj->getEventInfo($eventData->dataId);
+            $eventData->eventFullInfo = $eventFullInfo;
+            //var_dump($eventData);
+        }
+        
+        
+        
         return $result;
     }
 

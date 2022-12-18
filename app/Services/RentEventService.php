@@ -10,7 +10,7 @@ use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 
 
 Class RentEventService{
-    private $rentEventRep,$timeSheetRep,$toPaymentRep,$contractRep;
+    private $rentEventRep,$timeSheetRep,$toPaymentRep,$contractRep,$servicesObj=[];
 
     function __construct(
         RentEventRepositoryInterface $rentEventRep,
@@ -36,9 +36,12 @@ Class RentEventService{
    
     public function getEventService(rentEvent $eventObj): EventServiceInterface
     {
+        if (isset($this->servicesObj[$eventObj->id])) return $this->servicesObj[$eventObj->id];
+        
         $serviceName = '\App\Services\\'.ucfirst($eventObj->action).'Service';
-
-        return (new $serviceName($this->contractRep,$this->timeSheetRep,$this->toPaymentRep,$eventObj));
+        $this->servicesObj[$eventObj->id] = new $serviceName($this->contractRep,$this->timeSheetRep,$this->toPaymentRep,$eventObj);
+        
+        return $this->servicesObj[$eventObj->id];
     }
 
     

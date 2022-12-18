@@ -55,18 +55,21 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
             }
         }
 
-        $resultCollection = $resultCollection->get([
+        $resultCollection = $resultCollection
+                ->select([
                 'time_sheets.*',
                 'to_payments.sum as toPaymentSum',
                 'to_payments.paymentSum as toPaymentPaymentSum',
                 'rent_events.priority as eventPriority',
                 'rent_events.name as eventName',
+                'rent_events.id as eventId',
                 'rent_events.color as eventColor',
                 'rent_events.colorPartPay as eventColorPartPay',
                 'rent_events.colorPay as eventColorPay',
                 'car_configurations.nickName as carNickName',
                 'car_configurations.id as carId',
-            ]);
+            ])
+                ->get();
 
           $resultCollection->each(function ($item, $key) {
               if ($item->dateTime){
