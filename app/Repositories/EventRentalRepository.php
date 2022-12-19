@@ -104,6 +104,11 @@ class EventRentalRepository implements EventRentalRepositoryInterface
         if ($resultEventObj->dateTime){
             $resultEventObj->dateTime =  Carbon::parse($resultEventObj->dateTime);
         }
+        $durationHours = intdiv($resultEventObj->duration,60);
+        $durationMinut = $resultEventObj->duration-$durationHours*60;
+        $resultEventObj->durationHours = $durationHours.":".str_pad($durationMinut,2,0,STR_PAD_LEFT);
+        
+        
         return $resultEventObj;
     }
 

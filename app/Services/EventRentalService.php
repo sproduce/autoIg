@@ -125,7 +125,9 @@ Class EventRentalService implements EventServiceInterface {
 
     public function getEventInfo($dataId = null)
     {
-        return $this->eventRentalRep->getEventRentalFullInfo($this->eventObj->id,$dataId);
+        $rentalObj = $this->eventRentalRep->getEventRentalFullInfo($this->eventObj->id,$dataId);
+        
+        return $rentalObj;
     }
 
 

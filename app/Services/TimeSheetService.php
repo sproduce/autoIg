@@ -143,6 +143,7 @@ Class TimeSheetService{
             $eventServiceObj = $this->rentEventService->getEventService($eventObj);
             $eventFullInfo = $eventServiceObj->getEventInfo($eventData->dataId);
             $eventData->eventFullInfo = $eventFullInfo;
+            $eventData->eventObj = $eventObj;
             //var_dump($eventData);
         }
         

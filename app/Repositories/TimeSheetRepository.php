@@ -48,7 +48,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
                 $resultCollection =  $resultCollection->whereIn('car_configurations.id',$eventListRequest->get('carId'));
             }
             if ($eventListRequest->get('eventId')){
-                $resultCollection =  $resultCollection->whereIn('rent_events.id',$eventListRequest->get('eventId'));
+                $resultCollection =  $resultCollection->whereIn('time_sheets.eventId',$eventListRequest->get('eventId'));
             }
             if (!$eventListRequest->get('delete')){
                $resultCollection = $resultCollection->whereNull('time_sheets.deleted_at');
