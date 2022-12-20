@@ -3,6 +3,7 @@ namespace App\Services;
 use App\Repositories\Interfaces\BrandRepositoryInterface;
 use Illuminate\Http\Request;
 
+
 Class BrandService{
 
     private $brandRep,$request;
