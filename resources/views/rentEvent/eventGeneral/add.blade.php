@@ -23,7 +23,7 @@
     <div class="form-row text-center">
         <div class="form-group col-md-2 input-group-sm">
             <label for="sum" title="Сумма">Сумма</label>
-            <input type="number" name="sum" id="sum" value="{{old('sum',$eventDataObj->sum)}}" class="form-control"/>
+            <input type="number" name="sum" id="sum" value="{{old('sum',$eventDataObj->sum)}}" class="form-control" required/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
             <label for="date" title="Дата события">Дата события</label>

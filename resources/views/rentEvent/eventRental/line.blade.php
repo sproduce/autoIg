@@ -7,9 +7,7 @@
                 <a href="/motorPool/carInfo/{{$event->carId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
                 {{$event->carNickName}}
             </div>
-            <div class="col-1">
-                {{$event->eventObj->name}}
-            </div>
+            <div class="col-1">{{$event->eventObj->name}}</div>
             <div class="col-1 p-0">
                 {{$event->toPaymentSum}}p./{{$event->toPaymentPaymentSum}}p.
                 
@@ -21,11 +19,13 @@
                 {{$event->dateTime->addMinute($event->duration-1)->format("d-m-y H:i")}} ({{$event->eventFullInfo->durationHours}})
             </div>
             <div class="col-1">
+                <a href="/contract/contractInfo/{{$event->eventFullInfo->contractId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
                 {{$event->eventFullInfo->contractNumber}}
             </div>
                 
             
             <div class="col-1 text-right">
+                <a class="btn btn-ssm btn-outline-info"> <i class="fas fa-folder-open"></i></a>
                 @if(!$event->deleted_at)
                     <a class="btn btn-ssm btn-outline-warning" href="/rentEvent/{{$event->eventId}}/{{$event->dataId ?? 0}}/edit?needParent=1" title="Редактировать"> <i class="far fa-edit"></i></a>
                     <button class="btn btn-ssm btn-outline-danger deleteButton" title="Удалить"><i class="fas fa-trash"></i> </button>

@@ -154,6 +154,7 @@ class ContractController extends Controller
         return view('dialog.Contract.FullInfoContract',['contract'=>$contractObj]);
     }
 
+    
 
     public function getContractInfo($id)
     {
@@ -180,6 +181,14 @@ class ContractController extends Controller
         return  redirect()->back();
     }
 
+    public function contractInfoDialog($contractId) 
+    {
+        $contractObj = $this->contractServ->getContract($contractId);
+
+        return view('dialog.Contract.info',['contract'=>$contractObj]);
+    
+    }
+    
 
 
 
