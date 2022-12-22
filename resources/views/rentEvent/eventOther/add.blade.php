@@ -48,7 +48,9 @@
         </div>
     </div>
 
-    @include("rentEvent.fileAdd")
+    @if (!$eventDataObj->id)
+        @include("rentEvent.fileAdd")
+    @endif   
         
     <div class="form-row text-center" id="last-row">
         <div class="input-group col-1">

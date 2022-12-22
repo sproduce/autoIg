@@ -41,9 +41,9 @@
             <input type="text" name="comment" id="comment" value="{{old('comment',$eventDataObj->comment)}}" class="form-control"/>
         </div>
     </div>
-
-    @include("rentEvent.fileAdd")
-        
+    @if (!$eventDataObj->id)
+        @include("rentEvent.fileAdd")
+    @endif    
         
     <div class="form-row text-center" id="last-row">
         <div class="input-group col-1">
