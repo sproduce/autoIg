@@ -89,6 +89,9 @@ class EventOtherRepository implements EventOtherRepositoryInterface
                 'time_sheets.dateTime as dateTimeOther',
                 'time_sheets.pId as parentId',
                 'time_sheets.uuid as uuid',
+                
+                'rent_contracts.id as contractId',
+                'rent_contracts.number as contractNumber',
             ])
             ->first();
 

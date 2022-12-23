@@ -17,6 +17,10 @@
                 @endif
             </div>
             <div class="col-1">
+                <a href="/contract/contractInfo/{{$event->eventFullInfo->contractId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                {{$event->eventFullInfo->contractNumber}}
+            </div>
+            <div class="col-1">
                 {{$event->eventObj->name}}
             </div>
             <div class="col-2">
@@ -29,7 +33,7 @@
             <div class="col-4">
                 {{$event->comment}}
             </div>
-            <div class="col-1 text-right">
+            <div class="col-1 text-right pr-0">
                 <a href="/file/fileInfoDialog/{{$event->eventFullInfo->uuid}}" class="btn btn-ssm btn-outline-info DialogUser"> <i class="fas fa-folder-open"></i></a>
                 @if(!$event->deleted_at)
                     <a class="btn btn-ssm btn-outline-warning" href="/rentEvent/{{$event->eventId}}/{{$event->dataId ?? 0}}/edit?needParent=1" title="Редактировать"> <i class="far fa-edit"></i></a>

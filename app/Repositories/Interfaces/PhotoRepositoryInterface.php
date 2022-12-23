@@ -10,5 +10,7 @@ interface PhotoRepositoryInterface
     public function addPhoto($hash,$fileName,$fileExt,$fileType);
     public function saveLink($photoId,$uuid);
     public function getFiles($uuid);
+    public function deleteFile($uuid,$fileId);
+
 
 }

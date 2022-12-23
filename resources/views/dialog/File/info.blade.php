@@ -17,7 +17,7 @@
                 <div class="col-6"></div>
                 <div class="col-1"><a href="/file/download/{{$file->id}}" title="Сохранить" class="btn btn-ssm btn-outline-success"><i class="fas fa-download"></i></a></div>
                 <div class="col-1">
-                    <a href="/file/deleteFile/{{$file->uuid}}/{{$file->id}}" class="btn btn-ssm btn-outline-danger deleteButton" title="Удалить" onclick="return confirm('Удалить файл?')"><i class="fas fa-trash"></i> </a>
+                    <a href="/file/deleteFile/{{$uuid}}/{{$file->id}}" class="btn btn-ssm btn-outline-danger deleteButton" title="Удалить" onclick="return confirm('Удалить файл?')"><i class="fas fa-trash"></i> </a>
                 </div>
             </div>
         @empty

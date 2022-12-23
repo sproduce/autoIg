@@ -42,9 +42,12 @@ class FileController extends Controller
     
     
     
-    public function delfiles($uuid,$fileId) 
+    public function delfile($uuid,$fileId) 
     {
         
+        $this->fileServ->deleteFile($uuid, $fileId);
+        
+        return redirect()->back();
     }
     
     

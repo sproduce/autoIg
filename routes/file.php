@@ -11,4 +11,5 @@ Route::get('/show/{id}',[FileController::class,'showFile']);
 Route::get('/download/{id}',[FileController::class,'downloadFile']);
 Route::get('/fileInfoDialog/{uuid}',[FileController::class,'fileInfoDialog']);
 Route::post('/addFiles/{uuid}',[FileController::class,'addFiles']);
+Route::get('/deleteFile/{uuid}/{photoId}',[FileController::class,'delfile']);
 
