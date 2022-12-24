@@ -60,16 +60,13 @@
 
 @section('content')
     <div class="row align-items-center font-weight-bold border">
-        <div class="col-2">Дата</div>
+        <div class="col-1">Дата</div>
         <div class="col-2">Машина</div>
+        <div class="col-1">Договор</div>
         <div class="col-1">Событие</div>
-        <div class="col-2">
-            <div class="row">
-                <div class="col-5">Сумма</div>
-                <div class="col-6">Оплачено</div>
-            </div>
-        </div>
-        <div class="col-4">Комментарий</div>
+        <div class="col-1">Сумма</div>
+        <div class="col-2">Комментарий</div>
+        <div class="col-3">Информация</div>
     </div>
 
     @foreach($eventsArray as $event)

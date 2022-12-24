@@ -38,7 +38,9 @@
         </div>
         <div class="row">
             <div class="col-4">{{$contract->subjectFrom->nickname}}</div>
-            <div class="col-4">{{$contract->subjectTo->nickname}}</div>
+            <div class="col-4">{{$contract->subjectTo->surname}} {{$contract->subjectTo->name}} {{$contract->subjectTo->companyName}}
+                ({{$contract->subjectTo->nickname}})
+            </div>
             <div class="col-4">{{$contract->price}}</div>
         </div>
         

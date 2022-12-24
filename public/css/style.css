@@ -95,3 +95,9 @@ a.disable-link{
 .deleteLine {
     text-decoration: line-through;
 }
+
+
+
+div.row-table:hover{
+     background: #cccfce;
+}

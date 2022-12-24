@@ -8,27 +8,28 @@ use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
-use App\Repositories\RentEventRepository;
-use App\Repositories\ToPaymentRepository;
+
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use App\Http\Requests\Filters;
 
 Class TimeSheetService{
-    private $timeSheetRep,$toPaymentRep,$motorPoolRep,$rentEventRep,$rentEventService;
+    private $timeSheetRep,$toPaymentRep,$motorPoolRep,$rentEventRep,$rentEventService,$fileService;
 
     function __construct(
         TimeSheetRepositoryInterface $timeSheetRep,
         ToPaymentRepositoryInterface $toPaymentRep,
         MotorPoolRepositoryInterface $motorPoolRep,
         RentEventRepositoryInterface $rentEventRep,
-        RentEventService $rentEventService
+        RentEventService $rentEventService,
+        PhotoService $photoServ
     ){
         $this->timeSheetRep = $timeSheetRep;
         $this->toPaymentRep = $toPaymentRep;
         $this->motorPoolRep = $motorPoolRep;
         $this->rentEventRep = $rentEventRep;
         $this->rentEventService = $rentEventService;
+         $this->fileService = $photoServ;
     }
 
     public function getCarsTimeSheets($periodDate,$accuracyH)
@@ -139,7 +140,8 @@ Class TimeSheetService{
                 $eventObjArray[$eventData->eventId] = $this->rentEventRep->getEvent($eventData->eventId);
             }
             $eventObj = $eventObjArray[$eventData->eventId];
-            
+            //echo $eventData->uuid." <br/>";
+            $eventData->files = $this->fileService->getFiles($eventData->uuid);
             $eventServiceObj = $this->rentEventService->getEventService($eventObj);
             $eventFullInfo = $eventServiceObj->getEventInfo($eventData->dataId);
             $eventData->eventFullInfo = $eventFullInfo;
