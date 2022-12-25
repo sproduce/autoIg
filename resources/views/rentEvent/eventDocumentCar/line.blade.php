@@ -10,7 +10,9 @@
     <div class="col-1">
         @if($event->eventFullInfo->contractId)
             <a href="/contract/contractInfo/{{$event->eventFullInfo->contractId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-            {{$event->eventFullInfo->contractNumber}}
+            <a href="/contract/contractFullInfo/{{$event->eventFullInfo->contractId}}">
+                        {{$event->eventFullInfo->contractNumber}}
+                    </a>
         @endif
     </div>
     <div class="col-1">
