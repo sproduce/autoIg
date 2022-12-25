@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 use App\Services\TimeSheetService;
 
 
+
 class TimeSheetController extends Controller
 {
     private $request,$motorPoolRep,$timeSheetServ,$carGroupRep;
@@ -225,8 +226,14 @@ class TimeSheetController extends Controller
 
     public function listEvents(DateSpan $dateSpan,RentEventRepositoryInterface  $rentEventRep,Filters\EventListRequest $eventListRequest)
     {
+        $eventListFilter = collect([
+            'eventId' => $eventListRequest->get('eventId'),
+            'carId' => $eventListRequest->get('carId'),
+            'contractId' => $eventListRequest->get('contractId'),
+            'deleted'=> $eventListRequest->get('deleted'),
+            ]);
         $periodDate = $dateSpan->getCarbonPeriod();
-        $eventsArray = $this->timeSheetServ->getAllTimeSheets($periodDate,$eventListRequest);
+        $eventsArray = $this->timeSheetServ->getAllTimeSheets($eventListFilter,$periodDate);
 
         $carsObj = $this->motorPoolRep->getCars();
         $rentEvents = $rentEventRep->getEvents();

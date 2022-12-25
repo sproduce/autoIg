@@ -12,6 +12,7 @@ use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Collection;
 use App\Http\Requests\Filters;
 
+
 interface TimeSheetRepositoryInterface
 {
     public function getTimeSheets($dateFrom,$dateTo): Collection;
@@ -20,7 +21,7 @@ interface TimeSheetRepositoryInterface
 
     public function getTimeSheetsByEvent($eventId,CarbonPeriod  $datePeriod);
     public function getTimeSheet($timeSheetId): timeSheet;
-    public function getTimeSheetsArray(CarbonPeriod $datePeriod,Filters\EventListRequest $eventListRequest=null);
+    public function getTimeSheetsArray(\Illuminate\Support\Collection $eventListRequest,CarbonPeriod $datePeriod = null);
     public function getTimeSheetByDate($date);
     public function getTimeSheetById($id);
 

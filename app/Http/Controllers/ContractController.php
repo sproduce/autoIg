@@ -2,22 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ContractIdRequest;
 use \App\Http\Requests\Filters;
 use App\Http\Requests\ContractRequest;
 use App\Http\Requests\DateSpan;
 use App\Http\Requests\Payment\ToPaymentRequest;
 use App\Http\Requests\Search\SearchContractRequest;
 use App\Models\rentContract;
-use App\Repositories\ContractRepository;
-use App\Repositories\Interfaces\CarGroupRepositoryInterface;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
-use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
-use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
-use App\Repositories\ToPaymentRepository;
 use App\Services\ContractService;
-use App\Services\MotorPoolService;
 use App\Services\CarDriverService;
+use App\Services\TimeSheetService;
 
 use App\Services\PaymentService;
 use Carbon\CarbonPeriod;
@@ -27,11 +21,12 @@ use Illuminate\Http\Request;
 
 class ContractController extends Controller
 {
-    private $contractServ,$request;
+    private $contractServ,$request,$timeSheetServ;
 
-    function __construct(ContractService $contractServ,Request $request)
+    function __construct(ContractService $contractServ,Request $request, TimeSheetService $timeSheetServ)
     {
         $this->contractServ = $contractServ;
+        $this->timeSheetServ = $timeSheetServ;
         $this->request = $request;
     }
 
@@ -108,7 +103,10 @@ class ContractController extends Controller
 
         $contractPayments = $paymentRep->getPaymentsByContract($contractId);
         //$contractPayments->dd();
-        $contractService = $paymentServ->getToPaymentsByContract($contractId);
+        //$contractService = $paymentServ->getToPaymentsByContract($contractId);
+        $filterCollect = collect(['contractId' => $contractId]);
+        
+        $contractService = $this->timeSheetServ->getAllTimeSheets($filterCollect);
         //$contractService->dd();
         $contractObj = $this->contractServ->getContract($contractId);
 

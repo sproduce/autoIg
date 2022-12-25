@@ -1,17 +1,16 @@
 <?php
 namespace App\Services;
 use App\Models\carConfiguration;
-use App\Models\rentContract;
-use App\Models\timeSheet;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
-use App\Http\Requests\Filters;
+
 
 Class TimeSheetService{
     private $timeSheetRep,$toPaymentRep,$motorPoolRep,$rentEventRep,$rentEventService,$fileService;
@@ -35,7 +34,8 @@ Class TimeSheetService{
     public function getCarsTimeSheets($periodDate,$accuracyH)
     {
         $accuracyMin = $accuracyH*60;
-        $timeSheetsArray = $this->timeSheetRep->getTimeSheetsArray($periodDate);
+        $filterCollection = collect();
+        $timeSheetsArray = $this->timeSheetRep->getTimeSheetsArray($filterCollection,$periodDate);
         //$timeSheetsArray->dd();
         //$timeSheetsCollection = collect($timeSheetsArray);
         //$periodTimeSheet = $timeSheetsCollection->whereBetween('dateTime',[$periodDate->getStartDate()->format('Y-m-d'),$periodDate->getEndDate()->format('Y-m-d')])->sortBy('dateTime');
@@ -130,9 +130,9 @@ Class TimeSheetService{
     }
 
 
-    public function getAllTimeSheets(CarbonPeriod $datePeriod,Filters\EventListRequest $eventListRequest=null)
+    public function getAllTimeSheets(\Illuminate\Support\Collection $eventListRequest,CarbonPeriod $datePeriod = null)
     {
-        $result = $this->timeSheetRep->getTimeSheetsArray($datePeriod,$eventListRequest);
+        $result = $this->timeSheetRep->getTimeSheetsArray($eventListRequest,$datePeriod);
         $eventObjArray = [];
         
         foreach ($result as $eventData){

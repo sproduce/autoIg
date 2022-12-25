@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\Filters;
+
 
 class TimeSheetRepository implements TimeSheetRepositoryInterface
 {
@@ -25,11 +25,12 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         return timeSheet::find($timeSheetId) ?? new timeSheet();
     }
 
-    public function getTimeSheetsArray(CarbonPeriod $datePeriod,Filters\EventListRequest $eventListRequest=null)
+    
+    
+    
+    
+    public function getTimeSheetsArray(\Illuminate\Support\Collection $eventListRequest,CarbonPeriod $datePeriod = null)
     {
-        $startDate = $datePeriod->getStartDate()->format('Y-m-d H:i');
-        $finishDate = $datePeriod->getEndDate()->subMinute(1)->format('Y-m-d H:i');
-
         $resultCollection = DB::table('time_sheets')
             ->join('rent_events','time_sheets.eventId','=','rent_events.id')
             ->leftJoin('car_configurations','time_sheets.carId','=','car_configurations.id')
@@ -37,11 +38,17 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
             ->leftJoin('to_payments',function($join){
                 $join->on('to_payments.timeSheetId','=','time_sheets.id');
                 $join->on('to_payments.id','=','to_payments.pId');
-            })
-            ->WhereBetween('dateTime',[$startDate,$finishDate])
+            });
+            
+            if ($datePeriod){
+                $startDate = $datePeriod->getStartDate()->format('Y-m-d H:i');
+                $finishDate = $datePeriod->getEndDate()->subMinute(1)->format('Y-m-d H:i');
+                $resultCollection = $resultCollection->WhereBetween('dateTime',[$startDate,$finishDate]);
+            }
+            
                     
             
-            ->orderBy('time_sheets.dateTime');
+            
 
         if ($eventListRequest){
             if ($eventListRequest->get('carId')){
@@ -50,6 +57,10 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
             if ($eventListRequest->get('eventId')){
                 $resultCollection =  $resultCollection->whereIn('time_sheets.eventId',$eventListRequest->get('eventId'));
             }
+            if ($eventListRequest->get('contractId')){
+                $resultCollection =  $resultCollection->where('to_payments.contractId',$eventListRequest->get('contractId'));
+            }
+            
             if (!$eventListRequest->get('delete')){
                $resultCollection = $resultCollection->whereNull('time_sheets.deleted_at');
             }
@@ -69,7 +80,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
                 'car_configurations.nickName as carNickName',
                 'car_configurations.id as carId',
             ])
-                ->get();
+            ->orderBy('time_sheets.dateTime')->get();
 
           $resultCollection->each(function ($item, $key) {
               if ($item->dateTime){
