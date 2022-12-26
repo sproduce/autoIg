@@ -65,6 +65,7 @@ public function getEventCrashByContract($contractId)
             ->join('rent_event_crashes','rent_event_crashes.id', '=', 'time_sheets.dataId')
             ->join('car_configurations','car_configurations.id', '=', 'time_sheets.carId')
             ->leftJoin('to_payments','to_payments.timeSheetId','=','time_sheets.id')
+            ->leftJoin('rent_contracts','rent_contracts.id','=','to_payments.contractId')
             ->where('time_sheets.eventId','=',$eventId)
             ->where('time_sheets.dataId','=',$dataId)
             ->select([
@@ -74,6 +75,10 @@ public function getEventCrashByContract($contractId)
                 'car_configurations.id as carId',
                 'car_configurations.nickName as carText',
                 'to_payments.sum as sum',
+                
+                'rent_contracts.id as contractId',
+                'rent_contracts.number as contractNumber',
+                
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.mileage as mileage',
                 'time_sheets.pId as parentId',
