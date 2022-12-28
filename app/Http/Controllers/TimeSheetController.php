@@ -230,7 +230,7 @@ class TimeSheetController extends Controller
             'eventId' => $eventListRequest->get('eventId'),
             'carId' => $eventListRequest->get('carId'),
             'contractId' => $eventListRequest->get('contractId'),
-            'deleted'=> $eventListRequest->get('deleted'),
+            'delete'=> $eventListRequest->get('delete'),
             ]);
         $periodDate = $dateSpan->getCarbonPeriod();
         $eventsArray = $this->timeSheetServ->getAllTimeSheets($eventListFilter,$periodDate);

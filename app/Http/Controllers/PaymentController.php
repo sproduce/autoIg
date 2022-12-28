@@ -169,7 +169,9 @@ class PaymentController extends Controller
     public function allocatePayment($paymentId)
     {
         $paymentObj = $this->paymentServ->getPayment($paymentId);
+        
         $toPaymentsObj = $this->paymentServ->getToPaymentsByPayment($paymentObj);
+        
         //$toPaymentsObj->dd();
         return view('payment.allocatePayment',[
             'paymentObj' => $paymentObj,

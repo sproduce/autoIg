@@ -21,7 +21,7 @@
         <div class="col-3">{{$paymentObj->dateTime->format('d-m-Y h:i')}} </div>
         <div class="col-2" title="Тип платежа"><strong>Тип платежа :</strong></div>
         <div class="col-2">{{$paymentObj->operationType->name}}</div>
-        <div class="col-2" title="Сумма"><strong>Сумма/Остаток :</strong></div>
+        <div class="col-2" title="Сумма"><strong>Сумма / Рапределено :</strong></div>
         <div class="col-2">{{$paymentObj->payment}}/{{$paymentObj->balance}}</div>
     </div>
     <div class="row">
@@ -62,15 +62,16 @@
         <input name="paymentId" value="{{$paymentObj->id}}" hidden/>
         @foreach($toPaymentsObj as $toPayment)
             <div class="row row-table" data-id="{{$toPayment->id}}">
-                <div class="col-2">{{$toPayment->dateTime->format('d-m-Y H:i')}}</div>
-                <div class="col-2">{{$toPayment->name}}</div>
-                <div class="col-2">{{$toPayment->contractNumber}}</div>
-                <div class="col-2">{{$toPayment->operationName}}</div>
-                <div class="col-2 @if ($toPayment->sum == $toPayment->paymentSum) fullAllocate @else {{$toPayment->paymentSum ? 'partAllocate':''}}  @endif">{{$toPayment->sum}}/{{$toPayment->paymentSum}}</div>
-                <div class="col-2">
+                <div class="col-11 pl-0">
+                    @php
+                        $event = $toPayment;
+                    @endphp
+                    @include('rentEvent.'.$toPayment->eventObj->action.'.line')
+                </div>
+                <div class="col-1">
                     @if ($toPayment->sum != $toPayment->paymentSum)
                         <input class="allocate" type="checkbox" name="toPaymentId[]" value="{{$toPayment->id}}"/>
-                        <input class="h-75 hiddenInput" hidden disabled name="toPaymentSum[]" data-paymentsum = "{{$toPayment->sum-$toPayment->paymentSum}}" value="0" size="5"/>
+                        <input class="h-50 hiddenInput" hidden disabled name="toPaymentSum[]" data-paymentsum = "{{$toPayment->sum-$toPayment->paymentSum}}" value="0" size="5"/>
                     @endif
                 </div>
             </div>

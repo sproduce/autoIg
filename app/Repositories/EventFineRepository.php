@@ -117,6 +117,8 @@ class EventFineRepository implements EventFineRepositoryInterface
                 'rent_contracts.number as contractNumber',
 
                 'to_payments.sum as sumPayment',
+                'to_payments.paymentSum as paymentSumPayment',
+                
                 'time_sheets.dateTime as dateTime',
                 'time_sheets.comment as comment',
                 'time_sheets.pId as parentId',

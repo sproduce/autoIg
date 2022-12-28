@@ -18,19 +18,25 @@ use Illuminate\Support\Facades\DB;
 
 
 Class PaymentService{
-    private $paymentRep,$request,$toPaymentRep,$contractRep;
+    private $paymentRep,$request,$toPaymentRep,$contractRep,$rentEventService,$timeSheetRep,$fileService;
 
     function __construct(
         Request $request,
         PaymentRepositoryInterface $paymentRep,
         ToPaymentRepositoryInterface $toPaymentRep,
-        ContractRepositoryInterface $contractRep
+        ContractRepositoryInterface $contractRep,
+        RentEventService $rentEventService,
+        \App\Repositories\Interfaces\TimeSheetRepositoryInterface $timeSheet,
+        PhotoService $fileServ
     )
     {
-        $this->toPaymentRep=$toPaymentRep;
-        $this->contractRep=$contractRep;
-        $this->paymentRep=$paymentRep;
-        $this->request=$request;
+        $this->toPaymentRep = $toPaymentRep;
+        $this->contractRep = $contractRep;
+        $this->paymentRep = $paymentRep;
+        $this->request = $request;
+        $this->rentEventService = $rentEventService;
+        $this->timeSheetRep = $timeSheet;
+        $this->fileService = $fileServ;
     }
 
     public function getAccounts()
@@ -188,6 +194,22 @@ Class PaymentService{
     {
         $toPaymentsObj = $this->toPaymentRep->getToPaymentsByAllocatePayment($rentPayment);
 
+        foreach($toPaymentsObj as $toPayment){
+            $toPayment->files = $this->fileService->getFiles($toPayment->uuid);
+            $eventObj =  $this->rentEventService->getRentEvent($toPayment->eventId);
+            $eventServiceObj = $this->rentEventService->getEventService($eventObj);
+            $eventFullInfo = $eventServiceObj->getEventInfo($toPayment->dataId);
+            
+            $toPayment->eventFullInfo = $eventFullInfo;
+            
+            $toPayment->eventObj = $eventObj;
+            $toPayment->timeSheetObj = $this->timeSheetRep->getTimeSheet($toPayment->timeSheetId);
+        }
+        
+        
+        
+        
+        
         return $toPaymentsObj;
     }
 

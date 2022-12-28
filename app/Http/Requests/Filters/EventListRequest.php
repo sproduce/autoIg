@@ -29,7 +29,7 @@ class EventListRequest extends FormRequest
             'carId' => 'array|nullable',
             'carId.*' => 'integer|min:1',
             'contractId' => 'integer|nullable',
-            'deleted' => '',
+            'delete' => '',
         ];
     }
 }

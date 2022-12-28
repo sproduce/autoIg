@@ -10,7 +10,7 @@ use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 
 
 Class RentEventService{
-    private $rentEventRep,$timeSheetRep,$toPaymentRep,$contractRep,$servicesObj=[];
+    private $rentEventRep,$timeSheetRep,$toPaymentRep,$contractRep,$servicesObj=[],$rentEventObj=[];
 
     function __construct(
         RentEventRepositoryInterface $rentEventRep,
@@ -23,9 +23,6 @@ Class RentEventService{
         $this->toPaymentRep = $toPaymentRep;
         $this->contractRep = $contractRep;
     }
-
-
-
 
     public function getRentEvents()
     {
@@ -48,14 +45,19 @@ Class RentEventService{
     function getEventData(rentEvent $eventObj)
     {
         
+        
+        
+        
     }
     
 
     
     public function getRentEvent($eventId): rentEvent
     {
-        $rentEventObj = $this->rentEventRep->getEvent($eventId);
-        return $rentEventObj;
+        if (isset($this->rentEventObj[$eventId])) return $this->rentEventObj[$eventId];
+        
+        $this->rentEventObj[$eventId] = $this->rentEventRep->getEvent($eventId);
+        return  $this->rentEventObj[$eventId];
     }
 
 

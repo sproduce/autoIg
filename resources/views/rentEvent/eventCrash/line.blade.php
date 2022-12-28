@@ -1,38 +1,6 @@
 <div class="row row-table @if($event->deleted_at)deleteLine @endif" data-event="{{$event->eventId}}" data-id="{{$event->dataId}}">
-            <div class="col-2 text-right">
-                <a href="/rentEvent/{{$event->eventId}}/{{$event->dataId ?? 0}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-                {{$event->dateTime->format("d-m-y")}} {{$event->dateTime->format("H:i")}}
-                @if($event->dateTimeEnd)
-                    <br/>
-                    <span title="Оплатить до">
-                        {{$event->dateTimeEnd->format("d-m-y")}} {{$event->dateTimeEnd->format("H:i")}}
-                    </span>
-                @endif
-            </div>
-
-            <div class="col-2">
-                @if($event->carId)
-                    <a href="/motorPool/carInfo/{{$event->carId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-                    {{$event->carNickName}}
-                @endif
-            </div>
-            <div class="col-1">
-                <a href="/contract/contractInfo/{{$event->eventFullInfo->contractId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-                {{$event->eventFullInfo->contractNumber}}
-            </div>
-            <div class="col-1">
-                {{$event->eventObj->name}}
-            </div>
-            <div class="col-2">
-                <div class="row">
-                    <div class="col-5 text-right p-0">{{$event->toPaymentSum}}p.</div>
-                    <div class="col-1 p-0"></div>
-                    <div class="col-5 text-right p-0">{{$event->toPaymentPaymentSum}}p.</div>
-                </div>
-            </div>
-            <div class="col-4">
-                {{$event->comment}}
-            </div>
+    @include("rentEvent.generalLine")    
+    <div class="col-2"></div>
             <div class="col-1 text-right pr-0">
                 <a href="/file/fileInfoDialog/{{$event->eventFullInfo->uuid}}" class="btn btn-ssm @if($event->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
                 @if(!$event->deleted_at)

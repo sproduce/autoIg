@@ -133,19 +133,19 @@ Class TimeSheetService{
     public function getAllTimeSheets(\Illuminate\Support\Collection $eventListRequest,CarbonPeriod $datePeriod = null)
     {
         $result = $this->timeSheetRep->getTimeSheetsArray($eventListRequest,$datePeriod);
-        $eventObjArray = [];
+        
         
         foreach ($result as $eventData){
-            if (!isset($eventObjArray[$eventData->eventId])){
-                $eventObjArray[$eventData->eventId] = $this->rentEventRep->getEvent($eventData->eventId);
-            }
-            $eventObj = $eventObjArray[$eventData->eventId];
+            $eventObj =  $this->rentEventService->getRentEvent($eventData->eventId);
             //echo $eventData->uuid." <br/>";
             $eventData->files = $this->fileService->getFiles($eventData->uuid);
             $eventServiceObj = $this->rentEventService->getEventService($eventObj);
             $eventFullInfo = $eventServiceObj->getEventInfo($eventData->dataId);
+            
             $eventData->eventFullInfo = $eventFullInfo;
+            
             $eventData->eventObj = $eventObj;
+            $eventData->timeSheetObj = $this->timeSheetRep->getTimeSheet($eventData->id);
             //var_dump($eventData);
         }
         

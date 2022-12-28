@@ -215,14 +215,15 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
             $resultCollectionRequest->where(function($query) use ($carId){
 
              $query->whereRaw('to_payments.contractId = rent_contracts.id')
-                 ->where('rent_contracts.carId','=',$carId);
-            })->orWhere('time_sheets.carId','=',$carId);
+                ->where('rent_contracts.carId','=',$carId)
+                ->orWhere('time_sheets.carId','=',$carId);
+            });
             
         }
 
         if ($rentPayment->subjectId){
             $subjectId = $rentPayment->subjectId;
-            $resultCollectionRequest->where(function($query) use ($subjectId){
+            $resultCollectionRequest = $resultCollectionRequest->where(function($query) use ($subjectId){
 
                 $query->where('to_payments.subjectIdFrom','=',$subjectId)->orWhere('to_payments.subjectIdTo','=',$subjectId);
 
@@ -242,6 +243,12 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
                 'rent_events.name',
                 'pay_operation_types.name as operationName',
                 'time_sheets.dateTime',
+                'time_sheets.eventId',
+                'time_sheets.dataId',
+                'time_sheets.uuid as uuid',
+                'time_sheets.id as timeSheetId',
+                    'to_payments.sum as toPaymentSum',
+                    'to_payments.paymentSum as toPaymentPaymentSum',
                 'rent_contracts.number as contractNumber')
             ->orderBy('dateTime')
             ->orderBy('id');

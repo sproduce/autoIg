@@ -1,29 +1,5 @@
 <div class="row row-table @if($event->deleted_at)deleteLine @endif" data-event="{{$event->eventId}}" data-id="{{$event->dataId}}">
-    <div class="col-1 text-right p-0">
-        <a href="/rentEvent/{{$event->eventId}}/{{$event->dataId ?? 0}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-        {{$event->dateTime->format("d-m-y")}} {{$event->dateTime->format("H:i")}}
-    </div>
-    <div class="col-2">
-        <a href="/motorPool/carInfo/{{$event->carId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-        {{$event->carNickName}}
-    </div>
-    <div class="col-1">
-        @if($event->eventFullInfo->contractId)
-            <a href="/contract/contractInfo/{{$event->eventFullInfo->contractId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-            <a href="/contract/contractFullInfo/{{$event->eventFullInfo->contractId}}">
-                        {{$event->eventFullInfo->contractNumber}}
-                    </a>
-        @endif
-    </div>
-    <div class="col-1">
-        {{$event->eventObj->name}}
-    </div>
-    <div class="col-1 p-0">
-        {{$event->toPaymentSum}}p./{{$event->toPaymentPaymentSum}}p.
-    </div>
-    <div class="col-2">
-        {{$event->comment}}
-    </div>        
+        @include("rentEvent.generalLine")  
     <div class="col-3">
         <strong>№ </strong> {{$event->eventFullInfo->number}}
         <strong>От:</strong> {{$event->eventFullInfo->dateDocument->format('d-m-Y')}} <strong>-</strong> {{$event->eventFullInfo->expiration->format('d-m-Y')}}
