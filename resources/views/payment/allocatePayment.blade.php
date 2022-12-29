@@ -60,8 +60,9 @@
     <form method="post" action="/payment/allocatePayment">
         @csrf
         <input name="paymentId" value="{{$paymentObj->id}}" hidden/>
+        
         @foreach($toPaymentsObj as $toPayment)
-            <div class="row row-table" data-id="{{$toPayment->id}}">
+            <div class="row row-table allocateLine" data-id="{{$toPayment->id}}">
                 <div class="col-11 pl-0">
                     @php
                         $event = $toPayment;
@@ -76,6 +77,8 @@
                 </div>
             </div>
         @endforeach
+        
+        
         <div class="row mt-4">
             <div class="col-6"><input type="submit" class="btn btn-ssm btn-primary" value="Сохранить"/></div>
             <div class="col-3"><strong>Баланс : </strong><input id="balance" class="h-75" size="5" readonly /></div>
@@ -123,8 +126,18 @@
 
 
 
+        $(".allocateLine").dblclick(function(){
+            $(this).find(".allocate").trigger('click');
+
+        
+        
+        
+        })
+
+
 
         $(".allocate").click(function(){
+        
             hiddenInput = $(this).next(".hiddenInput");
             paymentMaxSum = parseInt($('#paymentSum').val());
 
