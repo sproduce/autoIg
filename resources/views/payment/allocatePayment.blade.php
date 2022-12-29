@@ -50,12 +50,17 @@
     <input hidden disabled class="form-control-plaintext" id="paymentSum" value="{{$paymentObj->payment-$paymentObj->balance}}"/>
 
     <div class="row align-items-center font-weight-bold border">
-        <div class="col-2">Дата</div>
-        <div class="col-2">Услуга</div>
-        <div class="col-2">Договор</div>
-        <div class="col-2">Тип платежа</div>
-        <div class="col-2">Стоимость</div>
-        <div class="col-2">Распределить</div>
+        <div class="col-11">
+            <div class="row">
+                <div class="col-1">Дата</div>
+                <div class="col-2">Машина</div>
+                <div class="col-1">Договор</div>
+                <div class="col-1">Событие</div>
+                <div class="col-1">Стоимость</div>
+                <div class="col-2">Комментарий</div>
+            </div>
+        </div>
+        
     </div>
     <form method="post" action="/payment/allocatePayment">
         @csrf
@@ -72,7 +77,7 @@
                 <div class="col-1">
                     @if ($toPayment->sum != $toPayment->paymentSum)
                         <input class="allocate" type="checkbox" name="toPaymentId[]" value="{{$toPayment->id}}"/>
-                        <input class="h-50 hiddenInput" hidden disabled name="toPaymentSum[]" data-paymentsum = "{{$toPayment->sum-$toPayment->paymentSum}}" value="0" size="5"/>
+                        <input class="h-75 hiddenInput" hidden disabled name="toPaymentSum[]" data-paymentsum = "{{$toPayment->sum-$toPayment->paymentSum}}" value="0" size="5"/>
                     @endif
                 </div>
             </div>
