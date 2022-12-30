@@ -48,6 +48,7 @@
 
 
     <input hidden disabled class="form-control-plaintext" id="paymentSum" value="{{$paymentObj->payment-$paymentObj->balance}}"/>
+    <input hidden disabled  id="paymentBalance" value="{{$paymentObj->balance}}"/>
 
     <div class="row align-items-center font-weight-bold border">
         <div class="col-11">
@@ -87,6 +88,7 @@
         <div class="row mt-4">
             <div class="col-6"><input type="submit" class="btn btn-ssm btn-primary" value="Сохранить"/></div>
             <div class="col-3"><strong>Баланс : </strong><input id="balance" class="h-75" size="5" readonly /></div>
+            <div class="col-2"><strong>Сумма / Распределено </strong><span>{{$paymentObj->payment}} / </span> <span id="paymentBalanceSum"></span> </div>
         </div>
     </form>
 @endsection
@@ -102,6 +104,7 @@
             })
             $(".hiddenInput").attr('hidden', false);
             $(':input[type ="submit"]').prop('disabled',true);
+            $("#paymentBalanceSum").text(parseInt($("#paymentBalance").val()));
         });
 
 
@@ -113,6 +116,8 @@
                 balance += parseInt($(this).val());
             });
             $("#balance").val(balance);
+
+            $("#paymentBalanceSum").text(parseInt($("#paymentBalance").val())+balance);
 
             $('#balance').removeClass("notAllocate").removeClass("fullAllocate").removeClass("partAllocate")
 
