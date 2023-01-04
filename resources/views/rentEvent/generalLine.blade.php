@@ -14,10 +14,10 @@
             <a href="/contract/contractFullInfo/{{$event->eventFullInfo->contractId}}">{{$event->eventFullInfo->contractNumber}}</a>
         @endif
     </div>
-    <div class="col-1">
+    <div class="col-1" style="background-color:{{$event->eventObj->color}}">
         {{$event->eventObj->name}}
     </div>
-    <div class="col-1 p-0">
+    <div class="col-1 p-0" style="background-color:{{$event->color}}">
         {{$event->toPaymentSum}}p./{{$event->toPaymentPaymentSum}}p.
     </div>
     <div class="col-2">

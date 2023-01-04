@@ -141,6 +141,12 @@ Class TimeSheetService{
             $eventData->files = $this->fileService->getFiles($eventData->uuid);
             $eventServiceObj = $this->rentEventService->getEventService($eventObj);
             $eventFullInfo = $eventServiceObj->getEventInfo($eventData->dataId);
+            if ($eventData->toPaymentPaymentSum){
+                $eventData->color = $eventObj->colorPartPay;
+            }
+            if ($eventData->toPaymentPaymentSum == $eventData->toPaymentSum){
+                $eventData->color = $eventObj->colorPay;
+            }
             
             $eventData->eventFullInfo = $eventFullInfo;
             

@@ -104,6 +104,17 @@ Class PaymentService{
         $datePeriod = $dateSpan->getCarbonPeriod();
         $toPayments = $this->toPaymentRep->getToPayments($filtersValue,$datePeriod);
 
+        foreach($toPayments as $toPayment){
+            if ($toPayment->paymentSum){
+                $toPayment->color = $toPayment->colorPartPay;
+            }
+            if ($toPayment->paymentSum == $toPayment->toPaymentSum){
+                $toPayment->color = $toPayment->colorPay;
+            }
+        }
+        
+        
+        
         $filtersValue['fromDate'] = $datePeriod->getStartDate();
         $filtersValue['toDate'] = $datePeriod->getEndDate();
 

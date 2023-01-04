@@ -49,8 +49,16 @@
 
     <input hidden disabled class="form-control-plaintext" id="paymentSum" value="{{$paymentObj->payment-$paymentObj->balance}}"/>
     <input hidden disabled  id="paymentBalance" value="{{$paymentObj->balance}}"/>
-
-    <div class="row align-items-center font-weight-bold border">
+@if(count($toPaymentsObj))
+    <form method="post" action="/payment/allocatePayment">
+        @csrf
+        
+        <div class="row mt-4">
+            <div class="col-6"><input type="submit" class="btn btn-ssm btn-primary" value="Сохранить"/></div>
+            <div class="col-3"><strong>Баланс : </strong><span class="balance"></span></div>
+            <div class="col-3"><strong>Сумма / Распределено </strong><span>{{$paymentObj->payment}} / </span> <span class="paymentBalanceSum"></span> </div>
+        </div>
+    <div class="row align-items-center font-weight-bold border mt-4">
         <div class="col-11">
             <div class="row">
                 <div class="col-1">Дата</div>
@@ -63,8 +71,7 @@
         </div>
         
     </div>
-    <form method="post" action="/payment/allocatePayment">
-        @csrf
+    
         <input name="paymentId" value="{{$paymentObj->id}}" hidden/>
         
         @foreach($toPaymentsObj as $toPayment)
@@ -87,10 +94,11 @@
         
         <div class="row mt-4">
             <div class="col-6"><input type="submit" class="btn btn-ssm btn-primary" value="Сохранить"/></div>
-            <div class="col-3"><strong>Баланс : </strong><input id="balance" class="h-75" size="5" readonly /></div>
-            <div class="col-2"><strong>Сумма / Распределено </strong><span>{{$paymentObj->payment}} / </span> <span id="paymentBalanceSum"></span> </div>
+            <div class="col-3"><strong>Баланс : </strong><span class="balance"></span></div>
+            <div class="col-3"><strong>Сумма / Распределено </strong><span>{{$paymentObj->payment}} / </span> <span class="paymentBalanceSum" id="paymentBalanceSum"></span> </div>
         </div>
     </form>
+@endif
 @endsection
 
 
@@ -104,31 +112,37 @@
             })
             $(".hiddenInput").attr('hidden', false);
             $(':input[type ="submit"]').prop('disabled',true);
-            $("#paymentBalanceSum").text(parseInt($("#paymentBalance").val()));
+            $(".paymentBalanceSum").text(parseInt($("#paymentBalance").val()));
         });
 
 
         function calculateSumPayment() {
-            $(':input[type ="submit"]').prop('disabled',false);
+            
+            paymentBalance = parseInt($("#paymentBalance").val());
+            
             paymentSum = parseInt($('#paymentSum').val());
             balance = 0;
             $('.hiddenInput').each(function () {
                 balance += parseInt($(this).val());
             });
-            $("#balance").val(balance);
+            paymentNewBalance = paymentBalance + balance;
+                if (balance){$(':input[type ="submit"]').prop('disabled',false);}
+                    else {$(':input[type ="submit"]').prop('disabled',true);
+                                    }
+            $(".balance").text(balance);
 
-            $("#paymentBalanceSum").text(parseInt($("#paymentBalance").val())+balance);
+            $(".paymentBalanceSum").text(paymentNewBalance);
 
-            $('#balance').removeClass("notAllocate").removeClass("fullAllocate").removeClass("partAllocate")
+            $('.balance').removeClass("notAllocate").removeClass("fullAllocate").removeClass("partAllocate")
 
 
             if (paymentSum == balance) {
-                $('#balance').addClass("fullAllocate");
+                $('.balance').addClass("fullAllocate");
             } else {
                 if ((Math.abs(balance) < Math.abs(paymentSum)) && (balance * paymentSum >= 0)) {
-                    $('#balance').addClass("partAllocate");
+                    $('.balance').addClass("partAllocate");
                 } else {
-                    $('#balance').addClass("notAllocate");
+                    $('.balance').addClass("notAllocate");
                     $(':input[type ="submit"]').prop('disabled',true);
                 }
             }
@@ -148,11 +162,23 @@
 
         $(".allocate").click(function(){
         
-            hiddenInput = $(this).next(".hiddenInput");
-            paymentMaxSum = parseInt($('#paymentSum').val());
+            paymentMaxSum = parseInt($('#paymentSum').val());    
+             balance = 0;
+            $('.hiddenInput').each(function () {
+                balance += parseInt($(this).val());
+            });
+                hiddenInput = $(this).next(".hiddenInput");
+                paymentBalance = parseInt($("#paymentBalance").val());
 
             if ($(this).is(':checked')) {
-                hiddenInput.val(hiddenInput.data('paymentsum'));
+                
+                paymentSum = parseInt(hiddenInput.data('paymentsum'));  
+                console.log(paymentMaxSum);
+                if(Math.abs(paymentSum) > Math.abs(paymentMaxSum) && paymentSum*paymentMaxSum > 0){
+                    paymentSum = paymentMaxSum;
+                        }
+                
+                hiddenInput.val(paymentSum);
                 hiddenInput.show();
                 hiddenInput.addClass("fullAllocate");
                 hiddenInput.prop('disabled', false);
@@ -164,13 +190,20 @@
             };
 
             calculateSumPayment();
+                   
         });
 
         $(".hiddenInput").blur(function(){
             $(this).removeClass("notAllocate").removeClass("fullAllocate").removeClass("partAllocate")
             inputSum = parseInt($(this).val());
             paymentSum = parseInt($(this).data('paymentsum'));
+            paymentMaxSum = parseInt($('#paymentSum').val());
 
+
+            if(Math.abs(paymentSum) > Math.abs(paymentMaxSum) && paymentSum*paymentMaxSum > 0){
+                paymentSum = paymentMaxSum;
+                        }
+                        
 
 
             if (inputSum == paymentSum){
@@ -179,6 +212,7 @@
                 if (Math.abs(inputSum) < Math.abs(paymentSum) && inputSum*paymentSum > 0){
                     $(this).addClass("partAllocate");
                 } else {
+                    console.log(paymentSum);
                     inputSum = paymentSum;
                     $(this).addClass("fullAllocate");
                 }

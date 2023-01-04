@@ -41,8 +41,8 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
             });
             
             if ($datePeriod){
-                $startDate = $datePeriod->getStartDate()->format('Y-m-d H:i');
-                $finishDate = $datePeriod->getEndDate()->subMinute(1)->format('Y-m-d H:i');
+                $startDate = $datePeriod->getStartDate()->format('Y-m-d 00:00');
+                $finishDate = $datePeriod->getEndDate()->format('Y-m-d 23:59');
                 $resultCollection = $resultCollection->WhereBetween('dateTime',[$startDate,$finishDate]);
             }
             
@@ -75,6 +75,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
                 'rent_events.name as eventName',
                 'rent_events.id as eventId',
                 'rent_events.color as eventColor',
+                'rent_events.color as color',
                 'rent_events.colorPartPay as eventColorPartPay',
                 'rent_events.colorPay as eventColorPay',
                 'car_configurations.nickName as carNickName',

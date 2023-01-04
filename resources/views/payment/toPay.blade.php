@@ -94,15 +94,7 @@
                         <div class="col-1 p-0" title="">
                             {{$toPayment->paymentPayUp->format('d-m-Y')}}
                         </div>
-                        <div class="col-1 text-right @if ($toPayment->paymentSum == 0)
-                                    notAllocate
-                                @else
-                                    @if ($toPayment->paymentSum == $toPayment->toPaymentSum)
-                                        fullAllocate
-                                    @else
-                                        partAllocate
-                                    @endif
-                                 @endif">
+                        <div class="col-1 text-right" style="background-color:{{$toPayment->color}}">
                             <a class="btn-ssm btn-outline-info" href="/payment/toPaymentInfo/{{$toPayment->toPaymentId}}"><i class="fas fa-info-circle"></i></a>{{$toPayment->paymentSum}}
                         </div>
                         <div class="col-2">
