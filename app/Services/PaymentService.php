@@ -211,6 +211,16 @@ Class PaymentService{
             $eventServiceObj = $this->rentEventService->getEventService($eventObj);
             $eventFullInfo = $eventServiceObj->getEventInfo($toPayment->dataId);
             
+            
+            
+            
+             if ($toPayment->toPaymentPaymentSum){
+                $toPayment->color = $eventObj->colorPartPay;
+            }
+            if ($toPayment->toPaymentPaymentSum == $toPayment->toPaymentSum){
+                $toPayment->color = $eventObj->colorPay;
+            }
+            
             $toPayment->eventFullInfo = $eventFullInfo;
             
             $toPayment->eventObj = $eventObj;

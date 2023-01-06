@@ -241,9 +241,10 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
                 $query->where('to_payments.paymentId','=',$paymentId);
                 $query->orWhereNull('to_payments.paymentId');
             })
-
+            ->orWhere('to_payments.paymentId','=',$rentPayment->id)
             ->select('to_payments.*',
                 'rent_events.name',
+                'rent_events.color as color',
                 'pay_operation_types.name as operationName',
                 'time_sheets.dateTime',
                 'time_sheets.eventId',
