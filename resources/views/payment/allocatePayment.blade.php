@@ -88,7 +88,7 @@
                         <input class="h-75 hiddenInput" hidden disabled name="toPaymentSum[]" data-paymentsum = "{{$toPayment->sum-$toPayment->paymentSum}}" value="0" size="5"/>
                     @else
                         <input class="allocate" type="checkbox" name="toPaymentId[]" value="{{$toPayment->id}}" checked/>
-                        <input class="h-75 hiddenInput" name="toPaymentSum[]" data-paymentsum = "{{$toPayment->sum}}" value="{{$toPayment->sum}}" size="5"/>
+                        <input class="h-75 hiddenInput fullAllocate" name="toPaymentSum[]" data-paymentsum = "{{$toPayment->sum}}" value="{{$toPayment->sum}}" size="5"/>
                     @endif
                 </div>
             </div>
