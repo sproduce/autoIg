@@ -56,7 +56,12 @@
         
         <div class="row mt-4">
             <div class="col-6"><input type="submit" class="btn btn-ssm btn-primary" value="Сохранить"/></div>
-            <div class="col-4"><strong>Сумма / Распределено </strong><span>{{$paymentObj->payment}} / </span> <span class="paymentBalanceSum"></span> </div>
+            <div class="col-2">
+                <strong class="h5">Сумма / Распределено </strong> 
+            </div>
+            <div class="col-4">
+                <span class="h5">{{$paymentObj->payment}} / </span> <span class="paymentBalanceSum h5"></span>
+            </div>
         </div>
     <div class="row align-items-center font-weight-bold border mt-4">
         <div class="col-11">
@@ -97,7 +102,12 @@
         
         <div class="row mt-4">
             <div class="col-6"><input type="submit" class="btn btn-ssm btn-primary" value="Сохранить"/></div>
-            <div class="col-4"><strong>Сумма / Распределено </strong><span>{{$paymentObj->payment}} / </span> <span class="paymentBalanceSum"></span> </div>
+            <div class="col-2">
+                <strong class="h5">Сумма / Распределено </strong> 
+            </div>
+            <div class="col-4">
+                <span class="h5">{{$paymentObj->payment}} / </span> <span class="paymentBalanceSum h5"></span>
+            </div>
         </div>
     </form>
 @endif

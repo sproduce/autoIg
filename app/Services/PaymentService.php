@@ -238,38 +238,51 @@ Class PaymentService{
 
     public function saveAllocatePayment($toPaymentIdArray,$toPaymentSumArray,$paymentId)
     {
-        //exit();
         $toPaymentObjArray = array();
+        //$this->allocatePaymentErase($paymentId);
+        
         $paymentObj = $this->paymentRep->getPayment($paymentId);
+        
         $maxPay = array_sum($toPaymentSumArray);
-
-        if (abs($maxPay) <= abs($paymentObj->payment-$paymentObj->balance) && $maxPay * $paymentObj->payment >= 0){
+        
+        if (abs($maxPay) <= abs($paymentObj->payment) && $maxPay * $paymentObj->payment >= 0){
 
             foreach($toPaymentIdArray as $key => $toPayment){
                 $toPaymentObj = $this->toPaymentRep->getToPayment($toPayment);
-                echo $toPaymentObj->sum."  ".$toPaymentSumArray[$key];
-                if (abs($toPaymentObj->sum) > abs($toPaymentSumArray[$key]) && $toPaymentObj->sum * $toPaymentSumArray[$key] >0){
-                    $newToPayment = $toPaymentObj->replicate();
-                    $newToPayment->sum = $toPaymentSumArray[$key];
-                    $newToPayment->paymentSum = $toPaymentSumArray[$key];
-                    $newToPayment->paymentId = $paymentId;
-                    $toPaymentObj->paymentSum = $toPaymentObj->paymentSum + $toPaymentSumArray[$key];
-                    $toPaymentObjArray[] = $toPaymentObj;
-                    $toPaymentObjArray[] = $newToPayment;
-                }
+                if ($toPaymentObj->id == $toPaymentObj->pId){
+                    if (abs($toPaymentObj->sum) > abs($toPaymentSumArray[$key]) && $toPaymentObj->sum * $toPaymentSumArray[$key] >0){
+                        $newToPayment = $toPaymentObj->replicate();
+                        $newToPayment->sum = $toPaymentSumArray[$key];
+                        $newToPayment->paymentSum = $toPaymentSumArray[$key];
+                        $newToPayment->paymentId = $paymentId;
+                        $toPaymentObj->paymentSum = $toPaymentObj->paymentSum + $toPaymentSumArray[$key];
+                        $toPaymentObjArray[] = $toPaymentObj;
+                        $toPaymentObjArray[] = $newToPayment;
+                    }
 
-                if ($toPaymentObj->sum == $toPaymentSumArray[$key]) {
-                    $toPaymentObj->paymentId = $paymentId;
-                    $toPaymentObj->paymentSum = $toPaymentObj->sum;
+                    if ($toPaymentObj->sum == $toPaymentSumArray[$key] && $toPaymentSumArray[$key]) {
+                        $toPaymentObj->paymentId = $paymentId;
+                        $toPaymentObj->paymentSum = $toPaymentObj->sum;
+                        $toPaymentObjArray[] = $toPaymentObj;
+                    }
+                } else {
+                    $parentToPayment = $this->toPaymentRep->getToPayment($toPaymentObj->pId);
+                    $parentToPayment->paymentSum +=$toPaymentSumArray[$key] -$toPaymentObj->paymentSum;
+                    $this->toPaymentRep->addToPayment($parentToPayment);
+                    $toPaymentObj->paymentSum = $toPaymentSumArray[$key];
+                    $toPaymentObj->sum = $toPaymentSumArray[$key];
                     $toPaymentObjArray[] = $toPaymentObj;
                 }
+                
+                //echo $toPaymentObj->sum."  ".$toPaymentSumArray[$key]."<br/>";
+                
             }
 
                foreach($toPaymentObjArray as $toPaymentObj){
                    $this->toPaymentRep->addToPayment($toPaymentObj);
                }
 
-            $paymentObj->balance = $paymentObj->balance + $maxPay;
+            $paymentObj->balance = $maxPay;
             $this->paymentRep->addPayment($paymentObj);
         }
 
