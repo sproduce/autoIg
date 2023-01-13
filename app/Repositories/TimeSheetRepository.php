@@ -22,7 +22,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
 
     public function getTimeSheet($timeSheetId): timeSheet
     {
-        return timeSheet::find($timeSheetId) ?? new timeSheet();
+        return timeSheet::withTrashed()->find($timeSheetId) ?? new timeSheet();
     }
 
     

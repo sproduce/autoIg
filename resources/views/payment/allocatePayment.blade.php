@@ -60,14 +60,22 @@
         <div class="col-1">Стоимость</div>
         <div class="col-2">Комментарий</div>
     </div>    
+    @php
+        $countPaymentObj = 0;
+    @endphp
+
     @foreach($toPaymentsObj as $toPayment)
     @if ($toPayment->sum == $toPayment->paymentSum)
         @php
             $event = $toPayment;
+            $countPaymentObj +=1;
         @endphp
         @include('rentEvent.'.$toPayment->eventObj->action.'.line')
     @endif
     @endforeach
+    
+    
+    @if(count($toPaymentsObj)>$countPaymentObj)
     
     <form method="post" action="/payment/allocatePayment">
         @csrf
@@ -128,6 +136,7 @@
             </div>
         </div>
     </form>
+    @endif
 @endif
 @endsection
 
