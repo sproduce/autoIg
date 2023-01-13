@@ -13,7 +13,7 @@ use Carbon\CarbonPeriod;
 
 
 Class TimeSheetService{
-    private $timeSheetRep,$toPaymentRep,$motorPoolRep,$rentEventRep,$rentEventService,$fileService;
+    private $timeSheetRep,$toPaymentRep,$motorPoolRep,$rentEventRep,$rentEventService,$fileService,$contractRep;
 
     function __construct(
         TimeSheetRepositoryInterface $timeSheetRep,
@@ -21,8 +21,11 @@ Class TimeSheetService{
         MotorPoolRepositoryInterface $motorPoolRep,
         RentEventRepositoryInterface $rentEventRep,
         RentEventService $rentEventService,
-        PhotoService $photoServ
+        PhotoService $photoServ,
+        ContractRepositoryInterface $contractRep
+            
     ){
+        $this->contractRep = $contractRep;
         $this->timeSheetRep = $timeSheetRep;
         $this->toPaymentRep = $toPaymentRep;
         $this->motorPoolRep = $motorPoolRep;
@@ -149,7 +152,7 @@ Class TimeSheetService{
             }
             
             $eventData->eventFullInfo = $eventFullInfo;
-            
+            $eventData->contractFullInfo = $this->contractRep->getContract($eventFullInfo->contractId);
             $eventData->eventObj = $eventObj;
             $eventData->timeSheetObj = $this->timeSheetRep->getTimeSheet($eventData->id);
             //var_dump($eventData);

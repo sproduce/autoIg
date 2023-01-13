@@ -4,7 +4,7 @@ use App\Http\Requests\CopyToPayRequest;
 use App\Http\Requests\DateSpan;
 use App\Http\Requests\Payment;
 use App\Models\rentPayment;
-use App\Repositories\ContractRepository;
+use App\Models\toPayment;
 use App\Repositories\Interfaces\ContractRepositoryInterface;
 use App\Repositories\Interfaces\MotorPoolRepositoryInterface;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
@@ -214,7 +214,7 @@ Class PaymentService{
             
             
             
-             if ($toPayment->toPaymentPaymentSum){
+            if ($toPayment->toPaymentPaymentSum){
                 $toPayment->color = $eventObj->colorPartPay;
             }
             if ($toPayment->toPaymentPaymentSum == $toPayment->toPaymentSum){
@@ -222,6 +222,8 @@ Class PaymentService{
             }
             
             $toPayment->eventFullInfo = $eventFullInfo;
+            
+            $toPayment->contractFullInfo = $this->contractRep->getContract($toPayment->eventFullInfo->contractId);
             
             $toPayment->eventObj = $eventObj;
             $toPayment->timeSheetObj = $this->timeSheetRep->getTimeSheet($toPayment->timeSheetId);
@@ -235,8 +237,9 @@ Class PaymentService{
     }
 
 
-
-    public function saveAllocatePayment($toPaymentIdArray,$toPaymentSumArray,$paymentId)
+    
+   
+      public function saveAllocatePayment($toPaymentIdArray,$toPaymentSumArray,$paymentId)
     {
         $toPaymentObjArray = array();
         //$this->allocatePaymentErase($paymentId);
@@ -288,17 +291,6 @@ Class PaymentService{
 
 
     }
-
-//        $allocateSum=0;
-//        foreach($toPaymentArray as $toPayment)
-//        {
-//            $toPaymentObj = $this->toPaymentRep->getToPayment($toPayment);
-//            $toPaymentObj->paymentId = $paymentObj->id;
-//            $this->toPaymentRep->addToPayment($toPaymentObj);
-//            $allocateSum = $allocateSum+$toPaymentObj->sum;
-//        }
-//        $paymentObj->balance = $paymentObj->balance-$allocateSum;
-//        $this->paymentRep->addPayment($paymentObj);
 
 
 

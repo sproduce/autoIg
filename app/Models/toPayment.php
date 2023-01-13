@@ -41,6 +41,17 @@ class toPayment extends Model
         return $this->hasOne(timeSheet::class,'id','timeSheetId')->withDefault();
     }
 
+    public function parent() 
+    {
+        return $this->hasOne(toPayment::class,'id','pId')->first();
+    }
+    
+    
+    public function child() 
+    {
+        return $this->hasMany(toPayment::class,'pId','id')->whereColumn('pId','<>','id')->get();
+    }
+    
 
     public function payment()
     {

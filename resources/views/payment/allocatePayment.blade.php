@@ -1,7 +1,6 @@
 @extends('../adminIndex')
 
 @php
-
 @endphp
 @section('header')
 
@@ -51,9 +50,27 @@
     <input hidden disabled  id="paymentSum" value="{{$paymentObj->payment}}"/>
     
 @if(count($toPaymentsObj))
+    
+    
+    <div class="row align-items-center font-weight-bold border mt-4">
+        <div class="col-1">Дата</div>
+        <div class="col-2">Машина</div>
+        <div class="col-1">Договор</div>
+        <div class="col-1">Событие</div>
+        <div class="col-1">Стоимость</div>
+        <div class="col-2">Комментарий</div>
+    </div>    
+    @foreach($toPaymentsObj as $toPayment)
+    @if ($toPayment->sum == $toPayment->paymentSum)
+        @php
+            $event = $toPayment;
+        @endphp
+        @include('rentEvent.'.$toPayment->eventObj->action.'.line')
+    @endif
+    @endforeach
+    
     <form method="post" action="/payment/allocatePayment">
         @csrf
-        
         <div class="row mt-4">
             <div class="col-6"><input type="submit" class="btn btn-ssm btn-primary" value="Сохранить"/></div>
             <div class="col-2">
@@ -80,23 +97,24 @@
         <input name="paymentId" value="{{$paymentObj->id}}" hidden/>
         
         @foreach($toPaymentsObj as $toPayment)
+        @if ($toPayment->sum <> $toPayment->paymentSum)
             <div class="row row-table allocateLine" data-id="{{$toPayment->id}}">
                 <div class="col-11 pl-0">
                     @php
-                        $event = $toPayment;
+                        $event = $toPayment
                     @endphp
                     @include('rentEvent.'.$toPayment->eventObj->action.'.line')
                 </div>
                 <div class="col-1">
-                    @if ($toPayment->sum != $toPayment->paymentSum)
                         <input class="allocate" type="checkbox" name="toPaymentId[]" value="{{$toPayment->id}}"/>
                         <input class="h-75 hiddenInput" hidden disabled name="toPaymentSum[]" data-paymentsum = "{{$toPayment->sum-$toPayment->paymentSum}}" value="0" size="5"/>
-                    @else
-                        <input class="allocate" type="checkbox" name="toPaymentId[]" value="{{$toPayment->id}}" checked/>
-                        <input class="h-75 hiddenInput fullAllocate" name="toPaymentSum[]" data-paymentsum = "{{$toPayment->sum}}" value="{{$toPayment->sum}}" size="5"/>
-                    @endif
+
                 </div>
             </div>
+        @else
+        <input class="allocate" type="checkbox" name="toPaymentId[]" value="{{$toPayment->id}}" hidden checked/>
+        <input class="h-75 hiddenInput" hidden name="toPaymentSum[]" data-paymentsum = "{{$toPayment->paymentSum}}" value="{{$toPayment->paymentSum}}" size="5"/>
+        @endif
         @endforeach
         
         
@@ -126,8 +144,6 @@
             $(':input[type ="submit"]').prop('disabled',true);
             calculateSumPayment();
         });
-
-
         function calculateSumPayment() {
             
             paymentSum = parseInt($('#paymentSum').val());
@@ -138,7 +154,6 @@
                 
             $("#paymentBalance").val(balance);
             $(".paymentBalanceSum").text(balance);
-
             $(':input[type ="submit"]').prop('disabled',false);
             $('.paymentBalanceSum').removeClass("fullAllocate").removeClass("partAllocate").removeClass("notAllocate");
             
@@ -153,20 +168,14 @@
                 }
             }
         }
-
-
-
         $(".allocateLine").dblclick(function(){
             $(this).find(".allocate").trigger('click');
-
         
         
         
         })
-
         $(".allocate").click(function(){
             paymentMaxSum = parseInt($('#paymentSum').val())-parseInt($('#paymentBalance').val());    
-
             hiddenInput = $(this).next(".hiddenInput");
             hiddenInput.removeClass("fullAllocate").removeClass("partAllocate");
             currentPaymentSum = parseInt(hiddenInput.data('paymentsum'));  
@@ -186,44 +195,27 @@
                 hiddenInput.prop('disabled', true);
             };
             
-
-
-
-
             calculateSumPayment();
                    
         });
-
-
-
-
-
         $(".hiddenInput").blur(function(){
         
             $(this).removeClass("notAllocate").removeClass("fullAllocate").removeClass("partAllocate")
             inputSum = parseInt($(this).val());
             paymentSum = parseInt($(this).data('paymentsum'));
-
             if(Math.abs(paymentSum) < Math.abs(inputSum) && paymentSum*inputSum > 0){
                 inputSum = paymentSum;
             }
-
             if (inputSum == paymentSum){
                 $(this).addClass("fullAllocate");
             } else {
                     $(this).addClass("partAllocate");
                 } 
-
             $(this).val(inputSum);
             
             calculateSumPayment();
-
         });
-
-
     </script>
 
 
 @endsection
-
-

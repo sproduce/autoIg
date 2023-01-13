@@ -18,6 +18,8 @@ interface ToPaymentRepositoryInterface
     public function getToPaymentsByContract($contractId): Collection;
     public function getToPaymentsParentByContract($contractId): Collection;
 
+    public function getToPaymentParent($toPaymentId): toPayment;
+
     public function getAllocateToPaymentSum(rentPayment $paymentObj);
 
     public function delAllocateToPayment(rentPayment $paymentObj);

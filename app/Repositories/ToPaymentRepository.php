@@ -90,6 +90,14 @@ class ToPaymentRepository implements ToPaymentRepositoryInterface
     {
         return toPayment::find($toPaymentId) ?? new toPayment();
     }
+    
+    
+    public function getToPaymentParent($toPaymentId): toPayment 
+    {
+        ;
+    }
+    
+    
 
     public function getToPaymentByTimeSheet($timeSheetId): toPayment
     {
