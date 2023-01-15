@@ -65,13 +65,21 @@
     @endphp
 
     @foreach($toPaymentsObj as $toPayment)
-    @if ($toPayment->sum == $toPayment->paymentSum)
-        @php
-            $event = $toPayment;
-            $countPaymentObj +=1;
-        @endphp
-        @include('rentEvent.'.$toPayment->eventObj->action.'.line')
-    @endif
+        @if ($toPayment->sum == $toPayment->paymentSum)
+            @php
+                $event = $toPayment;
+                $countPaymentObj +=1;
+            @endphp
+    <div class="row">
+        <div class="col-11">
+            @include('rentEvent.'.$toPayment->eventObj->action.'.line')
+        </div>
+        <div class="col-1">
+            <a href="/payment/allocatePaymentDelete/{{$toPayment->id}}" class="btn btn-ssm btn-outline-danger"> <i class="fas fa-eraser" title="Отменить распределение"></i></a>
+        </div>
+    </div>
+            
+        @endif
     @endforeach
     
     

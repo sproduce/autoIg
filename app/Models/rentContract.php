@@ -35,6 +35,16 @@ class rentContract extends Model
     protected $fillable = ['start','finish','finishFact','typeId','carGroupId','statusId','number','comment','carId','subjectIdFrom','subjectIdTo'];
 
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($post) {
+            $post->uuid = (string)Str::uuid();
+        });
+    }
+    
+    
+    
     public function type()
     {
         return $this->hasOne(rentContractType::class,'id','typeId')->withDefault();
@@ -70,4 +80,12 @@ class rentContract extends Model
         return $this->hasMany(rentPayment::class,'contractId','id');
     }
 
+    
+    public function files() 
+    {
+        return $this->hasMany(photoLink::class,'linkUuid','uuid');
+    }
+    
+    
+    
 }

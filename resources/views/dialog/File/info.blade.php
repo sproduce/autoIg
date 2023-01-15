@@ -21,7 +21,7 @@
                 </div>
             </div>
         @empty
-            У события нет файлов
+           Файлов нет
         @endforelse
             <form action="/file/addFiles/{{$uuid}}" method="POST" enctype="multipart/form-data">
                 @csrf

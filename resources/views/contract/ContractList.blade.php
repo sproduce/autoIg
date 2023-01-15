@@ -1,9 +1,9 @@
 @extends('../adminIndex')
 
 @php
-    $contracts=$contractsCollect->get('contracts');
-    $contractTypes=$contractsCollect->get('contractTypes');
-    $currentContractType=$contractsCollect->get('currentContractType');
+    $contracts = $contractsCollect->get('contracts');
+    $contractTypes = $contractsCollect->get('contractTypes');
+    $currentContractType = $contractsCollect->get('currentContractType');
 @endphp
 
 @section('header')
@@ -74,6 +74,7 @@
                                         <div class="col-1 text-right p-0">{{$contract->balance}} p.</div>
                                         <div class="col-2">{{$contract->status->name}}</div>
                                         <div class="col-1 p-0 text-center">
+                                            <a href="/file/fileInfoDialog/{{$contract->uuid}}" class="btn btn-ssm  @if($contract->files->count())btn-outline-primary @else btn-outline-secondary @endif  DialogUser"> <i class="fas fa-folder-open"></i></a>
                                             <a class="btn btn-ssm btn-outline-warning" href="/contract/edit/{{$contract->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
 {{--                                            <a href="/timesheet/contract?contractId={{$contract->id}}" title="События" class="btn btn-ssm btn-outline-primary">--}}
 {{--                                                <i class="fas fa-calendar-alt"></i>--}}
