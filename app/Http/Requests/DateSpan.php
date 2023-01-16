@@ -36,8 +36,8 @@ class DateSpan extends FormRequest
 
     public function getCarbonPeriod(): CarbonPeriod
     {
-        $input=parent::all(['fromDate','toDate']);
-        $periodDate=new CarbonPeriod($input['fromDate'],$input['toDate']);
+        $input = parent::all(['fromDate','toDate']);
+        $periodDate = new CarbonPeriod($input['fromDate'],$input['toDate']);
         return  $periodDate;
     }
 

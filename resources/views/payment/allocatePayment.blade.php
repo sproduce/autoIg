@@ -74,8 +74,8 @@
         <div class="col-11">
             @include('rentEvent.'.$toPayment->eventObj->action.'.line')
         </div>
-        <div class="col-1">
-            <a href="/payment/allocatePaymentDelete/{{$toPayment->id}}" class="btn btn-ssm btn-outline-danger"> <i class="fas fa-eraser" title="Отменить распределение"></i></a>
+        <div class="col-1 text-right">
+            <a href="/payment/allocateToPaymentErase/{{$toPayment->id}}" class="btn btn-ssm btn-outline-danger" onclick="return confirm('Удалить распределение?')"> <i class="fas fa-eraser" title="Отменить распределение"></i></a>
         </div>
     </div>
             

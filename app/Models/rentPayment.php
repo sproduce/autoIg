@@ -69,6 +69,12 @@ class rentPayment extends Model
         return $this->hasOne(rentSubject::class,'id','subjectId')->withDefault();
     }
 
+    
+    
+    public function allocatePayment() 
+    {
+        return $this->hasMany(toPayment::class,'paymentId','id');
+    }
     //public function getdateTimeAttribute($value)
    // {
    //     return date('d-m-Y H:i', strtotime($value));

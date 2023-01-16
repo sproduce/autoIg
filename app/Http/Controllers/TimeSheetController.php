@@ -232,7 +232,11 @@ class TimeSheetController extends Controller
             'contractId' => $eventListRequest->get('contractId'),
             'delete'=> $eventListRequest->get('delete'),
             ]);
+        
         $periodDate = $dateSpan->getCarbonPeriod();
+        $carbonDate =  Carbon::create($periodDate->getStartDate());
+        $periodDate->setStartDate($carbonDate->addWeeks(2));
+        
         $eventsArray = $this->timeSheetServ->getAllTimeSheets($eventListFilter,$periodDate);
 
         $carsObj = $this->motorPoolRep->getCars();

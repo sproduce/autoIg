@@ -197,6 +197,14 @@ class PaymentController extends Controller
         return  redirect()->back();
     }
 
+    public function allocateToPaymentErase($toPaymentId)
+    {
+        $this->paymentServ->allocateToPaymentErase($toPaymentId);
+        return  redirect()->back();
+    }
+    
+    
+    
 
     public function paymentFullInfo($paymentId)
     {

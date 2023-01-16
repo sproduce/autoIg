@@ -313,6 +313,26 @@ Class PaymentService{
     }
 
 
+    public function allocateToPaymentErase($toPaymentId)
+    {
+        $toPaymentObj = $this->toPaymentRep->getToPayment($toPaymentId);
+        $paymentObj = $this->paymentRep->getPayment($toPaymentObj->paymentId);
+        if ($toPaymentObj->id != $toPaymentObj->pId){
+            $toPaymentParentObj = $toPaymentObj->parent();
+            $this->toPaymentRep->delToPayment($toPaymentObj);
+        } else {
+            $toPaymentObj->paymentSum = 0;
+            $toPaymentParentObj = $toPaymentObj;
+        }
+        
+        $this->updateParentToPayment($toPaymentParentObj);
+        $this->updatePayment($paymentObj);
+    }
+    
+    
+    
+    
+    
     public function getPaymentFullInfo($paymentId)
     {
         $paymentObj = $this->paymentRep->getPayment($paymentId);
@@ -369,7 +389,18 @@ Class PaymentService{
 
 
 
+    private function updatePayment(rentPayment $paymentObj)
+    {
+         $paymentObj->balance = $paymentObj->allocatePayment->sum('paymentSum');
+         $this->paymentRep->addPayment($paymentObj);
+    }
 
 
+
+    private function updateParentToPayment(toPayment $toPaymentObj)
+    {
+        $toPaymentObj->paymentSum = $toPaymentObj->child()->sum('paymentSum');
+        $this->toPaymentRep->addToPayment($toPaymentObj);
+    }
 
 }

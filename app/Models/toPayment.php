@@ -43,7 +43,7 @@ class toPayment extends Model
 
     public function parent() 
     {
-        return $this->hasOne(toPayment::class,'id','pId')->first();
+        return $this->hasOne(toPayment::class,'id','pId')->whereColumn('pId','=','id')->first();
     }
     
     

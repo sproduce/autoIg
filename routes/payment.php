@@ -33,6 +33,8 @@ Route::post('/addToPay',[PaymentController::class,'addToPay']);
 
 Route::get('/allocatePayment/{paymentId}',[PaymentController::class,'allocatePayment']);
 Route::get('/allocatePaymentErase/{paymentId}',[PaymentController::class,'allocatePaymentErase']);
+Route::get('/allocateToPaymentErase/{toPaymentId}',[PaymentController::class,'allocateToPaymentErase']);
+
 Route::post('/allocatePayment',[PaymentController::class,'saveAllocatePayment']);
 
 
