@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
 
 /**
  * @property int $id
@@ -33,5 +35,11 @@ class rentSubject extends Model
     protected $fillable = ['pid','payAccountId','regionId','surname','name','patronymic','companyName','nickname','birthday','comment','male','individual','client','carOwner','accessible'];
     protected $dates=['birthday'];
 
-
+    protected static function boot()
+        {
+            parent::boot();
+            static::creating(function ($post) {
+                $post->uuid = (string)Str::uuid();
+            });
+        }
 }
