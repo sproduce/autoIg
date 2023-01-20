@@ -10,15 +10,15 @@
     <div class="modal-body">
         <div class="container-fluid">
             <div class="form-row text-center">
-                <div class="form-group col-md-5 input-group-sm">
+                <div class="form-group col-md-4 input-group-sm">
                     <label for="number" title="Номер паспорта">Номер паспорта</label>
                     <input type="text" name="number" id="number" class="form-control" value="" required autocomplete="off"/>
                 </div>
-                <div class="form-group col-md-5 input-group-sm">
+                <div class="form-group col-md-4 input-group-sm">
                     <label for="issuedBy" title="">Выдан</label>
                     <input type="text" name="issuedBy" id="issuedBy" class="form-control" value="" required autocomplete="off"/>
                 </div>
-                <div class="form-group col-md-2 input-group-sm">
+                <div class="form-group col-md-4 input-group-sm">
                     <label for="dateIssued" title="">Дата выдачи</label>
                     <input type="date" name="dateIssued" id="dateIssued" class="form-control" value="" required autocomplete="off"/>
                 </div>

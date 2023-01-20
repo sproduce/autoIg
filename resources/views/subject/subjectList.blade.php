@@ -33,11 +33,14 @@
         @foreach($subjectsObj as $subject)
             <div class="row row-table">
                 <div class="col-3">
-                    <a href="/subject/fullInfo/{{$subject->id}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-                    {{$subject->surname}}  {{$subject->name}} {{$subject->patronymic}}
-                    @if($subject->companyName)
-                      <b>/ {{$subject->companyName}}</b>
-                    @endif
+                    <a href="/subject/fullInfoDialog/{{$subject->id}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                    <a href="/subject/fullInfo/{{$subject->id}}" title="Информация о субьекте">
+                        {{$subject->surname}}  {{$subject->name}} {{$subject->patronymic}}
+                        @if($subject->companyName)
+                            <b>/ {{$subject->companyName}}</b>
+                        @endif
+                    </a>
+                    
                 </div>
                 <div class="col-2">
                     @if ($subject->birthday)
@@ -69,7 +72,7 @@
                             @endif
                         </div>
                         <div class="col-2 p-0">
-                            <a href="" class="btn btn-ssm btn-outline-success DialogUser" title="Счет"><i class="fas fa-file-invoice-dollar"></i></a>
+                            <a href="/document/addPayment/{{$subject->uuid}}" class="btn btn-ssm btn-outline-success DialogUser" title="Счет"><i class="fas fa-file-invoice-dollar"></i></a>
                         </div>
                         <div class="col-2 p-0">                        
                             <a href="/subject/addContact/{{$subject->id}}" class="btn btn-ssm btn-outline-success DialogUserMin" title="Контакты"><i class="fas fa-phone"></i></a>

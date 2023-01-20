@@ -26,12 +26,27 @@ class SubjectController extends Controller
         return view('subject.subjectList',['subjectsObj' => $subjectsObj]);
     }
 
-    public function fullInfo($id)
+    public function fullInfoDialog($id)
     {
         $subjectObj = $this->subjectServ->getSubject($id);
         $subjectContactsObj = $this->subjectServ->getSubjectContacts($id);
         return view('dialog.Subject.infoSubject',['subjectObj' => $subjectObj,'subjectContactsObj' => $subjectContactsObj]);
     }
+    
+    
+    public function fullInfo($id)
+    {
+        $subjectObj = $this->subjectServ->getSubject($id);
+        $subjectContactsObj = $this->subjectServ->getSubjectContacts($id);
+        if ($subjectObj->individual){
+            $fileView = 'subject.infoIndividual';
+        } else {
+            $fileView = 'subject.info';
+        }
+        return view($fileView,['subjectObj' => $subjectObj,'subjectContactsObj' => $subjectContactsObj]);
+    }
+    
+    
 
     public function add(rentSubject $subjectObj,rentSubjectRegion $regionModel,payAccount $payAccountModel)
     {

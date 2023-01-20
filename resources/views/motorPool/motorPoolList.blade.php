@@ -54,18 +54,16 @@
                     {{$car->nickName}}
                 </div>
                 <div class="col-2">
-                    <a href="/timesheet/car?carId={{$car->id}}" title="События" class="btn btn-ssm btn-outline-primary">
+<!--                    <a href="/timesheet/car?carId={{$car->id}}" title="События" class="btn btn-ssm btn-outline-primary">
                         <i class="fas fa-calendar-alt"></i>
                     </a>
                     <a href="" title="Документы" class="btn btn-ssm btn-outline-success">
                         <i class="far fa-file-alt"></i>
-                    </a>
+                    </a>-->
                     <a href="/contract/add?carId={{$car->id}}" title="Добавить договор" class="btn btn-ssm btn-outline-secondary">
                         <i class="fas fa-file-contract"></i>
                     </a>
-                    <a href="/payment/addToPay?carId={{$car->id}}" title="Добавить к оплате" class="btn btn-ssm btn-outline-success DialogUserMin">
-                        <i class="fas fa-hand-holding-usd"></i>
-                    </a>
+                    
 
                     <div class="float-right">
                         <a class="btn btn-ssm btn-outline-warning DialogUser" href="/motorPool/edit?carId={{$car->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
