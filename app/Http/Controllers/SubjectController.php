@@ -38,6 +38,7 @@ class SubjectController extends Controller
     {
         $subjectObj = $this->subjectServ->getSubject($id);
         $subjectContactsObj = $this->subjectServ->getSubjectContacts($id);
+        
         if ($subjectObj->individual){
             $fileView = 'subject.infoIndividual';
         } else {

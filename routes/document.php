@@ -4,8 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DocumentController;
 
 
-Route::get('/addPassport/{linkUuid}',[DocumentController::class,'addPassportDialog']);
-Route::get('/addPayment/{linkUuid}',[DocumentController::class,'addPaymentDialog']);
-//Route::post('/addAdditional',[ContractController::class,'addContractAdditional']);
+Route::get('/addPassport/{passportId?}',[DocumentController::class,'addPassportDialog']);
+Route::get('/addPayment/{paymentId?}',[DocumentController::class,'addPaymentDialog']);
+Route::post('/storePassport',[DocumentController::class,'storePassport']);
+
+
+
+
 //Route::get('/carContracts',[ContractController::class,'dialogCarContract']);
 

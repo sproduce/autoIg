@@ -42,4 +42,24 @@ class rentSubject extends Model
                 $post->uuid = (string)Str::uuid();
             });
         }
+
+        
+    public function contacts()
+    {
+        return $this->hasMany(rentSubjectContact::class,'subjectId','id');
+    }    
+    
+    public function region()
+    {
+        return $this->hasOne(rentSubjectRegion::class,'id','regionId')->withDefault();
+    }    
+    
+    
+    
+    public function passports()
+    {
+        return $this->hasMany(rentDocumentPassport::class,'linkUuid','uuid');
+    }
+    
+    
 }

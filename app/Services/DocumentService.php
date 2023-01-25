@@ -13,9 +13,10 @@ Class DocumentService{
 
     
     
-    public function getPassport($uuid) 
+    public function getPassport($passportId) 
     {
-        
+        $passportObj = $this->documentRep->getPassport($passportId);
+        return $passportObj;
     }
     
     

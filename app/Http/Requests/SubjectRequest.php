@@ -46,6 +46,7 @@ class SubjectRequest extends FormRequest
             'client' => '',
             'carOwner' => '',
             'accessible' => '',
+            'uuid' => '',
         ];
     }
 }

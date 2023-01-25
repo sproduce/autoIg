@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Document;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PassportRequest extends FormRequest
+class UuidRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,12 +25,6 @@ class PassportRequest extends FormRequest
     {
         return [
             'uuid' => '',
-            'number' => '',
-            'issuedBy' => '',
-            'dateIssued' => '',
-            'birthplace' => '',
-            'placeResidence' => '',
-            'dateResidence' => '',
         ];
     }
 }
