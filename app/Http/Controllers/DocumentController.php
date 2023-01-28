@@ -34,7 +34,7 @@ class DocumentController extends Controller
         $passportObj = $this->documentServ->getPassport($passportRequest->get('id'));
         
         
-        $passportObj->linkUuid = $passportRequest->get('uuid');
+        $passportObj->linkUuid = $passportRequest->get('linkUuid');
         $passportObj->number = $passportRequest->get('number');
         $passportObj->birthplace = $passportRequest->get('birthplace');
         $passportObj->dateIssued = $passportRequest->get('dateIssued');	
@@ -48,12 +48,33 @@ class DocumentController extends Controller
     
     
     
+     public function storePayment(Document\PaymentRequest $paymentRequest) 
+     {
+         $paymentObj = $this->documentServ->getPayment($paymentRequest->get('id'));
+         
+         $paymentObj->linkUuid = $paymentRequest->get('linkUuid');
+         $paymentObj->checkingAccount = $paymentRequest->get('checkingAccount');
+         $paymentObj->bankName = $paymentRequest->get('bankName');
+         $paymentObj->bankInn = $paymentRequest->get('bankInn');
+         $paymentObj->bankBik = $paymentRequest->get('bankBik');
+         $paymentObj->correspondentAccount = $paymentRequest->get('correspondentAccount');
+         $paymentObj->address = $paymentRequest->get('address');
+         $paymentObj->name = $paymentRequest->get('name');
+         $paymentObj->save();
+         return  redirect()->back();
+     }
     
     
     
-    public function addPaymentDialog($uuid) 
+    
+    
+    public function addPaymentDialog(\App\Http\Requests\UuidRequest $uuidRequest,$paymentId = null) 
     {
-        return view('dialog.Document.addPayment');
+        $paymentObj = $this->documentServ->getPayment($paymentId);
+        if (!$paymentObj->id){
+            $paymentObj->uuid = $uuidRequest->get('uuid');
+        }
+        return view('dialog.Document.addPayment',['paymentObj' => $paymentObj]);
     }
     
 }

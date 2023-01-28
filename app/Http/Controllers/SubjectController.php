@@ -85,7 +85,7 @@ class SubjectController extends Controller
     public function saveContact(SubjectContactRequest $subjContactRequest)
     {
         $this->subjectServ->addSubjectContact($subjContactRequest);
-        return redirect('/subject/list');
+        return  redirect()->back();
     }
 
 

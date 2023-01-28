@@ -20,6 +20,10 @@ Class DocumentService{
     }
     
     
-    
+    public function getPayment($paymentId) 
+    {
+        $paymentObj = $this->documentRep->getPayment($paymentId);
+        return $paymentObj;
 
+    }
 }

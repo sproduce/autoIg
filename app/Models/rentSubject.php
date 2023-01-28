@@ -61,5 +61,14 @@ class rentSubject extends Model
         return $this->hasMany(rentDocumentPassport::class,'linkUuid','uuid');
     }
     
+    public function payments()
+    {
+        return $this->hasMany(rentDocumentPayment::class,'linkUuid','uuid');
+    }
+    
+    public function licenses() 
+    {
+         return $this->hasMany(rentDocumentPayment::class,'linkUuid',1);
+    }
     
 }

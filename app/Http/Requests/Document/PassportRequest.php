@@ -24,7 +24,7 @@ class PassportRequest extends FormRequest
     public function rules()
     {
         return [
-            'uuid' => '',
+            'linkUuid' => '',
             'number' => '',
             'issuedBy' => '',
             'dateIssued' => '',

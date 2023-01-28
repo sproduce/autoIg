@@ -23,8 +23,14 @@ class PaymentRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        return [ 
+            'checkingAccount' => '',
+            'bankName' => '',
+            'bankInn' => '',
+            'bankBik' => '',
+            'correspondentAccount' => '',
+            'address' => '',
+            'name' => '',
         ];
     }
 }
