@@ -17,6 +17,7 @@ class CreateRentDocumentEntitiesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->uuid('uuid');    
+            $table->uuid('linkUuid');    
             $table->boolean('actual')->nullable();
             $table->string('fullName')->nullable();
             $table->string('shortName')->nullable();

@@ -24,6 +24,15 @@ Class DocumentService{
     {
         $paymentObj = $this->documentRep->getPayment($paymentId);
         return $paymentObj;
-
     }
+    
+    
+    public function getLicense($licenseId) 
+    {
+        $licenseObj = $this->documentRep->getLicense($licenseId);
+        return $licenseObj;
+    }
+    
+    
+    
 }

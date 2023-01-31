@@ -5,7 +5,7 @@
         </button>
     </div>
 <form method="POST" action="/document/storePassport">
-    <input type="text" name="uuid" value="{{$passportObj->uuid}}" hidden />
+    <input type="text" name="linkUuid" value="{{$passportObj->uuid}}" hidden />
     <input type="text" name="id" value="{{$passportObj->id}}" hidden />
     @csrf
     <div class="modal-body">

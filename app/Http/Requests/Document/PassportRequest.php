@@ -31,6 +31,7 @@ class PassportRequest extends FormRequest
             'birthplace' => '',
             'placeResidence' => '',
             'dateResidence' => '',
+            'actual' => '',
         ];
     }
 }

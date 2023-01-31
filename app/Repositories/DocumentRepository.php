@@ -5,6 +5,9 @@ use App\Repositories\Interfaces\DocumentRepositoryInterface;
 
 use App\Models\rentDocumentPassport;
 use App\Models\rentDocumentPayment;
+use App\Models\rentDocumentLicense;
+
+
 
 class DocumentRepository implements DocumentRepositoryInterface
 {
@@ -18,5 +21,11 @@ class DocumentRepository implements DocumentRepositoryInterface
     {
         return rentDocumentPayment::find($paymentId) ?? new rentDocumentPayment;
     }
+    
+    public function getLicense($licenseId): rentDocumentLicense
+    {
+        return rentDocumentLicense::find($licenseId) ?? new rentDocumentLicense;
+    }
+    
     
 }

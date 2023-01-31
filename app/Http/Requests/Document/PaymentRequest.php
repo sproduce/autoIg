@@ -31,6 +31,7 @@ class PaymentRequest extends FormRequest
             'correspondentAccount' => '',
             'address' => '',
             'name' => '',
+            'actual' => '',
         ];
     }
 }

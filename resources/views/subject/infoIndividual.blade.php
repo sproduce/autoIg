@@ -88,20 +88,33 @@
                     <div class="col-1 p-0">{{$subjectPassport->dateResidence}}</div>
                 </div>
             @empty
-            <div class="row ">
+            <div class="row">
                 <div class="col-12 text-center"> <h6> Паспорт не добавлен</h6></div>
             </div>
             @endforelse
             
             
             <div class="row border-top mt-3">
-                <div class="col-1"><a class="btn btn-ssm btn-outline-success" href=""><i class="far fa-plus-square"></i></a></div>
+                <div class="col-1"><a class="btn btn-ssm btn-outline-success DialogUser" href="/document/addLicense?uuid={{$subjectObj->uuid}}"><i class="far fa-plus-square"></i></a></div>
                 <div class="col-3"></div>
                 <div class="col-4 text-center pt-3"><h5>Права</h5></div>
             </div>
               @forelse($subjectObj->licenses as $subjectLicense)
-                <div class="row ">
-                    
+                <div class="row">
+                    <div class="col-2"><strong>Номер</strong></div>
+                    <div class="col-2 text-left">{{$subjectLicense->number}}</div>
+                    <div class="col-2"><strong>Город выдачин</strong></div>
+                    <div class="col-2 text-left">{{$subjectLicense->city}}</div>
+                    <div class="col-2 p-0"><strong>Кем выдан</strong></div>
+                    <div class="col-2 p-0">{{$subjectLicense->issuedBy}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-2"><strong>Дата начала</strong></div>
+                    <div class="col-2 text-left">{{$subjectLicense->start}}</div>
+                    <div class="col-2"><strong>Дата окончания</strong></div>
+                    <div class="col-2 text-left">{{$subjectLicense->finish}}</div>
+                    <div class="col-2 p-0"><strong>Категории</strong></div>
+                    <div class="col-2 p-0">{{$subjectLicense->categories}}</div>
                 </div>
             @empty
             <div class="row ">

@@ -48,6 +48,36 @@ class DocumentController extends Controller
     
     
     
+    public function addLicenseDialog(\App\Http\Requests\UuidRequest $uuidRequest,$licenseId = null) 
+    {
+        $licenseObj = $this->documentServ->getLicense($licenseId);
+        if (!$licenseObj->id){
+            $licenseObj->uuid = $uuidRequest->get('uuid');
+        }
+        
+        return view('dialog.Document.addLicense',['licenseObj' => $licenseObj]);
+    }
+    
+    
+    
+    public function storeLicense(Document\LicenseRequest $licenseRequest) 
+    {
+        $licenseObj = $this->documentServ->getLicense($licenseRequest->get('id'));
+        $licenseObj->linkUuid = $licenseRequest->get('linkUuid');
+        $licenseObj->number = $licenseRequest->get('number');
+        $licenseObj->city = $licenseRequest->get('city');
+        $licenseObj->issuedBy = $licenseRequest->get('issuedBy');
+        $licenseObj->start = $licenseRequest->get('start');
+        $licenseObj->finish = $licenseRequest->get('finish');
+        $licenseObj->categories = $licenseRequest->get('categories');
+        
+        $licenseObj->save();
+        return  redirect()->back();
+    }
+    
+    
+    
+    
      public function storePayment(Document\PaymentRequest $paymentRequest) 
      {
          $paymentObj = $this->documentServ->getPayment($paymentRequest->get('id'));

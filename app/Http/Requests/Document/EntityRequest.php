@@ -13,7 +13,7 @@ class EntityRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,25 @@ class EntityRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id' => '',
+            'actual' => '',
+            'fullName' => '',
+            'shortName' => '',
+            'englishName' => '',
+            'address' => '',
+            'mailingAddress' => '',
+            'phone' => '',
+            'ogrn' => '',
+            'ogrnip' => '',
+            'dateReg' => '',
+            'nameReg' => '',
+            'director' => '',
+            'accountant' => '',
+            'okved' => '',
+            'okpo' => '',
+            'okato' => '',
+            'okogu' => '',
+            'inn' => '',
         ];
     }
 }
