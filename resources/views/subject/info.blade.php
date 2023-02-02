@@ -18,7 +18,7 @@
             
     
  <div class="row border-top mt-3">
-        <div class="col-1"><a class="btn btn-ssm btn-outline-success" href=""><i class="far fa-plus-square"></i></a></div>
+        <div class="col-1"><a class="btn btn-ssm btn-outline-success DialogUserMin" href="/subject/addContact/{{$subjectObj->id}}"><i class="far fa-plus-square"></i></a></div>
         <div class="col-3"></div>
         <div class="col-4 text-center pt-3"><h5> Контакты</h5></div>
     </div>
@@ -67,7 +67,7 @@
             
             
             <div class="row border-top mt-3">
-                <div class="col-1"><a class="btn btn-ssm btn-outline-success" href=""><i class="far fa-plus-square"></i></a></div>
+                <div class="col-1"><a class="btn btn-ssm btn-outline-success DialogUser" href="/document/addEntity?uuid={{$subjectObj->uuid}}"><i class="far fa-plus-square"></i></a></div>
                 <div class="col-3"></div>
                 <div class="col-4 text-center pt-3"><h5>Полное официальное название</h5></div>
             </div>

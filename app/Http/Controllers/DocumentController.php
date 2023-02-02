@@ -107,4 +107,24 @@ class DocumentController extends Controller
         return view('dialog.Document.addPayment',['paymentObj' => $paymentObj]);
     }
     
+    
+    
+    public function addEntityDialog(\App\Http\Requests\UuidRequest $uuidRequest,$entityId = null) 
+    {
+        $entityObj = $this->documentServ->getEntity($entityId);
+        if (!$entityObj->id){
+            $entityObj->uuid = $uuidRequest->get('uuid');
+        }
+        
+        return view('dialog.Document.addEntity',['entityObj' => $entityObj]);
+    }
+    
+    
+    
+    public function storeEntity(Document\EntityRequest $entityRequest) 
+    {
+        
+        
+    }
+    
 }

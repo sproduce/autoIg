@@ -27,6 +27,12 @@ Class DocumentService{
     }
     
     
+    public function getEntity($entityId) 
+    {
+        $entityObj = $this->documentRep->getEntity($entityId);
+        return $entityObj;
+    }
+    
     public function getLicense($licenseId) 
     {
         $licenseObj = $this->documentRep->getLicense($licenseId);
