@@ -11,9 +11,16 @@ interface DocumentRepositoryInterface
 {
     
     public function getPassport($passportId): rentDocumentPassport;
+    public function eraseActualPassport($linkUuid);
+    
     public function getPayment($paymentId): rentDocumentPayment;
+    public function eraseActualPayment($linkUuid);
+    
     public function getLicense($licenseId): rentDocumentLicense;
+    public function eraseActualLicense($linkUuid);
+    
     public function getEntity($entityId): rentDocumentEntity;
+    public function eraseActualEntity($linkUuid);
 
     
 }

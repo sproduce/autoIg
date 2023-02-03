@@ -71,4 +71,9 @@ class rentSubject extends Model
          return $this->hasMany(rentDocumentLicense::class,'linkUuid','uuid');
     }
     
+    public function entities() 
+    {
+         return $this->hasMany(rentDocumentEntity::class,'linkUuid','uuid');
+    }
+    
 }

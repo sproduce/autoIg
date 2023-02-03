@@ -40,25 +40,51 @@
             </div>
             @forelse($subjectObj->payments as $subjectPayment)
             <div class="row">
-                <div class="col-2"><strong>Расчетный счет</strong></div>
-                <div class="col-2 text-left">{{$subjectPayment->checkingAccount}}</div>
-                <div class="col-2"><strong>Банк</strong></div>
-                <div class="col-2 text-left">{{$subjectPayment->bankName}}</div>
-                <div class="col-2"><strong>ИНН банка</strong></div>
-                <div class="col-2 text-left">{{$subjectPayment->bankInn}}</div>
+                <div class="col-11">
+                    <div class="row">
+                        <div class="col-2"><strong>Расчетный счет</strong></div>
+                        <div class="col-2 text-left">{{$subjectPayment->checkingAccount}}</div>
+                        <div class="col-2"><strong>Банк</strong></div>
+                        <div class="col-2 text-left">{{$subjectPayment->bankName}}</div>
+                        <div class="col-2"><strong>ИНН банка</strong></div>
+                        <div class="col-2 text-left">{{$subjectPayment->bankInn}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2"><strong>БИК банка</strong></div>
+                        <div class="col-2 text-left">{{$subjectPayment->bankBik}}</div>
+                        <div class="col-2"><strong>к/сч</strong></div>
+                        <div class="col-2 text-left">{{$subjectPayment->correspondentAccount}}</div>
+                        <div class="col-2"><strong>Юридический адрес</strong></div>
+                        <div class="col-2 text-left">{{$subjectPayment->address}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2"><strong>Название филиала</strong></div>
+                        <div class="col-2 text-left">{{$subjectPayment->name}}</div>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="row">
+                        <div class="col-12">
+                            <a class="btn btn-ssm btn-outline-warning DialogUser" href="/document/addPayment/{{$subjectPayment->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            @if(!$subjectPayment->actual)
+                                <a class="btn btn-ssm btn-outline-primary" href="/document/actualPayment/{{$subjectPayment->id}}" title="Актуальные данные">
+                                    <i class="fas fa-check"></i>
+                                </a>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-2"><strong>БИК банка</strong></div>
-                <div class="col-2 text-left">{{$subjectPayment->bankBik}}</div>
-                <div class="col-2"><strong>к/сч</strong></div>
-                <div class="col-2 text-left">{{$subjectPayment->correspondentAccount}}</div>
-                <div class="col-2"><strong>Юридический адрес</strong></div>
-                <div class="col-2 text-left">{{$subjectPayment->address}}</div>
-            </div>
-            <div class="row">
-                <div class="col-2"><strong>Название филиала</strong></div>
-                <div class="col-2 text-left">{{$subjectPayment->name}}</div>
-            </div>
+            
             @empty
              <div class="row ">
                 <div class="col-12 text-center"> <h6> Платежные реквизиты не добавлены</h6></div>
@@ -71,21 +97,41 @@
             </div>
             
              @forelse($subjectObj->passports as $subjectPassport)
-                <div class="row ">
-                    <div class="col-2"><strong>Номер</strong></div>
-                    <div class="col-3 text-left">{{$subjectPassport->number}}</div>
-                    <div class="col-1"><strong>Выдан</strong></div>
-                    <div class="col-4 text-left">{{$subjectPassport->issuedBy}}</div>
-                    <div class="col-1 p-0"><strong>Дата выдачи</strong></div>
-                    <div class="col-1 p-0">{{$subjectPassport->dateIssued}}</div>
-                </div>
-                <div class="row ">
-                    <div class="col-2"><strong>Место рождения</strong></div>
-                    <div class="col-3 text-left">{{$subjectPassport->birthplace}}</div>
-                    <div class="col-1"><strong>Прописка</strong></div>
-                    <div class="col-4 text-left">{{$subjectPassport->placeResidence}}</div>
-                    <div class="col-1 p-0"><strong>Дата</strong></div>
-                    <div class="col-1 p-0">{{$subjectPassport->dateResidence}}</div>
+                <div class="row">
+                    <div class="col-11">
+                        <div class="row ">
+                            <div class="col-2"><strong>Номер</strong></div>
+                            <div class="col-3 text-left">{{$subjectPassport->number}}</div>
+                            <div class="col-1"><strong>Выдан</strong></div>
+                            <div class="col-4 text-left">{{$subjectPassport->issuedBy}}</div>
+                            <div class="col-1 p-0"><strong>Дата выдачи</strong></div>
+                            <div class="col-1 p-0">{{$subjectPassport->dateIssued}}</div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-2"><strong>Место рождения</strong></div>
+                            <div class="col-3 text-left">{{$subjectPassport->birthplace}}</div>
+                            <div class="col-1"><strong>Прописка</strong></div>
+                            <div class="col-4 text-left">{{$subjectPassport->placeResidence}}</div>
+                            <div class="col-1 p-0"><strong>Дата</strong></div>
+                            <div class="col-1 p-0">{{$subjectPassport->dateResidence}}</div>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="row">
+                            <div class="col-12">
+                                <a class="btn btn-ssm btn-outline-warning DialogUser" href="/document/addPassport/{{$subjectPassport->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                @if(!$subjectPassport->actual)
+                                    <a class="btn btn-ssm btn-outline-primary" href="/document/actualPassport/{{$subjectPassport->id}}" title="Актуальные данные">
+                                        <i class="fas fa-check"></i>
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
             @empty
             <div class="row">
@@ -101,20 +147,40 @@
             </div>
               @forelse($subjectObj->licenses as $subjectLicense)
                 <div class="row">
-                    <div class="col-2"><strong>Номер</strong></div>
-                    <div class="col-2 text-left">{{$subjectLicense->number}}</div>
-                    <div class="col-2"><strong>Город выдачин</strong></div>
-                    <div class="col-2 text-left">{{$subjectLicense->city}}</div>
-                    <div class="col-2 p-0"><strong>Кем выдан</strong></div>
-                    <div class="col-2 p-0">{{$subjectLicense->issuedBy}}</div>
-                </div>
-                <div class="row">
-                    <div class="col-2"><strong>Дата начала</strong></div>
-                    <div class="col-2 text-left">{{$subjectLicense->start}}</div>
-                    <div class="col-2"><strong>Дата окончания</strong></div>
-                    <div class="col-2 text-left">{{$subjectLicense->finish}}</div>
-                    <div class="col-2 p-0"><strong>Категории</strong></div>
-                    <div class="col-2 p-0">{{$subjectLicense->categories}}</div>
+                    <div class="col-11">
+                        <div class="row">
+                            <div class="col-2"><strong>Номер</strong></div>
+                            <div class="col-2 text-left">{{$subjectLicense->number}}</div>
+                            <div class="col-2"><strong>Город выдачин</strong></div>
+                            <div class="col-2 text-left">{{$subjectLicense->city}}</div>
+                            <div class="col-2 p-0"><strong>Кем выдан</strong></div>
+                            <div class="col-2 p-0">{{$subjectLicense->issuedBy}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2"><strong>Дата начала</strong></div>
+                            <div class="col-2 text-left">{{$subjectLicense->start}}</div>
+                            <div class="col-2"><strong>Дата окончания</strong></div>
+                            <div class="col-2 text-left">{{$subjectLicense->finish}}</div>
+                            <div class="col-2 p-0"><strong>Категории</strong></div>
+                            <div class="col-2 p-0">{{$subjectLicense->categories}}</div>
+                        </div>
+                         </div>
+                    <div class="col-1">
+                        <div class="row">
+                            <div class="col-12">
+                                <a class="btn btn-ssm btn-outline-warning DialogUser" href="/document/addLicense/{{$subjectLicense->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                @if(!$subjectLicense->actual)
+                                    <a class="btn btn-ssm btn-outline-primary" href="/document/actualLicense/{{$subjectLicense->id}}" title="Актуальные данные">
+                                        <i class="fas fa-check"></i>
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
             @empty
             <div class="row ">

@@ -21,12 +21,16 @@ class DocumentController extends Controller
     {
         $passportObj = $this->documentServ->getPassport($passportId);
         if (!$passportObj->id){
-            $passportObj->uuid = $uuidRequest->get('uuid');
+            $passportObj->linkUuid = $uuidRequest->get('uuid');
         }
         return view('dialog.Document.addPassport',['passportObj'=>$passportObj]);
     }
     
-    
+    public function actualPassport($passportId) 
+    {
+        $this->documentServ->actualPassport($passportId);
+        return  redirect()->back();
+    }
     
     
     public function storePassport(Document\PassportRequest $passportRequest) 
@@ -52,10 +56,18 @@ class DocumentController extends Controller
     {
         $licenseObj = $this->documentServ->getLicense($licenseId);
         if (!$licenseObj->id){
-            $licenseObj->uuid = $uuidRequest->get('uuid');
+            $licenseObj->linkUuid = $uuidRequest->get('uuid');
         }
         
         return view('dialog.Document.addLicense',['licenseObj' => $licenseObj]);
+    }
+    
+    
+    
+    public function actualLicense($licenseId) 
+    {
+         $this->documentServ->actualLicense($licenseId);
+        return  redirect()->back();
     }
     
     
@@ -95,14 +107,18 @@ class DocumentController extends Controller
      }
     
     
-    
+    public function actualPayment($paymentId) 
+    {
+        $this->documentServ->actualPayment($paymentId);
+        return  redirect()->back();
+    }
     
     
     public function addPaymentDialog(\App\Http\Requests\UuidRequest $uuidRequest,$paymentId = null) 
     {
         $paymentObj = $this->documentServ->getPayment($paymentId);
         if (!$paymentObj->id){
-            $paymentObj->uuid = $uuidRequest->get('uuid');
+            $paymentObj->linkUuid = $uuidRequest->get('uuid');
         }
         return view('dialog.Document.addPayment',['paymentObj' => $paymentObj]);
     }
@@ -113,18 +129,45 @@ class DocumentController extends Controller
     {
         $entityObj = $this->documentServ->getEntity($entityId);
         if (!$entityObj->id){
-            $entityObj->uuid = $uuidRequest->get('uuid');
+            $entityObj->linkUuid = $uuidRequest->get('uuid');
         }
         
         return view('dialog.Document.addEntity',['entityObj' => $entityObj]);
     }
     
     
+    public function actualEntity($entityId) 
+    {
+        $this->documentServ->actualEntity($entityId);
+        return  redirect()->back();
+    }
+    
+    
     
     public function storeEntity(Document\EntityRequest $entityRequest) 
     {
+        $entityObj = $this->documentServ->getEntity($entityRequest->get('id'));
         
-        
+        $entityObj->linkUuid = $entityRequest->get('linkUuid');
+        $entityObj->fullName = $entityRequest->get('fullName');
+        $entityObj->shortName = $entityRequest->get('shortName');
+        $entityObj->englishName = $entityRequest->get('englishName');
+        $entityObj->address = $entityRequest->get('address');
+        $entityObj->mailingAddress = $entityRequest->get('mailingAddress');
+        $entityObj->phone = $entityRequest->get('phone');
+        $entityObj->ogrn = $entityRequest->get('ogrn');
+        $entityObj->ogrnip = $entityRequest->get('ogrnip');
+        $entityObj->dateReg = $entityRequest->get('dateReg');
+        $entityObj->nameReg = $entityRequest->get('nameReg');
+        $entityObj->director = $entityRequest->get('director');
+        $entityObj->accountant = $entityRequest->get('accountant');
+        $entityObj->okved = $entityRequest->get('okved');
+        $entityObj->okpo = $entityRequest->get('okpo');
+        $entityObj->okato = $entityRequest->get('okato');
+        $entityObj->okogu = $entityRequest->get('okogu');
+        $entityObj->inn = $entityRequest->get('inn');
+        $entityObj->save();
+        return  redirect()->back();
     }
     
 }
