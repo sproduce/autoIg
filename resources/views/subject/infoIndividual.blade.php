@@ -33,13 +33,13 @@
             </div>
             @endforelse
             
-            <div class="row border-top mt-3">
+            <div class="row border-top border-dark mt-3 pt-2">
                 <div class="col-1"><a class="btn btn-ssm btn-outline-success DialogUser" href="/document/addPayment?uuid={{$subjectObj->uuid}}"><i class="far fa-plus-square"></i></a></div>
                 <div class="col-3"></div>
                 <div class="col-4 text-center pt-3"><h5>Платежные реквизиты</h5></div>
             </div>
             @forelse($subjectObj->payments as $subjectPayment)
-            <div class="row">
+            <div class="row @if(!$loop->first) border-top mt-3 pt-2 @endif">
                 <div class="col-11">
                     <div class="row">
                         <div class="col-2"><strong>Расчетный счет</strong></div>
@@ -64,8 +64,11 @@
                 </div>
                 <div class="col-1">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
                             <a class="btn btn-ssm btn-outline-warning DialogUser" href="/document/addPayment/{{$subjectPayment->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                        </div>
+                        <div class="col-6">
+                            <a href="/file/fileInfoDialog/{{$subjectPayment->uuid}}" class="btn btn-ssm @if($subjectPayment->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
                         </div>
                     </div>
                     <div class="row">
@@ -90,14 +93,14 @@
                 <div class="col-12 text-center"> <h6> Платежные реквизиты не добавлены</h6></div>
             </div>
             @endforelse
-            <div class="row border-top mt-3">
+            <div class="row border-top mt-3 pt-2 border-dark">
                 <div class="col-1"><a class="btn btn-ssm btn-outline-success DialogUser" href="/document/addPassport?uuid={{$subjectObj->uuid}}"><i class="far fa-plus-square"></i></a></div>
                 <div class="col-3"></div>
                 <div class="col-4 text-center pt-3"><h5>Паспорт</h5></div>
             </div>
             
              @forelse($subjectObj->passports as $subjectPassport)
-                <div class="row">
+                <div class="row @if(!$loop->first) border-top mt-3 pt-2 @endif">
                     <div class="col-11">
                         <div class="row ">
                             <div class="col-2"><strong>Номер</strong></div>
@@ -118,8 +121,11 @@
                     </div>
                     <div class="col-1">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <a class="btn btn-ssm btn-outline-warning DialogUser" href="/document/addPassport/{{$subjectPassport->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                            </div>
+                            <div class="col-6">
+                                <a href="/file/fileInfoDialog/{{$subjectPassport->uuid}}" class="btn btn-ssm @if($subjectPassport->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
                             </div>
                         </div>
                         <div class="row">
@@ -140,13 +146,13 @@
             @endforelse
             
             
-            <div class="row border-top mt-3">
+            <div class="row border-top mt-3 pt-2 border-dark">
                 <div class="col-1"><a class="btn btn-ssm btn-outline-success DialogUser" href="/document/addLicense?uuid={{$subjectObj->uuid}}"><i class="far fa-plus-square"></i></a></div>
                 <div class="col-3"></div>
                 <div class="col-4 text-center pt-3"><h5>Права</h5></div>
             </div>
               @forelse($subjectObj->licenses as $subjectLicense)
-                <div class="row">
+                <div class="row @if(!$loop->first) border-top mt-3 pt-2 @endif">
                     <div class="col-11">
                         <div class="row">
                             <div class="col-2"><strong>Номер</strong></div>
@@ -167,8 +173,11 @@
                          </div>
                     <div class="col-1">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <a class="btn btn-ssm btn-outline-warning DialogUser" href="/document/addLicense/{{$subjectLicense->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                            </div>
+                            <div class="col-6">
+                                <a href="/file/fileInfoDialog/{{$subjectLicense->uuid}}" class="btn btn-ssm @if($subjectLicense->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
                             </div>
                         </div>
                         <div class="row">

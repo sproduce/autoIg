@@ -16,4 +16,12 @@ class rentDocumentLicense extends Model
                 $post->uuid = (string)Str::uuid();
             });
         }
+        
+        
+        
+    public function files() 
+    {
+        return $this->hasMany(photoLink::class,'linkUuid','uuid');
+    }
+        
 }

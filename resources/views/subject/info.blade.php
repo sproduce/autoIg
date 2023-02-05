@@ -31,13 +31,13 @@
             </div>
             @endforelse
             
-            <div class="row border-top mt-3">
+            <div class="row border-top mt-3 pt-2 border-dark">
                 <div class="col-1"><a class="btn btn-ssm btn-outline-success DialogUser" href="/document/addPayment?uuid={{$subjectObj->uuid}}"><i class="far fa-plus-square"></i></a></div>
                 <div class="col-3"></div>
                 <div class="col-4 text-center pt-3"><h5>Платежные реквизиты</h5></div>
             </div>
             @forelse($subjectObj->payments as $subjectPayment)
-                <div class="row">
+                <div class="row @if(!$loop->first) border-top mt-3 pt-2 @endif">
                     <div class="col-11">
                         <div class="row">
                             <div class="col-2"><strong>Расчетный счет</strong></div>
@@ -62,8 +62,11 @@
                         </div>
                     <div class="col-1">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <a class="btn btn-ssm btn-outline-warning DialogUser" href="/document/addPayment/{{$subjectPayment->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                            </div>
+                            <div class="col-6">
+                                <a href="/file/fileInfoDialog/{{$subjectPayment->uuid}}" class="btn btn-ssm @if($subjectPayment->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
                             </div>
                         </div>
                         <div class="row">
@@ -89,14 +92,14 @@
             @endforelse
             
             
-            <div class="row border-top mt-3">
+            <div class="row border-top mt-3 pt-2 border-dark">
                 <div class="col-1"><a class="btn btn-ssm btn-outline-success DialogUser" href="/document/addEntity?uuid={{$subjectObj->uuid}}"><i class="far fa-plus-square"></i></a></div>
                 <div class="col-3"></div>
                 <div class="col-4 text-center pt-3"><h5>Полное официальное название</h5></div>
             </div>
             
             @forelse($subjectObj->entities as $subjectEntity)
-                <div class="row">
+                <div class="row @if(!$loop->first) border-top mt-3 pt-2 @endif">
                     <div class="col-11">
                         <div class="row">
                             <div class="col-3"><strong>Полное официальное название</strong></div>
@@ -149,8 +152,11 @@
                     </div>
                     <div class="col-1">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <a class="btn btn-ssm btn-outline-warning DialogUser" href="/document/addEntity/{{$subjectEntity->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                            </div>
+                            <div class="col-6">
+                                <a href="/file/fileInfoDialog/{{$subjectEntity->uuid}}" class="btn btn-ssm @if($subjectEntity->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
                             </div>
                         </div>
                         <div class="row">
