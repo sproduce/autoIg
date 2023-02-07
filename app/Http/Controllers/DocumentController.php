@@ -156,7 +156,6 @@ class DocumentController extends Controller
         $entityObj->mailingAddress = $entityRequest->get('mailingAddress');
         $entityObj->phone = $entityRequest->get('phone');
         $entityObj->ogrn = $entityRequest->get('ogrn');
-        $entityObj->ogrnip = $entityRequest->get('ogrnip');
         $entityObj->dateReg = $entityRequest->get('dateReg');
         $entityObj->nameReg = $entityRequest->get('nameReg');
         $entityObj->director = $entityRequest->get('director');
@@ -166,6 +165,8 @@ class DocumentController extends Controller
         $entityObj->okato = $entityRequest->get('okato');
         $entityObj->okogu = $entityRequest->get('okogu');
         $entityObj->inn = $entityRequest->get('inn');
+        $entityObj->oktmo = $entityRequest->get('oktmo');
+        $entityObj->kpp = $entityRequest->get('kpp');
         $entityObj->save();
         return  redirect()->back();
     }

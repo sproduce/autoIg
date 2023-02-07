@@ -33,7 +33,6 @@ class EntityRequest extends FormRequest
             'mailingAddress' => '',
             'phone' => '',
             'ogrn' => '',
-            'ogrnip' => '',
             'dateReg' => '',
             'nameReg' => '',
             'director' => '',
@@ -43,6 +42,8 @@ class EntityRequest extends FormRequest
             'okato' => '',
             'okogu' => '',
             'inn' => '',
+            'kpp' => '',
+            'oktmo' => '',
         ];
     }
 }

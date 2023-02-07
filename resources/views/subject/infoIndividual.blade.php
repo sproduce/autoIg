@@ -40,12 +40,12 @@
             </div>
             @forelse($subjectObj->payments as $subjectPayment)
             <div class="row @if(!$loop->first) border-top mt-3 pt-2 @endif">
-                <div class="col-11">
+                <div class="col-11 @if($subjectPayment->actual)bg-secondary @endif">
                     <div class="row">
-                        <div class="col-2"><strong>Расчетный счет</strong></div>
-                        <div class="col-2 text-left">{{$subjectPayment->checkingAccount}}</div>
                         <div class="col-2"><strong>Банк</strong></div>
                         <div class="col-2 text-left">{{$subjectPayment->bankName}}</div>
+                        <div class="col-2"><strong>Расчетный счет</strong></div>
+                        <div class="col-2 text-left">{{$subjectPayment->checkingAccount}}</div>
                         <div class="col-2"><strong>ИНН банка</strong></div>
                         <div class="col-2 text-left">{{$subjectPayment->bankInn}}</div>
                     </div>
@@ -73,11 +73,10 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            @if(!$subjectPayment->actual)
-                                <a class="btn btn-ssm btn-outline-primary" href="/document/actualPayment/{{$subjectPayment->id}}" title="Актуальные данные">
-                                    <i class="fas fa-check"></i>
-                                </a>
-                            @endif
+                            <a class="btn btn-ssm btn-outline-primary @if($subjectPayment->actual)disabled @endif" href="/document/actualPayment/{{$subjectPayment->id}}" title="Актуальные данные">
+                                <i class="fas fa-check"></i>
+                            </a>
+
                         </div>
                     </div>
                     <div class="row">
@@ -101,7 +100,7 @@
             
              @forelse($subjectObj->passports as $subjectPassport)
                 <div class="row @if(!$loop->first) border-top mt-3 pt-2 @endif">
-                    <div class="col-11">
+                    <div class="col-11 @if($subjectPassport->actual)bg-secondary @endif">
                         <div class="row ">
                             <div class="col-2"><strong>Номер</strong></div>
                             <div class="col-3 text-left">{{$subjectPassport->number}}</div>
@@ -130,11 +129,10 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                @if(!$subjectPassport->actual)
-                                    <a class="btn btn-ssm btn-outline-primary" href="/document/actualPassport/{{$subjectPassport->id}}" title="Актуальные данные">
-                                        <i class="fas fa-check"></i>
-                                    </a>
-                                @endif
+                                <a class="btn btn-ssm btn-outline-primary @if($subjectPassport->actual)disabled @endif" href="/document/actualPassport/{{$subjectPassport->id}}" title="Актуальные данные">
+                                    <i class="fas fa-check"></i>
+                                </a>
+ 
                             </div>
                         </div>
                     </div>
@@ -153,7 +151,7 @@
             </div>
               @forelse($subjectObj->licenses as $subjectLicense)
                 <div class="row @if(!$loop->first) border-top mt-3 pt-2 @endif">
-                    <div class="col-11">
+                    <div class="col-11 @if($subjectLicense->actual)bg-secondary @endif">
                         <div class="row">
                             <div class="col-2"><strong>Номер</strong></div>
                             <div class="col-2 text-left">{{$subjectLicense->number}}</div>
@@ -182,11 +180,9 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                @if(!$subjectLicense->actual)
-                                    <a class="btn btn-ssm btn-outline-primary" href="/document/actualLicense/{{$subjectLicense->id}}" title="Актуальные данные">
-                                        <i class="fas fa-check"></i>
-                                    </a>
-                                @endif
+                                <a class="btn btn-ssm btn-outline-primary @if($subjectLicense->actual)disabled @endif" href="/document/actualLicense/{{$subjectLicense->id}}" title="Актуальные данные">
+                                    <i class="fas fa-check"></i>
+                                </a>
                             </div>
                         </div>
                     </div>

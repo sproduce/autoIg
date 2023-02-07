@@ -38,12 +38,12 @@
             </div>
             @forelse($subjectObj->payments as $subjectPayment)
                 <div class="row @if(!$loop->first) border-top mt-3 pt-2 @endif">
-                    <div class="col-11">
+                    <div class="col-11 @if($subjectPayment->actual)bg-secondary @endif">
                         <div class="row">
-                            <div class="col-2"><strong>Расчетный счет</strong></div>
-                            <div class="col-2 text-left">{{$subjectPayment->checkingAccount}}</div>
                             <div class="col-2"><strong>Банк</strong></div>
                             <div class="col-2 text-left">{{$subjectPayment->bankName}}</div>
+                            <div class="col-2"><strong>Расчетный счет</strong></div>
+                            <div class="col-2 text-left">{{$subjectPayment->checkingAccount}}</div>
                             <div class="col-2"><strong>ИНН банка</strong></div>
                             <div class="col-2 text-left">{{$subjectPayment->bankInn}}</div>
                         </div>
@@ -71,11 +71,9 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                @if(!$subjectPayment->actual)
-                                    <a class="btn btn-ssm btn-outline-primary" href="/document/actualPayment/{{$subjectPayment->id}}" title="Актуальные данные">
-                                        <i class="fas fa-check"></i>
-                                    </a>
-                                @endif
+                                <a class="btn btn-ssm btn-outline-primary @if($subjectPayment->actual)disabled @endif" href="/document/actualPayment/{{$subjectPayment->id}}" title="Актуальные данные">
+                                    <i class="fas fa-check"></i>
+                                </a>
                             </div>
                         </div>
                         <div class="row">
@@ -95,12 +93,12 @@
             <div class="row border-top mt-3 pt-2 border-dark">
                 <div class="col-1"><a class="btn btn-ssm btn-outline-success DialogUser" href="/document/addEntity?uuid={{$subjectObj->uuid}}"><i class="far fa-plus-square"></i></a></div>
                 <div class="col-3"></div>
-                <div class="col-4 text-center pt-3"><h5>Полное официальное название</h5></div>
+                <div class="col-4 text-center pt-3"><h5>Карточка предприятия</h5></div>
             </div>
             
             @forelse($subjectObj->entities as $subjectEntity)
                 <div class="row @if(!$loop->first) border-top mt-3 pt-2 @endif">
-                    <div class="col-11">
+                    <div class="col-11 @if($subjectEntity->actual)bg-secondary @endif">
                         <div class="row">
                             <div class="col-3"><strong>Полное официальное название</strong></div>
                             <div class="col-3 text-left">{{$subjectEntity->fullName}}</div>
@@ -124,8 +122,8 @@
                             <div class="col-2 text-left">{{$subjectEntity->phone}}</div>
                             <div class="col-2"><strong>ОГРН</strong></div>
                             <div class="col-2 text-left">{{$subjectEntity->ogrn}}</div>
-                            <div class="col-2"><strong>ОГРНИП</strong></div>
-                            <div class="col-2 text-left">{{$subjectEntity->ogrnip}}</div>
+                            <div class="col-2"><strong>ОКТМО</strong></div>
+                            <div class="col-2 text-left">{{$subjectEntity->oktmo}}</div>
                         </div>
                         <div class="row">
                             <div class="col-2"><strong>Дата государственной регистрации</strong></div>
@@ -136,12 +134,16 @@
                             <div class="col-2 text-left">{{$subjectEntity->okpo}}</div>
                         </div>
                         <div class="row">
-                            <div class="col-2"><strong>ОКАТО/ОКТМО</strong></div>
+                            <div class="col-2"><strong>ОКАТО</strong></div>
                             <div class="col-2 text-left">{{$subjectEntity->okato}}</div>
                             <div class="col-2"><strong>ОКОГУ</strong></div>
                             <div class="col-2 text-left">{{$subjectEntity->okogu}}</div>
-                            <div class="col-2"><strong>ИНН/КПП</strong></div>
+                            <div class="col-2"><strong>ИНН</strong></div>
                             <div class="col-2 text-left">{{$subjectEntity->inn}}</div>
+                        </div>
+                         <div class="row">
+                            <div class="col-2"><strong>КПП</strong></div>
+                            <div class="col-2 text-left">{{$subjectEntity->kpp}}</div>
                         </div>
                          <div class="row">
                             <div class="col-3"><strong>Генеральный директор</strong></div>
@@ -161,11 +163,9 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                @if(!$subjectEntity->actual)
-                                    <a class="btn btn-ssm btn-outline-primary" href="/document/actualEntity/{{$subjectEntity->id}}" title="Актуальные данные">
-                                        <i class="fas fa-check"></i>
-                                    </a>
-                                @endif
+                                <a class="btn btn-ssm btn-outline-primary @if($subjectEntity->actual)disabled @endif" href="/document/actualEntity/{{$subjectEntity->id}}" title="Актуальные данные">
+                                    <i class="fas fa-check"></i>
+                                </a>
                             </div>
                         </div>
                         <div class="row">

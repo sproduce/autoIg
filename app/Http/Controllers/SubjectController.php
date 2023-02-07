@@ -79,6 +79,8 @@ class SubjectController extends Controller
     public function save(SubjectRequest $subjectReq)
     {
         $this->subjectServ->addSubject($subjectReq);
+        
+        //return subjecObj
         return redirect('/subject/list');
     }
 
