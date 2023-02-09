@@ -28,6 +28,7 @@ use App\Repositories\ToPaymentRepository;
 use App\Repositories\AdditionalRepository;
 use App\Repositories\GibddFineRepository;
 use App\Repositories\DocumentRepository;
+use App\Repositories\PrintDocumentRepository;
 
 
 
@@ -50,6 +51,7 @@ use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use App\Repositories\Interfaces\AdditionalRepositoryInterface;
 use App\Repositories\Interfaces\GibddFineRepositoryInterface;
 use App\Repositories\Interfaces\DocumentRepositoryInterface;
+use App\Repositories\Interfaces\PrintDocumentRepositoryInterface;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -82,6 +84,7 @@ class AppServiceProvider extends ServiceProvider
         
         $this->app->bind(GibddFineRepositoryInterface::class, GibddFineRepository::class);
         $this->app->bind(DocumentRepositoryInterface::class, DocumentRepository::class);
+        $this->app->bind(PrintDocumentRepositoryInterface::class, PrintDocumentRepository::class);
     }
 
     /**

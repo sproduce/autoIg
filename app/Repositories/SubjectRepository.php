@@ -18,7 +18,7 @@ class SubjectRepository implements SubjectRepositoryInterface
 
     public function getSubject($id): rentSubject
     {
-        return rentSubject::find($id);
+        return rentSubject::find($id) ?? new rentSubject();
     }
 
     public function getSubjects()

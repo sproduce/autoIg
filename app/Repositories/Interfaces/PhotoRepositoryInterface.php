@@ -11,6 +11,7 @@ interface PhotoRepositoryInterface
     public function saveLink($photoId,$uuid);
     public function getFiles($uuid);
     public function deleteFile($uuid,$fileId);
+    public function deleteFiles($uuid);
 
 
 }

@@ -54,4 +54,11 @@ public function getPhoto($id)
         photoLink::where('linkUuid',$uuid)->where('photoId',$fileId)->delete();
     }
     
+    
+    public function deleteFiles($uuid) 
+    {
+        photoLink::where('linkUuid',$uuid)->delete();
+    }
+    
+    
 }
