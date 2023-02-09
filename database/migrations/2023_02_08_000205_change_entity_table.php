@@ -23,6 +23,7 @@ class ChangeEntityTable extends Migration
             $table->string('kpp')->nullable();
             $table->string('director')->nullable()->change();
             $table->string('accountant')->nullable()->change();
+            $table->string('okogu')->nullable()->change();
             
             $table->string('oktmo')->nullable();
             $table->text('okved')->nullable()->change();
