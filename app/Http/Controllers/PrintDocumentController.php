@@ -46,6 +46,30 @@ class PrintDocumentController extends Controller
     }
     
     
+    
+    public function printDocumentDialog() 
+    {
+        $printDocumentObjs = \App\Models\printDocument::all();
+        $contractId = $this->request->get('contractId');
+        return view('dialog.PrintDocument.select',['printDocuments' => $printDocumentObjs, 'contractId' => $contractId]);
+        
+    }
+    
+    
+    public function generation($documentId,PrintDocumentService $printDocumentServ, \App\Services\ContractService $contractServ) 
+    {
+        $printDocumentObj = $printDocumentServ->getPrintDocument($documentId);
+        $contractObj = $contractServ->getContract($this->request->get('contractId'));
+        $fileName = $printDocumentServ->contractPrintDocument($printDocumentObj, $contractObj);
+        
+        return response()->download($fileName);
+    }
+    
+    
+    
+    
+    
+    
     public function document10() 
     {
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('/var/www/crm/storage/app/test.docx');

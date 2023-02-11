@@ -63,7 +63,7 @@
                             <div class="col-1"></div>
                         </div>
                         @foreach($contracts as $contract)
-                            <div class="row row-table">
+                            <div class="row row-table mt-2">
                                 <div class="col-12">
                                     <div class="row"> {{--line 1--}}
                                         <div class="col-1 text-left pl-0">{{$loop->iteration}}.</div>
@@ -95,7 +95,9 @@
                                         <div class="col-1 text-right p-0">{{$contract->depositBalance}} p.</div>
 
                                         <div class="col-2">{{$contract->price}}</div>
-                                        <div class="col-1 text-center p-0 pt-1"></div>
+                                        <div class="col-1 p-0 pl-3 pt-1 text-left">
+                                            <a class="btn btn-ssm btn-outline-success DialogUserMin" href="/printDocument/select?contractId={{$contract->id}}" title="Документы"><i class="far fa-file-alt"></i></a>
+                                        </div>
                                     </div>
 
                                     <div class="row">{{--line 3--}}

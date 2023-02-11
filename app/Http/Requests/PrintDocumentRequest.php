@@ -24,7 +24,7 @@ class PrintDocumentRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'integer',
+            'id' => 'integer|nullable',
             'info' => 'string|required',
             'nickname' => 'string|required',
         ];

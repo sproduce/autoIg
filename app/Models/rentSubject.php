@@ -76,4 +76,13 @@ class rentSubject extends Model
          return $this->hasMany(rentDocumentEntity::class,'linkUuid','uuid');
     }
     
+    
+    public function actualEntity() 
+    {
+        return $this->hasOne(rentDocumentEntity::class,'linkUuid','uuid')->withDefault(function($model){$model->actual=1;});
+    }
+    
+    
+    
+    
 }
