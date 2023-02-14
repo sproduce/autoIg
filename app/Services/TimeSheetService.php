@@ -7,6 +7,7 @@ use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
 use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
+use App\Models\timeSheet;
 
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -236,5 +237,17 @@ Class TimeSheetService{
     }
 
 
+    
+    
+    public function getLastTimeSheet($eventId,$carId)
+    {//return eventModel
+        $eventObj = $this->rentEventRep->getEvent($eventId);
+        $carObj = $this->motorPoolRep->getCar($carId);
+        $timeSheetObj = $this->timeSheetRep->getLastTimeSheet($carObj, $eventObj);
+        
+        $eventServ = $this->rentEventService->getEventService($eventObj);
+        
+        return $eventServ->getEventInfo($timeSheetObj->dataId);
+    }
 
 }

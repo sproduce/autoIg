@@ -17,6 +17,8 @@ class EventDocumentTitleRepository implements EventDocumentTitleRepositoryInterf
         return rentEventDocumentTitle::find($id) ?? new rentEventDocumentTitle();
     }
 
+    
+    
     public function addEvent(rentEventDocumentTitle $rentEventDocumentTitle): rentEventDocumentTitle
     {
         $rentEventDocumentTitle->save();

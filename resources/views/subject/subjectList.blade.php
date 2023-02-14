@@ -62,7 +62,8 @@
                 </div>
                 <div class="col-2">
                     <div class="row">
-                        <div class="col-4 p-0">
+                        <div class="col-8"></div>
+<!--                        <div class="col-4 p-0">
                             @if($subject->individual)
                                 <a href="/document/addPassport/{{$subject->uuid}}" class="btn btn-ssm btn-outline-success DialogUser" title="Паспорт"><i class="fas fa-passport"></i></a>
                                 <a href="" class="btn btn-ssm btn-outline-success DialogUser" title="Права"><i class="fas fa-id-card"></i></a>
@@ -76,7 +77,7 @@
                         </div>
                         <div class="col-2 p-0">                        
                             <a href="/subject/addContact/{{$subject->id}}" class="btn btn-ssm btn-outline-success DialogUserMin" title="Контакты"><i class="fas fa-phone"></i></a>
-                        </div>
+                        </div>-->
     {{--                    <a href="/contract/add?carDriverId={{$carDriver->id}}" title="Добавить договор" class="btn btn-ssm btn-outline-secondary">--}}
     {{--                        <i class="fas fa-file-contract"></i>--}}
     {{--                    </a>--}}

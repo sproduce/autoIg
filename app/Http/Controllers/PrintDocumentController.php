@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\PrintDocumentService;
 use App\Services\PhotoService;
+use App\Services\TimeSheetService;
+use App\Services\ContractService;
 use App\Http\Requests\PrintDocumentRequest;
 
 
@@ -56,12 +58,11 @@ class PrintDocumentController extends Controller
     }
     
     
-    public function generation($documentId,PrintDocumentService $printDocumentServ, \App\Services\ContractService $contractServ) 
+    public function generation($documentId,PrintDocumentService $printDocumentServ, ContractService $contractServ, TimeSheetService $timeSheetServ) 
     {
         $printDocumentObj = $printDocumentServ->getPrintDocument($documentId);
         $contractObj = $contractServ->getContract($this->request->get('contractId'));
         $fileName = $printDocumentServ->contractPrintDocument($printDocumentObj, $contractObj);
-        
         return response()->download($fileName);
     }
     

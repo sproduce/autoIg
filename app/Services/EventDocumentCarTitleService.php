@@ -162,4 +162,14 @@ Class EventDocumentCarTitleService implements EventServiceInterface{
         return $this->eventDocumentTitleRep->getNumbers($this->eventObj->id);
     }
 
+    
+    
+    public function getLastByCar($carId) 
+    {
+        
+        //$timeSheetObj = $this->timeSheetRep->getLastTimeSheet($carObj, $eventObj)
+    }
+    
+    
+    
 }

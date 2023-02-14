@@ -46,7 +46,7 @@ class DocumentController extends Controller
         $passportObj->placeResidence = $passportRequest->get('placeResidence');
         $passportObj->dateResidence = $passportRequest->get('dateResidence');
         $passportObj->save();
-        
+        $this->documentServ->actualPassport($passportObj->id);
         return  redirect()->back();
     }
     
@@ -82,8 +82,8 @@ class DocumentController extends Controller
         $licenseObj->start = $licenseRequest->get('start');
         $licenseObj->finish = $licenseRequest->get('finish');
         $licenseObj->categories = $licenseRequest->get('categories');
-        
         $licenseObj->save();
+        $this->documentServ->actualLicense($licenseObj->id);
         return  redirect()->back();
     }
     
@@ -103,6 +103,8 @@ class DocumentController extends Controller
          $paymentObj->address = $paymentRequest->get('address');
          $paymentObj->name = $paymentRequest->get('name');
          $paymentObj->save();
+         $this->documentServ->actualPayment($paymentObj->id);
+         
          return  redirect()->back();
      }
     
@@ -168,6 +170,8 @@ class DocumentController extends Controller
         $entityObj->oktmo = $entityRequest->get('oktmo');
         $entityObj->kpp = $entityRequest->get('kpp');
         $entityObj->save();
+        
+        $this->documentServ->actualEntity($entityObj->id);
         return  redirect()->back();
     }
     

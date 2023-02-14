@@ -4,18 +4,22 @@ namespace App\Services;
 use App\Repositories\Interfaces\PrintDocumentRepositoryInterface;
 use App\Services\PhotoService;
 use Illuminate\Support\Facades\Storage;
-
+use App\Services\TimeSheetService;
 use App\Models\printDocument;
 use App\Models\rentContract;
 
 Class PrintDocumentService {
 
-    private $printDocumentRep,$photoServ;
+    private $printDocumentRep,$photoServ,$timeSheetServ;
 
-    function __construct(PrintDocumentRepositoryInterface $printDocumentRep, PhotoService $photoServ)
-    {
+    function __construct(
+            PrintDocumentRepositoryInterface $printDocumentRep, 
+            PhotoService $photoServ,
+            TimeSheetService $timeSheetServ
+    ){
         $this->printDocumentRep = $printDocumentRep;
         $this->photoServ = $photoServ;
+        $this->timeSheetServ = $timeSheetServ;
     }
 
 
@@ -26,7 +30,8 @@ Class PrintDocumentService {
     
     
     private function contractSetVariable(rentContract $contractObj, $variableArray)
-    {
+    {//config('rentEvent.eventSts');
+        $stsObj = $this->timeSheetServ->getLastTimeSheet(config('rentEvent.eventSts'), $contractObj->car->id);
         foreach ($variableArray as $variable)
         {
             switch ($variable) {
@@ -49,7 +54,7 @@ Class PrintDocumentService {
                     $returnArray[$variable] = $contractObj->car->generation->model->name;
                     break;
                 case 'CAR_StNum':
-                    $returnArray[$variable] = '';
+                    $returnArray[$variable] = $stsObj->regNumber;
                     break;
             } 
         }
