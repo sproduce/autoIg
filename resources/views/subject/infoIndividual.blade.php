@@ -18,14 +18,35 @@
             
             
     <div class="row border-top mt-3">
-        <div class="col-1"><a class="btn btn-ssm btn-outline-success DialogUserMin" href="/subject/addContact/{{$subjectObj->id}}"><i class="far fa-plus-square"></i></a></div>
+        <div class="col-1"><a class="btn btn-ssm btn-outline-success DialogUserMin" href="/document/addContact?uuid={{$subjectObj->uuid}}"><i class="far fa-plus-square"></i></a></div>
         <div class="col-3"></div>
         <div class="col-4 text-center pt-3"><h5> Контакты</h5></div>
     </div>
             @forelse($subjectObj->contacts as $subjectContact)
-            <div class="row">
-                <div class="col-2"><strong>Телефон</strong></div>
-                <div class="col-2 text-left">{{$subjectContact->phone}}</div>
+            <div class="row @if(!$loop->first) border-top mt-3 pt-2 @endif">
+                <div class="col-11 @if($subjectContact->actual)bg-secondary @endif">
+                    <div class="row">
+                        <div class="col-2"><strong>Телефон</strong></div>
+                        <div class="col-2 text-left">{{$subjectContact->phone}}</div>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="row">
+                        <div class="col-4">
+                            <a class="btn btn-ssm btn-outline-warning DialogUserMin" href="/document/addContact/{{$subjectContact->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-ssm btn-outline-primary @if($subjectContact->actual)disabled @endif" href="/document/actualContact/{{$subjectContact->id}}" title="Актуальные данные">
+                                <i class="fas fa-check"></i>
+                            </a>
+
+                        </div>
+                        <div class="col-4">
+                            <a href="/file/fileInfoDialog/{{$subjectContact->uuid}}" class="btn btn-ssm @if($subjectContact->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
             @empty
             <div class="row ">

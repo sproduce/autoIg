@@ -7,6 +7,7 @@ use App\Models\rentDocumentPassport;
 use App\Models\rentDocumentPayment;
 use App\Models\rentDocumentLicense;
 use App\Models\rentDocumentEntity;
+use App\Models\rentDocumentContact;
 
 
 class DocumentRepository implements DocumentRepositoryInterface
@@ -57,6 +58,21 @@ class DocumentRepository implements DocumentRepositoryInterface
     public function eraseActualEntity($linkUuid)
     {
         rentDocumentEntity::where('linkUuid',$linkUuid)->update(['actual' => null]);
+    }
+    
+    
+    
+    
+    public function getContact($contactId): rentDocumentContact
+    {
+        return rentDocumentContact::find($contactId) ?? new rentDocumentContact;
+    }
+    
+    
+    
+    public function eraseActualContact($linkUuid)
+    {
+        rentDocumentContact::where('linkUuid',$linkUuid)->update(['actual' => null]);
     }
     
 }

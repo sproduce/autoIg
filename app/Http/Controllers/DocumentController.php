@@ -175,4 +175,39 @@ class DocumentController extends Controller
         return  redirect()->back();
     }
     
+    
+    public function addContactDialog(\App\Http\Requests\UuidRequest $uuidRequest,$contactId = null) 
+    {
+        $contactObj = $this->documentServ->getContact($contactId);
+        if (!$contactObj->id){
+            $contactObj->linkUuid = $uuidRequest->get('uuid');
+        }
+        
+        return view('dialog.Document.addContact',['contactObj' => $contactObj]);
+    }
+    
+    
+    
+    
+    public function actualContact($contactId) 
+    {
+        $this->documentServ->actualContact($contactId);
+        return  redirect()->back();
+    }
+ 
+    
+    
+    
+    
+    public function storeContact(Document\ContactRequest $contactRequest) 
+    {
+          $contactObj = $this->documentServ->getContact($contactRequest->id);
+          $contactObj->phone = $contactRequest->get('phone');
+          $contactObj->linkUuid = $contactRequest->get('linkUuid');
+          $contactObj->save();
+          $this->documentServ->actualContact($contactObj->id);
+          return  redirect()->back();
+    }
+    
+    
 }

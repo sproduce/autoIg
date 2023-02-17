@@ -46,8 +46,11 @@ class rentSubject extends Model
         
     public function contacts()
     {
-        return $this->hasMany(rentSubjectContact::class,'subjectId','id');
+        return $this->hasMany(rentDocumentContact::class,'linkUuid','uuid');
     }    
+    
+    
+    
     
     public function region()
     {

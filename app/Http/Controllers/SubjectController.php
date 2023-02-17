@@ -37,14 +37,13 @@ class SubjectController extends Controller
     public function fullInfo($id)
     {
         $subjectObj = $this->subjectServ->getSubject($id);
-        $subjectContactsObj = $this->subjectServ->getSubjectContacts($id);
         
         if ($subjectObj->individual){
             $fileView = 'subject.infoIndividual';
         } else {
             $fileView = 'subject.info';
         }
-        return view($fileView,['subjectObj' => $subjectObj,'subjectContactsObj' => $subjectContactsObj]);
+        return view($fileView,['subjectObj' => $subjectObj]);
     }
     
     

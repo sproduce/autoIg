@@ -6,6 +6,7 @@ use App\Models\rentDocumentPassport;
 use App\Models\rentDocumentPayment;
 use App\Models\rentDocumentLicense;
 use App\Models\rentDocumentEntity;
+use App\Models\rentDocumentContact;
 
 interface DocumentRepositoryInterface
 {
@@ -22,5 +23,7 @@ interface DocumentRepositoryInterface
     public function getEntity($entityId): rentDocumentEntity;
     public function eraseActualEntity($linkUuid);
 
+    public function getContact($contactId): rentDocumentContact;
+    public function eraseActualContact($linkUuid);
     
 }

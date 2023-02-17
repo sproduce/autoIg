@@ -4,30 +4,17 @@
         <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <form method="POST" action="/subject/addContact">
-        <input name="subjectId" value="{{$subjectId}}" hidden/>
+    <form method="POST" action="/document/storeContact">
+        <input type="text" name="linkUuid" value="{{$contactObj->linkUuid}}" hidden />
+        <input type="text" name="id" value="{{$contactObj->id}}" hidden />
         @csrf
 
     <div class="modal-body">
         <div class="container-fluid">
-            @foreach($subjectContactsObj as $subjContact)
-                <div class="form-group row inputLine">
-                    <label for="phone" class="col-sm-2 col-form-label form-control-sm">Телефон</label>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control form-control-sm phone" name="phone[]" autocomplete="off" value="{{$subjContact->phone}}" required/>
-                    </div>
-                </div>
-            @endforeach
             <div class="form-group row inputLine">
                 <label for="phone" class="col-sm-2 col-form-label form-control-sm">Телефон</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-sm phone" name="phone[]" autocomplete="off" required/>
-                </div>
-            </div>
-            <div class="row" id="contact-last-row">
-                <div class="col-4">
-                    <a class="btn btn-ssm btn-outline-success" onclick="remove_input();" title="Удалить строку"><i class="far fa-minus-square"></i></a>
-                    <a class="btn btn-ssm btn-outline-success" onclick="add_input();" title="Добавить строку"><i class="far fa-plus-square"></i></a>
+                    <input type="text" class="form-control form-control-sm phone" name="phone" value="{{$contactObj->phone}}" autocomplete="off" required/>
                 </div>
             </div>
         </div>

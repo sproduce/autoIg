@@ -28,7 +28,8 @@ class FileController extends Controller
     public function downloadFile($fileId) 
     {
         $photoObj = $this->fileServ->getFile($fileId);
-        return response()->download(Storage::disk('photo')->path($photoObj->getFilePath()));
+        
+        return response()->download(Storage::disk('photo')->path($photoObj->getFilePath()),$photoObj->fileName);
     }
     
     

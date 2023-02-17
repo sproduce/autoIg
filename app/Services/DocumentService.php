@@ -77,4 +77,21 @@ Class DocumentService{
         $licenseObj->save();
     }
     
+    
+    
+    public function getContact($contactId) 
+    {
+        $contactObj = $this->documentRep->getContact($contactId);
+        return $contactObj;
+    }
+    
+    
+    public function actualContact($contactId) 
+    {
+        $contactObj = $this->documentRep->getContact($contactId);
+        $this->documentRep->eraseActualContact($contactObj->linkUuid);
+        $contactObj->actual = 1;
+        $contactObj->save();
+    }
+    
 }
