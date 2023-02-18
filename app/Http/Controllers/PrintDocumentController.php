@@ -58,16 +58,24 @@ class PrintDocumentController extends Controller
     }
     
     
-    public function generation($documentId,PrintDocumentService $printDocumentServ, ContractService $contractServ, TimeSheetService $timeSheetServ) 
+    public function generation($documentId,PrintDocumentService $printDocumentServ) 
     {
         $printDocumentObj = $printDocumentServ->getPrintDocument($documentId);
-        $contractObj = $contractServ->getContract($this->request->get('contractId'));
-        $fileName = $printDocumentServ->contractPrintDocument($printDocumentObj, $contractObj);
-        return response()->download($fileName);
+        //var_dump($this->request->get('value'));
+        $fileName = $printDocumentServ->contractPrintDocument($printDocumentObj, $this->request->get('value'));
+        
+        return response()->download($fileName,$printDocumentObj->nickname.'.docx');
     }
     
     
-    
+    public function prepare($documentId,PrintDocumentService $printDocumentServ, ContractService $contractServ) 
+    {
+        $printDocumentObj = $printDocumentServ->getPrintDocument($documentId);
+        $contractObj = $contractServ->getContract($this->request->get('contractId'));
+        $variableArray = $printDocumentServ->contractPrepareDocument($printDocumentObj, $contractObj);
+        //$fileName = $printDocumentServ->contractPrintDocument($printDocumentObj, $contractObj);
+        return view('printDocument.prepare',['variableArray' => $variableArray,'documentId' => $printDocumentObj->id]);
+    }
     
     
     

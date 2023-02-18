@@ -8,7 +8,8 @@ Route::get('/list',[PrintDocumentController::class,'list']);
 Route::get('/add/{printDocumentId?}',[PrintDocumentController::class,'addDialog']);
 Route::post('/add',[PrintDocumentController::class,'store']);
 Route::get('/select',[PrintDocumentController::class,'printDocumentDialog']);
-Route::get('/generation/{documentId}',[PrintDocumentController::class,'generation']);
+Route::post('/generation/{documentId}',[PrintDocumentController::class,'generation']);
+Route::get('/prepare/{documentId}',[PrintDocumentController::class,'prepare']);
 
 
 

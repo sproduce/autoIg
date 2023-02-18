@@ -12,7 +12,7 @@
                         {{$printDocument->info}}
                     </div>
                     <div class="col-md-4 text-right">
-                        <a title="Печать" href="/printDocument/generation/{{$printDocument->id}}?contractId={{$contractId}}" class="btn btn-ssm btn-outline-success "><i class="fas fa-print"></i></a>
+                        <a title="Печать" href="/printDocument/prepare/{{$printDocument->id}}?contractId={{$contractId}}" class="btn btn-ssm btn-outline-success "><i class="fas fa-print"></i></a>
                     </div>
                 </div>
             @empty
