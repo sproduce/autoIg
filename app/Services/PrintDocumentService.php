@@ -30,22 +30,23 @@ Class PrintDocumentService {
     
     
 //    
-//    ${SSE_cnfu} - полное название организации
-//	${SSE_cnsh} - полное название организации
-//	${SSE_inn} - ИНН организации
+//    
+//	
+//
 //	
 //    ${SSE_ln} - Фамилия другие падежи
 //    ${SSE_fn} - Имя другие падежи
 //    ${SSE_sn} - Отчество другие падежи
 //    ${SSE_fns} - Сокращенная форма ФИО (Иванов И.И.)
 //	
-//	${SSE_ogrn} - ОГРН
-//	${SSE_inn} - ИНН
-//	${SSE_uregaddr} - Адрес регистрации юр лица
+//	
+//	
+//	
 //	
 //    ${SSE_bd} - Дата рождения
 //    ${SSE_bp} - Место рождения
 //    ${SSE_pasn} - Серия и номер паспорта
+//    
 //    ${SSE_pash} - Кем выдан паспорт
 //    ${SSE_pasd} - Дата выдачи паспорта
 //    ${SSE_pasc} - Код подразделения паспорта
@@ -87,13 +88,13 @@ Class PrintDocumentService {
 //    ${SCL_ccn} - Номер карты арендатора
 //Данные о договоре			- CON
 //Данные об автомобиле		- CAR
-//    ${CAR_Brand}		- Марка автомобиля (например: BMW) (из информации о автомобиле)
-//    ${CAR_Model}		- Модель автомобиля (например: Z4) (из информации о автомобиле)
-//	${CAR_VINn}		- VIN номер автомобиля (из информации о автомобиле)
-//    ${CAR_Y}			- Год выпуска автомобиля  (из информации о автомобиле)
+//   
+//   
+//	
+//    
 //    ${CAR_Power}		- Мощность двигателя
 //
-//    ${CAR_StNum}		- Регистрационный номер (У777УУ77) (Гос номер Рег. действия)
+//    
 //	${CAR_STSd}	- дата выдачи СТС (дата выдачи из самого свежего события Рег. действия)
 //    ${CAR_STSn}		- Серия и Номер СТС (номер документа из самого свежего события Рег. действия)
 //    ${CAR_Col}		- Цвет автомобиля (цвет из самого свежего события Рег. действия)
@@ -109,28 +110,123 @@ Class PrintDocumentService {
         $stsObj = $this->timeSheetServ->getLastTimeSheet(config('rentEvent.eventSts'), $contractObj->car->id);
         foreach ($variableArray as $variable)
         {
+            $returnArray[$variable] = '';
             switch ($variable) {
-                case 'SSE_ogrn':
-                    $returnArray[$variable] = $contractObj->subjectFrom->actualEntity->ogrn;
-                    break;
-                case 'SSE_inn':
-                    $returnArray[$variable] = $contractObj->subjectFrom->actualEntity->inn;
-                    break;
-                case 'SSE_cnfu':
+                case 'SSE_cnsh'://полное название организации
                     $returnArray[$variable] = $contractObj->subjectFrom->actualEntity->fullName;
                     break;
-                case 'SSE_uregaddr':
+                case 'SSE_ogrn'://ОГРН
+                    $returnArray[$variable] = $contractObj->subjectFrom->actualEntity->ogrn;
+                    break;
+                case 'SSE_inn'://ИНН организации
+                    $returnArray[$variable] = $contractObj->subjectFrom->actualEntity->inn;
+                    break;
+                case 'SSE_cnfu'://полное название организации
+                    $returnArray[$variable] = $contractObj->subjectFrom->actualEntity->fullName;
+                    break;
+                case 'SSE_uregaddr'://Адрес регистрации юр лица
                     $returnArray[$variable] = $contractObj->subjectFrom->actualEntity->address;
                     break;
-                case 'CAR_Brand':
+                case 'SSE_accn'://Номер счёта
+                    $returnArray[$variable] = $contractObj->subjectFrom->actualPayment->checkingAccount;
+                    break;
+                case 'SSE_babik'://БИК банка
+                    $returnArray[$variable] = $contractObj->subjectFrom->actualPayment->bankBik;
+                    break;
+                case 'SSE_ban'://Наименование банка
+                    $returnArray[$variable] = $contractObj->subjectFrom->actualPayment->bankName;
+                    break;
+                case 'SSE_fns'://Сокращенная форма ФИО (Иванов И.И.)
+                    if ($contractObj->subjectFrom->surname && $contractObj->subjectFrom->name && $contractObj->subjectFrom->patronymic){
+                        $returnArray[$variable] = $contractObj->subjectFrom->surname.' '.$contractObj->subjectFrom->name[0].'. '.$contractObj->subjectFrom->patronymic[0].'.';
+                    } 
+                    break;
+                
+                    
+                    
+                    
+                    
+                
+                case 'SSE_bd'://Дата рождения
+                    if ($contractObj->subjectFrom->birthday){
+                        $returnArray[$variable] = $contractObj->subjectFrom->birthday->format('d-m-Y');
+                    } 
+                    break;
+                case 'SSE_bp'://Место рождения
+                    $returnArray[$variable] = $contractObj->subjectFrom->actualPassport->birthplace;
+                    break;
+                case 'SSE_pasn'://Серия и номер паспорта
+                    $returnArray[$variable] = $contractObj->subjectFrom->actualPassport->number;
+                    break;
+                case 'SSE_pash'://Кем выдан паспорт
+                    $returnArray[$variable] = $contractObj->subjectFrom->actualPassport->issuedBy;
+                    break;
+                case 'SSE_pasd'://Дата выдачи паспорта
+                    if ($contractObj->subjectFrom->actualPassport->dateIssued){
+                        $returnArray[$variable] = $contractObj->subjectFrom->actualPassport->dateIssued->format('d-m-Y');
+                    }
+                    break;
+                case 'SSE_pasc'://Код подразделения паспорта
+                    $returnArray[$variable] = $contractObj->subjectFrom->actualPassport->code;
+                    break;
+                
+                case 'SSE_regaddr'://Адрес регистрации
+                    $returnArray[$variable] = $contractObj->subjectFrom->actualPassport->placeResidence;
+                    break;
+                
+                case 'SSE_lisn'://Серия и номер водительского удостоверения
+                    $returnArray[$variable] = $contractObj->subjectFrom->actuallicense->number;
+                    break;
+                case 'SSE_lish'://Кем выдано водительское удостоверение
+                    $returnArray[$variable] = $contractObj->subjectFrom->actuallicense->issuedBy;
+                    break;
+                case 'SSE_lisd'://Дата выдачи водительского удостоверения
+                    if ($contractObj->subjectFrom->actuallicense->start){
+                        $returnArray[$variable] = $contractObj->subjectFrom->actuallicense->start->format('d-m-Y');
+                    }
+                    break;
+                case 'SSE_phone'://Номер телефона
+                    $returnArray[$variable] = $contractObj->subjectFrom->actualContact->phone;
+                    break;
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                case 'CAR_Brand'://Марка автомобиля
                     $returnArray[$variable] = $contractObj->car->generation->model->brand->name;
                     break;
-                case 'CAR_Model':
+                case 'CAR_Model'://Модель автомобиля
                     $returnArray[$variable] = $contractObj->car->generation->model->name;
                     break;
-                case 'CAR_StNum':
+                case 'CAR_VINn'://VIN номер автомобиля
+                    $returnArray[$variable] = $contractObj->car->vin;
+                    break;
+                case 'CAR_Y'://Год выпуска автомобиля
+                    $returnArray[$variable] = $contractObj->car->year;
+                    break;
+                case 'CAR_Power'://Мощность двигателя
+                    $returnArray[$variable] = $contractObj->car->hp;
+                    break;
+                case 'CAR_StNum'://Регистрационный номер
                     $returnArray[$variable] = $stsObj->regNumber;
                     break;
+                case 'CAR_STSd'://дата выдачи СТС
+                    if ($stsObj->dateDocument){
+                        $returnArray[$variable] = $stsObj->dateDocument->format('d-m-Y');
+                    }
+                    break;
+                case 'CAR_STSn'://Серия и Номер СТС
+                    $returnArray[$variable] = $stsObj->number;
+                    break;
+                case 'CAR_Col'://Цвет автомобиля
+                    $returnArray[$variable] = $stsObj->color;
+                    break;
+                
                 default :
                     $returnArray[$variable] = '';
             } 

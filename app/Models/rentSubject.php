@@ -86,6 +86,24 @@ class rentSubject extends Model
     }
     
     
+    public function actualPassport() 
+    {
+        return $this->hasOne(rentDocumentPassport::class,'linkUuid','uuid')->withDefault(function($model){$model->actual=1;});
+    }
     
+    public function actualLicense() 
+    {
+        return $this->hasOne(rentDocumentLicense::class,'linkUuid','uuid')->withDefault(function($model){$model->actual=1;});
+    }
+    
+    public function actualContact() 
+    {
+        return $this->hasOne(rentDocumentContact::class,'linkUuid','uuid')->withDefault(function($model){$model->actual=1;});
+    }
+    
+    public function actualPayment() 
+    {
+        return $this->hasOne(rentDocumentPayment::class,'linkUuid','uuid')->withDefault(function($model){$model->actual=1;});
+    }
     
 }
