@@ -50,8 +50,6 @@ class rentSubject extends Model
     }    
     
     
-    
-    
     public function region()
     {
         return $this->hasOne(rentSubjectRegion::class,'id','regionId')->withDefault();
@@ -78,6 +76,15 @@ class rentSubject extends Model
     {
          return $this->hasMany(rentDocumentEntity::class,'linkUuid','uuid');
     }
+    
+    
+    public function payAccount() 
+    {
+        return $this->hasOne(payAccount::class,'id','payAccountId')->withDefault();
+    }
+    
+    
+    
     
     
     public function actualEntity() 

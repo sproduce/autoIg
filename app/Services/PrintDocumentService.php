@@ -27,80 +27,7 @@ Class PrintDocumentService {
     {
         return $this->printDocumentRep->getPrintDocument($printDocumentId);
     }
-    
-    
-//    
-//    
-//	
-//
-//	
-//    ${SSE_ln} - Фамилия другие падежи
-//    ${SSE_fn} - Имя другие падежи
-//    ${SSE_sn} - Отчество другие падежи
-//    ${SSE_fns} - Сокращенная форма ФИО (Иванов И.И.)
-//	
-//	
-//	
-//	
-//	
-//    ${SSE_bd} - Дата рождения
-//    ${SSE_bp} - Место рождения
-//    ${SSE_pasn} - Серия и номер паспорта
-//    
-//    ${SSE_pash} - Кем выдан паспорт
-//    ${SSE_pasd} - Дата выдачи паспорта
-//    ${SSE_pasc} - Код подразделения паспорта
-//    ${SSE_regaddr} - Адрес регистрации
-//    
-//    ${SSE_lisn} - Серия и номер водительского удостоверения
-//    ${SSE_lish} - Кем выдано водительское удостоверение
-//    ${SSE_lisd} - Дата выдачи водительского удостоверения
-//    
-//    ${SSE_phone} - Номер телефона
-//    ${SSE_mail} - Элетронная почта
-//    
-//    ${SSE_accn} - Номер счёта
-//    ${SSE_babik} - БИК банка
-//    ${SSE_ban} - Наименование банка
-//    ${SSE_ccn} - Номер карты
-//Данные об клиенте (RJVE)		- SCL
-//    ${SCL_cn} - название организации
-//    ${SCL_ln} - Фамилия арендатора другие падежи
-//    ${SCL_fn} - Имя арендатора другие падежи
-//    ${SCL_sn} - Отчество арендатора другие падежи
-//    ${SCL_fns} - Сокращенная форма ФИО (Иванов И.И.)
-//    ${SCL_bd} - Дата рождения арендатора
-//    ${SCL_bp} - Место рождения арендатора
-//    ${SCL_pasn} - Серия и номер паспорта арендатора
-//    ${SCL_pash} - Кем выдан паспорт
-//    ${SCL_pasd} - Дата выдачи паспорта
-//    ${SCL_pasc} - Код подразделения паспорта
-//    ${SCL_regaddr} - Адрес регистрации арендатора
-//    ${SCL_addr} - Место жительства арендатора
-//    ${SCL_lisn} - Серия и номер водительского удостоверения арендатора
-//    ${SCL_lish} - Кем выдано водительское удостоверение
-//    ${SCL_lisd} - Дата выдачи водительского удостоверения
-//    ${SCL_phone} - Номер телефона Арендатора
-//    ${SCL_mail} - Элетронная почта арендатора
-//    ${SCL_accn} - Номер счёта арендатора
-//    ${SCL_babik} - БИК банка арендатора
-//    ${SCL_ban} - Наименование банка арендатора
-//    ${SCL_ccn} - Номер карты арендатора
-//Данные о договоре			- CON
-//Данные об автомобиле		- CAR
-//   
-//   
-//	
-//    
-//    ${CAR_Power}		- Мощность двигателя
-//
-//    
-//	${CAR_STSd}	- дата выдачи СТС (дата выдачи из самого свежего события Рег. действия)
-//    ${CAR_STSn}		- Серия и Номер СТС (номер документа из самого свежего события Рег. действия)
-//    ${CAR_Col}		- Цвет автомобиля (цвет из самого свежего события Рег. действия)
-//    ${CAR_PTSn}		- Серия и Номер ПТС (номер документа из самого свежего события ПТС)
-//    ${CAR_OSAGOn}	- Серия и Номер полиса ОСАГО
-    
+ 
     
     
     
@@ -141,11 +68,7 @@ Class PrintDocumentService {
                         $returnArray[$variable] = $contractObj->subjectFrom->surname.' '.$contractObj->subjectFrom->name[0].'. '.$contractObj->subjectFrom->patronymic[0].'.';
                     } 
                     break;
-                
-                    
-                    
-                    
-                    
+
                 
                 case 'SSE_bd'://Дата рождения
                     if ($contractObj->subjectFrom->birthday){
@@ -188,13 +111,82 @@ Class PrintDocumentService {
                 case 'SSE_phone'://Номер телефона
                     $returnArray[$variable] = $contractObj->subjectFrom->actualContact->phone;
                     break;
+                case 'SSE_ccn'://Номер карты
+                    $returnArray[$variable] = $contractObj->subjectFrom->payAccount->cardNumber;
+                    break;
                 
                 
+                case 'SCL_babik'://БИК банка арендатора
+                    $returnArray[$variable] = $contractObj->subjectTo->actualPayment->bankBik;
+                    break;
+                case 'SCL_ban'://Наименование банка арендатора
+                    $returnArray[$variable] = $contractObj->subjectTo->actualPayment->bankName;
+                    break;
+                case 'SCL_ccn'://Номер карты арендатора
+                    $returnArray[$variable] = $contractObj->subjectTo->payAccount->cardNumber;
+                    break;
+                 case 'SCL_accn'://Номер счёта арендатора
+                    $returnArray[$variable] = $contractObj->subjectTo->actualPayment->checkingAccount;
+                    break;
+                case 'SCL_phone'://Номер телефона Арендатора
+                    $returnArray[$variable] = $contractObj->subjectTo->actualContact->phone;
+                    break;
+                case 'SCL_lisd'://Дата выдачи водительского удостоверения
+                    if ($contractObj->subjectTo->actuallicense->start){
+                        $returnArray[$variable] = $contractObj->subjectTo->actuallicense->start->format('d-m-Y');
+                    }
+                    break;
+                case 'SCL_lish'://Кем выдано водительское удостоверение
+                    $returnArray[$variable] = $contractObj->subjectTo->actuallicense->issuedBy;
+                    break;
+                case 'SCL_lisn'://Серия и номер водительского удостоверения арендатора
+                    $returnArray[$variable] = $contractObj->subjectTo->actuallicense->number;
+                    break;
+                case 'SCL_regaddr'://Адрес регистрации арендатора
+                    $returnArray[$variable] = $contractObj->subjectTo->actualPassport->placeResidence;
+                    break;
+                case 'SCL_pasc'://Код подразделения паспорта
+                    $returnArray[$variable] = $contractObj->subjectTo->actualPassport->code;
+                    break;
+                case 'SCL_pasd'://Дата выдачи паспорта
+                    if ($contractObj->subjectTo->actualPassport->dateIssued){
+                        $returnArray[$variable] = $contractObj->subjectTo->actualPassport->dateIssued->format('d-m-Y');
+                    }
+                    break;
+                case 'SCL_pash'://Кем выдан паспорт
+                    $returnArray[$variable] = $contractObj->subjectTo->actualPassport->issuedBy;
+                    break;
+                case 'SCL_pasn'://Серия и номер паспорта арендатора
+                    $returnArray[$variable] = $contractObj->subjectTo->actualPassport->number;
+                    break;
                 
+                 case 'SCL_bp'://Место рождения арендатора
+                    $returnArray[$variable] = $contractObj->subjectTo->actualPassport->birthplace;
+                    break;
+                case 'SCL_bd'://Дата рождения арендатора
+                    if ($contractObj->subjectTo->birthday){
+                        $returnArray[$variable] = $contractObj->subjectTo->birthday->format('d-m-Y');
+                    } 
+                    break;
+                case 'SCL_fns'://Сокращенная форма ФИО (Иванов И.И.)
+                    if ($contractObj->subjectTo->surname && $contractObj->subjectTo->name && $contractObj->subjectTo->patronymic){
+                        $returnArray[$variable] = $contractObj->subjectTo->surname.' '.$contractObj->subjectTo->name[0].'. '.$contractObj->subjectTo->patronymic[0].'.';
+                    } 
+                    break;
                 
-                
-                
-                
+                case 'SCL_cn'://полное название организации
+                    $returnArray[$variable] = $contractObj->subjectTo->actualEntity->fullName;
+                    break;   
+                    
+                 case 'SCL_addr'://Место жительства арендатора
+                    $returnArray[$variable] = $contractObj->subjectTo->actualPassport->placeResidence;
+                    break;      
+                    
+                    
+                    
+                    
+                    
+                    
                 
                 
                 case 'CAR_Brand'://Марка автомобиля

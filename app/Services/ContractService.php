@@ -93,6 +93,7 @@ Class ContractService{
         $this->contractModel->subjectIdTo = $contractData->get('subjectIdTo');
 
         $this->contractModel->save();
+        return $this->contractModel;
     }
 
 

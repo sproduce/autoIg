@@ -56,7 +56,7 @@
                         @endif
                     @endif
                 </div>
-                <div class="col-2"></div>
+                <div class="col-2">{{$subject->actualContact->phone}}</div>
                 <div class="col-2">
                     {{$subject->nickname}}
                 </div>

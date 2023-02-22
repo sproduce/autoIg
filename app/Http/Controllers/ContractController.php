@@ -65,7 +65,7 @@ class ContractController extends Controller
     public function addContract(rentContract $rentContractObj)
     {
         $directory = $this->contractServ->getContractDirectory();
-        $rentContractObj->toAddForm = 1;
+        $rentContractObj->toAddForm = 0;
         return view('contract.CarContract',[
             'directoryObj' => $directory,
             'rentContractObj' => $rentContractObj,
@@ -120,11 +120,13 @@ class ContractController extends Controller
 
     public function saveContract(ContractRequest $contractRequest)
     {
-        $this->contractServ->addContract($contractRequest);
+        $contracrObj = $this->contractServ->addContract($contractRequest);
+        
         if ($contractRequest->get('toAddForm')){
+            
             return  redirect()->back();
         } else {
-            return redirect('/contract/list');
+            return redirect('/contract/contractFullInfo/'.$contracrObj->id);
         }
 
     }
