@@ -14,19 +14,41 @@
             <div class="col-3"><strong>Тип договора </strong>{{$rentContractObj->type->name}}</div>
         </div>
         <div class="row">
-            <div class="col-3"><strong>Машина </strong>{{$rentContractObj->car->nickName}}</div>
+            <div class="col-3">
+                <strong>Машина </strong>{{$rentContractObj->car->nickName}}
+                @if($rentContractObj->car->id)
+                <a class="btn btn-ssm btn-outline-info ml-3 DialogUser" title="Информация" href="/motorPool/carInfo/{{$rentContractObj->car->id}}"><i class="fas fa-info-circle"></i></a>
+                @endif
+            </div>
             <div class="col-3"><strong>Группа машин </strong>{{$rentContractObj->carGroup->nickName}}</div>
             <div class="col-3"><strong>От кого </strong>{{$rentContractObj->subjectFrom->nickname}}</div>
-            <div class="col-3"><strong>Клиент </strong>{{$rentContractObj->subjectTo->nickname}}</div>
+            <div class="col-3">
+                <strong>Клиент </strong>
+                <a class="" href="/subject/fullInfo/{{$rentContractObj->subjectTo->id}}">
+                    {{$rentContractObj->subjectTo->nickname}}
+                </a>
+                 
+                    
+                
+            </div>
         </div>
         <div class="row">
             <div class="col-3"><strong>Тариф договора </strong>{{$rentContractObj->price}}</div>
             <div class="col-3"><strong>Статус договора </strong>{{$rentContractObj->status->name}}</div>
             <div class="col-6"><strong>Комментарий </strong>{{$rentContractObj->comment}}</div>
         </div>
-
-
-
+        <div class="row pt-2 mt-2 border-dark border-top">
+            @forelse($rentContractObj->files as $file)
+            <a href="/file/show/{{$file->file->id}}" target="_blank">{{$file->file->fileName}}</a>
+            @empty
+                Файлы не добавлены
+            @endforelse
+        </div>
+        <div class="row pt-2 mt-3 border-dark border-top">
+            <a class="btn btn-ssm btn-outline-success DialogUserMin" href="/printDocument/select?contractId={{$rentContractObj->id}}" title="Документы"><i class="far fa-file-alt"></i></a>
+        </div>
+    
+                
 
         <div class="row mt-4">
             <div class="col-12 text-center">

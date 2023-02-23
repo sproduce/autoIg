@@ -20,5 +20,10 @@ class photoLink extends Model
     }
        
     
+    public function file() 
+    {
+        return $this->hasOne(photo::class,'id','photoId')->withDefault();
+    }
+    
     
 }

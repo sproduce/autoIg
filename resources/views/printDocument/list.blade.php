@@ -4,6 +4,7 @@
 @section('header')
 <a class="btn btn-ssm btn-outline-success mr-3 DialogUserMin" title="Добавить шаблон" href="/printDocument/add"><i class="far fa-plus-square"></i></a>
             <h5 class="m-0">Список Шаблонов</h5>
+<a class="btn btn-ssm btn-outline-info ml-3 DialogUser" title="Информация о переменых" href="/printDocument/variableInfo"><i class="fas fa-info-circle"></i></a>
 @endsection
 
             

@@ -21,7 +21,7 @@ class FileController extends Controller
        $photoObj = $this->fileServ->getFile($fileId);
        $header = "Content-Type: ".$photoObj->fileType;
        header($header);
-       return response()->file(Storage::disk('photo')->path($photoObj->getFilePath()));
+       return response()->file(Storage::disk('photo')->path($photoObj->getFilePath()),$photoObj->fileName);
     }
     
     

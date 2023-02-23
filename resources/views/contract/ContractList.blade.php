@@ -95,9 +95,7 @@
                                         <div class="col-1 text-right p-0">{{$contract->depositBalance}} p.</div>
 
                                         <div class="col-2">{{$contract->price}}</div>
-                                        <div class="col-1 p-0 pl-3 pt-1 text-left">
-                                            <a class="btn btn-ssm btn-outline-success DialogUserMin" href="/printDocument/select?contractId={{$contract->id}}" title="Документы"><i class="far fa-file-alt"></i></a>
-                                        </div>
+                                        <div class="col-1 p-0 pl-3 pt-1 text-left"></div>
                                     </div>
 
                                     <div class="row">{{--line 3--}}

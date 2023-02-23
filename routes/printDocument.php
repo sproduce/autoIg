@@ -11,7 +11,7 @@ Route::get('/select',[PrintDocumentController::class,'printDocumentDialog']);
 Route::post('/generation/{documentId}',[PrintDocumentController::class,'generation']);
 Route::get('/prepare/{documentId}',[PrintDocumentController::class,'prepare']);
 
-
+Route::get('/variableInfo',[PrintDocumentController::class,'variableInfoDialog']);
 
 
 

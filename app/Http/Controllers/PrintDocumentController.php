@@ -94,6 +94,13 @@ class PrintDocumentController extends Controller
         $templateProcessor->saveAs('/tmp/list.docx');
         echo "test";
         //return view('printDocument.document10');
-        
     }
+    
+    
+    public function variableInfoDialog() 
+    {
+        return view('dialog.PrintDocument.variableInfo');
+    }
+    
+    
 }
