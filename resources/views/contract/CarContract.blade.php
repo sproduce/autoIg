@@ -105,7 +105,7 @@
                 @if ($rentContractObj->id)
                     <input type="submit" class="btn btn-primary" value="Сохранить">
                 @else
-                    <input type="checkbox" id="toAddForm" name="toAddForm" value="{{old('toAddForm',$rentContractObj->toAddForm)}}" @if(old('toAddForm',$rentContractObj->toAddForm)) checked @endif/>  <label class="form-check-label" for="toAddForm">К добавлению</label>
+                    <input type="checkbox" id="toAddForm" name="toAddForm" value="1" @if(old('toAddForm',$rentContractObj->toAddForm)) checked @endif/>  <label class="form-check-label" for="toAddForm">К добавлению</label>
                     <input type="submit" class="btn btn-primary" value="Добавить">
                 @endif
 

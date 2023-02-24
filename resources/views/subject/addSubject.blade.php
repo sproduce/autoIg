@@ -113,11 +113,20 @@
         </div>
     </div>
 
+    <div class="modal-footer d-flex justify-content-center">
 
-    <div class="form-row text-center" id="last-row">
+        <input type="submit" class="btn btn-primary" value="Записать">
+        <input type="checkbox" id="toAddForm" name="toAddForm" value="1" @if(old('toAddForm',$subjectObj->toAddForm)) checked @endif/>                
+        <label class="form-check-label" for="toAddForm">Добавить следующего</label>
+    </div>
+<!--    <div class="form-row text-center">
+        <div class="input-group col-2">
+            
+            
+        </div>
         <div class="input-group col-1">
             <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Записать"/>
         </div>
-    </div>
+    </div>-->
 </form>
 @endsection

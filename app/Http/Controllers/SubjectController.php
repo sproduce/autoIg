@@ -29,8 +29,14 @@ class SubjectController extends Controller
     public function fullInfoDialog($id)
     {
         $subjectObj = $this->subjectServ->getSubject($id);
-        $subjectContactsObj = $this->subjectServ->getSubjectContacts($id);
-        return view('dialog.Subject.infoSubject',['subjectObj' => $subjectObj,'subjectContactsObj' => $subjectContactsObj]);
+        if ($subjectObj->individual){
+            $fileView = 'dialog.Subject.infoIndividual';
+        } else {
+            $fileView = 'dialog.Subject.info';
+        }
+        
+        
+        return view($fileView,['subjectObj' => $subjectObj]);
     }
     
     
@@ -54,6 +60,7 @@ class SubjectController extends Controller
         $payAccountsObj = $payAccountModel->all();
         $subjectObj->male = 1;
         $subjectObj->individual = 1;
+        $subjectObj->toAddForm = 0;
         return view('subject.addSubject',[
             'subjectObj' => $subjectObj,
             'regionsObj' => $regionsObj,
@@ -71,16 +78,21 @@ class SubjectController extends Controller
     public function addContact($id)
     {
         $subjectContactsObj = $this->subjectServ->getSubjectContacts($id);
+        
         return view('dialog.Subject.addContacts',['subjectId' => $id,'subjectContactsObj' => $subjectContactsObj]);
     }
 
 
     public function save(SubjectRequest $subjectReq)
     {
-        $this->subjectServ->addSubject($subjectReq);
+        $subjectObj = $this->subjectServ->addSubject($subjectReq);
         
-        //return subjecObj
-        return redirect('/subject/list');
+          if ($subjectReq->get('toAddForm')){
+            return  redirect()->back();
+        } else {
+            return redirect('/subject/fullInfo/'.$subjectObj->id);
+        }
+
     }
 
     public function saveContact(SubjectContactRequest $subjContactRequest)

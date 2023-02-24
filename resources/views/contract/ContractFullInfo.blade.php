@@ -21,13 +21,16 @@
                 @endif
             </div>
             <div class="col-3"><strong>Группа машин </strong>{{$rentContractObj->carGroup->nickName}}</div>
-            <div class="col-3"><strong>От кого </strong>{{$rentContractObj->subjectFrom->nickname}}</div>
+            <div class="col-3">
+                <strong>От кого </strong>{{$rentContractObj->subjectFrom->nickname}}
+                <a class="btn btn-ssm btn-outline-info ml-3 DialogUser" title="Информация" href="/subject/subjectInfo/{{$rentContractObj->subjectFrom->id}}"><i class="fas fa-info-circle"></i></a>
+            </div>
             <div class="col-3">
                 <strong>Клиент </strong>
                 <a class="" href="/subject/fullInfo/{{$rentContractObj->subjectTo->id}}">
                     {{$rentContractObj->subjectTo->nickname}}
                 </a>
-                 
+                <a class="btn btn-ssm btn-outline-info ml-3 DialogUser" title="Информация" href="/subject/subjectInfo/{{$rentContractObj->subjectTo->id}}"><i class="fas fa-info-circle"></i></a>
                     
                 
             </div>

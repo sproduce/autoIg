@@ -64,7 +64,7 @@ Class SubjectService{
         $this->subjectModel->carOwner = $subjectReq->get('carOwner');
         $this->subjectModel->accessible = $subjectReq->get('accessible');
 
-        $this->subjectRep->addSubject($this->subjectModel);
+        return $this->subjectRep->addSubject($this->subjectModel);
 
     }
 

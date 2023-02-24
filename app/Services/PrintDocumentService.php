@@ -49,7 +49,8 @@ Class PrintDocumentService {
                     $returnArray[$variable] = $contractObj->subjectFrom->actualEntity->inn;
                     break;
                 case 'SSE_cnfu'://полное название организации
-                    $returnArray[$variable] = $contractObj->subjectFrom->actualEntity->fullName;
+                    $tmp = "subjectFrom->actualEntity->fullName";
+                    $returnArray[$variable] = $contractObj->{$tmp};
                     break;
                 case 'SSE_uregaddr'://Адрес регистрации юр лица
                     $returnArray[$variable] = $contractObj->subjectFrom->actualEntity->address;
