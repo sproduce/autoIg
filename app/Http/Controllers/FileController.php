@@ -19,9 +19,12 @@ class FileController extends Controller
     public function showFile($fileId) 
     {
        $photoObj = $this->fileServ->getFile($fileId);
-       $header = "Content-Type: ".$photoObj->fileType;
-       header($header);
-       return response()->file(Storage::disk('photo')->path($photoObj->getFilePath()),$photoObj->fileName);
+       $header[0] = "Content-Type: ".$photoObj->fileType;
+       $header[1] = "Content-Disposition: inline; filename= \"".$photoObj->fileName."\"";
+       //echo $photoObj->fileName();
+       //exit();
+       //header($header);
+       return response()->file(Storage::disk('photo')->path($photoObj->getFilePath()),$header);
     }
     
     
