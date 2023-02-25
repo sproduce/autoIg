@@ -20,6 +20,8 @@ use Illuminate\Support\Str;
 class rentDocumentPassport extends Model
 {
     use HasFactory;
+    protected $dates = ['dateIssued','dateResidence'];
+    
     protected static function boot()
         {
             parent::boot();

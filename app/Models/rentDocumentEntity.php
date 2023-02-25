@@ -9,6 +9,9 @@ use Illuminate\Support\Str;
 class rentDocumentEntity extends Model
 {
     use HasFactory;
+    protected $dates = ['dateReg'];
+    
+    
     protected static function boot()
         {
             parent::boot();

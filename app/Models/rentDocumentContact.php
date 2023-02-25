@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 class rentDocumentContact extends Model
 {
     use HasFactory;
-    
+
     protected static function boot()
         {
             parent::boot();

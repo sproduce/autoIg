@@ -20,6 +20,7 @@ use Illuminate\Support\Str;
 class rentDocumentPayment extends Model
 {
     use HasFactory;
+    
     protected static function boot()
         {
             parent::boot();

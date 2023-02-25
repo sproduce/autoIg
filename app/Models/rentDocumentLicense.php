@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 class rentDocumentLicense extends Model
 {
     use HasFactory;
+    protected $dates = ['start','finish'];
+    
     protected static function boot()
         {
             parent::boot();
