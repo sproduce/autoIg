@@ -13,7 +13,7 @@ Route::get('/prepare/{documentId}',[PrintDocumentController::class,'prepare']);
 
 Route::get('/variableInfo',[PrintDocumentController::class,'variableInfoDialog']);
 
-
+Route::get('/del/{printDocumentId}',[PrintDocumentController::class,'deleteDocument']);
 
 Route::get('/document10',[PrintDocumentController::class,'document10']);
 

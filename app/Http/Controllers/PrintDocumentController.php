@@ -79,28 +79,19 @@ class PrintDocumentController extends Controller
     }
     
     
-    
-    public function document10() 
+     
+    public function variableInfoDialog() 
     {
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('/var/www/crm/storage/app/test.docx');
-        
-        $variables = $templateProcessor->getVariables();
-        var_dump($variables);
-        $templateProcessor->setValue('brand','testBrand');   
-        $templateProcessor->setValue('model','testModel');   
-        
-        $templateProcessor->setValue('model1','testModel'); 
-        
-        
-        $templateProcessor->saveAs('/tmp/list.docx');
-        echo "test";
-        //return view('printDocument.document10');
+        $variableArray = config('printDocument.variable');
+        return view('dialog.PrintDocument.variableInfo',['variableArray' => $variableArray]);
     }
     
     
-    public function variableInfoDialog() 
+    public function deleteDocument($printDocumentId,PrintDocumentService $printDocumentServ) 
     {
-        return view('dialog.PrintDocument.variableInfo');
+        $printDocumentObj = $printDocumentServ->getPrintDocument($printDocumentId);
+        $printDocumentObj->delete();
+        return redirect()->back();
     }
     
     

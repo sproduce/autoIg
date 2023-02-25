@@ -64,9 +64,19 @@ Class PrintDocumentService {
                 case 'SSE_ban'://Наименование банка
                     $returnArray[$variable] = $contractObj->subjectFrom->actualPayment->bankName;
                     break;
+                case 'SSE_fn'://Имя другие падежи
+                    $returnArray[$variable] = $contractObj->subjectFrom->name;
+                    break;
+                case 'SSE_ln'://Фамилия арендатора другие падежи
+                    $returnArray[$variable] = $contractObj->subjectFrom->surname;
+                    break;
+                case 'SSE_sn'://Отчество другие падежи
+                    $returnArray[$variable] = $contractObj->subjectFrom->patronymic;
+                    break;
+                 
                 case 'SSE_fns'://Сокращенная форма ФИО (Иванов И.И.)
                     if ($contractObj->subjectFrom->surname && $contractObj->subjectFrom->name && $contractObj->subjectFrom->patronymic){
-                        $returnArray[$variable] = $contractObj->subjectFrom->surname.' '.$contractObj->subjectFrom->name[0].'. '.$contractObj->subjectFrom->patronymic[0].'.';
+                        $returnArray[$variable] = $contractObj->subjectFrom->surname.' '.mb_substr($contractObj->subjectFrom->name,0,1).'. '.mb_substr($contractObj->subjectFrom->patronymic,0,1).'.';
                     } 
                     break;
 
@@ -170,11 +180,25 @@ Class PrintDocumentService {
                     } 
                     break;
                 case 'SCL_fns'://Сокращенная форма ФИО (Иванов И.И.)
+                    
                     if ($contractObj->subjectTo->surname && $contractObj->subjectTo->name && $contractObj->subjectTo->patronymic){
-                        $returnArray[$variable] = $contractObj->subjectTo->surname.' '.$contractObj->subjectTo->name[0].'. '.$contractObj->subjectTo->patronymic[0].'.';
+                        $returnArray[$variable] = $contractObj->subjectTo->surname.' '.mb_substr($contractObj->subjectTo->name,0,1).'. '.mb_substr($contractObj->subjectTo->patronymic,0,1).'.';
                     } 
                     break;
                 
+                    
+                case 'SCL_fn'://Имя другие падежи
+                    $returnArray[$variable] = $contractObj->subjectTo->name;
+                    break;
+                case 'SCL_ln'://Фамилия арендатора другие падежи
+                    $returnArray[$variable] = $contractObj->subjectTo->surname;
+                    break;
+                case 'SCL_sn'://Отчество другие падежи
+                    $returnArray[$variable] = $contractObj->subjectTo->patronymic;
+                    break;
+                    
+                    
+                    
                 case 'SCL_cn'://полное название организации
                     $returnArray[$variable] = $contractObj->subjectTo->actualEntity->fullName;
                     break;   

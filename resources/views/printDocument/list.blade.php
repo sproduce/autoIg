@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-1">
                         <a href="/printDocument/add/{{$printDocument->id}}" class="btn btn-ssm btn-outline-warning DialogUserMin" title="Редактировать"> <i class="far fa-edit"></i></a>
-                        <a href="" class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить шаблон?')"><i class="fas fa-trash"></i> </a>
+                        <a href="/printDocument/del/{{$printDocument->id}}" class="btn btn-ssm btn-outline-danger" title="Удалить" onclick="return confirm('Удалить шаблон?')"><i class="fas fa-trash"></i> </a>
                     </div>
                 </div>
             
