@@ -31,7 +31,7 @@ use Illuminate\Support\Str;
 class rentSubject extends Model
 {
     use HasFactory;
-    private $id,$pid,$payAccountId,$regionId,$surname,$name,$patronymic,$companyName,$nickname,$birthday,$comment,$male,$individual,$client,$carOwner,$accessible;
+    //private $id,$pid,$payAccountId,$regionId,$surname,$name,$patronymic,$companyName,$nickname,$birthday,$comment,$male,$individual,$client,$carOwner,$accessible;
     protected $fillable = ['pid','payAccountId','regionId','surname','name','patronymic','companyName','nickname','birthday','comment','male','individual','client','carOwner','accessible'];
     protected $dates=['birthday'];
 
@@ -113,4 +113,9 @@ class rentSubject extends Model
         return $this->hasOne(rentDocumentPayment::class,'linkUuid','uuid')->withDefault(function($model){$model->actual=1;});
     }
     
+    
+    public function getFioAttribute() 
+    {
+        return $this->surname.' '.mb_substr($this->name,0,1).'. '.mb_substr($this->patronymic,0,1).'.';
+    }
 }
