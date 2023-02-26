@@ -87,7 +87,7 @@ return [
             
             'CAR_TAXLn' => array('license->number','Серия и Номер лицензии'),
             'CAR_TAXLsd' => array('license->dateDocumentText','Дата выдачи'),
-            'CAR_TAXLed' => array('license->expiration','Срок действия'),
+            'CAR_TAXLed' => array('license->expirationText','Срок действия'),
             'CAR_TAXLotm' => array('license->marks','Особые отметки'),
             
             'CON_N' => array('number','Номер договора'),

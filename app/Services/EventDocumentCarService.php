@@ -46,7 +46,7 @@ Class EventDocumentCarService implements EventServiceInterface{
 
     public function getEventModel($modelId = null)
     {
-
+        return $this->eventDocumentInsuranceRep->getEvent($modelId);
     }
 
 

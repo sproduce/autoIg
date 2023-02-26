@@ -250,4 +250,17 @@ Class TimeSheetService{
         return $eventServ->getEventInfo($timeSheetObj->dataId);
     }
 
+     public function getLastTimeSheetModel($eventId,$carId)
+    {//return eventModel
+        $eventObj = $this->rentEventRep->getEvent($eventId);
+        $carObj = $this->motorPoolRep->getCar($carId);
+        $timeSheetObj = $this->timeSheetRep->getLastTimeSheet($carObj, $eventObj);
+        
+        $eventServ = $this->rentEventService->getEventService($eventObj);
+        
+        return $eventServ->getEventModel($timeSheetObj->dataId);
+    }
+    
+    
+    
 }

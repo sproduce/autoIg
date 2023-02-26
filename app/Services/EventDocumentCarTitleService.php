@@ -55,7 +55,7 @@ Class EventDocumentCarTitleService implements EventServiceInterface{
 
   public function getEventModel($modelId = null)
   {
-
+      return $this->eventDocumentTitleRep->getEvent($modelId);
   }
 
 

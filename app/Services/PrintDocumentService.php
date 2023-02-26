@@ -35,11 +35,11 @@ Class PrintDocumentService {
     private function contractSetVariable(rentContract $contractObj, $variableArray)
     {
         $configVar = config('printDocument.variable');
-        $contractObj->sts = $this->timeSheetServ->getLastTimeSheet(config('rentEvent.eventSts'), $contractObj->car->id);
-        $contractObj->pts = $this->timeSheetServ->getLastTimeSheet(config('rentEvent.eventPts'), $contractObj->car->id);
-        $contractObj->osago = $this->timeSheetServ->getLastTimeSheet(config('rentEvent.eventOsago'), $contractObj->car->id);
-        $contractObj->kasko = $this->timeSheetServ->getLastTimeSheet(config('rentEvent.eventKasko'), $contractObj->car->id);
-        $contractObj->license = $this->timeSheetServ->getLastTimeSheet(config('rentEvent.eventLicense'), $contractObj->car->id);
+        $contractObj->sts = $this->timeSheetServ->getLastTimeSheetModel(config('rentEvent.eventSts'), $contractObj->car->id);
+        $contractObj->pts = $this->timeSheetServ->getLastTimeSheetModel(config('rentEvent.eventPts'), $contractObj->car->id);
+        $contractObj->osago = $this->timeSheetServ->getLastTimeSheetModel(config('rentEvent.eventOsago'), $contractObj->car->id);
+        $contractObj->kasko = $this->timeSheetServ->getLastTimeSheetModel(config('rentEvent.eventKasko'), $contractObj->car->id);
+        $contractObj->license = $this->timeSheetServ->getLastTimeSheetModel(config('rentEvent.eventLicense'), $contractObj->car->id);
         
         //$variableArray[] = 'CAR_TAXLsd';
         foreach ($variableArray as $variable)
