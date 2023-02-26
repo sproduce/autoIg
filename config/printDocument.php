@@ -55,7 +55,7 @@ return [
             'SCL_lisn' => array('subjectTo->actuallicense->number','Серия и номер водительского удостоверения арендатора'),
             'SCL_lish' => array('subjectTo->actuallicense->issuedBy','Кем выдано водительское удостоверение'),
             'SCL_lisd' => array('subjectTo->actuallicense->startText','Дата выдачи водительского удостоверения'),
-            'SCL_lisde' => array('subjectTo->actuallicense->finish','Срок действия водительского удостоверения'),
+            'SCL_lisde' => array('subjectTo->actuallicense->finishText','Срок действия водительского удостоверения'),
             'SCL_phone' => array('subjectTo->actualContact->phone','Номер телефона Арендатора'),
             'SCL_mail' => array('command','Элетронная почта арендатора'),
             'SCL_accn' => array('subjectTo->actualPayment->checkingAccount','Номер счёта арендатора'),
