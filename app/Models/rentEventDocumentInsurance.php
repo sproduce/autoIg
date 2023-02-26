@@ -17,6 +17,28 @@ class rentEventDocumentInsurance extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    private $id,$number,$expiration;
+    protected $dates = ['expiration','dateDocument'];
     protected $fillable = ['number','expiration','dateDocument'];
+    
+    
+    public function getExpirationTextAttribute() 
+    {
+        if ($this->id&&$this->expiration){
+            $result = $this->expiration->format('d-m-Y');
+        } else {
+            $result = '';
+        }
+        return $result;
+    }
+    
+    public function getDateDocumentTextAttribute() 
+    {
+        if ($this->id&&$this->dateDocument){
+            $result = $this->dateDocument->format('d-m-Y');
+        } else {
+            $result = '';
+        }
+        return $result;
+    }
+    
 }

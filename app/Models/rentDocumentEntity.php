@@ -29,5 +29,17 @@ class rentDocumentEntity extends Model
     public function files() 
     {
         return $this->hasMany(photoLink::class,'linkUuid','uuid');
-    }    
+    }   
+    
+    
+    public function getDateRegTextAttribute() 
+    {
+        if ($this->id&&$this->dateReg){
+            $result = $this->dateReg->format('d-m-Y');
+        } else {
+            $result = '';
+        }
+        return $result;
+    }
+    
 }

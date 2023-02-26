@@ -33,8 +33,19 @@ class rentSubject extends Model
     use HasFactory;
     //private $id,$pid,$payAccountId,$regionId,$surname,$name,$patronymic,$companyName,$nickname,$birthday,$comment,$male,$individual,$client,$carOwner,$accessible;
     protected $fillable = ['pid','payAccountId','regionId','surname','name','patronymic','companyName','nickname','birthday','comment','male','individual','client','carOwner','accessible'];
-    protected $dates=['birthday'];
+    protected $dates = ['birthday'];
 
+    public function getBirthdayTextAttribute() 
+    {
+        if ($this->id&&$this->birthday){
+            $result = $this->birthday->format('d-m-Y');
+        } else {
+            $result = '';
+        }
+        return $result;
+    }
+    
+    
     protected static function boot()
         {
             parent::boot();

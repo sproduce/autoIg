@@ -31,7 +31,7 @@ class rentContract extends Model
 {
     use HasFactory;
     protected $dates = ['start','finish','finishFact'];
-    private $start,$finish,$finishFact,$typeId,$carGroupId,$statusId,$number,$comment,$price,$carId,$subjectIdFrom,$subjectIdTo,$toAddForm;
+    //private $start,$finish,$finishFact,$typeId,$carGroupId,$statusId,$number,$comment,$price,$carId,$subjectIdFrom,$subjectIdTo,$toAddForm;
     protected $fillable = ['start','finish','finishFact','typeId','carGroupId','statusId','number','comment','carId','subjectIdFrom','subjectIdTo'];
 
 
@@ -42,6 +42,26 @@ class rentContract extends Model
             $post->uuid = (string)Str::uuid();
         });
     }
+    
+    public function getStartTextAttribute() 
+    {
+        if ($this->id){
+            $result = $this->start->format('d-m-Y');
+        } else {
+            $result = '';
+        }
+        return $result;
+    } 
+    public function getFinishTextAttribute() 
+    {
+        if ($this->id){
+            $result = $this->finish->format('d-m-Y');
+        } else {
+            $result = '';
+        }
+        return $result;
+    } 
+    
     
     
     

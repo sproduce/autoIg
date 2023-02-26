@@ -40,6 +40,8 @@ Class PrintDocumentService {
         $contractObj->osago = $this->timeSheetServ->getLastTimeSheet(config('rentEvent.eventOsago'), $contractObj->car->id);
         $contractObj->kasko = $this->timeSheetServ->getLastTimeSheet(config('rentEvent.eventKasko'), $contractObj->car->id);
         $contractObj->license = $this->timeSheetServ->getLastTimeSheet(config('rentEvent.eventLicense'), $contractObj->car->id);
+        
+        //$variableArray[] = 'CAR_TAXLsd';
         foreach ($variableArray as $variable)
         {
             $returnArray[$variable] = '';

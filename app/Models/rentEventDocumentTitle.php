@@ -24,7 +24,20 @@ class rentEventDocumentTitle extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    private $id,$number,$regNumber,$passport,$color,$issued,$marks,$subjectId,$dateDocument,$ownerSubjectId;
+    //private $id,$number,$regNumber,$passport,$color,$issued,$marks,$subjectId,$dateDocument,$ownerSubjectId;
     protected $fillable = ['number','regNumber','passport','color','issued','marks','subjectId','dateDocument','ownerSubjectId'];
     protected $dates = ['dateDocument'];
+    
+    public function getDateDocumentTextAttribute() 
+    {
+        if ($this->id&&$this->dateDocument){
+            $result = $this->dateDocument->format('d-m-Y');
+        } else {
+            $result = '';
+        }
+        return $result;
+    }
+    
+    
+    
 }

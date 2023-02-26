@@ -22,6 +22,29 @@ class rentDocumentPassport extends Model
     use HasFactory;
     protected $dates = ['dateIssued','dateResidence'];
     
+    
+    public function getDateIssuedTextAttribute() 
+    {
+        if ($this->id&&$this->dateIssued){
+            $result = $this->dateIssued->format('d-m-Y');
+        } else {
+            $result = '';
+        }
+        return $result;
+    }
+    
+   public function getDateResidenceTextAttribute() 
+    {
+        if ($this->id&&$this->dateResidence){
+            $result = $this->dateResidence->format('d-m-Y');
+        } else {
+            $result = '';
+        }
+        return $result;
+    } 
+    
+    
+    
     protected static function boot()
         {
             parent::boot();
