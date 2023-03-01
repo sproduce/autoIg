@@ -45,7 +45,10 @@ Class PrintDocumentService {
         foreach ($variableArray as $variable)
         {
             $returnArray[$variable] = '';
-            $returnArray[$variable] = eval('return $contractObj->'.$configVar[$variable][0].';');
+            if (isset($configVar[$variable])){
+                $returnArray[$variable] = eval('return $contractObj->'.$configVar[$variable][0].';');
+            }
+            
         }
         
         return $returnArray;
@@ -60,25 +63,56 @@ Class PrintDocumentService {
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(Storage::disk('photo')->path($filesObj[0]->getFilePath()));
         $variables = $templateProcessor->getVariables();
         $setVariable = $this->contractSetVariable($contractObj, $variables);
+        
+        
         return $setVariable;
     }
+    
+    
+    
+    private function extendedCommand($commands,$key,$value,$templateDocument)
+    {
+        //$templateDocument->setImageValue($var, '/tmp/qr.jpeg');
+        $barcodeObj = new \Com\Tecnick\Barcode\Barcode();
+        foreach ($commands as $command){
+            switch ($command){
+                case 'qr':
+                    $fileTmp = tmpfile();
+                    $filePath = stream_get_meta_data($fileTmp)['uri'];
+                    $qrCode = $barcodeObj->getBarcodeObj('QRCODE,H',$value, -2, -2, 'black', array(-1, -1, -1, -1))->setBackgroundColor('#ffffff');
+                    file_put_contents($filePath, $qrCode->getPngData());
+                    $templateDocument->setImageValue($key, $filePath);
+                break;
+            }
+                    
+        }
+    }
+    
+    
+    
     
     
 
     public function contractPrintDocument(printDocument $printDocumentObj, $variableArray) 
     {
+        $configVar = config('printDocument.variable');
         $filesObj = $this->photoServ->getFiles($printDocumentObj->uuid);
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(Storage::disk('photo')->path($filesObj[0]->getFilePath()));
-        
-        foreach($variableArray as $key => $variable)
+        //$templateProcessor->setImageValue('image', '/tmp/qr.jpeg');
+        foreach($variableArray as $key => $value)
         {
-            if ($variable){
-                $templateProcessor->setValue($key,$variable);   
-            } else {
+            if (!$value){
                 $templateProcessor->setValue($key,'');   
+                continue;
             }
-          
+            if (isset($configVar[$key][2])){
+                $this->extendedCommand($configVar[$key][2],$key,$value,$templateProcessor);
+            } else {
+                $templateProcessor->setValue($key,$value);   
+            } 
         }
+        
+        
         $tmpPath = '/tmp/'.$printDocumentObj->id.rand(0,9).'docx';
         $templateProcessor->saveAs($tmpPath);
         return $tmpPath;

@@ -15,6 +15,7 @@
         "laravel/ui": "^3.3",
         "maatwebsite/excel": "^3.1",
         "phpoffice/phpword": "^1.0",
+        "tecnickcom/tc-lib-barcode": "^1.15",
         "webklex/laravel-imap": "^4.0"
     },
     "require-dev": {
