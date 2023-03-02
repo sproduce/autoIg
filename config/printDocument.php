@@ -79,8 +79,6 @@ return [
             'CAR_STSn' => ['sts->number','Серия и Номер СТС'],
             'CAR_STSwh' => ['sts->issued','Кем выдан СТС'],
             'CAR_Col' => ['sts->color','Цвет автомобиля'],
-
-            
             
             'CAR_PTSn' => ['pts->number','Серия и Номер ПТС'],
             'CAR_PTSd' => ['pts->dateDocumentText','дата выдачи ПТС'],

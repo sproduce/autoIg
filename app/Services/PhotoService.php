@@ -28,7 +28,6 @@ Class PhotoService
 
     private function saveFile(UploadedFile $photo)
     {
-        
         $hash = sha1($photo->get());
         $photoObj = $this->photoRep->getPhotoByHash($hash);
         if (!$photoObj){

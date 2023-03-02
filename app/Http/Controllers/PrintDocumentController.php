@@ -58,19 +58,22 @@ class PrintDocumentController extends Controller
     }
     
     
-    public function generation($documentId,PrintDocumentService $printDocumentServ) 
+    public function generation($documentId,PrintDocumentService $printDocumentServ,PhotoService $photoServ) 
     {
         $printDocumentObj = $printDocumentServ->getPrintDocument($documentId);
         //var_dump($this->request->get('value'));
         $fileName = $printDocumentServ->contractPrintDocument($printDocumentObj, $this->request->get('value'));
+
+        $fileObj = new \Illuminate\Http\UploadedFile($fileName, $printDocumentObj->nickname);
         
+        //$photoServ->savePhoto($fileObj, $printDocumentObj->uuid);
         return response()->download($fileName,$printDocumentObj->nickname.'.docx');
     }
     
     
     public function prepare($documentId,PrintDocumentService $printDocumentServ, ContractService $contractServ) 
     {
-        $variable = config('printDocument.variable');
+        //$variable = config('printDocument.variable');
         $printDocumentObj = $printDocumentServ->getPrintDocument($documentId);
         $contractObj = $contractServ->getContract($this->request->get('contractId'));
         $variableArray = $printDocumentServ->contractPrepareDocument($printDocumentObj, $contractObj);

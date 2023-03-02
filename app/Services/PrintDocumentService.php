@@ -72,19 +72,17 @@ Class PrintDocumentService {
     
     private function extendedCommand($commands,$key,$value,$templateDocument)
     {
-        //$templateDocument->setImageValue($var, '/tmp/qr.jpeg');
         $barcodeObj = new \Com\Tecnick\Barcode\Barcode();
         foreach ($commands as $command){
             switch ($command){
                 case 'qr':
                     $fileTmp = tmpfile();
                     $filePath = stream_get_meta_data($fileTmp)['uri'];
-                    $qrCode = $barcodeObj->getBarcodeObj('QRCODE,H',$value, -2, -2, 'black', array(-1, -1, -1, -1))->setBackgroundColor('#ffffff');
+                    $qrCode = $barcodeObj->getBarcodeObj('QRCODE,H',$value, -10, -10, 'black', array(-1, -1, -1, -1))->setBackgroundColor('#ffffff');
                     file_put_contents($filePath, $qrCode->getPngData());
                     $templateDocument->setImageValue($key, $filePath);
                 break;
             }
-                    
         }
     }
     
@@ -98,7 +96,6 @@ Class PrintDocumentService {
         $configVar = config('printDocument.variable');
         $filesObj = $this->photoServ->getFiles($printDocumentObj->uuid);
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(Storage::disk('photo')->path($filesObj[0]->getFilePath()));
-        //$templateProcessor->setImageValue('image', '/tmp/qr.jpeg');
         foreach($variableArray as $key => $value)
         {
             if (!$value){
@@ -113,7 +110,7 @@ Class PrintDocumentService {
         }
         
         
-        $tmpPath = '/tmp/'.$printDocumentObj->id.rand(0,9).'docx';
+        $tmpPath = '/tmp/'.$printDocumentObj->id.rand(0,9).'.docx';
         $templateProcessor->saveAs($tmpPath);
         return $tmpPath;
     }

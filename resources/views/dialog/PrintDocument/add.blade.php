@@ -11,13 +11,13 @@
         <div class="container-fluid">
             <div class="form-row text-center">
                 <div class="form-group col-md-12 input-group-sm">
-                    <label for="info" title="">Описание</label>
+                    <label for="info" title="">Название шаблона</label>
                     <input type="text" name="info" id="info" class="form-control" value="{{$printDocument->info}}" required autocomplete="off"/>
                 </div>
             </div>
             <div class="form-row text-center">
                 <div class="form-group col-md-12 input-group-sm">
-                    <label for="nickname" title="">NickName</label>
+                    <label for="nickname" title="">Название файла при сохранении</label>
                     <input type="text" name="nickname" id="nickname" class="form-control" value="{{$printDocument->nickname}}" required autocomplete="off"/>
                 </div>
             </div>
