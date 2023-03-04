@@ -110,8 +110,10 @@ Class PrintDocumentService {
         }
         
         
-        $tmpPath = '/tmp/'.$printDocumentObj->id.rand(0,9).'.docx';
-        $templateProcessor->saveAs($tmpPath);
+        //$tmpPath = '/tmp/'.$printDocumentObj->id.rand(0,9).'.docx';
+        //$tmpPath = '/tmp/1.docx';
+        $tmpPath = $templateProcessor->save();
+        
         return $tmpPath;
     }
     

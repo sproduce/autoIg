@@ -58,16 +58,21 @@ class PrintDocumentController extends Controller
     }
     
     
-    public function generation($documentId,PrintDocumentService $printDocumentServ,PhotoService $photoServ) 
+    public function generation($documentId,PrintDocumentService $printDocumentServ,PhotoService $photoServ, ContractService $contractServ) 
     {
+        
         $printDocumentObj = $printDocumentServ->getPrintDocument($documentId);
         //var_dump($this->request->get('value'));
         $fileName = $printDocumentServ->contractPrintDocument($printDocumentObj, $this->request->get('value'));
-
-        $fileObj = new \Illuminate\Http\UploadedFile($fileName, $printDocumentObj->nickname);
+        $contractObj = $contractServ->getContract($this->request->get('contractId'));
+        $newFileName = $contractObj->start->format('d-m-y').$printDocumentObj->nickname.$contractObj->subjectTo->surname.$contractObj->car->nickName.'.docx';
         
-        //$photoServ->savePhoto($fileObj, $printDocumentObj->uuid);
-        return response()->download($fileName,$printDocumentObj->nickname.'.docx');
+        $fileObj = new \Illuminate\Http\UploadedFile($fileName, $newFileName,"application/vnd.openxmlformats-officedocument.wordprocessingml.document",null,true);
+//        var_dump($fileObj);
+//        exit();
+//        echo $fileObj->get();
+        $photoServ->savePhoto($fileObj, $contractObj->uuid);
+        return response()->download($fileName,$newFileName);
     }
     
     
@@ -78,7 +83,7 @@ class PrintDocumentController extends Controller
         $contractObj = $contractServ->getContract($this->request->get('contractId'));
         $variableArray = $printDocumentServ->contractPrepareDocument($printDocumentObj, $contractObj);
         //$fileName = $printDocumentServ->contractPrintDocument($printDocumentObj, $contractObj);
-        return view('printDocument.prepare',['variableArray' => $variableArray,'documentId' => $printDocumentObj->id]);
+        return view('printDocument.prepare',['variableArray' => $variableArray,'documentId' => $printDocumentObj->id,'contractId' => $contractObj->id]);
     }
     
     

@@ -41,11 +41,19 @@
             <div class="col-6"><strong>Комментарий </strong>{{$rentContractObj->comment}}</div>
         </div>
         <div class="row pt-2 mt-2 border-dark border-top">
+            <div class="col-12">
             @forelse($rentContractObj->files as $file)
-            <a href="/file/show/{{$file->file->id}}" target="_blank">{{$file->file->fileName}}</a>
+                <div class ="row">
+                    <div class="col-12">
+                        <a href="/file/download/{{$file->file->id}}" title="Сохранить" class="btn btn-ssm btn-outline-success"><i class="fas fa-download"></i></a>
+                        <a href="/file/show/{{$file->file->id}}" target="_blank">{{$file->file->fileName}}</a>
+                    </div>
+                </div>
+            
             @empty
                 Файлы не добавлены
             @endforelse
+                </div>
         </div>
         <div class="row pt-2 mt-3 border-dark border-top">
             <a class="btn btn-ssm btn-outline-success DialogUserMin" href="/printDocument/select?contractId={{$rentContractObj->id}}" title="Документы"><i class="far fa-file-alt"></i></a>

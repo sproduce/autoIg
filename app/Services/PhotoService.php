@@ -28,7 +28,11 @@ Class PhotoService
 
     private function saveFile(UploadedFile $photo)
     {
+//        var_dump($photo);
+//        echo $photo->get();
+//        exit();
         $hash = sha1($photo->get());
+        //exit();
         $photoObj = $this->photoRep->getPhotoByHash($hash);
         if (!$photoObj){
             $extension = $photo->getClientOriginalExtension();
@@ -72,6 +76,8 @@ Class PhotoService
             }
         } else {
             $photoObj = $this->saveFile($fileObj);
+//            echo $photoObj->$uuid;
+//            exit();
             $this->photoRep->saveLink($photoObj->id,$uuid);
         }
     }
