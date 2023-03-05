@@ -19,7 +19,7 @@ class GeneralRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        $input=parent::all();
+        $input = parent::all();
 
         $dateTime = date("Y-m-d H:i:00",strtotime($input['date'].' '.$input['time']));
         $this->merge(['dateTime' => $dateTime,]);

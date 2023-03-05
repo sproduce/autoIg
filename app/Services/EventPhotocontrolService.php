@@ -2,62 +2,153 @@
 namespace App\Services;
 
 use App\Repositories\EventPhotocontrolRepository;
+
+use App\Repositories\Interfaces\ContractRepositoryInterface;
+use App\Repositories\Interfaces\RentEventRepositoryInterface;
 use App\Repositories\Interfaces\TimeSheetRepositoryInterface;
-use App\Repositories\ToPaymentRepository;
-use App\Services\PhotoService;
+use App\Repositories\Interfaces\ToPaymentRepositoryInterface;
+use App\Models\rentEvent;
+use App\Models\timeSheet;
+use App\Models\toPayment;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
-use Illuminate\Support\Str;
+
+use App\Http\Requests\Event;
+use Illuminate\Support\Facades\DB;
 
 
-Class EventPhotocontrolService{
-    private $timeSheetRep,$photoServ,$eventPhotocontrolRep,$toPaymentRep;
 
-    function __construct(EventPhotocontrolRepository $eventPhotocontrolRep,TimeSheetRepositoryInterface $timeSheetRep,PhotoService $photoServ,ToPaymentRepository $toPaymentRep)
-    {
-        $this->eventPhotocontrolRep=$eventPhotocontrolRep;
-        $this->timeSheetRep=$timeSheetRep;
-        $this->photoServ=$photoServ;
-        $this->toPaymentRep=$toPaymentRep;
+Class EventPhotocontrolService implements EventServiceInterface{
+    
+    private $eventPhotocontrolRep,$timeSheetRep,$toPaymentRep,$eventObj,$contractRep;
+
+    function __construct(
+        ContractRepositoryInterface $contractRep,
+        TimeSheetRepositoryInterface $timeSheetRep,
+        ToPaymentRepositoryInterface $toPaymentRep,
+        rentEvent $eventObj
+    ){
+        $this->contractRep = $contractRep;
+        $this->eventPhotocontrolRep = new EventPhotocontrolRepository();
+        $this->timeSheetRep = $timeSheetRep;
+        $this->toPaymentRep = $toPaymentRep;
+        $this->eventObj = $eventObj;
     }
 
 
-    public function addEvent($file,$dataArray)
+//    public function addEvent($file,$dataArray)
+//    {
+//
+//        $photocontrolArray['uuid']=Str::uuid();
+//        $photocontrolArray['comment']=$dataArray['comment'];
+//        $photocontrolObj=$this->eventPhotocontrolRep->addEventPhotocontrol($photocontrolArray);
+//        $this->photoServ->savePhoto($file,$photocontrolArray['uuid']);
+//        $dateTime=$dataArray['datePhoto'].' '.$dataArray['timePhoto'];
+//
+//        $timeSheetData['dateTime']=date("Y-m-d H:i:00",strtotime($dateTime));
+//        $timeSheetData['eventId']=$dataArray['eventId'];
+//        $timeSheetData['dataId']=$photocontrolObj->id;
+//        $timeSheetData['carId']=$dataArray['carId'];
+//        $timeSheetData['duration']=$dataArray['duration']??1;
+//        $timeSheetData['mileage']=$dataArray['mileage'];
+//        $timeSheetData['color']=$dataArray['color'];
+//        $timeSheetData['contractId']=$dataArray['contractId'];
+//        $timeSheetObj=$this->timeSheetRep->addTimeSheet($timeSheetData);
+//        if ($dataArray['isToPay']){
+//            $toPaymentArray['sum']=$dataArray['sum'] ??0;
+//            $toPaymentArray['timeSheetId']=$timeSheetObj->id;
+//            $toPaymentArray['contractId']=$dataArray['contractId'];
+//            $this->toPaymentRep->addToPayment($toPaymentArray);
+//        }
+//
+//    }
+//
+//    public function getEvents(CarbonPeriod $periodDate,$eventId)
+//    {
+//        $eventsObj=$this->eventPhotocontrolRep->getEventPhotocontrols($eventId,$periodDate);
+//        $eventsObj->each(function ($item, $key) {
+//            $item->dateTime=Carbon::parse($item->dateTime);
+//        });
+//        return $eventsObj;
+//    }
+//
+
+    
+    
+    public function index(CarbonPeriod $datePeriod)
     {
+        
+    }
 
-        $photocontrolArray['uuid']=Str::uuid();
-        $photocontrolArray['comment']=$dataArray['comment'];
-        $photocontrolObj=$this->eventPhotocontrolRep->addEventPhotocontrol($photocontrolArray);
-        $this->photoServ->savePhoto($file,$photocontrolArray['uuid']);
-        $dateTime=$dataArray['datePhoto'].' '.$dataArray['timePhoto'];
+    public function getAdditionalViewDataArray(){
+        
+    }
 
-        $timeSheetData['dateTime']=date("Y-m-d H:i:00",strtotime($dateTime));
-        $timeSheetData['eventId']=$dataArray['eventId'];
-        $timeSheetData['dataId']=$photocontrolObj->id;
-        $timeSheetData['carId']=$dataArray['carId'];
-        $timeSheetData['duration']=$dataArray['duration']??1;
-        $timeSheetData['mileage']=$dataArray['mileage'];
-        $timeSheetData['color']=$dataArray['color'];
-        $timeSheetData['contractId']=$dataArray['contractId'];
-        $timeSheetObj=$this->timeSheetRep->addTimeSheet($timeSheetData);
-        if ($dataArray['isToPay']){
-            $toPaymentArray['sum']=$dataArray['sum'] ??0;
-            $toPaymentArray['timeSheetId']=$timeSheetObj->id;
-            $toPaymentArray['contractId']=$dataArray['contractId'];
-            $this->toPaymentRep->addToPayment($toPaymentArray);
+    public function getEventModel($modelId = null)
+    {
+        
+    }
+
+    public function store($dataCollection = null): timeSheet
+    {
+        
+        if ($dataCollection){
+            $eventPhotocontrolRequest = $dataCollection;
+        } else {
+            $eventPhotocontrolRequest = app()->make(Event\PhotocontrolRequest::class);
         }
 
+        DB::beginTransaction();
+        try {
+        
+            $eventPhotocontrolModel = $this->eventPhotocontrolRep->getEvent($eventPhotocontrolRequest->get('id'));
+            
+            $eventPhotocontrolModel = $this->eventPhotocontrolRep->addEvent($eventPhotocontrolModel);
+            
+            $timeSheetModel = $this->timeSheetRep->getTimeSheetByEvent($this->eventObj,$eventPhotocontrolModel->id);
+            $timeSheetModel->eventId = $this->eventObj->id;
+            $timeSheetModel->dataId = $eventPhotocontrolModel->id;
+            $timeSheetModel->dateTime = $eventPhotocontrolRequest->get('dateTime');
+            $timeSheetModel->carId = $eventPhotocontrolRequest->get('carId');
+            $timeSheetModel->duration = $this->eventObj->duration;
+            $timeSheetModel->color = $this->eventObj->color;
+            $timeSheetModel->pId =  $eventPhotocontrolRequest->get('parentId');
+            $timeSheetModel->comment = $eventPhotocontrolRequest->get('comment');
+            $timeSheetModel->mileage = $eventPhotocontrolRequest->get('mileage');
+
+            $timeSheetModel = $this->timeSheetRep->addTimeSheet($timeSheetModel);
+            
+            
+            DB::commit();
+            return $timeSheetModel;
+            
+        } catch (\Exception $e) {
+            DB::rollback();
+            echo $e->getMessage();
+            exit();
+        }
+        
+        
     }
 
-    public function getEvents(CarbonPeriod $periodDate,$eventId)
+    public function destroy($dataId){
+        
+    }
+
+    public function getViews(){
+        
+    }
+
+    public function getEventInfo($dataId = null)
     {
-        $eventsObj=$this->eventPhotocontrolRep->getEventPhotocontrols($eventId,$periodDate);
-        $eventsObj->each(function ($item, $key) {
-            $item->dateTime=Carbon::parse($item->dateTime);
-        });
-        return $eventsObj;
+        return $this->eventPhotocontrolRep->getEventFullInfo($this->eventObj->id, $dataId);
     }
-
-
+    
+    public function getNearestEvent(Carbon $dateTime,$carId)
+    {
+        
+    }
+    
+    
 
 }

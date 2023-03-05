@@ -7,8 +7,9 @@ use Carbon\CarbonPeriod;
 
 interface EventPhotocontrolRepositoryInterface
 {
-    public function addEventPhotocontrol($dataArray);
+    public function addEvent($photocontrolModel);
     public function getEventPhotocontrolByContract($contractId);
-    public function getEventPhotocontrol($id);
+    public function getEvent($id);
     public function getEventPhotocontrols($eventId,CarbonPeriod $datePeriod);
+    public function getEventFullInfo($eventId, $filter);
 }

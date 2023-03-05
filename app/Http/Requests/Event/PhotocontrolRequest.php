@@ -15,6 +15,17 @@ class PhotocontrolRequest extends FormRequest
     {
         return true;
     }
+    
+    
+    protected function prepareForValidation()
+    {
+        $input = parent::all();
+
+        $dateTime = date("Y-m-d H:i:00",strtotime($input['date'].' '.$input['time']));
+        $this->merge(['dateTime' => $dateTime,]);
+    }
+    
+    
 
     /**
      * Get the validation rules that apply to the request.
@@ -24,7 +35,15 @@ class PhotocontrolRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id' => 'integer|nullable',
+            'carId' => 'integer|required',
+            'subjectId' => 'integer|required',
+            'mileage' => 'integer|required',
+            'date' => 'date|required',
+            'time' => 'date_format:H:i|required',
+            'comment' => 'string|nullable',
+            'dateTime' => 'required',
+            'parentId' => 'integer|nullable',
         ];
     }
 }
