@@ -5,7 +5,7 @@ use App\Models\rentEventPhotocontrol;
 use App\Repositories\Interfaces\EventPhotocontrolRepositoryInterface;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
-
+use Carbon\Carbon;
 
 class EventPhotocontrolRepository implements EventPhotocontrolRepositoryInterface
 {
@@ -74,6 +74,7 @@ public function getEventFullInfo($eventId, $dataId)
                 
                 'to_payments.sum as sum',
                 'time_sheets.dateTime as date',
+                'time_sheets.mileage as mileage',
                 'time_sheets.comment as comment',
                 'time_sheets.pId as parentId',
                 'time_sheets.uuid as uuid',
@@ -85,9 +86,6 @@ public function getEventFullInfo($eventId, $dataId)
         
         if($resultEventObj->date){
             $resultEventObj->date = Carbon::parse($resultEventObj->date);
-        }
-        if($resultEventObj->dateDocument){
-            $resultEventObj->dateDocument = Carbon::parse($resultEventObj->dateDocument);
         }
 
         return $resultEventObj;

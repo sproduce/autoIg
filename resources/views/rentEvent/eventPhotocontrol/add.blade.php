@@ -7,7 +7,7 @@
 @endif
 
 @section('content')
-<form method="POST" action="/rentEvent/{{$eventObj->id}}">
+<form method="POST" action="/rentEvent/{{$eventObj->id}}" enctype="multipart/form-data">
         <input type="number" name="id" value="{{old('id',$eventDataObj->id)}}" hidden/>
         <input type="number" name="parentId" value="{{old('parentId',$parentId ?? $eventDataObj->parentId)}}" hidden/>
     @csrf
@@ -16,8 +16,8 @@
         <div class="form-group col-md-3 input-group-sm">
             <label for="contractText" title="Автомобиль">Машина</label>
             <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
-                <input id="carText" name="carText" class="form-control" value="{{old('carTextOther',$eventDataObj->carTextOther ?? $carObj->nickName)}}" readonly />
-                <input id="carId" name="carId" class="form-control" value="{{old('carIdOther',$eventDataObj->carIdOther ?? $carObj->id)}}" hidden/>
+                <input id="carText" name="carText" class="form-control" value="{{old('carText',$eventDataObj->carText ?? $carObj->nickName)}}" readonly />
+                <input id="carId" name="carId" class="form-control" value="{{old('carId',$eventDataObj->carId ?? $carObj->id)}}" hidden/>
         </div>
         <div class="form-group col-md-3 input-group-sm">
             <label for="subjectText" title="Субьект">Субьект</label>
@@ -33,15 +33,15 @@
     <div class="form-row text-center">
         <div class="form-group col-md-2 input-group-sm">
             <label for="date" title="Дата фотографии">Дата фотографии</label>
-            <input type="date" name="date" id="date" class="form-control" value="{{$dateTime->toDateString()}}"/>
+            <input type="date" name="date" id="date" class="form-control" step="any" value="{{old('date',$eventDataObj->date ? $eventDataObj->date->toDateString() : $dateTime->toDateString())}}"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
             <label for="time" title="Время">Время</label>
-            <input type="time" name="time" id="time" class="form-control" value="{{$dateTime->format('H:i')}}"/>
+            <input type="time" name="time" id="time" class="form-control" step="any" value="{{old('date', $eventDataObj->date ? $eventDataObj->date->format('H:i') : $dateTime->format('H:i'))}}"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
             <label for="mileage" title="Пробег">Пробег</label>
-            <input type="number" name="mileage" id="mileage" class="form-control"/>
+            <input type="number" name="mileage" id="mileage" value="{{old('mileage',$eventDataObj->mileage)}}" class="form-control"/>
         </div>
     </div>
 
