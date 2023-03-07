@@ -17,11 +17,11 @@
                 </div>
                 <div class="form-group col-md-4 input-group-sm">
                     <label for="city" title="">Город выдачи</label>
-                    <input type="text" name="city" id="city" class="form-control" value="{{$licenseObj->city}}" required autocomplete="off"/>
+                    <input type="text" name="city" id="city" class="form-control" value="{{$licenseObj->city}}" autocomplete="off"/>
                 </div>
                 <div class="form-group col-md-4 input-group-sm">
                     <label for="issuedBy" title="">Кем выдан</label>
-                    <input type="text" name="issuedBy" id="issuedBy" class="form-control" value="{{$licenseObj->issuedBy}}" required autocomplete="off"/>
+                    <input type="text" name="issuedBy" id="issuedBy" class="form-control" value="{{$licenseObj->issuedBy}}" autocomplete="off"/>
                 </div>
             </div>
             
@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-group col-md-6 input-group-sm">
                     <label for="categories" title="">Категории</label>
-                    <input type="text" name="categories" id="categories" class="form-control" value="{{$licenseObj->categories}}" required autocomplete="off"/>
+                    <input type="text" name="categories" id="categories" class="form-control" value="{{$licenseObj->categories}}" autocomplete="off"/>
                 </div>
             </div>
         </div>

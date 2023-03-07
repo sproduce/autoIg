@@ -28,7 +28,7 @@
             <div class="form-row text-center">
                 <div class="form-group col-md-5 input-group-sm">
                     <label for="birthplace" title="">Место рождения</label>
-                    <input type="text" name="birthplace" id="birthplace" class="form-control" value="{{$passportObj->birthplace}}" required autocomplete="off"/>
+                    <input type="text" name="birthplace" id="birthplace" class="form-control" value="{{$passportObj->birthplace}}" autocomplete="off"/>
                 </div>
                 <div class="form-group col-md-5 input-group-sm">
                     <label for="placeResidence" title="">Прописка</label>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-group col-md-2 input-group-sm">
                     <label for="dateResidence" title="">Дата</label>
-                    <input type="date" name="dateResidence" id="dateResidence" class="form-control" value="{{$passportObj->dateResidence}}" required autocomplete="off"/>
+                    <input type="date" name="dateResidence" id="dateResidence" class="form-control" value="{{$passportObj->dateResidence}}" autocomplete="off"/>
                 </div>
                 
             </div>

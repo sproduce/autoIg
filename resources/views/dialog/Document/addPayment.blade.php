@@ -42,11 +42,9 @@
                 </div>
                 <div class="form-group col-md-6 input-group-sm">
                     <label for="name" title="Название филиала">Название филиала</label>
-                    <input type="text" name="name" id="name" class="form-control" value="{{$paymentObj->name}}" required autocomplete="off"/>
+                    <input type="text" name="name" id="name" class="form-control" value="{{$paymentObj->name}}" autocomplete="off"/>
                 </div>
             </div>
-            
-            
         </div>
     </div>
 
