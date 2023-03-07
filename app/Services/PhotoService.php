@@ -113,4 +113,9 @@ Class PhotoService
         $this->photoRep->deleteFile($uuid, $fileId);
     }
     
+    
+    public function deleteFiles($uuid) 
+    {
+        $this->photoRep->deleteFiles($uuid);
+    }
 }

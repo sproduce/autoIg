@@ -42,7 +42,11 @@ class PrintDocumentController extends Controller
         $printDocumentObj->info = $documentRequest->get('info');
         $printDocumentObj->nickname = $documentRequest->get('nickname');
         $printDocumentObj->save();
-        $photoServ->savePhoto($this->request->file('file'), $printDocumentObj->uuid);
+        if ($this->request->file('file')){
+            $photoServ->deleteFiles($printDocumentObj->uuid);
+            $photoServ->savePhoto($this->request->file('file'), $printDocumentObj->uuid);
+        }
+            
         
         return redirect()->back();
     }

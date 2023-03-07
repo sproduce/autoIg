@@ -24,7 +24,7 @@
              <div class="form-row text-center">
                 <div class="form-group col-md-12 input-group-sm">
                     <label for="file" title="">Файл</label>
-                    <input type="file" name="file" id="file" class="form-control" value="" accept=".docx" required autocomplete="off"/>
+                    <input type="file" name="file" id="file" class="form-control" value="" accept=".docx" @if(!$printDocument->id)required  @endif autocomplete="off"/>
                 </div>
             </div>
         </div>
