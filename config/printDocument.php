@@ -95,7 +95,8 @@ return [
             
             'CON_N' => ['number','Номер договора'],
             'CON_rnt' => ['price','Ставка аренды в сутки'],
-            'CON_rntt' => ['','Ставка аренды в сутки',['text']],
+            
+            'CON_rnt_t' => ['price','Ставка аренды в сутки',['text']],
             'CON_sd' => ['startText','Дата договора'],
             'CON_ed' => [
                 'finishText',
