@@ -23,6 +23,33 @@ Class PrintDocumentService {
     }
 
 
+    
+    private static function numToSum($number)
+   {
+       
+       $nF = new \NumberFormatter('ru', \NumberFormatter::SPELLOUT);
+       $str = $nF->format($number); 
+       $str = mb_strtoupper(mb_substr($str, 0, 1)) . mb_substr($str, 1, mb_strlen($str));
+       
+       $num = $number % 100;
+	if ($num > 19) { 
+		$num = $num % 10; 
+	}	
+	switch ($num) {
+		case 1: $rub = 'рубль'; break;
+		case 2: 
+		case 3: 
+		case 4: $rub = 'рубля'; break;
+		default: $rub = 'рублей';
+	}	
+       
+       return $str.' '.$rub;
+   }
+   
+    
+    
+    
+    
     public function getPrintDocument($printDocumentId) 
     {
         return $this->printDocumentRep->getPrintDocument($printDocumentId);
@@ -46,7 +73,9 @@ Class PrintDocumentService {
         {
             $returnArray[$variable] = '';
             if (isset($configVar[$variable])){
-                $returnArray[$variable] = eval('return $contractObj->'.$configVar[$variable][0].';');
+                if (strlen($configVar[$variable][0])){
+                    $returnArray[$variable] = eval('return $contractObj->'.$configVar[$variable][0].';');
+                }
             }
             
         }
@@ -81,6 +110,15 @@ Class PrintDocumentService {
                     $qrCode = $barcodeObj->getBarcodeObj('QRCODE,H',$value, -10, -10, 'black', array(-1, -1, -1, -1))->setBackgroundColor('#ffffff');
                     file_put_contents($filePath, $qrCode->getPngData());
                     $templateDocument->setImageValue($key, $filePath);
+                break;
+            
+                case 'text':
+                    if (is_numeric($value)){
+                         $templateDocument->setValue($key,$this->numToSum($value));
+                    } else {
+                         $templateDocument->setValue($key,'');
+                    }
+                    
                 break;
             }
         }
