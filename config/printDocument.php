@@ -31,7 +31,7 @@ return [
             'SSE_babik' => ['subjectFrom->actualPayment->bankBik','БИК банка'],
             'SSE_baaddr' => ['subjectFrom->actualPayment->address','Юридический адрес'],
             'SSE_bainn' => ['subjectFrom->actualPayment->bankInn','ИНН банка'],
-            'SSE_corrch' => ['subjectFrom->actualPayment->correspondentAccoun','к/сч'],
+            'SSE_corrch' => ['subjectFrom->actualPayment->correspondentAccount','к/сч'],
             'SSE_bafn' => ['subjectTo->actualPayment->name','Название филиала'],
             'SSE_ban' => ['subjectFrom->actualPayment->bankName','Наименование банка'],
             'SSE_ccn' => ['subjectFrom->payAccount->cardNumber','Номер карты'],
@@ -69,7 +69,7 @@ return [
             
             'CAR_Brand' => ['car->generation->model->brand->name','Марка автомобиля'],
             'CAR_Model' => ['car->generation->model->name','Модель автомобиля'],
-            'CAR_VIN' => ['car->vin','VIN номер автомобиля'],
+            'CAR_VINn' => ['car->vin','VIN номер автомобиля'],
             'CAR_Y' => ['car->year','Год выпуска автомобиля'],
             'CAR_nick' => ['car->nickName','Nickname автомобиля'],
             

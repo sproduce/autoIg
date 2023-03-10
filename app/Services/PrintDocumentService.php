@@ -24,32 +24,17 @@ Class PrintDocumentService {
 
 
     
-    private static function numToSum($number)
+   private static function numToSum($number)
    {
        
        $nF = new \NumberFormatter('ru', \NumberFormatter::SPELLOUT);
        $str = $nF->format($number); 
        $str = mb_strtoupper(mb_substr($str, 0, 1)) . mb_substr($str, 1, mb_strlen($str));
        
-       $num = $number % 100;
-	if ($num > 19) { 
-		$num = $num % 10; 
-	}	
-	switch ($num) {
-		case 1: $rub = 'рубль'; break;
-		case 2: 
-		case 3: 
-		case 4: $rub = 'рубля'; break;
-		default: $rub = 'рублей';
-	}	
-       
-       return $str.' '.$rub;
+       return $str;
    }
    
-    
-    
-    
-    
+        
     public function getPrintDocument($printDocumentId) 
     {
         return $this->printDocumentRep->getPrintDocument($printDocumentId);
