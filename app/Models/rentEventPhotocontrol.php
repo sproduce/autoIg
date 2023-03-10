@@ -13,14 +13,11 @@ use Illuminate\Support\Str;
 class rentEventPhotocontrol extends Model
 {
     use HasFactory;
-    protected $fillable =['uuid','comment'];
+    protected $fillable =['comment'];
     
-    protected static function boot()
-        {
-            parent::boot();
-            static::creating(function ($post) {
-                $post->uuid = (string)Str::uuid();
-            });
-        }
-    
+        
+        
+        
+        
+        
 }

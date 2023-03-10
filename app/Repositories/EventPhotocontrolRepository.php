@@ -58,7 +58,6 @@ public function getEventFullInfo($eventId, $dataId)
             
             $resultQueryEventObj->select([
                 'rent_event_photocontrols.id as id',
-                'rent_event_photocontrols.uuid as uuid',
                 'rent_event_photocontrols.personId as personId',
 
                 'car_configurations.nickName as carText',
