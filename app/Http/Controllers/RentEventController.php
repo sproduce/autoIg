@@ -46,6 +46,9 @@ class RentEventController extends Controller
                            NeedParent $needParent,
                            CarIdDate $carIdDate
     ){
+        
+        session(['fromUrl' => parse_url($this->request->header('referer'), PHP_URL_PATH)]);
+        
         $eventObj = $this->rentEventServ->getRentEvent($eventId);
         $serviceObj = $this->rentEventServ->getEventService($eventObj);
         $eventDataObj = $serviceObj->getEventInfo(null);
@@ -84,7 +87,13 @@ class RentEventController extends Controller
             $this->photoServ->savePhoto($this->request->file('file'), $timeSheetObj->uuid);
         }
        
-        return redirect('/timesheet/listByEvent');
+        
+        $redirectUrl = '/timesheet/listByEvent';
+        if ($this->request->session()->exists('fromUrl')){
+            $redirectUrl = session('fromUrl');
+        }
+        
+        return redirect($redirectUrl);
     }
 
     public function edit($eventId,$dataId, NeedParent $needParent,

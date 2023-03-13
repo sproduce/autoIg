@@ -15,7 +15,7 @@
             @if ($loop->odd)
             <div class="row">
                 @endif
-                <div class="col-2">{{$key}}</div>
+                <div class="col-2 @if(isset($variableConfig[$key][2])) text-primary @endif">{{$key}}</div>
                 <div class="col-4"><input name="value[{{$key}}]" style="width: 100%;" value="{{$variable}}"/></div>
                 @if($loop->even)
             </div>

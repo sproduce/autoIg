@@ -41,9 +41,7 @@ Class PrintDocumentService {
     }
  
     
-    
-    
-    
+        
     private function contractSetVariable(rentContract $contractObj, $variableArray)
     {
         $configVar = config('printDocument.variable');
@@ -65,7 +63,7 @@ Class PrintDocumentService {
             
         }
         
-        return $returnArray;
+        return $returnArray ?? [];
         
     }
     

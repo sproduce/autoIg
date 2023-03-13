@@ -2,16 +2,7 @@
 
 @section('header')
 
-    <div class="d-flex flex-row">
-        <div class="p-2">Добавить : </div>
-        <div class="p-2">
-            <select name="eventId" id="eventId">
-                <option id="placeholderSelect" selected>Событие ... </option>
-                @foreach($rentEvents as $rentEvent)
-                    <option value="{{$rentEvent->id}}" style="background: {{$rentEvent->color}}">{{$rentEvent->name}}</option>
-                @endforeach
-            </select>
-        </div>
+    <div class="d-flex flex-row w-100">
         @if($carObj->id)
             <div class="p-2"><strong>Машина: </strong>{{$carObj->nickName}}</div>
         @endif
@@ -23,7 +14,18 @@
             <div class="p-2"><strong>Родитель: </strong>{{$parentObj->event->name}}</div>
         @endif
     </div>
+    
+            @foreach($rentEvents as $rentEvent)
+                @if ($loop->first || $loop->index==12 || $loop->index==24 )
+                    <div class="d-flex flex-row mt-1">
+                @endif
+                    <button class="border-0 ml-1 choice" data-eventid="{{$rentEvent->id}}" style="background: {{$rentEvent->color}}">{{$rentEvent->name}}</button>
 
+                @if ($loop->last || $loop->iteration==12 || $loop->iteration==24)
+                    </div>
+                @endif
+            @endforeach
+    
 @endsection
 
 
@@ -38,10 +40,8 @@
 
 @section('js')
 <script>
-    $( "#eventId" ).change(function() {
-        $("#placeholderSelect").remove();
-
-        $("#eventForm").load('/rentEvent/'+$("#eventId").val()+'/create?carId={{$carObj->id}}&date={{$dateTime->format('d-m-Y')}}&contractId={{$contractObj->id}}&parentId={{$parentObj->id}}',function(){
+    $( ".choice" ).click(function() {
+        $("#eventForm").load('/rentEvent/'+$(this).data('eventid')+'/create?carId={{$carObj->id}}&date={{$dateTime->format('d-m-Y')}}&contractId={{$contractObj->id}}&parentId={{$parentObj->id}}',function(){
             initDialogWindow();
         });
     });

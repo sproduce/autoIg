@@ -82,12 +82,18 @@ class PrintDocumentController extends Controller
     
     public function prepare($documentId,PrintDocumentService $printDocumentServ, ContractService $contractServ) 
     {
-        //$variable = config('printDocument.variable');
+        $variableConfig = config('printDocument.variable');
         $printDocumentObj = $printDocumentServ->getPrintDocument($documentId);
         $contractObj = $contractServ->getContract($this->request->get('contractId'));
         $variableArray = $printDocumentServ->contractPrepareDocument($printDocumentObj, $contractObj);
         //$fileName = $printDocumentServ->contractPrintDocument($printDocumentObj, $contractObj);
-        return view('printDocument.prepare',['variableArray' => $variableArray,'documentId' => $printDocumentObj->id,'contractId' => $contractObj->id]);
+        return view('printDocument.prepare',[
+            'variableArray' => $variableArray,
+            'documentId' => $printDocumentObj->id,
+            'contractId' => $contractObj->id,
+            'variableConfig' => $variableConfig,
+            
+                ]);
     }
     
     
