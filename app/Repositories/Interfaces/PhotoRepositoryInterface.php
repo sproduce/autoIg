@@ -1,7 +1,8 @@
 <?php
-
-
 namespace App\Repositories\Interfaces;
+
+use App\Models\photoLink;
+
 interface PhotoRepositoryInterface
 {
     public function getPhotoByHash($hash);
@@ -12,6 +13,8 @@ interface PhotoRepositoryInterface
     public function getFiles($uuid);
     public function deleteFile($uuid,$fileId);
     public function deleteFiles($uuid);
+
+    public function getFileLink($fileLinkId): photoLink;
 
 
 }

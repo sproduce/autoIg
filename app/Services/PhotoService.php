@@ -72,14 +72,13 @@ Class PhotoService
         if (is_iterable($fileObj)){
             foreach($fileObj as $file){
                 $photoObj = $this->saveFile($file);
-                $this->photoRep->saveLink($photoObj->id,$uuid);
+                $linkObj[] = $this->photoRep->saveLink($photoObj->id,$uuid);
             }
         } else {
             $photoObj = $this->saveFile($fileObj);
-//            echo $photoObj->$uuid;
-//            exit();
-            $this->photoRep->saveLink($photoObj->id,$uuid);
+            $linkObj[] = $this->photoRep->saveLink($photoObj->id,$uuid);
         }
+        return $linkObj;
     }
 
 
@@ -104,6 +103,16 @@ Class PhotoService
         $fileObj = $this->setFilePath($fileObj);
         return $fileObj;
     }
+    
+    
+    
+    
+    public function getFileLink($fileLinkId) 
+    {
+        return $this->photoRep->getFileLink($fileLinkId);
+    }
+    
+    
     
     
     

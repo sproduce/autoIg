@@ -37,6 +37,16 @@ class FileController extends Controller
     
     
     
+    public function downloadFileLink($fileLinkId) 
+    {
+        $fileLinkObj = $this->fileServ->getFileLink($fileLinkId);
+        $photoObj = $this->fileServ->getFile($fileLinkObj->photoId);
+        
+        return response()->download(Storage::disk('photo')->path($photoObj->getFilePath()),$photoObj->fileName);
+    }
+    
+    
+    
     public function fileInfoDialog($uuid) 
     {
         $filesObj = $this->fileServ->getFiles($uuid);

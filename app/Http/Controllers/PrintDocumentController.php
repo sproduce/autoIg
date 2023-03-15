@@ -68,15 +68,18 @@ class PrintDocumentController extends Controller
         $printDocumentObj = $printDocumentServ->getPrintDocument($documentId);
         //var_dump($this->request->get('value'));
         $fileName = $printDocumentServ->contractPrintDocument($printDocumentObj, $this->request->get('value'));
-        $contractObj = $contractServ->getContract($this->request->get('contractId'));
+        $contractId = $this->request->get('contractId');
+        $contractObj = $contractServ->getContract($contractId);
         $newFileName = $contractObj->start->format('d-m-y').$printDocumentObj->nickname.$contractObj->subjectTo->surname.$contractObj->car->nickName.'.docx';
         
         $fileObj = new \Illuminate\Http\UploadedFile($fileName, $newFileName,"application/vnd.openxmlformats-officedocument.wordprocessingml.document",null,true);
 //        var_dump($fileObj);
 //        exit();
 //        echo $fileObj->get();
-        $photoServ->savePhoto($fileObj, $contractObj->uuid);
-        return response()->download($fileName,$newFileName);
+        $photoLink = $photoServ->savePhoto($fileObj, $contractObj->uuid);
+        //response()->withCookie(cookie('fileLinkId', 'MyValue', 1));
+        //return response()->download($fileName,$newFileName)->cookie('fileLinkId', 'MyValue', 1);
+        return redirect('/contract/contractFullInfo/'.$contractId)->cookie('fileLinkId', $photoLink[0]->id,1,null,null,false,false);
     }
     
     

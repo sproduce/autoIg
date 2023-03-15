@@ -28,7 +28,7 @@
 
 
 
-    <form method="POST" action="/payment/add">
+    <form method="POST" action="/payment/add" id="paymentForm">
         @if ($paymentObj->id)
             <input type="number" name="id" id="id" value="{{$paymentObj->id}}" hidden/>
         @endif
@@ -179,19 +179,27 @@
                 <input type="checkbox" value="1"  name="finished" @if(old('finished',$paymentObj->finished)) checked @endif/>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
             @if ($paymentObj->id)
                 <div class="col-4"></div>
+                <div class="col-4">
+                    <input type="submit" class="btn btn-primary" value="Сохранить">
+                </div>
             @else
-                <div class="col-2">Следующий платеж</div>
-                <div class="col-2"><input type="checkbox" name="isNext" value="1" @if(old('isNext'))checked @endif/></div>
+                <input type="text" id="redirectPath" name="redirectPath" hidden/>
+                <div class="col-2"></div>
+                <div class="col-10">
+                    <button class="btnSubmit btn btn-ssm btn-primary" data-redirect="save">Сохранить</button>
+                    <button class="btnSubmit btn btn-ssm btn-primary" data-redirect="allocate">Сохранить и распределить</button>
+                    <button class="btnSubmit btn btn-ssm btn-success" data-redirect="empty">Сохранить и создать пустой</button>
+                    <button class="btnSubmit btn btn-ssm btn-success" data-redirect="replicate">Сохранить и создать такой же</button>
+                    <button class="btn btn-ssm btn-danger" id="clearForm">Отменить</button>
+                </div>
             @endif
-            <div class="col-4">
-                <input type="submit" class="btn btn-primary" value="Сохранить">
-            </div>
+            
         </div>
     </form>
-        </div>>
+        </div>
 
 @endsection
 
@@ -208,6 +216,16 @@
         currentDate.setHours(currentDate.getHours()+ (currentDate.getTimezoneOffset()/-60));
         $("#dateTime").val(currentDate.toJSON().slice(0,16));
         return false;
+    });
+
+    $(".btnSubmit").click(function(e){
+        $("#redirectPath").val($(this).data('redirect'));
+
+    });
+
+    $("#clearForm").click(function(e){
+        e.preventDefault();
+        $("#paymentForm")[0].reset();
     });
 
 

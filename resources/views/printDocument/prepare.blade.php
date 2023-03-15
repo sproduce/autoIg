@@ -7,10 +7,12 @@
 
 
 @section('content')
-    <form method="post" action="/printDocument/generation/{{$documentId}}">
+    
+    <form id="documentForm" method="post" action="/printDocument/generation/{{$documentId}}">
+        <button type="submit" class="btn btn-sm btn-outline-success" id="downloadButton">Скачать</button>
         @csrf
         <input name="contractId" value="{{$contractId}}" hidden>
-    <button type="submit" class="btn btn-sm btn-outline-success">Скачать</button>
+    
         @forelse($variableArray as $key =>$variable)
             @if ($loop->odd)
             <div class="row">
@@ -26,4 +28,10 @@
             
             </form>
 
+    
+    
+   
+    
+    
+    
 @endsection

@@ -24,6 +24,14 @@ public function getPhoto($id)
 }
 
 
+
+public function getFileLink($fileLinkId): photoLink 
+{
+     return photoLink::find($fileLinkId);
+ }
+
+
+
     public function isExistPhoto($hash)
     {
         return photo::where('photo',$hash)->first();
@@ -36,7 +44,8 @@ public function getPhoto($id)
 
     public function saveLink($photoId, $uuid)
     {
-        photoLink::create(['linkUuid'=>$uuid,'photoId'=>$photoId]);
+        $photoLink = photoLink::create(['linkUuid'=>$uuid,'photoId'=>$photoId]);
+        return $photoLink->refresh();
     }
 
     public function getFiles($uuid) 

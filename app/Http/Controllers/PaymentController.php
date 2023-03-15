@@ -40,9 +40,15 @@ class PaymentController extends Controller
         return view('payment.paymentList',['paymentsObj' => $paymentsObj]);
     }
 
-    public function addDialog()
+    public function addDialog($paymentId=null)
     {
-        $paymentObj = new rentPayment();
+        if ($paymentId){
+            $paymentObj = $this->paymentServ->getPayment($paymentId);
+            $paymentObj = $paymentObj->replicate();
+        } else {
+            $paymentObj = new rentPayment();
+        }
+        
 
         $paymentGuideObj = $this->paymentServ->getPaymentGuide();
         return view('payment.addPayment',['paymentGuide' => $paymentGuideObj ,'paymentObj' => $paymentObj]);
@@ -55,6 +61,7 @@ class PaymentController extends Controller
         return view('payment.addPayment',['paymentGuide' => $paymentGuideObj ,'paymentObj' => $paymentObj]);
     }
 
+    
     public function add(PaymentRequest $paymentReq)
     {
         $paymentModel = $this->paymentServ->getPayment($paymentReq->get('id'));
@@ -69,13 +76,19 @@ class PaymentController extends Controller
         $paymentModel->carGroupId = $paymentReq->get('carGroupId');
         $paymentModel->contractId = $paymentReq->get('contractId');
         $paymentModel->comment = $paymentReq->get('comment');
-
-        $this->paymentServ->addPayment($paymentModel);
-
-        if ($paymentReq->get('isNext')){
-            return  redirect()->back();
-        } else {
-            return redirect('/payment/list');
+        
+        
+        $paymentModel = $this->paymentServ->addPayment($paymentModel);
+          
+        switch ($this->request->get('redirectPath')){
+            case 'save':
+                return redirect('/payment/list');
+            case 'allocate':
+                return redirect('/payment/allocatePayment/'.$paymentModel->id);
+            case 'empty':
+                return  redirect()->back();
+            case 'replicate':
+                return redirect('/payment/add/'.$paymentModel->id);
         }
 
     }

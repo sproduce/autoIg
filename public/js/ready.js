@@ -6,8 +6,10 @@ $(function() {
 
     $("a.clearButton").click(function(){clearButton(this);});
 
-
-
+    if (Cookies.get('fileLinkId')){
+        window.location.href = "/file/downloadLink/"+Cookies.get('fileLinkId');
+        Cookies.remove('fileLinkId');
+    }
 
 });
 

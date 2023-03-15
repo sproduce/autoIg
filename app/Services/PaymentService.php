@@ -65,9 +65,7 @@ Class PaymentService{
             $this->paymentRep->addPayment($paymentModel);
             $paymentModel->pid = $paymentModel->id;
         }
-        $this->paymentRep->addPayment($paymentModel);
-
-
+        return $this->paymentRep->addPayment($paymentModel);
     }
 
     public function getPayments(Filters\PaymentRequest $paymentFilterRequest,DateSpan $dateSpan)
