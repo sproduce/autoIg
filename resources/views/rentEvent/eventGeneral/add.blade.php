@@ -12,9 +12,10 @@
         <input type="number" name="parentId" value="{{old('parentId',$parentId ?? $eventDataObj->parentId)}}" hidden/>
     @csrf
     <div class="form-row text-center">
-        <div class="form-group col-md-3 input-group-sm">
+        <div class="form-group col-md-3 input-group-sm clearRow">
             <label for="contractText" title="Договор"> Договор </label>
-            <a href="/contract/addContractTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+            <a href="/contract/addContractTo" class="btn btn-ssm btn-outline-success DialogUser ml-2"><i class="fas fa-search-plus"></i></a>
+            <a class="btn btn-ssm btn-outline-danger ml-2 clearButton"><i class="fas fa-eraser"></i></a>
             <input id="contractText" name="contractText" value="{{old('contractText',$eventDataObj->contractNumber ?? $contractObj->number)}}"  class="form-control" readonly />
             <input name="contractId" id="contractId" value="{{old('contractId',$eventDataObj->contractId ?? $contractObj->id)}}" hidden/>
         </div>
@@ -46,13 +47,14 @@
     @endif    
         
     <div class="form-row text-center" id="last-row">
-        <div class="input-group col-1">
-            @if ($eventDataObj->id)
+        @if ($eventDataObj->id)
+            <div class="input-group col-1">
                 <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Сохранить"/>
+            </div>
             @else
-                <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Добавить"/>
+                @include("rentEvent.buttonSubmit")
             @endif
-        </div>
+        
     </div>
 </form>
 @endsection

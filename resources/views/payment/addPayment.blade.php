@@ -193,7 +193,7 @@
                     <button class="btnSubmit btn btn-ssm btn-primary" data-redirect="allocate">Сохранить и распределить</button>
                     <button class="btnSubmit btn btn-ssm btn-success" data-redirect="empty">Сохранить и создать пустой</button>
                     <button class="btnSubmit btn btn-ssm btn-success" data-redirect="replicate">Сохранить и создать такой же</button>
-                    <button class="btn btn-ssm btn-danger" id="clearForm">Отменить</button>
+                    <button class="btn btn-ssm btn-danger clearForm">Отменить</button>
                 </div>
             @endif
             
@@ -222,12 +222,6 @@
         $("#redirectPath").val($(this).data('redirect'));
 
     });
-
-    $("#clearForm").click(function(e){
-        e.preventDefault();
-        $("#paymentForm")[0].reset();
-    });
-
 
 </script>
 

@@ -13,16 +13,17 @@
     @csrf
     <input name="eventId" value="{{$eventObj->id}}" hidden/>
     <div class="form-row text-center">
-        <div class="form-group col-md-3 input-group-sm">
+        <div class="form-group col-md-3 input-group-sm clearRow">
             <label for="contractText" title="Автомобиль">Машина</label>
-            <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
+            <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success DialogUser ml-2"><i class="fas fa-search-plus"></i></a>
+            <a class="btn btn-ssm btn-outline-danger ml-2 clearButton"><i class="fas fa-eraser"></i></a>
                 <input id="carText" name="carText" class="form-control" value="{{old('carText',$eventDataObj->carText ?? $carObj->nickName)}}" readonly />
                 <input id="carId" name="carId" class="form-control" value="{{old('carId',$eventDataObj->carId ?? $carObj->id)}}" hidden/>
         </div>
-        <div class="form-group col-md-3 input-group-sm">
+        <div class="form-group col-md-3 input-group-sm clearRow">
             <label for="subjectText" title="Субьект">Субьект</label>
             <a href="/subject/addSubjectTo/subject" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
-            <a class="btn btn-ssm btn-outline-danger ml-2" id="subjectClear"><i class="fas fa-eraser"></i></a>
+            <a class="btn btn-ssm btn-outline-danger ml-2 clearButton"><i class="fas fa-eraser"></i></a>
             <input id="subjectText" name="subjectText" value="{{old('subjectText',$eventDataObj->subjectNickname)}}" class="form-control"  readonly/>
             <input name="subjectId" id="subjectId" value="{{old('subjectId',$eventDataObj->subjectId)}}" hidden/>
         </div>
@@ -63,9 +64,7 @@
 
 
     <div class="form-row text-center" id="last-row">
-        <div class="input-group col-1">
-            <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Добавить"/>
-        </div>
+          @include("rentEvent.buttonSubmit")
     </div>
 </form>
 @endsection

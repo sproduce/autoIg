@@ -4,7 +4,7 @@ $(function() {
 
     initDialogWindow();
 
-    $("a.clearButton").click(function(){clearButton(this);});
+    initClearButton();
 
     if (Cookies.get('fileLinkId')){
         window.location.href = "/file/downloadLink/"+Cookies.get('fileLinkId');
@@ -12,6 +12,23 @@ $(function() {
     }
 
 });
+
+
+
+
+function initClearButton(){
+    $("a.clearButton").click(function(e){
+        e.preventDefault();
+        clearButton(this);}
+            );
+    $("button.clearForm").click(function(e){
+        e.preventDefault();
+        clearForm(this);
+    });
+ 
+}
+
+
 
 
 function initDialogWindow()
@@ -38,5 +55,10 @@ function initDialogWindow()
 
 
 function clearButton(current){
-    $(current).closest('div.clearRow').find('input').each(function(){$(this).val("")});
+    $(current).closest('div.clearRow').find('input').each(function(){$(this).val("");});
+}
+
+
+function clearForm(current){
+    $(current).closest('form')[0].reset();
 }

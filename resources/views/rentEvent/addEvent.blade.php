@@ -43,6 +43,7 @@
     $( ".choice" ).click(function() {
         $("#eventForm").load('/rentEvent/'+$(this).data('eventid')+'/create?carId={{$carObj->id}}&date={{$dateTime->format('d-m-Y')}}&contractId={{$contractObj->id}}&parentId={{$parentObj->id}}',function(){
             initDialogWindow();
+            initClearButton();
         });
     });
 </script>

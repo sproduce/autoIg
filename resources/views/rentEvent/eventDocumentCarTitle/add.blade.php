@@ -84,13 +84,13 @@
         
         
         <div class="form-row text-center" id="last-row">
+            @if ($eventDataObj->id)
             <div class="input-group col-1">
-                @if ($eventDataObj->id)
-                    <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Сохранить"/>
-                @else
-                    <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Добавить"/>
-                @endif
+                <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Сохранить"/>
             </div>
+            @else
+                @include("rentEvent.buttonSubmit")
+            @endif
         </div>
     </form>
 @endsection

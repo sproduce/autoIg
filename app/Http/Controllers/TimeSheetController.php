@@ -75,7 +75,7 @@ class TimeSheetController extends Controller
 
 
 
-    public function addEvent(RentEventService $rentEventServ,ContractRepository $contractRep,EventRequest $eventReq)
+    public function addEvent($eventId=null,RentEventService $rentEventServ,ContractRepository $contractRep,EventRequest $eventReq)
     {
 
         $carObj = $this->motorPoolRep->getCar($eventReq->get('carId'));

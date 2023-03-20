@@ -16,11 +16,10 @@
         <input type="number" name="parentId" value="{{old('parentId',$parentId ?? $eventDataObj->parentId)}}" hidden/>
 
     <div class="form-row text-center">
-        <div class="form-group col-md-3 input-group-sm">
-            <label for="contractText" title="Автомобиль">
-                Машина
-                <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success DialogUser mr-3"><i class="fas fa-search-plus"></i></a>
-            </label>
+        <div class="form-group col-md-3 input-group-sm clearRow">
+            <label for="contractText" title="Автомобиль">Машина</label>
+            <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success DialogUser ml-2"><i class="fas fa-search-plus"></i></a>
+            <a class="btn btn-ssm btn-outline-danger ml-2 clearButton"><i class="fas fa-eraser"></i></a>
             <input id="carText" name="carText" class="form-control" value="{{old('carText',$eventDataObj->carText ?? $carObj->nickName)}}" readonly />
             <input id="carId" name="carId" class="form-control" value="{{old('carIdOther',$eventDataObj->carId ?? $carObj->id)}}" hidden/>
         </div>
@@ -89,14 +88,13 @@
     @endif   
         
     <div class="form-row text-center" id="last-row">
-        <div class="input-group col-1">
-            @if ($eventDataObj->id)
+        @if ($eventDataObj->id)
+            <div class="input-group col-1">
                 <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Сохранить"/>
-                @else
-                <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Добавить"/>
+            </div>
+            @else
+                @include("rentEvent.buttonSubmit")
             @endif
-
-        </div>
     </div>
 </form>
 @endsection

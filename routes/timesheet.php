@@ -14,7 +14,7 @@ Route::get('/info',[TimeSheetController::class,'infoDialog']);
 
 
 
-Route::get('/add',[TimeSheetController::class,'addEvent']);
+Route::get('/add/{eventId?}',[TimeSheetController::class,'addEvent']);
 Route::post('/add',[TimeSheetController::class,'add']);
 
 Route::get('/edit',[TimeSheetController::class,'editEventDialog']);
