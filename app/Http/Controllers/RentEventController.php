@@ -78,7 +78,7 @@ class RentEventController extends Controller
     public function store($eventId)
     {
         $eventObj = $this->rentEventServ->getRentEvent($eventId);
-        
+
         $serviceObj = $this->rentEventServ->getEventService($eventObj);
         $timeSheetObj = $serviceObj->store();
         
@@ -88,12 +88,25 @@ class RentEventController extends Controller
         }
        
         
-        $redirectUrl = '/timesheet/listByEvent';
-        if ($this->request->session()->exists('fromUrl')){
-            $redirectUrl = session('fromUrl');
+         switch ($this->request->get('redirectPath')){
+            case 'save':
+                $redirectUrl = '/timesheet/listByEvent';
+                if ($this->request->session()->exists('fromUrl')){
+                    $redirectUrl = session('fromUrl');
+                }
+                return redirect($redirectUrl);
+            case 'allocate':
+                return redirect('/');
+            case 'empty':
+                return  redirect("/timesheet/add/$eventId");
+            case 'replicate':
+                return redirect('/payment/add/'.$paymentModel->id);
         }
         
-        return redirect($redirectUrl);
+        
+        
+        
+        //return redirect($redirectUrl);
     }
 
     public function edit($eventId,$dataId, NeedParent $needParent,

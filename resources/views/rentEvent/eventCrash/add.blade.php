@@ -68,3 +68,14 @@
         </div>
     </form>
 @endsection
+
+        
+        @section('js')
+        @parent
+        <script>
+      $(".btnSubmit").click(function(e){
+        $("#redirectPath").val($(this).data('redirect'));
+
+    });
+    </script>
+    @endsection

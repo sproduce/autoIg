@@ -79,18 +79,18 @@ class TimeSheetController extends Controller
     {
 
         $carObj = $this->motorPoolRep->getCar($eventReq->get('carId'));
-
-        
         $contractObj = $contractRep->getContract($eventReq->get('contractId'));
         $parentObj = $this->timeSheetServ->getTimeSheetInfo($eventReq->get('parentId'));
-
         $rentEventsObj = $rentEventServ->getRentEvents();
+        
+        
         return view('rentEvent.addEvent',[
             'carObj' => $carObj,
             'dateTime' => $eventReq->get('date'),
             'contractObj' => $contractObj,
             'rentEvents' => $rentEventsObj,
             'parentObj' => $parentObj,
+            'eventId' => $eventId,
         ]);
     }
 
