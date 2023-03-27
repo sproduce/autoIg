@@ -238,10 +238,10 @@
                 <div class="row">
                     <div class="col-1"><strong>Дата</strong></div>
                     <div class="col-3 p-0">{{$license->eventModel->dateDocumentText}} по {{$license->eventModel->expirationText}}</div>
-                    <div class="col-1"><strong>Субьект</strong></div>
-                    <div class="col-3 p-0">{{$license->eventModel->subject->nickname}}</div>
-                    <div class="col-1"><strong>Субьект</strong></div>
-                    <div class="col-3 p-0">{{$license->eventModel->subjectTo->nickname}}</div>
+                    <div class="col-2"><strong>Субьект</strong></div>
+                    <div class="col-2 p-0">{{$license->eventModel->subject->nickname}}</div>
+                    <div class="col-2"><strong>Субьект</strong></div>
+                    <div class="col-2 p-0">{{$license->eventModel->subjectTo->nickname}}</div>
                 </div>
             @endforeach
         @endif

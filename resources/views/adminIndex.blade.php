@@ -27,10 +27,8 @@
             <div class="col-6">
                 <a class="btn btn-sm btn-outline-warning ml-3" href="/timesheet/add">+Событие</a>
             </div>
-            
         </div>
         <div class="bg-danger text-center h-100" id="notice"></div>
-        
         <a class="btn btn-sm btn-outline-info rounded-pill ml-3" href="">Выход</a>
     </nav>
 
