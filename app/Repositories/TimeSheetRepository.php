@@ -285,5 +285,17 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         // TODO: Implement getFullINfoByDay() method.
     }
 
+    
+    
+    public function getCarTimeSheets($carId, $eventId = null) {
+        $timeSheetRequest = timeSheet::where('carId',$carId);
+        if ($eventId){
+            $timeSheetRequest->where('eventId',$eventId);
+        }
+        $timeSheetsObj = $timeSheetRequest->get();
+        return $timeSheetsObj;
+    }
+    
+    
 }
 

@@ -154,6 +154,97 @@
                 {{$car->comment}}
             </div>
         </div>
+        
+        
+        @if(count($carSts))
+            <div class="row border-top mt-2 mb-2 pt-2">
+                <div class="col-12 text-center"> <strong>СТС </strong></div>
+            </div>
+            @foreach($carSts as $sts)
+        <div class="row">
+            <div class="col-2"><strong>Дата</strong></div>
+            <div class="col-2">{{$sts->eventModel->dateDocumentText}}</div>
+            <div class="col-2"><strong>Субьект</strong></div>
+            <div class="col-2">{{$sts->eventModel->subject->nickname}}</div>
+            <div class="col-2"><strong>Владелец</strong></div>
+            <div class="col-2">{{$sts->eventModel->subjectOwner->nickname}}</div>
+        </div>
+            @endforeach
+        @endif
+         @if(count($carPts))
+            <div class="row border-top mt-2 mb-2 pt-2">
+                <div class="col-12 text-center"> <strong>ПТС </strong></div>
+            </div>
+            @foreach($carPts as $pts)
+                <div class="row">
+                    <div class="col-2"><strong>Дата</strong></div>
+                    <div class="col-2">{{$pts->eventModel->dateDocumentText}}</div>
+                    <div class="col-2"><strong>Субьект</strong></div>
+                    <div class="col-2">{{$pts->eventModel->subject->nickname}}</div>
+                    <div class="col-2"><strong>Владелец</strong></div>
+                    <div class="col-2">{{$pts->eventModel->subjectOwner->nickname}}</div>
+                </div>
+            @endforeach
+        @endif
+         @if(count($carOsago))
+            <div class="row border-top mt-2 mb-2 pt-2">
+                <div class="col-12 text-center"> <strong>ОСАГО </strong></div>
+            </div>
+            @foreach($carOsago as $osago)
+                <div class="row">
+                    <div class="col-1"><strong>Дата</strong></div>
+                    <div class="col-3 p-0">{{$osago->eventModel->dateDocumentText}} по {{$osago->eventModel->expirationText}}</div>
+                </div>
+            @endforeach
+        @endif
+        @if(count($carKasko))
+            <div class="row border-top mt-2 mb-2 pt-2">
+                <div class="col-12 text-center"> <strong>КАСКО </strong></div>
+            </div>
+            @foreach($carKasko as $ksako)
+                <div class="row">
+                    <div class="col-1"><strong>Дата</strong></div>
+                    <div class="col-3 p-0">{{$ksako->eventModel->dateDocumentText}} по {{$ksako->eventModel->expirationText}}</div>
+                </div>
+            @endforeach
+        @endif
+        @if(count($carDiagnosticCard))
+            <div class="row border-top mt-2 mb-2 pt-2">
+                <div class="col-12 text-center"> <strong>Диаг Карта </strong></div>
+            </div>
+            @foreach($carDiagnosticCard as $diagnosticCard)
+                <div class="row">
+                    <div class="col-1"><strong>Дата</strong></div>
+                    <div class="col-3 p-0">{{$diagnosticCard->eventModel->DateDocumentText}} по {{$diagnosticCard->eventModel->expirationText}}</div>
+                </div>
+            @endforeach
+        @endif
+        @if(count($carProxy))
+            <div class="row border-top mt-2 mb-2 pt-2">
+                <div class="col-12 text-center"> <strong>Доверенность</strong></div>
+            </div>
+            @foreach($carProxy as $proxy)
+                <div class="row">
+                    <div class="col-1"><strong>Дата</strong></div>
+                    <div class="col-3 p-0">{{$proxy->eventModel->dateDocumentText}} по {{$proxy->eventModel->expirationText}}</div>
+                </div>
+            @endforeach
+        @endif
+        @if(count($carLicense))
+            <div class="row border-top mt-2 mb-2 pt-2">
+                <div class="col-12 text-center"> <strong>Лицензия</strong></div>
+            </div>
+            @foreach($carLicense as $license)
+                <div class="row">
+                    <div class="col-1"><strong>Дата</strong></div>
+                    <div class="col-3 p-0">{{$license->eventModel->dateDocumentText}} по {{$license->eventModel->expirationText}}</div>
+                    <div class="col-1"><strong>Субьект</strong></div>
+                    <div class="col-3 p-0">{{$license->eventModel->subject->nickname}}</div>
+                    <div class="col-1"><strong>Субьект</strong></div>
+                    <div class="col-3 p-0">{{$license->eventModel->subjectTo->nickname}}</div>
+                </div>
+            @endforeach
+        @endif
     </div>
 </div>
 

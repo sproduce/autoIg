@@ -76,8 +76,8 @@ Class EventDocumentCarService implements EventServiceInterface{
             $eventDocumentInsuranceModel->comment = $eventDocumentInsuranceRequest->get('comment');
             $eventDocumentInsuranceModel->expiration = $eventDocumentInsuranceRequest->get('expiration');
             $eventDocumentInsuranceModel->dateDocument = $eventDocumentInsuranceRequest->get('dateDocument');
-            $eventDocumentInsuranceModel->subject = $eventDocumentInsuranceRequest->get('subjectId');
-            $eventDocumentInsuranceModel->subjectTo = $eventDocumentInsuranceRequest->get('subjectToId');
+            $eventDocumentInsuranceModel->subjectId = $eventDocumentInsuranceRequest->get('subjectId');
+            $eventDocumentInsuranceModel->subjectToId = $eventDocumentInsuranceRequest->get('subjectToId');
             
 
             $eventDocumentInsuranceModel = $this->eventDocumentInsuranceRep->addEvent($eventDocumentInsuranceModel);

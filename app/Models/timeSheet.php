@@ -31,7 +31,7 @@ class timeSheet extends Model
     use SoftDeletes;
     //private $id,$carId,$eventId,$dateTime,$comment,$dataId,$mileage,$color,$uuid,$duration,$sum,$contractId,$pId;
     //private $dateTime,$comment,$dataId,$eventId;
-    protected $fillable = ['carId', 'eventId','dateTime','comment','mileage','color','duration','dataId','pId','uuid'];
+    //protected $fillable = ['carId', 'eventId','dateTime','comment','mileage','color','duration','dataId','pId','uuid'];
 
     protected $dates = ['dateTime','fromDate','toDate'];
 
@@ -71,6 +71,16 @@ class timeSheet extends Model
 
 
 
+    public function getDateTimeTextAttribute() 
+    {
+       if ($this->id&&$this->dateTime){
+            $result = $this->dateTime->format('d-m-Y H:i');
+        } else {
+            $result = '';
+        }
+        return $result;
+    }
+    
 
 
     protected function getDateTimeEndAttribute()

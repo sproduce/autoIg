@@ -40,4 +40,21 @@ class rentEventDocumentTitle extends Model
     
     
     
+     public function subject()
+    {
+        return $this->hasOne(rentSubject::class,'id','subjectId')->withDefault();
+    }
+    
+    public function subjectOwner()
+    {
+        return $this->hasOne(rentSubject::class,'id','ownerSubjectId')->withDefault();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 }

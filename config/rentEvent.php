@@ -10,4 +10,6 @@ return [
     'eventOsago' => 20,
     'eventKasko' => 21,
     'eventLicense' => 19,
+    'eventDiagnosticCard' => 22,
+    'eventProxy' => 23,
 ];

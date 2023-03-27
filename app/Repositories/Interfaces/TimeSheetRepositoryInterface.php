@@ -45,4 +45,8 @@ interface TimeSheetRepositoryInterface
 
     public function getFullINfoByDay(Carbon $timeSheetDate);
 
+    public function getCarTimeSheets($carId, $eventId = null);
+    
+    
+    
 }

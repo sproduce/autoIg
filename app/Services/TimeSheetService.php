@@ -78,6 +78,28 @@ Class TimeSheetService{
     }
 
 
+    
+    
+    public function getCarTimeSheetsModel(carConfiguration $carObj)
+    {
+        return $this->timeSheetRep->getCarTimeSheets($carObj->id);
+    }
+    
+    
+    public function getCarEvents($carId,$eventId) 
+    {
+        $eventObj = $this->rentEventRep->getEvent($eventId);
+        $eventServ = $this->rentEventService->getEventService($eventObj);
+        $timeSheetsObj = $this->timeSheetRep->getCarTimeSheets($carId, $eventId);
+        foreach ($timeSheetsObj as $timeSheetObj)
+        {
+            $timeSheetObj->eventModel = $eventServ->getEventModel($timeSheetObj->dataId);
+        }
+        return $timeSheetsObj;
+    }
+    
+    
+    
     public function getActualCarsByGroup(CarbonPeriod $periodDate,$carGroupId)
     {
         $motorPoolsObj = $this->motorPoolRep->getCarsByGroup($carGroupId);
@@ -184,8 +206,8 @@ Class TimeSheetService{
 
     public function updateTimeSheet($timeSheetArray)
     {
-        $timeSheetId=$timeSheetArray['timeSheetId'];
-        $dateTime=$timeSheetArray['date'].' '.$timeSheetArray['time'];
+        $timeSheetId = $timeSheetArray['timeSheetId'];
+        $dateTime = $timeSheetArray['date'].' '.$timeSheetArray['time'];
         $timesheetData['dateTime'] = date("Y-m-d H:i:00",strtotime($dateTime));
         $timesheetData['duration'] = $timeSheetArray['duration'];
         $timesheetData['sum'] = $timeSheetArray['sum'];
@@ -196,7 +218,7 @@ Class TimeSheetService{
 
     public function addTimeSheetContract($timeSheetId,$contractId)
     {
-        $timeSheetObj=$this->timeSheetRep->getTimeSheet($timeSheetId);
+        $timeSheetObj = $this->timeSheetRep->getTimeSheet($timeSheetId);
 
     }
 

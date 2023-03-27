@@ -11,6 +11,7 @@ use App\Services\CarGroupService;
 use App\Services\ModelService;
 use App\Services\MotorPoolService;
 use App\Services\SubjectService;
+use App\Services\TimeSheetService;
 use Illuminate\Http\Request;
 
 
@@ -86,11 +87,30 @@ class MotorPoolController extends Controller
     }
 
 
-    public function carInfoDialog(CarGroupService $carGroupServ,$carId)
+    public function carInfoDialog(TimeSheetService $timeSheetServ, CarGroupService $carGroupServ, $carId)
     {
         $carObj = $this->motorPoolServ->getCarFullInfo($carId);
         $carGroupsObj = $carGroupServ->getCarGroupsByCar($carId);
-        return view('dialog.MotorPool.carInfo',['car' => $carObj,'carGroupsObj' => $carGroupsObj]);
+        //$carModel = $this->motorPoolServ->getCar($carId);
+        $carPts = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventPts'));
+        $carSts = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventSts'));
+        $carOsago = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventOsago'));
+        $carKasko = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventKasko'));
+        $carDiagnosticCard = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventDiagnosticCard'));
+        $carProxy = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventProxy'));
+        $carLicense = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventLicense'));
+        
+        return view('dialog.MotorPool.carInfo',[
+            'car' => $carObj,
+            'carGroupsObj' => $carGroupsObj,
+            'carSts' => $carSts,
+            'carPts' => $carPts,
+            'carOsago' => $carOsago,
+            'carKasko' => $carKasko,
+            'carDiagnosticCard' => $carDiagnosticCard,
+            'carProxy' => $carProxy,
+            'carLicense' => $carLicense,
+        ]);
     }
 
 

@@ -20,9 +20,17 @@
 
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/"> CRM</a>
-        <div class="bg-danger w-100 text-center h-100" id="notice"></div>
-        <ul class="navbar-nav mr-auto">
-        </ul>
+        <div class="row">
+            <div class="col-6">
+                <a class="btn btn-sm btn-outline-warning ml-3" href="/payment/add">+Платеж</a>
+            </div>
+            <div class="col-6">
+                <a class="btn btn-sm btn-outline-warning ml-3" href="/timesheet/add">+Событие</a>
+            </div>
+            
+        </div>
+        <div class="bg-danger text-center h-100" id="notice"></div>
+        
         <a class="btn btn-sm btn-outline-info rounded-pill ml-3" href="">Выход</a>
     </nav>
 

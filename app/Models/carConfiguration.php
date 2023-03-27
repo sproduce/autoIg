@@ -81,6 +81,17 @@ class carConfiguration extends Model
       return $this->hasMany(rentCarGroupLink::class,'carId');
     }
 
+    
+    public function timeSheets()
+    {
+        return $this->hasMany(timeSheet::class,'carId');
+    }
+    
+    
+    
+    
+    
+    
 //    public function timeSheet($date)
 //    {
 //        $from=$date->format('Y-m-d');

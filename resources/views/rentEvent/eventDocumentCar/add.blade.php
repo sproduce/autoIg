@@ -72,7 +72,7 @@
                     </div>
                     <div class="form-group col-md-3 input-group-sm">
                         <label>&nbsp</label>
-                        <div class="btn btn-outline-primary btn-ssm form-control addPeriod" data-month="42">+42</div>
+                        <div class="btn btn-outline-primary btn-ssm form-control addPeriod" data-month="24">+24</div>
                     </div>
                 </div>
             </div>
@@ -112,8 +112,13 @@
             $("#dateDocument").val($("#date").val());
          });
              
-             $(".addPeriod").click(function(){
-              alert($(this).data('month'));
+            $(".addPeriod").click(function(){
+            dateDocument = new Date($("#dateDocument").val());
+            dateDocument.setMonth(dateDocument.getMonth()+$(this).data('month'));
+            
+            console.log(dateDocument.toISOString().substring(0,10));
+            $("#expiration").val(dateDocument.toISOString().substring(0,10));
+              //alert($(this).data('month'));
              });
     </script>
 @endsection
