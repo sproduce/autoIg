@@ -292,7 +292,7 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
         if ($eventId){
             $timeSheetRequest->where('eventId',$eventId);
         }
-        $timeSheetsObj = $timeSheetRequest->get();
+        $timeSheetsObj = $timeSheetRequest->orderBy('dateTime')->get();
         return $timeSheetsObj;
     }
     

@@ -6,3 +6,9 @@
     <button class="btnSubmit btn btn-ssm btn-success" data-redirect="replicate">Сохранить и создать такой же</button>
     <button class="btn btn-ssm btn-danger clearForm">Отменить</button>
 </div>
+
+<script> 
+        $(".btnSubmit").click(function(e){
+            $("#redirectPath").val($(this).data('redirect'));
+        });
+    </script>

@@ -154,23 +154,7 @@
                 {{$car->comment}}
             </div>
         </div>
-        
-        
-        @if(count($carSts))
-            <div class="row border-top mt-2 mb-2 pt-2">
-                <div class="col-12 text-center"> <strong>СТС </strong></div>
-            </div>
-            @foreach($carSts as $sts)
-        <div class="row">
-            <div class="col-2"><strong>Дата</strong></div>
-            <div class="col-2">{{$sts->eventModel->dateDocumentText}}</div>
-            <div class="col-2"><strong>Субьект</strong></div>
-            <div class="col-2">{{$sts->eventModel->subject->nickname}}</div>
-            <div class="col-2"><strong>Владелец</strong></div>
-            <div class="col-2">{{$sts->eventModel->subjectOwner->nickname}}</div>
-        </div>
-            @endforeach
-        @endif
+
          @if(count($carPts))
             <div class="row border-top mt-2 mb-2 pt-2">
                 <div class="col-12 text-center"> <strong>ПТС </strong></div>
@@ -184,6 +168,21 @@
                     <div class="col-2"><strong>Владелец</strong></div>
                     <div class="col-2">{{$pts->eventModel->subjectOwner->nickname}}</div>
                 </div>
+            @endforeach
+        @endif
+        @if(count($carSts))
+            <div class="row border-top mt-2 mb-2 pt-2">
+                <div class="col-12 text-center"> <strong>СТС </strong></div>
+            </div>
+            @foreach($carSts as $sts)
+        <div class="row">
+            <div class="col-2"><strong>Дата</strong></div>
+            <div class="col-2">{{$sts->eventModel->dateDocumentText}}</div>
+            <div class="col-2"><strong>Субьект</strong></div>
+            <div class="col-2">{{$sts->eventModel->subject->nickname}}</div>
+            <div class="col-2"><strong>Владелец</strong></div>
+            <div class="col-2">{{$sts->eventModel->subjectOwner->nickname}}</div>
+        </div>
             @endforeach
         @endif
          @if(count($carOsago))
