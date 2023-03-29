@@ -89,18 +89,24 @@ class RentEventController extends Controller
        
         
          switch ($this->request->get('redirectPath')){
-            case 'save':
-                $redirectUrl = '/timesheet/listByEvent';
-                if ($this->request->session()->exists('fromUrl')){
-                    $redirectUrl = session('fromUrl');
-                }
-                return redirect($redirectUrl);
+//            case 'save':
+//                $redirectUrl = '/timesheet/listByEvent';
+//                if ($this->request->session()->exists('fromUrl')){
+//                    $redirectUrl = session('fromUrl');
+//                }
+//                return redirect($redirectUrl);
             case 'allocate':
                 return redirect('/');
             case 'empty':
                 return  redirect("/timesheet/add/$eventId");
             case 'replicate':
                 return redirect('/payment/add/'.$paymentModel->id);
+            default:
+                $redirectUrl = '/timesheet/listByEvent';
+                if ($this->request->session()->exists('fromUrl')){
+                    $redirectUrl = session('fromUrl');
+                }
+                return redirect($redirectUrl);
         }
         
         
@@ -112,7 +118,7 @@ class RentEventController extends Controller
     public function edit($eventId,$dataId, NeedParent $needParent,
                          CarIdDate $carIdDate)
     {
-
+        session(['fromUrl' => parse_url($this->request->header('referer'), PHP_URL_PATH)]);
         $eventObj = $this->rentEventServ->getRentEvent($eventId);
         $serviceObj = $this->rentEventServ->getEventService($eventObj);
         $eventDataObj = $serviceObj->getEventInfo($dataId);

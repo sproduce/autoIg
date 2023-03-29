@@ -34,6 +34,14 @@
         @endif
         @csrf
 
+        <div class="row mb-2">
+            <div class="col-5"></div>
+            <div class="col-3">
+                <button id="inbountbtn" class="btn btn-ssm btn-outline-danger mr-4">Приход</button>
+                <button id="outboundbtn" class="btn btn-ssm btn-outline-secondary ml-4">Расход</button>
+            </div>
+        </div>
+            
         <div class="row pb-3 mb-3 border-bottom">
             <div class="col-1">Дата</div>
             <div class="col-3">
@@ -41,7 +49,10 @@
                 <button class="btn btn-ssm btn-outline-success" title="Текущая дата" id="currentDate"><i class="fas fa-calendar-alt"></i></button>
             </div>
             <div class="col-1">Сумма</div>
-            <div class="col-3"><input type="number" name="payment" value="{{old('payment',$paymentObj->payment)}}" required/></div>
+            <div class="col-3">
+                <span class="text-secondary"><strong>-</strong></span>
+                <input type="number" name="payment" value="{{old('payment',$paymentObj->payment)}}" required/>
+            </div>
             <div class="col-1">Комиссия</div>
             <div class="col-3"><input type="number" name="comm" value="{{old('comm',$paymentObj->comm)}}"/></div>
         </div>
