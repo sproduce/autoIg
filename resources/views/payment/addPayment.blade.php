@@ -37,7 +37,7 @@
         <div class="row mb-2">
             <div class="col-5"></div>
             <div class="col-3">
-                <button id="inbountbtn" class="btn btn-ssm btn-outline-danger mr-4">Приход</button>
+                <button id="inboundbtn" class="btn btn-ssm btn-outline-danger mr-4 text"><strong>Приход</strong></button>
                 <button id="outboundbtn" class="btn btn-ssm btn-outline-secondary ml-4">Расход</button>
             </div>
         </div>
@@ -50,8 +50,10 @@
             </div>
             <div class="col-1">Сумма</div>
             <div class="col-3">
-                <span class="text-secondary"><strong>-</strong></span>
-                <input type="number" name="payment" value="{{old('payment',$paymentObj->payment)}}" required/>
+                <span id="sign" class="text-secondary mr-2"><i class="fas fa-minus"></i></span>
+                
+                <input id="inputSum" @if ($paymentObj->payment>=0)data-type="1" @else data-type="-1" @endif" type="number" value="{{old('payment',$paymentObj->payment)?abs(old('payment',$paymentObj->payment)):''}}" required/>
+                <input id="sum" type="number" name="payment" required hidden/>
             </div>
             <div class="col-1">Комиссия</div>
             <div class="col-3"><input type="number" name="comm" value="{{old('comm',$paymentObj->comm)}}"/></div>
@@ -234,6 +236,67 @@
 
     });
 
+
+
+    function inbound(){
+        $('#inboundbtn').removeClass('btn-outline-secondary');
+        $('#outboundbtn').removeClass('btn-outline-danger');
+        $('#outboundbtn').addClass('btn-outline-secondary');
+        $('#inboundbtn').addClass('btn-outline-danger');
+        $('#sign').removeClass('text-danger');
+        $('#sign').addClass('text-secondary');
+        
+    }
+
+
+    function outbound(){
+        $('#outboundbtn').removeClass('btn-outline-secondary');
+        $('#inboundbtn').removeClass('btn-outline-danger');
+        $('#inboundbtn').addClass('btn-outline-secondary');
+        
+        $('#outboundbtn').addClass('btn-outline-danger');
+        $('#sign').removeClass('text-secondary');
+        $('#sign').addClass('text-danger');
+    }
+
+
+
+    $('#inputSum').keypress(function(e){
+        if (e.keyCode==45){
+            $('#inputSum').data('type',$('#inputSum').data('type')*-1);
+            return false;
+        }
+    });
+
+    function updateSum(){
+        $('#sum').val( $('#inputSum').val()*$('#inputSum').data('type'));
+        if ($('#inputSum').data('type')>0){
+                inbound();
+            }else {
+                outbound();
+            }
+    }
+
+
+    $('#inputSum').keyup(function(e){
+        updateSum();
+    });
+
+
+    $("#inboundbtn").click(function(){
+        inbound();
+        $('#inputSum').data('type',1);
+        updateSum();
+        return false;
+    });
+        
+    $("#outboundbtn").click(function(){
+        outbound();
+        $('#inputSum').data('type',-1);
+        updateSum();
+        return false;
+    });
+        updateSum();
 </script>
 
 @endsection

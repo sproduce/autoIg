@@ -89,6 +89,8 @@ class PaymentController extends Controller
                 return  redirect()->back();
             case 'replicate':
                 return redirect('/payment/add/'.$paymentModel->id);
+            default :
+                return redirect('/payment/list');
         }
 
     }
