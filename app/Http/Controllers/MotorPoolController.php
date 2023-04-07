@@ -27,7 +27,7 @@ class MotorPoolController extends Controller
     public function show()
     {
         $carsPoolObj = $this->motorPoolServ->getCars();
-
+ 
         return view('motorPool.motorPoolList',['carsPool' => $carsPoolObj]);
     }
 
@@ -121,7 +121,7 @@ class MotorPoolController extends Controller
     }
 
 
-    public function getCarInfo($id=null)
+    public function getCarInfo($id = null)
     {
         if ($id){
             $carId = $id;
@@ -134,6 +134,24 @@ class MotorPoolController extends Controller
     }
 
 
+    
+    public function editCarNicknameDialog($id) 
+    {
+        $carObj = $this->motorPoolServ->getCar($id);
+        return view('dialog.MotorPool.editNickname',['car' => $carObj]);
+    }
+    
+    
+    public function editCarNickname() 
+    {
+        $validated = $this->request->validate(['id' => 'integer','nickname' => '']);
+        //echo $validated['id'];
+        $this->motorPoolServ->changeNickname($validated['id'], $validated['nickname']);
+        return redirect()->back();
+    }
+    
+    
+    
     public function getCarFullInfo($id)
     {
         $carObj = $this->motorPoolServ->getCarFullInfo($id);

@@ -78,13 +78,13 @@
                     <label for="hp">Лошадиных сил (hp)</label>
                     <input type="number" name="hp" id="hp" class="form-control" value="{{$carConfiguration->hp}}" required autocomplete="off"/>
                 </div>
-                <div class="form-group col-md-3 input-group-sm">
+                <div class="form-group col-md-2 input-group-sm">
                     <label for="year">Год выпуска</label>
                     <input type="number" name="year" id="year" class="form-control" value="{{$carConfiguration->year}}" required autocomplete="off"/>
                 </div>
-                <div class="form-group col-md-3 input-group-sm">
-                    <label for="color">Цвет</label>
-                    <input type="text" name="color" id="color" value="{{$carConfiguration->color}}" class="form-control"/>
+                <div class="form-group col-md-4 input-group-sm">
+                    <label for="nickName">NickName</label>
+                    <input type="text" name="nickName" id="nickName" class="form-control" value="{{$carConfiguration->nickName}}" autocomplete="off" />
                 </div>
 
             </div>
@@ -94,12 +94,8 @@
                     <label for="vin">Вин код</label>
                     <input type="text" name="vin" id="vin" class="form-control" value="{{$carConfiguration->vin}}" required autocomplete="off"/>
                 </div>
-                <div class="form-group col-md-2 input-group-sm">
-                    <label for="regNumber">Рег.номер</label>
-                    <input type="text" name="regNumber" id="regNumber" class="form-control" value="{{$carConfiguration->regNumber}}" required autocomplete="off"/>
-                </div>
 
-                <div class="form-group col-md-3 input-group-sm">
+                <div class="form-group col-md-4 input-group-sm">
                     <label for="subjectIdOwner">Владелец</label>
                     <select name="subjectIdOwner" id="subjectIdOwner" class="form-control">
                     @foreach($owners as $owner)
@@ -107,7 +103,7 @@
                     @endforeach
                     </select>
                 </div>
-                <div class="form-group col-md-3 input-group-sm">
+                <div class="form-group col-md-4 input-group-sm">
                     <label for="subjectIdFrom">Аренда от</label>
                     <select name="subjectIdFrom" id="subjectIdFrom" class="form-control">
                         <option value=""></option>
@@ -125,10 +121,6 @@
                 <div class="form-group col-md-4 input-group-sm">
                     <label for="dateFinish">Снята с учета</label>
                     <input type="date" name="dateFinish" id="dateFinish" value="{{$carConfiguration->dateFinish}}" class="form-control"/>
-                </div>
-                <div class="form-group col-md-4 input-group-sm">
-                    <label for="nickName">NickName</label>
-                    <input type="text" name="nickName" id="nickName" class="form-control" value="{{$carConfiguration->nickName}}" autocomplete="off" />
                 </div>
             </div>
             <div class="form-row text-center">

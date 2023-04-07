@@ -51,6 +51,9 @@
                  </div>
 
                 <div class="col-2">
+                    <a class="btn-ssm btn-outline-warning DialogUserSMin" href="/motorPool/editNickname/{{$car->id}}" title="Редактировать nickName">
+                                <i class="far fa-edit"></i>
+                            </a>
                     {{$car->nickName}}
                 </div>
                 <div class="col-2">

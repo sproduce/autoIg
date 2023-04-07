@@ -10,19 +10,27 @@ use Illuminate\Support\Str;
 
 Class MotorPoolService{
 
-    private $motorPoolRep,$carConfiguration;
+    private $motorPoolRep,$carConfiguration,$timeSheetServ;
 
 
-    function __construct(MotorPoolRepositoryInterface $motorPoolRep,carConfiguration $carConfiguretion)
+    function __construct(MotorPoolRepositoryInterface $motorPoolRep,carConfiguration $carConfiguretion,TimeSheetService $timeSheetServ)
     {
         $this->carConfiguration = $carConfiguretion;
         $this->motorPoolRep = $motorPoolRep;
+        $this->timeSheetServ = $timeSheetServ;
     }
 
 
     public function getCars()
     {
-        return $this->motorPoolRep->getCars();
+        $motoPools = $this->motorPoolRep->getCars();
+        foreach($motoPools as $car){
+            $eventModel = $this->timeSheetServ->getLastTimeSheetModel(config('rentEvent.eventSts'),$car->id);
+            $car['color'] = $eventModel->color?: 'Н/У';
+            $car['regNumber'] = $eventModel->regNumber?: '---';
+        }
+
+        return $motoPools;
     }
 
 
@@ -86,4 +94,14 @@ Class MotorPoolService{
     }
 
 
+    
+    public function changeNickname($carId,$nickname) 
+    {
+        $carObj = $this->motorPoolRep->getCar($carId);
+        $carObj->nickName = $nickname;
+        $carObj->save();
+    }
+    
+    
+    
 }

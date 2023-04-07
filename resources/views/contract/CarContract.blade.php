@@ -48,8 +48,14 @@
                         <label for="carText" title="Машина">Машина</label>
                         <a href="/motorPool/addCarTo" class="btn btn-ssm btn-outline-success ml-2 DialogUser"><i class="fas fa-search-plus"></i></a>
                         <a class="btn btn-ssm btn-outline-danger ml-2 clearButton"><i class="fas fa-eraser"></i></a>
-                        <input id="carText" name="carText" class="form-control" value="{{old('carText',$rentContractObj->car->nickName)}}" readonly/>
-                        <input name="carId" id="carId" value="{{old('carId',$rentContractObj->carId)}}" hidden/>
+                        @if(isset($carObj))
+                            <input id="carText" name="carText" class="form-control" value="{{old('carText',$carObj->nickName)}}" readonly/>
+                            <input name="carId" id="carId" value="{{old('carId',$carObj->carId)}}" hidden/>
+                        @else
+                            <input id="carText" name="carText" class="form-control" value="{{old('carText',$rentContractObj->car->nickName)}}" readonly/>
+                            <input name="carId" id="carId" value="{{old('carId',$rentContractObj->carId)}}" hidden/>
+                        @endif
+                        
                     </div>
                     <div class="form-group col-md-3 input-group-sm clearRow">
                         <label for="carGroupText" title="Группа машин">Группа машин</label>

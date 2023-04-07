@@ -21,13 +21,14 @@ use Illuminate\Http\Request;
 
 class ContractController extends Controller
 {
-    private $contractServ,$request,$timeSheetServ;
+    private $contractServ,$request,$timeSheetServ,$motorPoolServ;
 
-    function __construct(ContractService $contractServ,Request $request, TimeSheetService $timeSheetServ)
+    function __construct(ContractService $contractServ,Request $request, TimeSheetService $timeSheetServ, \App\Services\MotorPoolService $motorPoolServ)
     {
         $this->contractServ = $contractServ;
         $this->timeSheetServ = $timeSheetServ;
         $this->request = $request;
+        $this->motorPoolServ = $motorPoolServ;
     }
 
     public function showActual()
@@ -64,11 +65,15 @@ class ContractController extends Controller
 
     public function addContract(rentContract $rentContractObj)
     {
+        $carId = $this->request->input('carId');
+        $carObj = $this->motorPoolServ->getCar($carId);
+        
         $directory = $this->contractServ->getContractDirectory();
         $rentContractObj->toAddForm = 0;
         return view('contract.CarContract',[
             'directoryObj' => $directory,
             'rentContractObj' => $rentContractObj,
+            'carObj' => $carObj,
         ]);
     }
 
