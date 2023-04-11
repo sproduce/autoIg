@@ -32,12 +32,14 @@
             <div class="row row-table">
                 <div class="col-3 pl-0">
                     <a href="/motorPool/carInfo/{{$car->id}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-                    {{$car->generation->model->brand->name}} | {{$car->generation->model->name}}
-                        <div class="float-right">
-                            <a href="/carGroup/carInCarGroups?carId={{$car->id}}">
-                                <i class="fas fa-users-cog @if ($car->linkCarGroup->count())text-success @else text-danger @endif"></i>
-                            </a>
-                        </div>
+                    <a href="/motorPool/carInfo/{{$car->id}}?needParent=1">
+                        {{$car->generation->model->brand->name}} | {{$car->generation->model->name}}
+                    </a>
+                    <div class="float-right">
+                        <a href="/carGroup/carInCarGroups?carId={{$car->id}}">
+                            <i class="fas fa-users-cog @if ($car->linkCarGroup->count())text-success @else text-danger @endif"></i>
+                        </a>
+                    </div>
                     
                 </div>
                 <div class="col-1">

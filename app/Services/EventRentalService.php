@@ -67,7 +67,7 @@ Class EventRentalService implements EventServiceInterface {
         $lastTimeSheet = $this->timeSheetRep->getLastTimeSheetId($eventRentalRequest->get('carId'),$this->eventObj->id);
 
         if ($lastTimeSheet->id){
-            $lastDateTime = $lastTimeSheet->dateTime->addMinute($this->eventObj->duration);
+            $lastDateTime = $lastTimeSheet->dateTime->addMinute($lastTimeSheet->duration);
         } else {
             $lastDateTime = Carbon::parse(0);
         }

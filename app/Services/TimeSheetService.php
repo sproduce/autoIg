@@ -14,7 +14,7 @@ use Carbon\CarbonPeriod;
 
 
 Class TimeSheetService{
-    private $timeSheetRep,$toPaymentRep,$motorPoolRep,$rentEventRep,$rentEventService,$fileService,$contractRep;
+    private $timeSheetRep, $toPaymentRep, $motorPoolRep, $rentEventRep, $rentEventService, $fileService, $contractRep;
 
     function __construct(
         TimeSheetRepositoryInterface $timeSheetRep,

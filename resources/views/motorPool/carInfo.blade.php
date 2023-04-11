@@ -1,9 +1,10 @@
-    <div class="modal-header text-center">
-        <h6 class="modal-title w-100 font-weight-bold">Информация о машине</h6>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+@extends('../adminIndex')
+
+@section('header')
+<h6 class="m-0">Информация о машине </h6>
+@endsection
+
+@section('content')
 
     <div class="modal-body">
         <div class="container-fluid">
@@ -245,4 +246,4 @@
         </div>
     </div>
 
-
+@endsection

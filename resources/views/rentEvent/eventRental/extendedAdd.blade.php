@@ -129,12 +129,12 @@
         });
     });
 
-    $("#timeStart").change(function(){
+    $("#timeStart").focusout(function(){
         compareDateTime();
 
     });
 
-    $("#dateStart").change(function(){
+    $("#dateStart").focusout(function(){
         compareDateTime();
     });
 

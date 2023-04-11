@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CarIdRequest;
 use App\Http\Requests\MotorPoolRequest;
 use App\Http\Requests\Search\SearchCarRequest;
+use App\Http\Requests\NeedParent;
+
 use App\Models\carConfiguration;
 use App\Services\BrandService;
 use App\Services\CarGroupService;
@@ -13,6 +15,7 @@ use App\Services\MotorPoolService;
 use App\Services\SubjectService;
 use App\Services\TimeSheetService;
 use Illuminate\Http\Request;
+
 
 
 class MotorPoolController extends Controller
@@ -87,7 +90,7 @@ class MotorPoolController extends Controller
     }
 
 
-    public function carInfoDialog(TimeSheetService $timeSheetServ, CarGroupService $carGroupServ, $carId)
+    public function carInfoDialog(NeedParent $needParent, TimeSheetService $timeSheetServ, CarGroupService $carGroupServ, $carId)
     {
         $carObj = $this->motorPoolServ->getCarFullInfo($carId);
         $carGroupsObj = $carGroupServ->getCarGroupsByCar($carId);
@@ -100,7 +103,14 @@ class MotorPoolController extends Controller
         $carProxy = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventProxy'));
         $carLicense = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventLicense'));
         
-        return view('dialog.MotorPool.carInfo',[
+        if ($needParent->get('needParent')){
+            $fileView = 'motorPool.carInfo';
+        } else {
+            $fileView = 'dialog.MotorPool.carInfo';
+        }
+        
+        
+        return view($fileView,[
             'car' => $carObj,
             'carGroupsObj' => $carGroupsObj,
             'carSts' => $carSts,
