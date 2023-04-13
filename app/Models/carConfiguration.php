@@ -33,15 +33,20 @@ use Illuminate\Support\Str;
 class carConfiguration extends Model
 {
     use HasFactory;
-    private  $id,$pid,$subjectIdOwner,$subjectIdFrom,$uuid,
-        $generationId,$typeId,$engineTypeId,$transmissionTypeId,$hp,$dateStart,$dateFinish,$comment,$displacement,
-        $regNumber,$vin,$nickName,$color,$year;
+//    private  $id,$pid,$subjectIdOwner,$subjectIdFrom,$uuid,
+//        $generationId,$typeId,$engineTypeId,$transmissionTypeId,$hp,$dateStart,$dateFinish,$comment,$displacement,
+//        $regNumber,$vin,$nickName,$color,$year;
 
     protected $dates = ['dateStart','dateFinish'];
 
     public function generation()
     {
         return $this->hasOne(carGeneration::class,'id','generationId')->withDefault();
+
+    }
+     public function type()
+    {
+        return $this->hasOne(carType::class,'id','typeId')->withDefault();
 
     }
 
@@ -75,6 +80,13 @@ class carConfiguration extends Model
     {
         return $this->hasOne(rentSubject::class,'id','subjectIdFrom')->withDefault();
     }
+    
+    public function subjectOwner()
+    {
+        return $this->hasOne(rentSubject::class,'id','subjectIdOwner')->withDefault();
+    }
+    
+    
 
     public function linkCarGroup()
     {
@@ -87,6 +99,28 @@ class carConfiguration extends Model
         return $this->hasMany(timeSheet::class,'carId');
     }
     
+    
+    public function getDateStartTextAttribute() 
+    {
+        if ($this->dateStart){
+            return $this->dateStart->format('d-m-Y');
+        } 
+        return '';
+        
+    }
+    public function getDateFinishTextAttribute() 
+    {
+        if ($this->dateFinish){
+            return $this->dateFinish->format('d-m-Y');
+        }
+        return '';
+    }
+    
+    
+    public function groups() 
+    {
+        return $this->hasMany(rentCarGroupLink::class,'carId');
+    }
     
     
     

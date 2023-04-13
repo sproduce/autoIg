@@ -92,9 +92,7 @@ class MotorPoolController extends Controller
 
     public function carInfoDialog(NeedParent $needParent, TimeSheetService $timeSheetServ, CarGroupService $carGroupServ, $carId)
     {
-        $carObj = $this->motorPoolServ->getCarFullInfo($carId);
-        $carGroupsObj = $carGroupServ->getCarGroupsByCar($carId);
-        //$carModel = $this->motorPoolServ->getCar($carId);
+        $carObj = $this->motorPoolServ->getCar($carId);
         $carPts = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventPts'));
         $carSts = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventSts'));
         $carOsago = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventOsago'));
@@ -112,7 +110,6 @@ class MotorPoolController extends Controller
         
         return view($fileView,[
             'car' => $carObj,
-            'carGroupsObj' => $carGroupsObj,
             'carSts' => $carSts,
             'carPts' => $carPts,
             'carOsago' => $carOsago,

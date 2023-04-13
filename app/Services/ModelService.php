@@ -46,7 +46,7 @@ Class ModelService{
     {
 
         $validated = $this->request->validate([
-            'name'=>'required|alpha_dash',
+            'name'=>'required',
             'modelId' => 'required|integer',
             'start'=>'required|integer|min:1990|max:'.date('Y'),
             'finish'=>''
@@ -60,7 +60,7 @@ Class ModelService{
     {
         $validated = $this->request->validate([
             'id'=>'required|integer',
-            'name'=>'required|alpha_dash',
+            'name'=>'required',
             'start'=>'required|integer|min:1990|max:'.date('Y'),
             'finish'=>''
         ]);

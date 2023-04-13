@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class rentCarGroupLink extends Model
 {
-    private $id,$carId,$groupId,$start,$finish;
+    //private $id,$carId,$groupId,$start,$finish;
     protected $fillable =['carId','groupId','start','finish'];
     protected $dates = ['start','finish'];
     use HasFactory;
@@ -27,5 +27,32 @@ class rentCarGroupLink extends Model
     {
         return $this->hasOne(carConfiguration::class,'id','carId')->withDefault();
     }
+    
+        
+    public function group() 
+    {
+        return $this->hasOne(rentCarGroup::class,'id','groupId')->withDefault();
+    }
+    
+    
+      public function getStartTextAttribute()
+    {
+        if ($this->start){
+            return $this->start->format('d-m-Y');
+        }
+        return '';
+    }
 
+    public function getFinishTextAttribute()
+    {
+       
+        if ($this->finish){
+            return $this->finish->format('d-m-Y');
+        }
+        return '';
+    }
+    
+    
+    
+    
 }

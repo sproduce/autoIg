@@ -13,13 +13,13 @@
                     <strong>Марка</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->generationName}}
+                    {{$car->generation->model->brand->name}}
                 </div>
                 <div class="col-md-2">
                     <strong>Двигатель</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->engineTypeName}}
+                    {{$car->engine->name}}
                 </div>
                 <div class="col-md-2">
                     <strong>Год выпуска</strong>
@@ -34,7 +34,7 @@
                     <strong>Модель</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->modelName}}
+                    {{$car->generation->model->name}}
                 </div>
                 <div class="col-md-2">
                     <strong>Обьем</strong>
@@ -55,7 +55,7 @@
                     <strong>Поколение</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->generationName}}
+                    {{$car->generation->name}}
                 </div>
                 <div class="col-md-2">
                     <strong>Сил</strong>
@@ -76,13 +76,13 @@
                     <strong>Кузов</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->typeName}}
+                    {{$car->type->name}}
                 </div>
                 <div class="col-md-2">
                     <strong>Трансмиссия</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->transmissionTypeName}}
+                    {{$car->transmission->name}}
                 </div>
                 <div class="col-md-2">
                     <strong>Nickname</strong>
@@ -102,17 +102,17 @@
                         <strong>Владелец</strong>
                     </div>
                     <div class="col-md-4">
-                        {{$car->subjectOwnerNickname}}
+                        {{$car->subjectOwner->nickname}}
                     </div>
                 </div>
-                @if ($car->subjectFromNickname)
+                @if ($car->subjectFrom)
                     <div class="row">
                         <div class="col-6"></div>
                         <div class="col-md-2">
                             <strong>Сдается от</strong>
                         </div>
                         <div class="col-md-4">
-                            {{$car->subjectFromNickname}}
+                            {{$car->subjectFrom->nickname}}
                         </div>
                     </div>
                 @endif
@@ -121,27 +121,27 @@
                         <strong>Начало владения</strong>
                     </div>
                     <div class="col-md-3">
-                        {{$car->dateStart}}
+                        {{$car->dateStartText}}
                     </div>
                     <div class="col-md-3">
                         <strong>Снятие с учета</strong>
                     </div>
                     <div class="col-md-3">
-                        {{$car->dateFinish}}
+                        {{$car->dateFinishText}}
                     </div>
                 </div>
 
                 <div class="row border-top mt-2 mb-2 pt-2">
                     <div class="col-12 text-center"> <strong>Участвует в группах </strong></div>
                 </div>
-                @foreach($carGroupsObj as $carGroup)
+                @foreach($car->groups as $carGroup)
                     <div class="row">
                         <div class="col-md-1"><strong>Группа</strong></div>
-                        <div class="col-md-3">{{$carGroup->nickName}}</div>
+                        <div class="col-md-3">{{$carGroup->group->name}}</div>
                         <div class="col-md-2"><strong>Начало</strong></div>
-                        <div class="col-md-2">@if ($carGroup->linkStart) {{$carGroup->linkStart->format('d-m-Y')}} @endif</div>
+                        <div class="col-md-2">{{$carGroup->startText}}</div>
                         <div class="col-md-2"><strong>Окончание</strong></div>
-                        <div class="col-md-2">@if ($carGroup->linkFinish) {{$carGroup->linkFinish->format('d-m-Y')}} @endif</div>
+                        <div class="col-md-2">{{$carGroup->finishText}}</div>
                     </div>
                 @endforeach
 
@@ -156,7 +156,9 @@
 
              @if(count($carPts))
                 <div class="row border-top mt-2 mb-2 pt-2">
-                    <div class="col-12 text-center"> <strong>ПТС </strong></div>
+                    <div class="col-12 text-center"> <strong>ПТС </strong> 
+                        <a class="btn btn-ssm btn-outline-success ml-3" title="Добавить ПТС" href="/rentEvent/{{config('rentEvent.eventPts')}}/create?carId={{$car->id}}&needParent=1"><i class="far fa-plus-square"></i></a>
+                    </div>
                 </div>
                 @foreach($carPts as $pts)
                     <div class="row">
@@ -171,7 +173,9 @@
             @endif
             @if(count($carSts))
                 <div class="row border-top mt-2 mb-2 pt-2">
-                    <div class="col-12 text-center"> <strong>СТС </strong></div>
+                    <div class="col-12 text-center"> <strong>СТС </strong>
+                        <a class="btn btn-ssm btn-outline-success ml-3" title="Добавить СТС" href="/rentEvent/{{config('rentEvent.eventSts')}}/create?carId={{$car->id}}&needParent=1"><i class="far fa-plus-square"></i></a>
+                    </div>
                 </div>
                 @foreach($carSts as $sts)
             <div class="row">
@@ -186,7 +190,10 @@
             @endif
              @if(count($carOsago))
                 <div class="row border-top mt-2 mb-2 pt-2">
-                    <div class="col-12 text-center"> <strong>ОСАГО </strong></div>
+                    <div class="col-12 text-center"> 
+                        <strong>ОСАГО </strong>
+                        <a class="btn btn-ssm btn-outline-success " title="Добавить ОСАГО" href="/rentEvent/{{config('rentEvent.eventOsago')}}/create?carId={{$car->id}}&needParent=1"><i class="far fa-plus-square"></i></a>
+                    </div>
                 </div>
                 @foreach($carOsago as $osago)
                     <div class="row">
@@ -197,7 +204,9 @@
             @endif
             @if(count($carKasko))
                 <div class="row border-top mt-2 mb-2 pt-2">
-                    <div class="col-12 text-center"> <strong>КАСКО </strong></div>
+                    <div class="col-12 text-center"> <strong>КАСКО </strong>
+                        <a class="btn btn-ssm btn-outline-success ml-3" title="Добавить КАСКО" href="/rentEvent/{{config('rentEvent.eventKasko')}}/create?carId={{$car->id}}&needParent=1"><i class="far fa-plus-square"></i></a>
+                    </div>
                 </div>
                 @foreach($carKasko as $ksako)
                     <div class="row">
@@ -208,7 +217,9 @@
             @endif
             @if(count($carDiagnosticCard))
                 <div class="row border-top mt-2 mb-2 pt-2">
-                    <div class="col-12 text-center"> <strong>Диаг Карта </strong></div>
+                    <div class="col-12 text-center"> <strong>Диаг Карта </strong>
+                        <a class="btn btn-ssm btn-outline-success ml-3" title="Добавить диагностическую карту" href="/rentEvent/{{config('rentEvent.eventDiagnosticCard')}}/create?carId={{$car->id}}&needParent=1"><i class="far fa-plus-square"></i></a>
+                    </div>
                 </div>
                 @foreach($carDiagnosticCard as $diagnosticCard)
                     <div class="row">
@@ -219,7 +230,9 @@
             @endif
             @if(count($carProxy))
                 <div class="row border-top mt-2 mb-2 pt-2">
-                    <div class="col-12 text-center"> <strong>Доверенность</strong></div>
+                    <div class="col-12 text-center"> <strong>Доверенность</strong>
+                        <a class="btn btn-ssm btn-outline-success ml-3" title="Добавить доверенность" href="/rentEvent/{{config('rentEvent.eventProxy')}}/create?carId={{$car->id}}&needParent=1"><i class="far fa-plus-square"></i></a>
+                    </div>
                 </div>
                 @foreach($carProxy as $proxy)
                     <div class="row">
@@ -230,7 +243,9 @@
             @endif
             @if(count($carLicense))
                 <div class="row border-top mt-2 mb-2 pt-2">
-                    <div class="col-12 text-center"> <strong>Лицензия</strong></div>
+                    <div class="col-12 text-center"> <strong>Лицензия</strong>
+                        <a class="btn btn-ssm btn-outline-success ml-3" title="Добавить лицензию" href="/rentEvent/{{config('rentEvent.eventLicense')}}/create?carId={{$car->id}}&needParent=1"><i class="far fa-plus-square"></i></a>
+                    </div>
                 </div>
                 @foreach($carLicense as $license)
                     <div class="row">

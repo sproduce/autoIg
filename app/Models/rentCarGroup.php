@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class rentCarGroup extends Model
 {
     use HasFactory;
+    
     protected $fillable =['name','nickName','start','finish'];
+    protected $dates =['start','finish'];
 
     public function cars()
     {
@@ -28,5 +30,20 @@ class rentCarGroup extends Model
 
     }
 
+    public function getStartTextAttribute()
+    {
+        if ($this->start){
+            return $this->start->format('d-m-Y');
+        }
+        return '';
+    }
 
+    public function getFinishTextAttribute()
+    {
+       
+        if ($this->finish){
+            return $this->finish->format('d-m-Y');
+        }
+        return '';
+    }
 }

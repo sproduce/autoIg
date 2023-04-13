@@ -36,7 +36,11 @@ Class MotorPoolService{
 
     public function getCar($carId): carConfiguration
     {
-        return $this->motorPoolRep->getCar($carId);
+        $carObj = $this->motorPoolRep->getCar($carId);
+        $eventModel = $this->timeSheetServ->getLastTimeSheetModel(config('rentEvent.eventSts'),$carObj->id);
+        $carObj['color'] = $eventModel->color?: 'Н/У';
+        $carObj['regNumber'] = $eventModel->regNumber?: '---';
+        return $carObj;
     }
 
 

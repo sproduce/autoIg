@@ -12,13 +12,13 @@
                     <strong>Марка</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->generationName}}
+                    {{$car->generation->model->brand->name}}
                 </div>
                 <div class="col-md-2">
                     <strong>Двигатель</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->engineTypeName}}
+                    {{$car->engine->name}}
                 </div>
                 <div class="col-md-2">
                     <strong>Год выпуска</strong>
@@ -33,7 +33,7 @@
                     <strong>Модель</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->modelName}}
+                    {{$car->generation->model->name}}
                 </div>
                 <div class="col-md-2">
                     <strong>Обьем</strong>
@@ -54,7 +54,7 @@
                     <strong>Поколение</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->generationName}}
+                    {{$car->generation->name}}
                 </div>
                 <div class="col-md-2">
                     <strong>Сил</strong>
@@ -75,13 +75,13 @@
                     <strong>Кузов</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->typeName}}
+                    {{$car->type->name}}
                 </div>
                 <div class="col-md-2">
                     <strong>Трансмиссия</strong>
                 </div>
                 <div class="col-md-2">
-                    {{$car->transmissionTypeName}}
+                    {{$car->transmission->name}}
                 </div>
                 <div class="col-md-2">
                     <strong>Nickname</strong>
@@ -101,17 +101,17 @@
                         <strong>Владелец</strong>
                     </div>
                     <div class="col-md-4">
-                        {{$car->subjectOwnerNickname}}
+                        {{$car->subjectOwner->nickname}}
                     </div>
                 </div>
-                @if ($car->subjectFromNickname)
+                @if ($car->subjectFrom)
                     <div class="row">
                         <div class="col-6"></div>
                         <div class="col-md-2">
                             <strong>Сдается от</strong>
                         </div>
                         <div class="col-md-4">
-                            {{$car->subjectFromNickname}}
+                            {{$car->subjectFrom->nickname}}
                         </div>
                     </div>
                 @endif
@@ -120,27 +120,27 @@
                         <strong>Начало владения</strong>
                     </div>
                     <div class="col-md-3">
-                        {{$car->dateStart}}
+                        {{$car->dateStartText}}
                     </div>
                     <div class="col-md-3">
                         <strong>Снятие с учета</strong>
                     </div>
                     <div class="col-md-3">
-                        {{$car->dateFinish}}
+                        {{$car->dateFinishText}}
                     </div>
                 </div>
 
                 <div class="row border-top mt-2 mb-2 pt-2">
                     <div class="col-12 text-center"> <strong>Участвует в группах </strong></div>
                 </div>
-                @foreach($carGroupsObj as $carGroup)
+                @foreach($car->groups as $carGroup)
                     <div class="row">
                         <div class="col-md-1"><strong>Группа</strong></div>
-                        <div class="col-md-3">{{$carGroup->nickName}}</div>
+                        <div class="col-md-3">{{$carGroup->group->name}}</div>
                         <div class="col-md-2"><strong>Начало</strong></div>
-                        <div class="col-md-2">@if ($carGroup->linkStart) {{$carGroup->linkStart->format('d-m-Y')}} @endif</div>
+                        <div class="col-md-2">{{$carGroup->startText}}</div>
                         <div class="col-md-2"><strong>Окончание</strong></div>
-                        <div class="col-md-2">@if ($carGroup->linkFinish) {{$carGroup->linkFinish->format('d-m-Y')}} @endif</div>
+                        <div class="col-md-2">{{$carGroup->finishText}}</div>
                     </div>
                 @endforeach
 
