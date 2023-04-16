@@ -244,9 +244,17 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     }
 
 
-    public function getTimeSheetPeriod()
+    public function getTimeSheetPeriod(CarbonPeriod $periodDate)
     {
-        // TODO: Implement getTimeSheetPeriod() method.
+        $startDate = $datePeriod->getStartDate()->format('Y-m-d');
+        $finishDate = $datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
+
+        return timeSheet::query()
+            ->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ?',[$startDate,$finishDate])
+            ->orWhereBetween('dateTime',[$startDate,$finishDate])
+            ->whereNull('time_sheets.deleted_at')
+            ->orderBy('dateTime')
+            ->get();
     }
 
 

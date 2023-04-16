@@ -88,7 +88,7 @@
                     </h6>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link"  href="/">
+                            <a class="nav-link"  href="/report/list">
                                 <i class="far fa-chart-bar"></i>
                                 Отчеты
                             </a>

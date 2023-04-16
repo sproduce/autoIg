@@ -37,7 +37,7 @@ class RentEventRepository implements RentEventRepositoryInterface
 
     public function getEventByAction($action):rentEvent
     {
-        $action=str_replace('Controller','',$action);
+        $action = str_replace('Controller','',$action);
 
         return rentEvent::where('action',$action)->first();
     }

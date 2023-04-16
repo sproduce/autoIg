@@ -86,7 +86,9 @@ Route::get('/motorPool/search',[MotorPoolController::class,'search']);
 
 Route::get('/motorPool/add',[MotorPoolController::class,'addMotorPoolDialog']);
 Route::get('/motorPool/edit',[MotorPoolController::class,'editMotorPoolDialog']);
-Route::get('/motorPool/carInfo/{id}',[MotorPoolController::class,'carInfoDialog']);
+
+Route::get('/motorPool/carInfo/{id}',[MotorPoolController::class,'carInfoDialog']);//Old
+Route::get('/motorPool/carInfoDialog/{id}',[MotorPoolController::class,'carInfoDialog']);
 Route::get('/motorPool/carInfoParent/{id}',[MotorPoolController::class,'carInfoDialog']);
 
 Route::get('/motorPool/editNickname/{id}',[MotorPoolController::class,'editCarNicknameDialog']);

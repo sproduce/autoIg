@@ -95,9 +95,9 @@ Class RentEventService{
     }
 
 
-    public function getAllEvents()
+    public function getEvents()
     {
-
+        return $this->rentEventRep->getEvents();
     }
 
 

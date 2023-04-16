@@ -12,6 +12,9 @@ class rentCarGroup extends Model
     protected $fillable =['name','nickName','start','finish'];
     protected $dates =['start','finish'];
 
+    
+    
+    
     public function cars()
     {
         //$this->hasMany('')

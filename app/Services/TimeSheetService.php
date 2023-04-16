@@ -272,7 +272,7 @@ Class TimeSheetService{
         return $eventServ->getEventInfo($timeSheetObj->dataId);
     }
 
-     public function getLastTimeSheetModel($eventId,$carId)
+    public function getLastTimeSheetModel($eventId,$carId)
     {//return eventModel
         $eventObj = $this->rentEventRep->getEvent($eventId);
         $carObj = $this->motorPoolRep->getCar($carId);
@@ -282,6 +282,16 @@ Class TimeSheetService{
         
         return $eventServ->getEventModel($timeSheetObj->dataId);
     }
+    
+    
+    public function getTimeSheetsObjByDate(CarbonPeriod $periodDate) 
+    {
+        $timeSheets = $this->timeSheetRep->getTimeSheetPeriod();
+    }
+    
+    
+    
+    
     
     
     
