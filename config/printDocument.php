@@ -5,7 +5,7 @@ return [
             'SSE_ufaaddr' => ['subjectFrom->actualEntity->address','Адрес Местонахождения юр лица'],
             'SSE_umail' => ['command','Электронная почта'],
             'SSE_cnfu' => ['subjectFrom->actualEntity->fullName','Полное название организации'],
-            'SSE_cnsh' => ['subjectFrom->actualEntity->fullName','Полное название организации'],
+            'SSE_cnsh' => ['subjectFrom->actualEntity->shortName','Сокращенное название организации'],
             'SSE_inn' => ['subjectFrom->actualEntity->inn','ИНН организации'],
             'SSE_ln' => ['subjectFrom->surname','Фамилия другие падежи'],
             'SSE_fn' => ['subjectFrom->name','Имя другие падежи'],

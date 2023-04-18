@@ -45,7 +45,7 @@ class rentContract extends Model
     
     public function getStartTextAttribute() 
     {
-        if ($this->id){
+        if ($this->start){
             $result = $this->start->format('d-m-Y');
         } else {
             $result = '';
@@ -54,7 +54,7 @@ class rentContract extends Model
     } 
     public function getFinishTextAttribute() 
     {
-        if ($this->id){
+        if ($this->finish){
             $result = $this->finish->format('d-m-Y');
         } else {
             $result = '';
