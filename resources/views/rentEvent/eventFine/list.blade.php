@@ -15,7 +15,7 @@
                 {{$event->dateTime->toDateString()}}
             </div>
             <div class="col-2">
-                <a href="/motorPool/carInfo/{{$event->carId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                <a href="/motorPool/carInfoDialog/{{$event->carId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
                 {{$event->carText}}
             </div>
             <div class="col-2">@if($event->datePayMax){{$event->datePayMax->toDateString()}} @endif</div>

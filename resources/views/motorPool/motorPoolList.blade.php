@@ -31,8 +31,8 @@
         @foreach ($carsPool as $car)
             <div class="row row-table">
                 <div class="col-3 pl-0">
-                    <a href="/motorPool/carInfo/{{$car->id}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-                    <a href="/motorPool/carInfo/{{$car->id}}?needParent=1">
+                    <a href="/motorPool/carInfoDialog/{{$car->id}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                    <a href="/motorPool/carInfo/{{$car->id}}">
                         {{$car->generation->model->brand->name}} | {{$car->generation->model->name}}
                     </a>
                     <div class="float-right">

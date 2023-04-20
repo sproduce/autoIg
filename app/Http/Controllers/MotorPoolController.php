@@ -90,7 +90,7 @@ class MotorPoolController extends Controller
     }
 
 
-    public function carInfoDialog(NeedParent $needParent, TimeSheetService $timeSheetServ, CarGroupService $carGroupServ, $carId)
+    public function carInfoDialog(TimeSheetService $timeSheetServ, CarGroupService $carGroupServ, $carId)
     {
         $carObj = $this->motorPoolServ->getCar($carId);
         $carPts = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventPts'));
@@ -101,14 +101,7 @@ class MotorPoolController extends Controller
         $carProxy = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventProxy'));
         $carLicense = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventLicense'));
         
-        if ($needParent->get('needParent')){
-            $fileView = 'motorPool.carInfo';
-        } else {
-            $fileView = 'dialog.MotorPool.carInfo';
-        }
-        
-        
-        return view($fileView,[
+        return view('dialog.MotorPool.carInfo',[
             'car' => $carObj,
             'carSts' => $carSts,
             'carPts' => $carPts,
@@ -120,6 +113,36 @@ class MotorPoolController extends Controller
         ]);
     }
 
+    
+    
+    public function carInfo(TimeSheetService $timeSheetServ, CarGroupService $carGroupServ, $carId)
+    {
+        $carObj = $this->motorPoolServ->getCar($carId);
+        
+        $carPts = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventPts'));
+        $carSts = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventSts'));
+        $carOsago = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventOsago'));
+        $carKasko = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventKasko'));
+        $carDiagnosticCard = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventDiagnosticCard'));
+        $carProxy = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventProxy'));
+        $carLicense = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventLicense'));
+        
+
+        return view('motorPool.carInfo',[
+            'car' => $carObj,
+            'carSts' => $carSts,
+            'carPts' => $carPts,
+            'carOsago' => $carOsago,
+            'carKasko' => $carKasko,
+            'carDiagnosticCard' => $carDiagnosticCard,
+            'carProxy' => $carProxy,
+            'carLicense' => $carLicense,
+        ]);
+    }
+    
+    
+    
+    
 
     public function search(SearchCarRequest $searchTextObj)
     {

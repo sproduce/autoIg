@@ -284,9 +284,17 @@ Class TimeSheetService{
     }
     
     
-    public function getTimeSheetsObjByDate(CarbonPeriod $periodDate) 
+    public function getTimeSheetsObjByPeriod(CarbonPeriod $periodDate) 
     {
-        $timeSheets = $this->timeSheetRep->getTimeSheetPeriod();
+        $timeSheets = $this->timeSheetRep->getTimeSheetsPeriod($periodDate);
+        
+        foreach ($timeSheets as $timeSheet){
+            $eventServ = $this->rentEventService->getEventService($timeSheet->event);
+            $timeSheet->dataEvent = $eventServ->getEventModel($timeSheet->dataId);
+        }
+        
+        
+        return  $timeSheets;
     }
     
     

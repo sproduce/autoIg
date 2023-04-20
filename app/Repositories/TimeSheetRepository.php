@@ -244,10 +244,10 @@ class TimeSheetRepository implements TimeSheetRepositoryInterface
     }
 
 
-    public function getTimeSheetPeriod(CarbonPeriod $periodDate)
+    public function getTimeSheetsPeriod(CarbonPeriod $periodDate)
     {
-        $startDate = $datePeriod->getStartDate()->format('Y-m-d');
-        $finishDate = $datePeriod->getEndDate()->addDay(1)->format('Y-m-d');
+        $startDate = $periodDate->getStartDate()->format('Y-m-d');
+        $finishDate = $periodDate->getEndDate()->addDay(1)->format('Y-m-d');
 
         return timeSheet::query()
             ->whereRaw('DATE_ADD(dateTime,INTERVAL duration MINUTE) BETWEEN ? and ?',[$startDate,$finishDate])

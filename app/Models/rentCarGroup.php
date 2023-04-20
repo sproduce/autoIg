@@ -9,8 +9,8 @@ class rentCarGroup extends Model
 {
     use HasFactory;
     
-    protected $fillable =['name','nickName','start','finish'];
-    protected $dates =['start','finish'];
+    protected $fillable = ['name','nickName','start','finish'];
+    protected $dates = ['start','finish'];
 
     
     

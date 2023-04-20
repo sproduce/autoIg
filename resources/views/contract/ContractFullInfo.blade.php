@@ -17,7 +17,7 @@
             <div class="col-3">
                 <strong>Машина </strong>{{$rentContractObj->car->nickName}}
                 @if($rentContractObj->car->id)
-                <a class="btn btn-ssm btn-outline-info ml-3 DialogUser" title="Информация" href="/motorPool/carInfo/{{$rentContractObj->car->id}}"><i class="fas fa-info-circle"></i></a>
+                <a class="btn btn-ssm btn-outline-info ml-3 DialogUser" title="Информация" href="/motorPool/carInfoDialog/{{$rentContractObj->car->id}}"><i class="fas fa-info-circle"></i></a>
                 @endif
             </div>
             <div class="col-3"><strong>Группа машин </strong>{{$rentContractObj->carGroup->nickName}}</div>

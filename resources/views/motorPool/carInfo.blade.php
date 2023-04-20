@@ -1,7 +1,15 @@
 @extends('../adminIndex')
 
 @section('header')
-<h6 class="m-0">Информация о машине </h6>
+<div class="row w-100">
+    <div class="col-1">
+        <a href="/motorPool/list" class="btn btn-ssm btn-outline-success" title="Список машин"><i class="fas fa-arrow-left"></i></a>
+    </div>
+    <div class="col-3"
+        <h6 class="m-0">Информация о машине </h6>    
+    </div>
+</div>
+
 @endsection
 
 @section('content')
@@ -162,12 +170,19 @@
                 </div>
                 @foreach($carPts as $pts)
                     <div class="row">
-                        <div class="col-2"><strong>Дата</strong></div>
-                        <div class="col-2">{{$pts->eventModel->dateDocumentText}}</div>
-                        <div class="col-2"><strong>Субьект</strong></div>
+                        <div class="col-1">
+                            <a href="/rentEvent/{{$pts->eventId}}/{{$pts->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                            <strong>Дата</strong>
+                        </div>
+                        <div class="col-1">{{$pts->eventModel->dateDocumentText}}</div>
+                        <div class="col-1"><strong>Субьект</strong></div>
                         <div class="col-2">{{$pts->eventModel->subject->nickname}}</div>
-                        <div class="col-2"><strong>Владелец</strong></div>
+                        <div class="col-1"><strong>Владелец</strong></div>
                         <div class="col-2">{{$pts->eventModel->subjectOwner->nickname}}</div>
+                        <div class="col-3"></div>
+                        <div class="col-1">
+                            <a href="/file/fileInfoDialog/{{$pts->uuid}}" class="btn btn-ssm @if($pts->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
+                        </div>
                     </div>
                 @endforeach
             @endif
@@ -179,12 +194,19 @@
                 </div>
                 @foreach($carSts as $sts)
             <div class="row">
-                <div class="col-2"><strong>Дата</strong></div>
-                <div class="col-2">{{$sts->eventModel->dateDocumentText}}</div>
-                <div class="col-2"><strong>Субьект</strong></div>
+                <div class="col-1">
+                    <a href="/rentEvent/{{$sts->eventId}}/{{$sts->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                    <strong>Дата</strong>
+                </div>
+                <div class="col-1">{{$sts->eventModel->dateDocumentText}}</div>
+                <div class="col-1"><strong>Субьект</strong></div>
                 <div class="col-2">{{$sts->eventModel->subject->nickname}}</div>
-                <div class="col-2"><strong>Владелец</strong></div>
+                <div class="col-1"><strong>Владелец</strong></div>
                 <div class="col-2">{{$sts->eventModel->subjectOwner->nickname}}</div>
+                <div class="col-3">{{$sts->eventModel->count()}}</div>
+                <div class="col-1">
+                    <a href="/file/fileInfoDialog/{{$sts->uuid}}" class="btn btn-ssm @if($sts->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
+                </div>
             </div>
                 @endforeach
             @endif
@@ -197,8 +219,16 @@
                 </div>
                 @foreach($carOsago as $osago)
                     <div class="row">
-                        <div class="col-1"><strong>Дата</strong></div>
+                        <div class="col-1">
+                            <a href="/rentEvent/{{$osago->eventId}}/{{$osago->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                            <strong>Дата</strong>
+                        </div>
                         <div class="col-3 p-0">{{$osago->eventModel->dateDocumentText}} по {{$osago->eventModel->expirationText}}</div>
+                        <div class="col-7"></div>
+                        <div class="col-1">
+                            <a href="/file/fileInfoDialog/{{$osago->uuid}}" class="btn btn-ssm @if($osago->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
+                        </div>
+                        
                     </div>
                 @endforeach
             @endif
@@ -208,10 +238,17 @@
                         <a class="btn btn-ssm btn-outline-success ml-3" title="Добавить КАСКО" href="/rentEvent/{{config('rentEvent.eventKasko')}}/create?carId={{$car->id}}&needParent=1"><i class="far fa-plus-square"></i></a>
                     </div>
                 </div>
-                @foreach($carKasko as $ksako)
+                @foreach($carKasko as $kasko)
                     <div class="row">
-                        <div class="col-1"><strong>Дата</strong></div>
-                        <div class="col-3 p-0">{{$ksako->eventModel->dateDocumentText}} по {{$ksako->eventModel->expirationText}}</div>
+                        <div class="col-1">
+                            <a href="/rentEvent/{{$kasko->eventId}}/{{$kasko->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                            <strong>Дата</strong>
+                        </div>
+                        <div class="col-3 p-0">{{$kasko->eventModel->dateDocumentText}} по {{$kasko->eventModel->expirationText}}</div>
+                        <div class="col-7"></div>
+                        <div class="col-1">
+                            <a href="/file/fileInfoDialog/{{$kasko->uuid}}" class="btn btn-ssm @if($kasko->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
+                        </div>
                     </div>
                 @endforeach
             @endif
@@ -223,8 +260,15 @@
                 </div>
                 @foreach($carDiagnosticCard as $diagnosticCard)
                     <div class="row">
-                        <div class="col-1"><strong>Дата</strong></div>
+                        <div class="col-1">
+                            <a href="/rentEvent/{{$diagnosticCard->eventId}}/{{$diagnosticCard->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                            <strong>Дата</strong>
+                        </div>
                         <div class="col-3 p-0">{{$diagnosticCard->eventModel->DateDocumentText}} по {{$diagnosticCard->eventModel->expirationText}}</div>
+                        <div class="col-7"></div>
+                        <div class="col-1">
+                            <a href="/file/fileInfoDialog/{{$diagnosticCard->uuid}}" class="btn btn-ssm @if($diagnosticCard->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
+                        </div>
                     </div>
                 @endforeach
             @endif
@@ -236,8 +280,15 @@
                 </div>
                 @foreach($carProxy as $proxy)
                     <div class="row">
-                        <div class="col-1"><strong>Дата</strong></div>
+                        <div class="col-1">
+                            <a href="/rentEvent/{{$proxy->eventId}}/{{$proxy->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                            <strong>Дата</strong>
+                        </div>
                         <div class="col-3 p-0">{{$proxy->eventModel->dateDocumentText}} по {{$proxy->eventModel->expirationText}}</div>
+                        <div class="col-7"></div>
+                        <div class="col-1">
+                            <a href="/file/fileInfoDialog/{{$proxy->uuid}}" class="btn btn-ssm @if($proxy->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
+                        </div>
                     </div>
                 @endforeach
             @endif
@@ -249,12 +300,19 @@
                 </div>
                 @foreach($carLicense as $license)
                     <div class="row">
-                        <div class="col-1"><strong>Дата</strong></div>
+                        <div class="col-1">
+                            <a href="/rentEvent/{{$license->eventId}}/{{$license->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                            <strong>Дата</strong>
+                        </div>
                         <div class="col-3 p-0">{{$license->eventModel->dateDocumentText}} по {{$license->eventModel->expirationText}}</div>
-                        <div class="col-2"><strong>Субьект</strong></div>
+                        <div class="col-1"><strong>Субьект</strong></div>
                         <div class="col-2 p-0">{{$license->eventModel->subject->nickname}}</div>
-                        <div class="col-2"><strong>Субьект</strong></div>
+                        <div class="col-1"><strong>Субьект</strong></div>
                         <div class="col-2 p-0">{{$license->eventModel->subjectTo->nickname}}</div>
+                        <div class="col-1"></div>
+                        <div class="col-1">
+                            <a href="/file/fileInfoDialog/{{$license->uuid}}" class="btn btn-ssm @if($license->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
+                        </div>
                     </div>
                 @endforeach
             @endif

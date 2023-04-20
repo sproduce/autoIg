@@ -33,7 +33,7 @@ interface TimeSheetRepositoryInterface
 
     public function getTimeSheetByEvent(rentEvent $eventObj,$eventDataId): timeSheet;
 
-    public function getTimeSheetPeriod(CarbonPeriod $periodDate);
+    public function getTimeSheetsPeriod(CarbonPeriod $periodDate);
 
     //public function getAllEvents(CarbonPeriod  $datePeriod);
 

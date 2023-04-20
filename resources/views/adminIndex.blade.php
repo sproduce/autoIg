@@ -94,6 +94,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link"  href="/report/group">
+                                <i class="far fa-chart-bar"></i>
+                                Отчеты группа
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link"  href="/payment/list">
                                 <i class="fas fa-ruble-sign"></i>
                                 Платежи

@@ -4,7 +4,7 @@ use App\Repositories\Interfaces\CarGroupRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\rentCarGroupLink;
 use Illuminate\Support\Carbon;
-
+use Carbon\CarbonPeriod;
 
 Class CarGroupService{
 
@@ -97,6 +97,14 @@ Class CarGroupService{
         return $this->carGroupRep->getCarGroupLinkByCar($carId, $date);
     }
 
+    
+    
+    public function getCarGroupByPeriod(CarbonPeriod $periodDate) 
+    {
+      
+        
+    }
+    
     
     
 }

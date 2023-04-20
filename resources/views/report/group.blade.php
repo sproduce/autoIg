@@ -29,13 +29,7 @@
 @section('content')
  
 
-    @foreach($timeSheets as $timeSheet)
-        <div class="row">
-            <div class="col-2">{{$timeSheet->event->name}}</div>
-            <div class="col-2">{{$timeSheet->car->nickName}}</div>
-        </div>
-
-    @endforeach
+   
 @endsection
 
 

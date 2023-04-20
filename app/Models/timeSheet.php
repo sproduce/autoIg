@@ -94,5 +94,11 @@ class timeSheet extends Model
     }
 
 
+    public function files() 
+    {
+        return $this->hasMany(photoLink::class,'linkUuid','uuid');
+    } 
+    
+    
 
 }
