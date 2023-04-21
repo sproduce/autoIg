@@ -21,11 +21,14 @@
             <div class="col-1">
                 Гос.Номер
             </div>
-            <div class="col-3">
+            <div class="col-2">
                 Цвет
             </div>
-            <div class="col-4">
+            <div class="col-2">
                 Nickname
+            </div>
+            <div class="col-2 text-center">
+                Стоимость
             </div>
         </div>
         @foreach ($carsPool as $car)
@@ -48,7 +51,7 @@
                 <div class="col-1">
                     {{$car->regNumber}}
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                     {{$car->color}}
                  </div>
 
@@ -58,21 +61,22 @@
                             </a>
                     {{$car->nickName}}
                 </div>
-                <div class="col-2">
-<!--                    <a href="/timesheet/car?carId={{$car->id}}" title="События" class="btn btn-ssm btn-outline-primary">
-                        <i class="fas fa-calendar-alt"></i>
+                
+                
+                <div class="col-2 text-right">{{$car->price}}
+                    <a class="btn-ssm btn-outline-warning DialogUserSMin" href="/motorPool/editPrice/{{$car->id}}" title="Редактировать стоимость">
+                        <i class="far fa-edit"></i>
                     </a>
-                    <a href="" title="Документы" class="btn btn-ssm btn-outline-success">
-                        <i class="far fa-file-alt"></i>
-                    </a>-->
+                </div>
+                
+                
+                <div class="col-1 text-right">
                     <a href="/contract/add?carId={{$car->id}}" title="Добавить договор" class="btn btn-ssm btn-outline-secondary">
                         <i class="fas fa-file-contract"></i>
                     </a>
-                    
 
-                    <div class="float-right">
+                   
                         <a class="btn btn-ssm btn-outline-warning DialogUser" href="/motorPool/edit?carId={{$car->id}}" title="Редактировать"> <i class="far fa-edit"></i></a>
-                    </div>
 
                 </div>
             </div>

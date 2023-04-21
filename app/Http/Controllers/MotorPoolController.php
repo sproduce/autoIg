@@ -171,6 +171,20 @@ class MotorPoolController extends Controller
         return view('dialog.MotorPool.editNickname',['car' => $carObj]);
     }
     
+    public function editCarPriceDialog($id) 
+    {
+        $carObj = $this->motorPoolServ->getCar($id);
+        return view('dialog.MotorPool.editPrice',['car' => $carObj]);
+    }
+    
+    public function editCarPrice() 
+    {
+        $validated = $this->request->validate(['id' => 'integer','price' => 'integer']);
+        //echo $validated['id'];
+        $this->motorPoolServ->changePrice($validated['id'], $validated['price']);
+        return redirect()->back();
+    }
+    
     
     public function editCarNickname() 
     {

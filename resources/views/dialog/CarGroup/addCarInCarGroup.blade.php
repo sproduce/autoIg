@@ -18,7 +18,7 @@
                         @if($group->id == $carGroupLinkObj->groupId)
                             <option value="{{$group->id}}" selected>{{$group->nickName}}</option>
                         @else
-                            <option value="{{$group->id}}">{{$group->nickName}}</option>
+                            <option value="{{$group->id}}">{{$group->nickName}} ({{$group->start}} - {{$group->finish?:'н/в'}})</option>
                         @endif
                             
                         @endforeach
@@ -28,13 +28,13 @@
             </div>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label" for="start">Добавлена</label>
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                     <input type="date" name="start" value="{{old('start',$carGroupLinkObj->start ?$carGroupLinkObj->start->toDateString(): '')}}" id="start" class="form-control form-control-sm" autocomplete="off" required/>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label" for="finish">Удалена</label>
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                     <input type="date" name="finish" id="finish" value="{{old('finish',$carGroupLinkObj->finish)}}" class="form-control form-control-sm" autocomplete="off"/>
                 </div>
             </div>

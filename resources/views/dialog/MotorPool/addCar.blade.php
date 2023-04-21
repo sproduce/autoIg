@@ -83,8 +83,8 @@
                     <input type="number" name="year" id="year" class="form-control" value="{{$carConfiguration->year}}" required autocomplete="off"/>
                 </div>
                 <div class="form-group col-md-4 input-group-sm">
-                    <label for="nickName">NickName</label>
-                    <input type="text" name="nickName" id="nickName" class="form-control" value="{{$carConfiguration->nickName}}" autocomplete="off" />
+                    <label for="price">Стоимость</label>
+                    <input type="number" name="price" id="price" class="form-control" value="{{$carConfiguration->price}}" autocomplete="off" />
                 </div>
 
             </div>
@@ -121,6 +121,10 @@
                 <div class="form-group col-md-4 input-group-sm">
                     <label for="dateFinish">Снята с учета</label>
                     <input type="date" name="dateFinish" id="dateFinish" value="{{$carConfiguration->dateFinish}}" class="form-control"/>
+                </div>
+                <div class="form-group col-md-4 input-group-sm">
+                    <label for="nickName">NickName</label>
+                    <input type="text" name="nickName" id="nickName" class="form-control" value="{{$carConfiguration->nickName}}" autocomplete="off" />
                 </div>
             </div>
             <div class="form-row text-center">

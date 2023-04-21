@@ -113,7 +113,7 @@ class carConfiguration extends Model
         if ($this->dateFinish){
             return $this->dateFinish->format('d-m-Y');
         }
-        return '';
+        return 'Н/В';
     }
     
     

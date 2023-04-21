@@ -73,6 +73,8 @@ Class MotorPoolService{
         $this->carConfiguration->regNumber = $motorPoolRequest->get('regNumber');
         $this->carConfiguration->uuid = $motorPoolRequest->get('uuid') ?? Str::uuid();
         $this->carConfiguration->vin = $motorPoolRequest->get('vin');
+        $this->carConfiguration->price = $motorPoolRequest->get('price');
+        
         $this->carConfiguration->color = $motorPoolRequest->get('color');
         $this->carConfiguration->nickName = $motorPoolRequest->get('nickName');
         $this->carConfiguration->nickName = $motorPoolRequest->get('nickName');
@@ -106,6 +108,11 @@ Class MotorPoolService{
         $carObj->save();
     }
     
-    
+    public function changePrice($carId,$price) 
+    {
+        $carObj = $this->motorPoolRep->getCar($carId);
+        $carObj->price = $price;
+        $carObj->save();
+    }
     
 }

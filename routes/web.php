@@ -93,6 +93,8 @@ Route::get('/motorPool/carInfoDialog/{id}',[MotorPoolController::class,'carInfoD
 
 Route::get('/motorPool/editNickname/{id}',[MotorPoolController::class,'editCarNicknameDialog']);
 Route::post('/motorPool/editNickname',[MotorPoolController::class,'editCarNickname']);
+Route::get('/motorPool/editPrice/{id}',[MotorPoolController::class,'editCarPriceDialog']);
+Route::post('/motorPool/editPrice',[MotorPoolController::class,'editCarPrice']);
 
 Route::post('/motorPool/add',[MotorPoolController::class,'add']);
 

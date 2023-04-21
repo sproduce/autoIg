@@ -44,6 +44,7 @@ class MotorPoolRequest extends FormRequest
             'displacement' => 'required|integer',
             'hp' => 'required|integer',
             'vin' => 'required',
+            'price' => 'integer|nullable',
             'nickName' => '',
             'subjectIdOwner' => 'required|integer',
             'subjectIdFrom' => 'required|integer',

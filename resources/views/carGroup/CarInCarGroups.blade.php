@@ -2,7 +2,11 @@
 
 
 @section('header')
-<h6 class="m-0"><a class="btn btn-ssm btn-outline-success DialogUserSMin mr-3" title="Добавить машину в группу" href="/carGroup/addCarInCarGroupDialog?carId={{$carObj->id}}"><i class="far fa-plus-square"></i></a> Машина <strong>{{$carObj->nickName}}</strong> в группах</h6>
+<h6 class="m-0">
+    <a class="btn btn-ssm btn-outline-success DialogUserMin mr-3" title="Добавить машину в группу" href="/carGroup/addCarInCarGroupDialog?carId={{$carObj->id}}">
+        <i class="far fa-plus-square"></i>
+    </a> 
+    Машина <strong>{{$carObj->nickName}}</strong> владение с {{$carObj->dateStartText}} по {{$carObj->dateFinishText}}    в группах</h6>
 @endsection
 
 @section('content')
