@@ -79,6 +79,7 @@ Route::post('/reference/editGeneration',[ReferenceController::class,'editGenerat
 
 
 Route::get('/motorPool/list',[MotorPoolController::class,'show']);
+Route::get('/motorPool/listArchive',[MotorPoolController::class,'listArchive']);
 
 
 Route::get('/motorPool/addCarTo',[MotorPoolController::class,'addCarToDialog']);

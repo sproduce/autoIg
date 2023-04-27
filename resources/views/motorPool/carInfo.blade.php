@@ -145,11 +145,11 @@
                 @foreach($car->groups as $carGroup)
                     <div class="row">
                         <div class="col-md-1"><strong>Группа</strong></div>
-                        <div class="col-md-3">{{$carGroup->group->name}}</div>
+                        <div class="col-md-3">{{$carGroup->name}}</div>
                         <div class="col-md-2"><strong>Начало</strong></div>
-                        <div class="col-md-2">{{$carGroup->startText}}</div>
+                        <div class="col-md-2">{{$carGroup->pivot->startText}}</div>
                         <div class="col-md-2"><strong>Окончание</strong></div>
-                        <div class="col-md-2">{{$carGroup->finishText}}</div>
+                        <div class="col-md-2">{{$carGroup->pivot->finishText}}</div>
                     </div>
                 @endforeach
 

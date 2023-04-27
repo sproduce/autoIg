@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
  * @property int $id
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  */
 
-class rentCarGroupLink extends Model
+class rentCarGroupLink extends Pivot
 {
     //private $id,$carId,$groupId,$start,$finish;
     protected $fillable =['carId','groupId','start','finish'];

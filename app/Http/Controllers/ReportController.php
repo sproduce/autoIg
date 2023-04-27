@@ -51,8 +51,14 @@ class ReportController extends Controller
     {
         $periodDate = $dateSpan->getCarbonPeriod();
         $eventsObj = $this->rentEventServ->getEvents();
+        
+        $groupsObj = $carGroupServ->getCarGroups();
+        
+        
+        
         return view('report.group',['periodDate' => $periodDate,
             'eventsObj' => $eventsObj,
+            'carGroups' => $groupsObj,
             ]);
     }
     

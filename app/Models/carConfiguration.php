@@ -119,10 +119,15 @@ class carConfiguration extends Model
     
     public function groups() 
     {
-        return $this->hasMany(rentCarGroupLink::class,'carId');
+        
+        return $this->belongsToMany(rentCarGroup::class,'rent_car_group_links','carId','groupId')->using(rentCarGroupLink::class)->withPivot('start','finish');
+        //return $this->hasMany(rentCarGroupLink::class,'carId');
     }
     
-    
+    public function group()
+    {
+        
+    }
     
     
     

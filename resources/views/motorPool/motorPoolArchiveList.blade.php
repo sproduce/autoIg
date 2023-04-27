@@ -15,10 +15,10 @@
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active">Активные</a>
+                        <a class="nav-link"  href="/motorPool/list">Активные</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/motorPool/listArchive">Архив</a>
+                        <a class="nav-link active">Архив</a>
                     </li>
                 </ul>
             </div>

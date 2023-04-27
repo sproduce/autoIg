@@ -70,4 +70,12 @@ public function getFileLink($fileLinkId): photoLink
     }
     
     
+    
+    
+    
+    public function getUnlinkFiles() {
+        ;
+    }
+    
+    
 }

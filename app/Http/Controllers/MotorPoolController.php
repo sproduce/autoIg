@@ -27,13 +27,25 @@ class MotorPoolController extends Controller
         $this->request = $request;
     }
 
+    
+    
     public function show()
-    {
-        $carsPoolObj = $this->motorPoolServ->getCars();
+    { //list actual
+        
+        $carsPoolObj = $this->motorPoolServ->getActualCars();
  
         return view('motorPool.motorPoolList',['carsPool' => $carsPoolObj]);
     }
 
+    
+    public function listArchive() 
+    {
+        $carsPoolObj = $this->motorPoolServ->getArchiveCars();
+        return view('motorPool.motorPoolArchiveList',['carsPool' => $carsPoolObj]);
+    }
+    
+    
+    
     public function addMotorPoolDialog(
         BrandService $brandServ,
         ModelService $modelServ,
@@ -93,6 +105,10 @@ class MotorPoolController extends Controller
     public function carInfoDialog(TimeSheetService $timeSheetServ, CarGroupService $carGroupServ, $carId)
     {
         $carObj = $this->motorPoolServ->getCar($carId);
+        //var_dump($carObj->groups);
+//        
+        //exit();
+        
         $carPts = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventPts'));
         $carSts = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventSts'));
         $carOsago = $timeSheetServ->getCarEvents($carId,config('rentEvent.eventOsago'));

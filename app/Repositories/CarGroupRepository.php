@@ -81,7 +81,7 @@ class CarGroupRepository implements CarGroupRepositoryInterface
                 'rent_car_groups.*',
                 'rent_car_group_links.start as linkStart',
                 'rent_car_group_links.finish as linkFinish',
-                'rent_car_group_links.id as carGroupLinkId',
+                'rent_car_group_links.id as carGroupLinkId'
             )
             ->get();
         $resultCarGroups->each(function ($item, $key) {

@@ -28,8 +28,21 @@
 
 @section('content')
  
+    @foreach($carGroups as $carGroup)
+        <div class="row">
+            <div class="col-3">{{$carGroup->name}}</div>
+            <div class="col-10">
+                    @foreach($carGroup->cars as $car)
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-3">{{$car->nickName}}</div>
+                </div>
+                @endforeach
+            </div>
+        </div>
 
-   
+    @endforeach
+
 @endsection
 
 

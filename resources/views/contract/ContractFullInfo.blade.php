@@ -43,10 +43,13 @@
         <div class="row pt-2 mt-2 border-dark border-top">
             <div class="col-12">
             @forelse($rentContractObj->files as $file)
-                <div class ="row">
-                    <div class="col-12">
+                <div class ="row row-table">
+                    <div class="col-11">
                         <a href="/file/download/{{$file->file->id}}" title="Сохранить" class="btn btn-ssm btn-outline-success"><i class="fas fa-download"></i></a>
                         <a href="/file/show/{{$file->file->id}}" target="_blank">{{$file->file->fileName}}</a>
+                    </div>
+                    <div class="col-1">
+                        <a href="/file/deleteFile/{{$rentContractObj->uuid}}/{{$file->id}}" class="btn btn-ssm btn-outline-danger deleteButton" title="Удалить" onclick="return confirm('Удалить файл?')"><i class="fas fa-trash"></i> </a>
                     </div>
                 </div>
             

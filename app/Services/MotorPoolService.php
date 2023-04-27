@@ -34,6 +34,27 @@ Class MotorPoolService{
     }
 
 
+    public function getActualCars()
+    {
+        $motorPools = $this->getCars();
+        $motorPools = $motorPools->whereNull('dateFinish');
+        
+        //$motorPools->dd();
+        return $motorPools;
+    }
+    
+    
+    public function getArchiveCars()
+    {
+        $motorPools = $this->getCars();
+        $motorPools = $motorPools->whereNotNull('dateFinish')->where('dateFinish','<',date('Y-m-d'));
+        return $motorPools;
+    }
+    
+    
+    
+    
+    
     public function getCar($carId): carConfiguration
     {
         $carObj = $this->motorPoolRep->getCar($carId);
