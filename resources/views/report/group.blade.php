@@ -36,6 +36,9 @@
                 <div class="row">
                     <div class="col-3"></div>
                     <div class="col-3">{{$car->nickName}}</div>
+                    <div class="col-2">{{$car->pivot->startText}}</div>
+                    <div class="col-2">{{$car->pivot->finishText}}</div>
+                    
                 </div>
                 @endforeach
             </div>

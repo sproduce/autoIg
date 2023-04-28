@@ -17,7 +17,7 @@ class rentCarGroup extends Model
     
     public function cars()
     {
-        return $this->belongsToMany(carConfiguration::class,'rent_car_group_links','groupId','carId')->using(rentCarGroupLink::class)->withPivot('start','finish');
+        return $this->belongsToMany(carConfiguration::class,'rent_car_group_links','groupId','carId')->using(rentCarGroupPivot::class)->withPivot('start','finish');
     }
 
     public function getStartAttribute($value)

@@ -102,7 +102,7 @@ class CarGroupRepository implements CarGroupRepositoryInterface
     public function getCarGroupLink($carGroupLinkId = null): rentCarGroupLink
     {
         $result = rentCarGroupLink::find($carGroupLinkId);
-        return $result ?? new rentCarGroupLink();
+        return $result ?? new rentCarGroupLink;
     }
     
     public function storeCarGroupLink(rentCarGroupLink $rentCarGroupObj): rentCarGroupLink

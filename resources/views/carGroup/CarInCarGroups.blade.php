@@ -49,7 +49,7 @@
                 @endif
             </div>
             <div class="col-2">
-                <a class="btn btn-ssm btn-outline-warning DialogUserSMin" href="/carGroup/editCarInCarGroupDialog/{{$carGroup->carGroupLinkId}}" title="Редактировать"> <i class="far fa-edit"></i></a>
+                <a class="btn btn-ssm btn-outline-warning DialogUserMin" href="/carGroup/editCarInCarGroupDialog/{{$carGroup->carGroupLinkId}}" title="Редактировать"> <i class="far fa-edit"></i></a>
             </div>
         </div>
     @empty
