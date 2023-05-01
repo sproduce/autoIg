@@ -169,19 +169,41 @@
                     </div>
                 </div>
                 @foreach($carPts as $pts)
-                    <div class="row">
-                        <div class="col-1">
-                            <a href="/rentEvent/{{$pts->eventId}}/{{$pts->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-                            <strong>Дата</strong>
-                        </div>
-                        <div class="col-1">{{$pts->eventModel->dateDocumentText}}</div>
-                        <div class="col-1"><strong>Субьект</strong></div>
-                        <div class="col-2">{{$pts->eventModel->subject->nickname}}</div>
-                        <div class="col-1"><strong>Владелец</strong></div>
-                        <div class="col-2">{{$pts->eventModel->subjectOwner->nickname}}</div>
-                        <div class="col-3"></div>
-                        <div class="col-1">
-                            <a href="/file/fileInfoDialog/{{$pts->uuid}}" class="btn btn-ssm @if($pts->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
+                    <div class="row row-table">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-1">
+                                    <a href="/rentEvent/{{$pts->eventId}}/{{$pts->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                                    <strong>Дата</strong>
+                                </div>
+                                <div class="col-1">{{$pts->dateText}}</div>
+                                <div class="col-1"><strong>Субьект</strong></div>
+                                <div class="col-2">{{$pts->eventModel->subject->nickname}}</div>
+                                <div class="col-1"><strong>Владелец</strong></div>
+                                <div class="col-2">{{$pts->eventModel->subjectOwner->nickname}}</div>
+                                <div class="col-3"></div>
+                                <div class="col-1">
+                                    <a href="/file/fileInfoDialog/{{$pts->uuid}}" class="btn btn-ssm @if($pts->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"><strong>Выдан</strong></div>
+                                <div class="col-1">{{$pts->eventModel->dateDocumentText}}</div>
+                                <div class="col-2"><strong>Особые отметки</strong></div>
+                                <div class="col-2">{{$pts->eventModel->marks}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"><strong>Цвет</strong></div>
+                                <div class="col-2">{{$pts->eventModel->color}}</div>
+                                <div class="col-1"><strong>Сумма</strong></div>
+                                <div class="col-1">{{$pts->toPayment->sum}}</div>
+                                <div class="col-2"><strong>Номер документа</strong></div>
+                                <div class="col-5">{{$pts->eventModel->number}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"><strong>Комментарий</strong></div>
+                                <div class="col-11">{{$pts->comment}}</div>
+                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -193,21 +215,45 @@
                     </div>
                 </div>
                 @foreach($carSts as $sts)
-            <div class="row">
-                <div class="col-1">
-                    <a href="/rentEvent/{{$sts->eventId}}/{{$sts->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-                    <strong>Дата</strong>
-                </div>
-                <div class="col-1">{{$sts->eventModel->dateDocumentText}}</div>
-                <div class="col-1"><strong>Субьект</strong></div>
-                <div class="col-2">{{$sts->eventModel->subject->nickname}}</div>
-                <div class="col-1"><strong>Владелец</strong></div>
-                <div class="col-2">{{$sts->eventModel->subjectOwner->nickname}}</div>
-                <div class="col-3">{{$sts->eventModel->count()}}</div>
-                <div class="col-1">
-                    <a href="/file/fileInfoDialog/{{$sts->uuid}}" class="btn btn-ssm @if($sts->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
-                </div>
-            </div>
+                    <div class="row row-table">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-1">
+                                    <a href="/rentEvent/{{$sts->eventId}}/{{$sts->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
+                                    <strong>Дата</strong>
+                                </div>
+                                <div class="col-1">{{$sts->dateText}}</div>
+                                <div class="col-1"><strong>Субьект</strong></div>
+                                <div class="col-2">{{$sts->eventModel->subject->nickname}}</div>
+                                <div class="col-1"><strong>Владелец</strong></div>
+                                <div class="col-2">{{$sts->eventModel->subjectOwner->nickname}}</div>
+                                <div class="col-3"></div>
+                                <div class="col-1">
+                                    <a href="/file/fileInfoDialog/{{$sts->uuid}}" class="btn btn-ssm @if($pts->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"><strong>Выдан</strong></div>
+                                <div class="col-1">{{$sts->eventModel->dateDocumentText}}</div>
+                                <div class="col-2"><strong>Регистрационный знак</strong></div>
+                                <div class="col-1">{{$sts->eventModel->regNumber}}</div>
+                                <div class="col-2"><strong>Особые отметки</strong></div>
+                                <div class="col-2">{{$sts->eventModel->marks}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"><strong>Цвет</strong></div>
+                                <div class="col-2">{{$sts->eventModel->color}}</div>
+                                <div class="col-1"><strong>Сумма</strong></div>
+                                <div class="col-1">{{$sts->toPayment->sum}}</div>
+                                <div class="col-2"><strong>Номер документа</strong></div>
+                                <div class="col-5">{{$sts->eventModel->number}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"><strong>Комментарий</strong></div>
+                                <div class="col-11">{{$sts->comment}}</div>
+                            </div>
+                        </div>
+                    </div>
                 @endforeach
             @endif
              @if(count($carOsago))

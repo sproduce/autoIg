@@ -81,7 +81,19 @@ class timeSheet extends Model
         return $result;
     }
     
-
+    public function getDateTextAttribute() 
+    {
+       if ($this->id&&$this->dateTime){
+            $result = $this->dateTime->format('d-m-Y');
+        } else {
+            $result = '';
+        }
+        return $result;
+    }
+    
+    
+    
+    
 
     protected function getDateTimeEndAttribute()
     {

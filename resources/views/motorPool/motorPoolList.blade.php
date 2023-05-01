@@ -55,7 +55,11 @@
                     </a>
                     <div class="float-right">
                         <a href="/carGroup/carInCarGroups?carId={{$car->id}}">
-                            <i class="fas fa-users-cog @if ($car->groups->count())text-success @else text-danger @endif"></i>
+                            @if ($car->group->first())
+                            <i class="fas fa-users-cog text-success" title="{{$car->group->first()->name}}"></i>
+                            @else
+                            <i class="fas fa-users-cog text-danger"></i>
+                            @endif
                         </a>
                     </div>
                     

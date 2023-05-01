@@ -7,22 +7,23 @@ use App\Services\RentEventService;
 use App\Http\Requests\DateSpan;
 use App\Services\TimeSheetService;
 use App\Services\CarGroupService;
-
+use App\Services\ReportService;
 
 
 class ReportController extends Controller
 {
-    private $rentEventServ,$request,$timeSheetServ;
+    private $reportServ, $rentEventServ, $request, $timeSheetServ;
     
     
     public function __construct(
-        Request $request,
         RentEventService $rentEventServ,
-        TimeSheetService $timeSheetServ
+        TimeSheetService $timeSheetServ,
+        ReportService $reportServ
+            
     ){
-        $this->request = $request;
         $this->rentEventServ = $rentEventServ;
         $this->timeSheetServ = $timeSheetServ;
+        $this->reportServ = $reportServ;
     }
 
     
@@ -52,13 +53,16 @@ class ReportController extends Controller
         $periodDate = $dateSpan->getCarbonPeriod();
         $eventsObj = $this->rentEventServ->getEvents();
         
-        $groupsObj = $carGroupServ->getCarGroups();
         
         
+        $carGroups = $this->reportServ->getFilterGroups($periodDate);
+        
+        
+        //$groupsObj = $carGroupServ->getCarGroups();
         
         return view('report.group',['periodDate' => $periodDate,
             'eventsObj' => $eventsObj,
-            'carGroups' => $groupsObj,
+            'carGroups' => $carGroups,
             ]);
     }
     

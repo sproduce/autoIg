@@ -33,7 +33,8 @@ class MotorPoolController extends Controller
     { //list actual
         
         $carsPoolObj = $this->motorPoolServ->getActualCars();
- 
+        
+        //echo $carsPoolObj[3]->group->first()->name;
         return view('motorPool.motorPoolList',['carsPool' => $carsPoolObj]);
     }
 
