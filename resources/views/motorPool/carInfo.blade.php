@@ -229,7 +229,7 @@
                                 <div class="col-2">{{$sts->eventModel->subjectOwner->nickname}}</div>
                                 <div class="col-3"></div>
                                 <div class="col-1">
-                                    <a href="/file/fileInfoDialog/{{$sts->uuid}}" class="btn btn-ssm @if($pts->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
+                                    <a href="/file/fileInfoDialog/{{$sts->uuid}}" class="btn btn-ssm @if($sts->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
                                 </div>
                             </div>
                             <div class="row">
