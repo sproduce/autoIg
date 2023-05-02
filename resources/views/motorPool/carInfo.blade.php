@@ -263,19 +263,8 @@
                         <a class="btn btn-ssm btn-outline-success " title="Добавить ОСАГО" href="/rentEvent/{{config('rentEvent.eventOsago')}}/create?carId={{$car->id}}&needParent=1"><i class="far fa-plus-square"></i></a>
                     </div>
                 </div>
-                @foreach($carOsago as $osago)
-                    <div class="row">
-                        <div class="col-1">
-                            <a href="/rentEvent/{{$osago->eventId}}/{{$osago->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-                            <strong>Дата</strong>
-                        </div>
-                        <div class="col-3 p-0">{{$osago->eventModel->dateDocumentText}} по {{$osago->eventModel->expirationText}}</div>
-                        <div class="col-7"></div>
-                        <div class="col-1">
-                            <a href="/file/fileInfoDialog/{{$osago->uuid}}" class="btn btn-ssm @if($osago->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
-                        </div>
-                        
-                    </div>
+                @foreach($carOsago as $insurance)
+                   @include('motorPool.carInfoInsurance');
                 @endforeach
             @endif
             @if(count($carKasko))
@@ -284,18 +273,8 @@
                         <a class="btn btn-ssm btn-outline-success ml-3" title="Добавить КАСКО" href="/rentEvent/{{config('rentEvent.eventKasko')}}/create?carId={{$car->id}}&needParent=1"><i class="far fa-plus-square"></i></a>
                     </div>
                 </div>
-                @foreach($carKasko as $kasko)
-                    <div class="row">
-                        <div class="col-1">
-                            <a href="/rentEvent/{{$kasko->eventId}}/{{$kasko->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-                            <strong>Дата</strong>
-                        </div>
-                        <div class="col-3 p-0">{{$kasko->eventModel->dateDocumentText}} по {{$kasko->eventModel->expirationText}}</div>
-                        <div class="col-7"></div>
-                        <div class="col-1">
-                            <a href="/file/fileInfoDialog/{{$kasko->uuid}}" class="btn btn-ssm @if($kasko->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
-                        </div>
-                    </div>
+                @foreach($carKasko as $insurance)
+                  @include('motorPool.carInfoInsurance');
                 @endforeach
             @endif
             @if(count($carDiagnosticCard))
@@ -304,18 +283,8 @@
                         <a class="btn btn-ssm btn-outline-success ml-3" title="Добавить диагностическую карту" href="/rentEvent/{{config('rentEvent.eventDiagnosticCard')}}/create?carId={{$car->id}}&needParent=1"><i class="far fa-plus-square"></i></a>
                     </div>
                 </div>
-                @foreach($carDiagnosticCard as $diagnosticCard)
-                    <div class="row">
-                        <div class="col-1">
-                            <a href="/rentEvent/{{$diagnosticCard->eventId}}/{{$diagnosticCard->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-                            <strong>Дата</strong>
-                        </div>
-                        <div class="col-3 p-0">{{$diagnosticCard->eventModel->DateDocumentText}} по {{$diagnosticCard->eventModel->expirationText}}</div>
-                        <div class="col-7"></div>
-                        <div class="col-1">
-                            <a href="/file/fileInfoDialog/{{$diagnosticCard->uuid}}" class="btn btn-ssm @if($diagnosticCard->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
-                        </div>
-                    </div>
+                @foreach($carDiagnosticCard as $insurance)
+                    @include('motorPool.carInfoInsurance');
                 @endforeach
             @endif
             @if(count($carProxy))
@@ -324,18 +293,8 @@
                         <a class="btn btn-ssm btn-outline-success ml-3" title="Добавить доверенность" href="/rentEvent/{{config('rentEvent.eventProxy')}}/create?carId={{$car->id}}&needParent=1"><i class="far fa-plus-square"></i></a>
                     </div>
                 </div>
-                @foreach($carProxy as $proxy)
-                    <div class="row">
-                        <div class="col-1">
-                            <a href="/rentEvent/{{$proxy->eventId}}/{{$proxy->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-                            <strong>Дата</strong>
-                        </div>
-                        <div class="col-3 p-0">{{$proxy->eventModel->dateDocumentText}} по {{$proxy->eventModel->expirationText}}</div>
-                        <div class="col-7"></div>
-                        <div class="col-1">
-                            <a href="/file/fileInfoDialog/{{$proxy->uuid}}" class="btn btn-ssm @if($proxy->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
-                        </div>
-                    </div>
+                @foreach($carProxy as $insurance)
+                   @include('motorPool.carInfoInsurance');
                 @endforeach
             @endif
             @if(count($carLicense))
@@ -344,22 +303,8 @@
                         <a class="btn btn-ssm btn-outline-success ml-3" title="Добавить лицензию" href="/rentEvent/{{config('rentEvent.eventLicense')}}/create?carId={{$car->id}}&needParent=1"><i class="far fa-plus-square"></i></a>
                     </div>
                 </div>
-                @foreach($carLicense as $license)
-                    <div class="row">
-                        <div class="col-1">
-                            <a href="/rentEvent/{{$license->eventId}}/{{$license->dataId}}" class="btn btn-ssm btn-outline-info DialogUser" title="Подробнее"><i class="fas fa-info-circle"></i></a>
-                            <strong>Дата</strong>
-                        </div>
-                        <div class="col-3 p-0">{{$license->eventModel->dateDocumentText}} по {{$license->eventModel->expirationText}}</div>
-                        <div class="col-1"><strong>Субьект</strong></div>
-                        <div class="col-2 p-0">{{$license->eventModel->subject->nickname}}</div>
-                        <div class="col-1"><strong>Субьект</strong></div>
-                        <div class="col-2 p-0">{{$license->eventModel->subjectTo->nickname}}</div>
-                        <div class="col-1"></div>
-                        <div class="col-1">
-                            <a href="/file/fileInfoDialog/{{$license->uuid}}" class="btn btn-ssm @if($license->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
-                        </div>
-                    </div>
+                @foreach($carLicense as $insurance)
+                    @include('motorPool.carInfoInsurance');
                 @endforeach
             @endif
         </div>
