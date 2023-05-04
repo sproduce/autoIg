@@ -183,6 +183,7 @@
                                 <div class="col-2">{{$pts->eventModel->subjectOwner->nickname}}</div>
                                 <div class="col-3"></div>
                                 <div class="col-1">
+                                    <a class="btn btn-ssm btn-outline-warning" target="_new" href="/rentEvent/{{$pts->eventId}}/{{$pts->dataId}}/edit?needParent=1" title="Редактировать"> <i class="far fa-edit"></i></a>
                                     <a href="/file/fileInfoDialog/{{$pts->uuid}}" class="btn btn-ssm @if($pts->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
                                 </div>
                             </div>
@@ -229,6 +230,7 @@
                                 <div class="col-2">{{$sts->eventModel->subjectOwner->nickname}}</div>
                                 <div class="col-3"></div>
                                 <div class="col-1">
+                                    <a class="btn btn-ssm btn-outline-warning" target="_new" href="/rentEvent/{{$sts->eventId}}/{{$sts->dataId}}/edit?needParent=1" title="Редактировать"> <i class="far fa-edit"></i></a>
                                     <a href="/file/fileInfoDialog/{{$sts->uuid}}" class="btn btn-ssm @if($sts->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
                                 </div>
                             </div>

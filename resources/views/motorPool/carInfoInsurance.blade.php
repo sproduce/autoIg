@@ -12,6 +12,7 @@
                                 <div class="col-2 p-0">{{$insurance->eventModel->subjectTo->nickname}}</div>
                                 <div class="col-1"></div>
                                 <div class="col-1">
+                                    <a class="btn btn-ssm btn-outline-warning" target="_new" href="/rentEvent/{{$insurance->eventId}}/{{$insurance->dataId}}/edit?needParent=1" title="Редактировать"> <i class="far fa-edit"></i></a>
                                     <a href="/file/fileInfoDialog/{{$insurance->uuid}}" class="btn btn-ssm @if($insurance->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
                                 </div>
                             </div>
