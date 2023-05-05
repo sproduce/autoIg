@@ -177,7 +177,7 @@
                                     <strong>Дата</strong>
                                 </div>
                                 <div class="col-1">{{$pts->dateText}}</div>
-                                <div class="col-1"><strong>Субьект</strong></div>
+                                <div class="col-1 p-0"><strong>Субьект</strong></div>
                                 <div class="col-2">{{$pts->eventModel->subject->nickname}}</div>
                                 <div class="col-1"><strong>Владелец</strong></div>
                                 <div class="col-2">{{$pts->eventModel->subjectOwner->nickname}}</div>
@@ -190,8 +190,10 @@
                             <div class="row">
                                 <div class="col-1"><strong>Выдан</strong></div>
                                 <div class="col-1">{{$pts->eventModel->dateDocumentText}}</div>
-                                <div class="col-2"><strong>Особые отметки</strong></div>
+                                <div class="col-1 p-0"><strong>Особые отметки</strong></div>
                                 <div class="col-2">{{$pts->eventModel->marks}}</div>
+                                <div class="col-1"><strong>Выдан</strong></div>
+                                <div class="col-4">{{$pts->eventModel->issued}}</div>
                             </div>
                             <div class="row">
                                 <div class="col-1"><strong>Цвет</strong></div>
@@ -225,10 +227,10 @@
                                 </div>
                                 <div class="col-1">{{$sts->dateText}}</div>
                                 <div class="col-1"><strong>Субьект</strong></div>
-                                <div class="col-2">{{$sts->eventModel->subject->nickname}}</div>
-                                <div class="col-1"><strong>Владелец</strong></div>
+                                <div class="col-1">{{$sts->eventModel->subject->nickname}}</div>
+                                <div class="col-1 p-0"><strong>Владелец</strong></div>
                                 <div class="col-2">{{$sts->eventModel->subjectOwner->nickname}}</div>
-                                <div class="col-3"></div>
+                                <div class="col-4"></div>
                                 <div class="col-1">
                                     <a class="btn btn-ssm btn-outline-warning" target="_new" href="/rentEvent/{{$sts->eventId}}/{{$sts->dataId}}/edit?needParent=1" title="Редактировать"> <i class="far fa-edit"></i></a>
                                     <a href="/file/fileInfoDialog/{{$sts->uuid}}" class="btn btn-ssm @if($sts->files->count())btn-outline-primary @else btn-outline-secondary @endif DialogUser"> <i class="fas fa-folder-open"></i></a>
@@ -237,18 +239,23 @@
                             <div class="row">
                                 <div class="col-1"><strong>Выдан</strong></div>
                                 <div class="col-1">{{$sts->eventModel->dateDocumentText}}</div>
-                                <div class="col-2"><strong>Регистрационный знак</strong></div>
+                                <div class="col-1"><strong>Рег. знак</strong></div>
                                 <div class="col-1">{{$sts->eventModel->regNumber}}</div>
-                                <div class="col-2"><strong>Особые отметки</strong></div>
+                                <div class="col-1 p-0"><strong>Особые отметки</strong></div>
                                 <div class="col-2">{{$sts->eventModel->marks}}</div>
+                                <div class="col-1"><strong>Выдан</strong></div>
+                                <div class="col-3">{{$sts->eventModel->issued}}</div>
+                                
                             </div>
                             <div class="row">
                                 <div class="col-1"><strong>Цвет</strong></div>
-                                <div class="col-2">{{$sts->eventModel->color}}</div>
-                                <div class="col-1"><strong>Сумма</strong></div>
+                                <div class="col-3">{{$sts->eventModel->color}}</div>
+                                <div class="col-1 p-0"><strong>Сумма</strong></div>
                                 <div class="col-1">{{$sts->toPayment->sum}}</div>
+                                <div class="col-2"></div>
+                                
                                 <div class="col-2"><strong>Номер документа</strong></div>
-                                <div class="col-5">{{$sts->eventModel->number}}</div>
+                                <div class="col-2">{{$sts->eventModel->number}}</div>
                             </div>
                             <div class="row">
                                 <div class="col-1"><strong>Комментарий</strong></div>
@@ -266,7 +273,7 @@
                     </div>
                 </div>
                 @foreach($carOsago as $insurance)
-                   @include('motorPool.carInfoInsurance');
+                   @include('motorPool.carInfoInsurance')
                 @endforeach
             @endif
             @if(count($carKasko))
@@ -276,7 +283,7 @@
                     </div>
                 </div>
                 @foreach($carKasko as $insurance)
-                  @include('motorPool.carInfoInsurance');
+                  @include('motorPool.carInfoInsurance')
                 @endforeach
             @endif
             @if(count($carDiagnosticCard))
@@ -286,7 +293,7 @@
                     </div>
                 </div>
                 @foreach($carDiagnosticCard as $insurance)
-                    @include('motorPool.carInfoInsurance');
+                    @include('motorPool.carInfoInsurance')
                 @endforeach
             @endif
             @if(count($carProxy))
@@ -296,7 +303,7 @@
                     </div>
                 </div>
                 @foreach($carProxy as $insurance)
-                   @include('motorPool.carInfoInsurance');
+                   @include('motorPool.carInfoInsurance')
                 @endforeach
             @endif
             @if(count($carLicense))
@@ -306,7 +313,7 @@
                     </div>
                 </div>
                 @foreach($carLicense as $insurance)
-                    @include('motorPool.carInfoInsurance');
+                    @include('motorPool.carInfoInsurance')
                 @endforeach
             @endif
         </div>
