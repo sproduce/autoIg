@@ -19,8 +19,8 @@ class ModelRepository implements ModelRepositoryInterface
 
 
 
-    public function getModelByName($modelName){
-        return $this->carModel::where('name',$modelName)->get();
+    public function getModelByName($modelName,$brandId){
+        return $this->carModel::where('name',$modelName)->where('brandId',$brandId)->get();
     }
 
 

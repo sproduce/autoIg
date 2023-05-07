@@ -19,7 +19,7 @@ Class ModelService{
         $brandId=(int)$this->request->input('brandId');
                 $modelName=$this->request->input('modelName');
         if ($brandId&&$modelName){
-            $modelObj=$this->modelRep->getModelByName($modelName);
+            $modelObj=$this->modelRep->getModelByName($modelName,$brandId);
             if (!$modelObj->count()){
                 $this->modelRep->saveModel($modelName,$brandId);
             }
@@ -34,7 +34,7 @@ Class ModelService{
         $brandId=(int)$this->request->input('brandId');
         foreach($arrayOfModels as $modelName){
             if($modelName &&$brandId){
-                $modelObj=$this->modelRep->getModelByName($modelName);
+                $modelObj=$this->modelRep->getModelByName($modelName,$brandId);
                 if(!$modelObj->count()){
                     $this->modelRep->saveModel($modelName,$brandId);
                 }
