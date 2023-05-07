@@ -11,13 +11,16 @@ use App\Services\TimeSheetService;
 Class ReportService {
     private $timeSheetServ;
     private $carGroupServ;
+    private $rentEventServ;
 
     function __construct(
             TimeSheetService$timeSheetServ,
-            CarGroupService $carGroupServ
+            CarGroupService $carGroupServ,
+            RentEventService $rentEventServ
     ){
         $this->timeSheetServ = $timeSheetServ;
         $this->carGroupServ = $carGroupServ;
+        $this->rentEventServ = $rentEventServ;
     }
 
 
@@ -37,16 +40,27 @@ Class ReportService {
                 if (($datePeriod->first()<$car->pivot->finish || is_null($car->pivot->finish)) && $datePeriod->last()>$car->pivot->start){
                     
                     if ($car->pivot->start > $datePeriod->first()){
-                        $car->filterStart = $car->pivot->startText;
+                        $car->filterStartText = $car->pivot->startText;
+                        $car->filterStart = $car->pivot->start;
                     } else {
-                        $car->filterStart = $datePeriod->first()->format('d-m-Y');
+                        $car->filterStartText = $datePeriod->first()->format('d-m-Y');
+                        $car->filterStart = $datePeriod->first();
                     }
                     
                     if (is_null($car->pivot->finish) || $car->pivot->finish > $datePeriod->last()){
-                        $car->filterFinish = $datePeriod->last()->format('d-m-Y');
+                        $car->filterFinishText = $datePeriod->last()->format('d-m-Y');
+                        $car->filterFinish = $datePeriod->last();
                     } else {
-                        $car->filterFinish =  $car->pivot->finishText;
+                        $car->filterFinishText =  $car->pivot->finishText;
+                        $car->filterFinish =  $car->pivot->finish;
                     }
+                    $car->filterTimeSheets = $car->timeSheets->whereBetween('dateTime',[$car->filterStart,$car->filterFinish])->sortBy('dateTime');
+//                    foreach ($car->filterTimeSheets as $timeSheet){
+//                        $eventServ = $this->rentEventServ->getEventService($timeSheet->event);
+//                        $timeSheet->eventData = $eventServ->getEventModel($timeSheet->dataId);
+//                    }
+                    
+                    
                     
                     $tmpCars[] = $car;
                 }

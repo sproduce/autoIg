@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Carbon\CarbonPeriod;
 //use App\Models\rentCarGroupLink;
 
 /**
@@ -96,7 +97,7 @@ class carConfiguration extends Model
     
     public function timeSheets()
     {
-        return $this->hasMany(timeSheet::class,'carId');
+        return $this->hasMany(timeSheet::class,'carId','id');
     }
     
     

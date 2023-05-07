@@ -52,6 +52,10 @@ class timeSheet extends Model
     }
 
 
+    
+    
+    
+    
     public function car()
     {
         return $this->hasOne(carConfiguration::class,'id','carId')->withDefault();

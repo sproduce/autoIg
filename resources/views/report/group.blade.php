@@ -30,14 +30,28 @@
  
     @foreach($carGroups as $carGroup)
         @if(count($carGroup->carsModel))
-            <div class="row">
-                <div class="col-3">{{$carGroup->name}}</div>
-                <div class="col-10">
+            <div class="row mt-5">
+                <div class="col-1 p-0">{{$carGroup->name}}</div>
+                <div class="col-11">
                     @foreach($carGroup->carsModel as $car)
                         <div class="row">
-                            <div class="col-3"></div>
                             <div class="col-3">{{$car->nickName}}</div>
-                            <div class="col-3">{{$car->filterStart}} - {{$car->filterFinish}}</div>
+                            <div class="col-3">{{$car->filterStartText}} - {{$car->filterFinishText}}</div>
+                            <div class="col-6">
+                                @foreach($car->filterTimeSheets as $timeSheet)
+                                <div class="row">
+                                    <div class="col-2">
+                                        {{$timeSheet->event->name}}
+                                    </div>
+                                    <div class="col-2">
+                                        {{$timeSheet->toPayment->sum}}
+                                    </div>
+                                    <div class="col-4">
+                                        {{$timeSheet->dateText}}
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
                         </div>
                     @endforeach
                 </div>

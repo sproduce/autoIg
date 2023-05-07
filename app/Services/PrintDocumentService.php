@@ -8,6 +8,9 @@ use App\Services\TimeSheetService;
 use App\Models\printDocument;
 use App\Models\rentContract;
 
+use function morphos\Russian\inflectName;
+
+
 Class PrintDocumentService {
 
     private $printDocumentRep,$photoServ,$timeSheetServ;
@@ -20,6 +23,8 @@ Class PrintDocumentService {
         $this->printDocumentRep = $printDocumentRep;
         $this->photoServ = $photoServ;
         $this->timeSheetServ = $timeSheetServ;
+        //$foo = new inflectName('Иванов Петр', 'родительный');
+        //echo inflectName('Базанов Иосиф Валерьянович', 'родительный');
     }
 
 
@@ -30,7 +35,7 @@ Class PrintDocumentService {
        $nF = new \NumberFormatter('ru', \NumberFormatter::SPELLOUT);
        $str = $nF->format($number); 
        $str = mb_strtoupper(mb_substr($str, 0, 1)) . mb_substr($str, 1, mb_strlen($str));
-       
+
        return $str;
    }
    
