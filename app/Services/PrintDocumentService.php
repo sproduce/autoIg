@@ -60,12 +60,32 @@ Class PrintDocumentService {
         foreach ($variableArray as $variable)
         {
             $returnArray[$variable] = '';
-            if (isset($configVar[$variable])){
-                if (strlen($configVar[$variable][0])){
-                    $returnArray[$variable] = eval('return $contractObj->'.$configVar[$variable][0].';');
-                }
+            $command = null;
+            $execVar = $variable;
+            if (preg_match('/(?<=\()\w+(?=\))/', $execVar, $matches)){
+                $execVar = preg_replace('/\(\w+\)/', '', $variable);
+                var_dump($matches);
+                $command = $matches[0];
+                echo $command;
             }
-            
+
+            if (isset($configVar[$execVar])){
+                if (strlen($configVar[$execVar][0])){
+                    $receivedValue = eval('return $contractObj->'.$configVar[$execVar][0].';');
+                    switch ($command) {
+                        case 'text':
+                            if (is_numeric($receivedValue)){
+                                $returnArray[$variable] =$this->numToSum($receivedValue);
+                            } else {
+                                $returnArray[$variable] = 'Ошибка значения';
+                            }
+                            
+                        break;
+                        default:
+                            $returnArray[$variable] = $receivedValue;
+                    }
+                } 
+            }
         }
         
         return $returnArray ?? [];

@@ -7,6 +7,7 @@ return [
             'SSE_cnfu' => ['subjectFrom->actualEntity->fullName','Полное название организации'],
             'SSE_cnsh' => ['subjectFrom->actualEntity->shortName','Сокращенное название организации'],
             'SSE_inn' => ['subjectFrom->actualEntity->inn','ИНН организации'],
+            'SSE_kpp' => ['subjectFrom->actualEntity->kpp','КПП организации'],
             'SSE_ln' => ['subjectFrom->surname','Фамилия другие падежи'],
             'SSE_fn' => ['subjectFrom->name','Имя другие падежи'],
             'SSE_sn' => ['subjectFrom->patronymic','Отчество другие падежи'],
@@ -68,10 +69,12 @@ return [
             'SCL_ccn' => ['subjectTo->payAccount->cardNumber','Номер карты арендатора'],
             
             'CAR_Brand' => ['car->generation->model->brand->name','Марка автомобиля'],
+            'CAR_body' => ['car->body->name','Тип кузова'],
             'CAR_Model' => ['car->generation->model->name','Модель автомобиля'],
             'CAR_VINn' => ['car->vin','VIN номер автомобиля'],
             'CAR_Y' => ['car->year','Год выпуска автомобиля'],
             'CAR_nick' => ['car->nickName','Nickname автомобиля'],
+            'CAR_price' => ['car->price','Стоимость автомобиля'],
             
             'CAR_Power' => ['car->hp','Мощность двигателя'],
             'CAR_StNum' => ['sts->regNumber','Регистрационный номер'],
