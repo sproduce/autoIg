@@ -64,9 +64,9 @@ Class PrintDocumentService {
             $execVar = $variable;
             if (preg_match('/(?<=\()\w+(?=\))/', $execVar, $matches)){
                 $execVar = preg_replace('/\(\w+\)/', '', $variable);
-                var_dump($matches);
+                //var_dump($matches);
                 $command = $matches[0];
-                echo $command;
+                //echo $command;
             }
 
             if (isset($configVar[$execVar])){
