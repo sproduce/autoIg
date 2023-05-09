@@ -16,15 +16,15 @@ Class PrintDocumentService {
     private $printDocumentRep,$photoServ,$timeSheetServ;
 
     function __construct(
-            PrintDocumentRepositoryInterface $printDocumentRep, 
-            PhotoService $photoServ,
-            TimeSheetService $timeSheetServ
+        PrintDocumentRepositoryInterface $printDocumentRep, 
+        PhotoService $photoServ,
+        TimeSheetService $timeSheetServ
     ){
         $this->printDocumentRep = $printDocumentRep;
         $this->photoServ = $photoServ;
         $this->timeSheetServ = $timeSheetServ;
         //$foo = new inflectName('Иванов Петр', 'родительный');
-        //echo inflectName('Базанов Иосиф Валерьянович', 'родительный');
+        //echo inflectName('Владимир', 'ablative', \morphos\Gender::MALE);
     }
 
 
@@ -69,27 +69,29 @@ Class PrintDocumentService {
                 //echo $command;
             }
 
-            if (isset($configVar[$execVar])){
-                if (strlen($configVar[$execVar][0])){
-                    $receivedValue = eval('return $contractObj->'.$configVar[$execVar][0].';');
-                    switch ($command) {
-                        case 'text':
-                            if (is_numeric($receivedValue)){
-                                $returnArray[$variable] =$this->numToSum($receivedValue);
-                            } else {
-                                $returnArray[$variable] = 'Ошибка значения';
-                            }
-                            
-                        break;
-                        default:
-                            $returnArray[$variable] = $receivedValue;
-                    }
-                } 
-            }
+            if (isset($configVar[$execVar]) && isset($configVar[$execVar][0])){
+                $receivedValue = eval('return $contractObj->'.$configVar[$execVar][0].';');
+                switch ($command) {
+                    case 'text':
+                        if (is_numeric($receivedValue)){
+                            $receivedValue =$this->numToSum($receivedValue);
+                        } else {
+                            $receivedValue = 'Ошибка значения';
+                        }
+                    break;
+                    case 'genitive':
+                    case 'dative':
+                    case 'accusative':
+                    case 'ablative':
+                    case 'prepositional':
+                        $receivedValue = inflectName($receivedValue, $command, \morphos\Gender::MALE);
+                    break;
+                }
+                $returnArray[$variable] = $receivedValue;
+            } 
         }
         
         return $returnArray ?? [];
-        
     }
     
     
