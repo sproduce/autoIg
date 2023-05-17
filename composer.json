@@ -14,6 +14,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "maatwebsite/excel": "^3.1",
+        "phpoffice/phpspreadsheet": "^1.28",
         "phpoffice/phpword": "^1.0",
         "tecnickcom/tc-lib-barcode": "^1.15",
         "wapmorgan/morphos": "^3.2",

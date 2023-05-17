@@ -18,12 +18,13 @@ class ReportController extends Controller
     public function __construct(
         RentEventService $rentEventServ,
         TimeSheetService $timeSheetServ,
-        ReportService $reportServ
-            
+        ReportService $reportServ,
+        Request $request    
     ){
         $this->rentEventServ = $rentEventServ;
         $this->timeSheetServ = $timeSheetServ;
         $this->reportServ = $reportServ;
+        $this->request = $request;
     }
 
     
@@ -48,15 +49,27 @@ class ReportController extends Controller
     
     
     
+    
+    
+    
     public function group(DateSpan $dateSpan, CarGroupService $carGroupServ) 
     {
         $periodDate = $dateSpan->getCarbonPeriod();
         $eventsObj = $this->rentEventServ->getEvents();
         
-        
-        
         $carGroups = $this->reportServ->getFilterGroups($periodDate);
         
+        
+        
+        
+        if ($this->request->get('download')){
+            $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        
+            $spreadsheet = $this->reportServ->generateExcelFile($spreadsheet,$carGroups);
+        
+            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+            $writer->save("/tmp/demo.xlsx");
+        }
         
         //$groupsObj = $carGroupServ->getCarGroups();
         
@@ -65,6 +78,11 @@ class ReportController extends Controller
             'carGroups' => $carGroups,
             ]);
     }
+    
+    
+    
+    
+    
     
     
     

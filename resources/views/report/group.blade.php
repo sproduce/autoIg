@@ -17,6 +17,12 @@
                     @endforeach
                 </select>
             </div>
+            <div class="col-1"></div>
+            <div class="col-2 input-group-sm form-check">
+                <input class="form-check-input" type="checkbox" id="download" name="download" value="1"/>    
+                <label class="form-check-label" for="download">Скачать</label>
+            </div>
+            
             <div class="col-1 input-group-sm">
                 <button class="btn btn-sm btn-success" type="submit">Отчет</button>
             </div>
@@ -31,28 +37,54 @@
     @foreach($carGroups as $carGroup)
         @if(count($carGroup->carsModel))
             <div class="row mt-5">
-                <div class="col-1 p-0">{{$carGroup->name}}</div>
-                <div class="col-11">
+                <div class="col-2">{{$carGroup->name}}</div>
+                <div class="col-10"></div>
+            </div>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-10">
                     @foreach($carGroup->carsModel as $car)
-                        <div class="row">
+                        <div class="row  border-top mt-3">
                             <div class="col-3">{{$car->nickName}}</div>
                             <div class="col-3">{{$car->filterStartText}} - {{$car->filterFinishText}}</div>
+                            <div class="col-6"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6"></div>
                             <div class="col-6">
                                 @foreach($car->filterTimeSheets as $timeSheet)
-                                <div class="row">
+                                <div class="row border-top">
                                     <div class="col-2">
                                         {{$timeSheet->event->name}}
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-2 text-right">
                                         {{$timeSheet->toPayment->sum}}
+                                    </div>
+                                    <div class="col-2 text-right">
+                                        {{$timeSheet->toPayment->paymentSum}}
                                     </div>
                                     <div class="col-4">
                                         {{$timeSheet->dateText}}
                                     </div>
                                 </div>
                                 @endforeach
+                                 <div class="row border-top">
+                                    <div class="col-2">
+                                        
+                                    </div>
+                                    <div class="col-2 text-right">
+                                        {{$car->toPay}}
+                                    </div>
+                                    <div class="col-2 text-right">
+                                        {{$car->pay}}
+                                    </div>
+                                    <div class="col-4">
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    
                     @endforeach
                 </div>
             </div>

@@ -84,7 +84,8 @@ Class PrintDocumentService {
                     case 'accusative':
                     case 'ablative':
                     case 'prepositional':
-                        $receivedValue = inflectName($receivedValue, $command, \morphos\Gender::MALE);
+                        
+                        $receivedValue = inflectName($receivedValue, $command);
                     break;
                 }
                 $returnArray[$variable] = $receivedValue;

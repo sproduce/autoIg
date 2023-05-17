@@ -21,7 +21,8 @@
     </div>
 
     <div class="modal-footer d-flex justify-content-center">
-
+        <h6 class="modal-title w-100 font-weight-bold">Команды(модификатор переменной)</h6>
+    (text),(genitive),(dative),(accusative),(ablative),(prepositional)
     </div>
 </form>
  
