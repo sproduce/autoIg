@@ -82,6 +82,7 @@ Class ReportService {
     {
         //$spreadsheet->setCellValue();
         $sheet = $spreadsheet->getSheet(0)->setTitle('testTtile');
+        //$sheet->setAutoFilter('A1:E100');
         $line = 1;
         $sheet->getColumnDimension('A')->setWidth(25);
         $sheet->getColumnDimension('B')->setWidth(20);
@@ -104,7 +105,8 @@ Class ReportService {
                     $cell = $sheet->getCell("C{$line}");
                     $cell->setValue($car->filterStartText.' - '.$car->filterFinishText);
                     $line++;
-                    foreach ($car->filterTimeSheets as $timeSheet){
+                    if (count($car->filterTimeSheets)){
+                        foreach ($car->filterTimeSheets as $key => $timeSheet){
                         $cell = $sheet->getCell("D{$line}");
                         $cell->setValue($timeSheet->event->name);
                         
@@ -118,11 +120,14 @@ Class ReportService {
                         $cell->setValue($timeSheet->dateText);
                         $line++;
                     }
+                    
+                    
                     $cell = $sheet->getCell("E{$line}");
                     $cell->setValue($car->toPay);
                     $cell = $sheet->getCell("F{$line}");
                     $cell->setValue($car->pay);
                     $line++;
+                    }
                 }
                 
                 

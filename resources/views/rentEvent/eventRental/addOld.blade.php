@@ -17,12 +17,11 @@
             <input id="contractText" name="contractText" value="{{old('contractText',$eventDataObj->contractNumber ?? $contractObj->number)}}" class="form-control" disabled required/>
             <input name="contractId" id="contractId" value="{{old('contractId',$eventDataObj->contractId ?? $contractObj->id)}}" hidden/>
         </div>
-
-
         <div class="form-group col-md-2 input-group-sm">
-            <label for="duration" title="Продолжительность">Продолжительность</label>
-            <input type="number" name="duration" id="duration" class="form-control" value="{{old('duration',$eventDataObj->duration ?? $eventObj->duration)}}"/>
+            <label for="sum" title="Стоимость">Стоимость</label>
+            <input type="number" name="sum[]" id="sum" class="form-control" value="{{$eventDataObj->sum}}" required/>
         </div>
+
     </div>
 
     <div class="form-row text-center">
@@ -30,13 +29,18 @@
             <label for="dateStart" title="Начало аренды">Дата начала аренды</label>
             <input type="date" name="dateStart" id="dateStart" class="form-control" value="{{old('dateStart',$eventDataObj->dateTime ? $eventDataObj->dateTime->toDateString() : $dateTime->toDateString())}}"/>
         </div>
-        <div class="form-group col-md-3 input-group-sm">
+        <div class="form-group col-md-2 input-group-sm">
             <label for="timeStart" title="Начало аренды">Время начала аренды</label>
-            <input type="time" step="60" name="timeStart" id="timeStart" class="form-control" value="{{old('timeStart',$eventDataObj->dateTime ? $eventDataObj->dateTime->format('H:i') : $dateTime->format('H:i'))}}"/>
+            <input type="time" step="60" name="timeStart" id="timeStart" class="form-control" value="{{old('timeStart',$timeSheetObj->dateTime ? $timeSheetObj->dateTime->format('H:i') : $dateTime->format('H:i'))}}"/>
         </div>
         <div class="form-group col-md-2 input-group-sm">
-            <label for="sum" title="Стоимость">Стоимость</label>
-            <input type="number" name="sum[]" id="sum" class="form-control" value="{{$eventDataObj->sum}}" required/>
+            <label for="timeFinish" title="">Время окончания аренды</label>
+            <input type="time" step="60" name="timeFinish" id="timeFinish" class="form-control" value="{{old('timeStart',$timeSheetObj->dateTimeEnd ? $timeSheetObj->dateTimeEnd->format('H:i') : $dateTime->format('H:i'))}}"/>
+            
+        </div>
+        <div class="form-group col-md-2 input-group-sm">
+            <label for="duration" title="">Продолжительность</label>
+            <input name="duration" class="disabled w-50" id="duration" type="number" />
         </div>
     </div>
 
@@ -44,12 +48,29 @@
 
     <div class="form-row text-center" id="last-row">
         <div class="input-group col-1">
-            @if ($eventDataObj->id)
-                <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Сохранить"/>
-            @else
-                <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Добавить"/>
-            @endif
+            <input type="submit" id="formSubmit" class="btn btn-sm btn-primary mb-2" value="Сохранить"/>
         </div>
     </div>
 </form>
+@section('js')
+<script>
+  $(function() {
+      calculateDuration();
+  });
 
+
+
+    function calculateDuration(){
+        dateStart = new Date($('#dateStart').val()+' '+$('#timeStart').val()); 
+        dateFinish = new Date($('#dateStart').val()+' '+$('#timeFinish').val()); 
+        if($('#timeFinish').val() <= $('#timeStart').val()){
+            dateFinish.setDate(dateFinish.getDate()+1);
+        } 
+        $('#duration').val((dateFinish-dateStart)/60/1000);
+    }
+    
+    $("#timeFinish").change(function(){
+        calculateDuration();
+    });
+</script>
+@endsection

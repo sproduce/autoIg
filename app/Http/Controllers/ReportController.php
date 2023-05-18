@@ -68,7 +68,8 @@ class ReportController extends Controller
             $spreadsheet = $this->reportServ->generateExcelFile($spreadsheet,$carGroups);
         
             $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-            $writer->save("/tmp/demo.xlsx");
+            $writer->save('/tmp/demo.xlsx');
+            return response()->download('/tmp/demo.xlsx');
         }
         
         //$groupsObj = $carGroupServ->getCarGroups();

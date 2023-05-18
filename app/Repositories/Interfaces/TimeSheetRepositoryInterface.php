@@ -48,5 +48,4 @@ interface TimeSheetRepositoryInterface
     public function getCarTimeSheets($carId, $eventId = null);
     
     
-    
 }

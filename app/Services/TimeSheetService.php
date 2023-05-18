@@ -304,7 +304,13 @@ Class TimeSheetService{
     }
     
     
-    
+    public function getTimeSheetByEvent(\App\Models\rentEvent $eventObj, $dataId)
+    {
+        $timeSheetObj = $this->timeSheetRep->getTimeSheetByEvent($eventObj, $dataId);
+        $eventServ = $this->rentEventService->getEventService($eventObj);
+        $timeSheetObj->dataEvent = $eventServ->getEventModel($dataId);
+        return $timeSheetObj;
+    }
     
     
     

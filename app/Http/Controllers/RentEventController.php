@@ -116,13 +116,17 @@ class RentEventController extends Controller
     }
 
     public function edit($eventId,$dataId, NeedParent $needParent,
-                         CarIdDate $carIdDate)
+                         CarIdDate $carIdDate, \App\Services\TimeSheetService $timeSheetServ)
     {
         session(['fromUrl' => parse_url($this->request->header('referer'), PHP_URL_PATH)]);
         $eventObj = $this->rentEventServ->getRentEvent($eventId);
         $serviceObj = $this->rentEventServ->getEventService($eventObj);
         $eventDataObj = $serviceObj->getEventInfo($dataId);
-
+        //refactoring to models
+        $timeSheetObj = $timeSheetServ->getTimeSheetByEvent($eventObj, $dataId);
+        
+        
+        
         $viewDataArray = [
             'carObj' => $this->motorPoolServ->getCar($carIdDate->get('carId')),
             'contractObj' => $this->contractServ->getContract($carIdDate->get('contractId')),
@@ -130,6 +134,7 @@ class RentEventController extends Controller
             'dateTime' => $carIdDate->get('date'),
             'eventObj' => $eventObj,
             'eventDataObj' => $eventDataObj,
+            'timeSheetObj' => $timeSheetObj,
         ];
         return view('rentEvent.'.$eventObj->action.'.add',$viewDataArray);
     }
