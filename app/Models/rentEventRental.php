@@ -29,5 +29,7 @@ class rentEventRental extends Model
         return $this->hasOne(rentContract::class,'id','contractId')->withDefault();
     }
 
-
+    
+    
+    
 }

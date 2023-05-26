@@ -40,7 +40,10 @@
         </div>
         <div class="form-group col-md-2 input-group-sm">
             <label for="duration" title="">Продолжительность</label>
-            <input name="duration" class="disabled w-50" id="duration" type="number" />
+            <div>
+                <span id="durationText"></span>
+                </div>
+            <input name="duration" class="form-control w-50" id="duration" type="number" hidden />
         </div>
     </div>
 
@@ -67,8 +70,18 @@
             dateFinish.setDate(dateFinish.getDate()+1);
         } 
         $('#duration').val((dateFinish-dateStart)/60/1000);
+        hour = Math.ceil($('#duration').val()/60);
+        minute = $('#duration').val()%60;
+        if (minute<10){
+            minuteText = '0'+minute;
+        } else {
+            minuteText = minute;
+        }
+        $('#durationText').html(hour+':'+minuteText);
     }
-    
+        
+        
+        
     $("#timeFinish").change(function(){
         calculateDuration();
     });

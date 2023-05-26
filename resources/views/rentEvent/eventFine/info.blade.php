@@ -1,5 +1,5 @@
 <div class="modal-header text-center">
-    <h5 class="modal-title w-100">Событие {{$eventObj->name}}</h5>
+    <h5 class="modal-title w-100">Событие {{$timeSheetObj->event->name}}</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -7,35 +7,35 @@
 <div class="modal-body">
     <div class="row">
         <div class="col-3"><strong>Дата: </strong></div>
-        <div class="col-3">{{$eventDataObj->dateTime->toDateTimeString()}}</div>
+        <div class="col-3">{{$timeSheetObj->dateTimeText}}</div>
         <div class="col-3"><strong>Машина: </strong></div>
-        <div class="col-3">{{$eventDataObj->carText}}</div>
+        <div class="col-3">{{$timeSheetObj->car->nickName}}</div>
     </div>
 
     <div class="row mt-3">
-        <div class="col-3"><strong>Оплатить: </strong></div>
+        <div class="col-3"><strong>Со скидкой: </strong></div>
         <div class="col-3">
-            {{$eventDataObj->sumSale}}
+            {{$timeSheetObj->dataEvent->sumSale}}
             <strong>До: </strong>
-            {{$eventDataObj->datePaySale ? $eventDataObj->datePaySale->toDateString() : ''}}
+            {{$timeSheetObj->dataEvent->datePaySaleText}}
 
         </div>
-        <div class="col-3"><strong>Оплатить: </strong></div>
+        <div class="col-3"><strong>Оплатить / Оплачено:</strong></div>
         <div class="col-3">
-            {{$eventDataObj->sum}}
+            {{$timeSheetObj->toPayment->sum}} / {{$timeSheetObj->toPayment->paymentSum}}
             <strong>До: </strong>
-            {{$eventDataObj->datePayMax ? $eventDataObj->datePayMax->toDateString(): ''}}
+            {{$timeSheetObj->dataEvent->datePayMaxText}}
         </div>
     </div>
 
 
     <div class="row mt-3">
         <div class="col-2"><strong>УИН: </strong></div>
-        <div class="col-10">{{$eventDataObj->uin}}</div>
+        <div class="col-10">{{$timeSheetObj->dataEvent->uin}}</div>
     </div>
     <div class="row mt-3">
         <div class="col-2"><strong>Комментарий: </strong></div>
-        <div class="col-10">{{$eventDataObj->comment}}</div>
+        <div class="col-10">{{$timeSheetObj->comment}}</div>
     </div>
     @include('rentEvent.fileInfo')
 </div>

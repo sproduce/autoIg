@@ -95,9 +95,6 @@ class timeSheet extends Model
         return $result;
     }
     
-    
-    
-    
 
     protected function getDateTimeEndAttribute()
     {
@@ -108,6 +105,21 @@ class timeSheet extends Model
         }
 
     }
+    
+    
+    
+    protected function getDurationTextAttribute()
+    {
+        $hour = intdiv($this->duration,60);
+        $minute = $this->duration % 60;
+        if ($minute<10);
+        {
+            $minute = '0'.$minute;
+        }
+        return $hour.':'.$minute;
+    }
+    
+    
 
 
     public function files() 

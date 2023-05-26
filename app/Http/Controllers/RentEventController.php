@@ -139,15 +139,15 @@ class RentEventController extends Controller
         return view('rentEvent.'.$eventObj->action.'.add',$viewDataArray);
     }
 
-    public function show($eventId,$dataId)
+    public function show($eventId,$dataId, \App\Services\TimeSheetService $timeSheetServ)
     {
         $eventObj = $this->rentEventServ->getRentEvent($eventId);
-        $serviceObj = $this->rentEventServ->getEventService($eventObj);
-        $eventDataObj = $serviceObj->getEventInfo($dataId);
-        $eventFilesObj = $this->photoServ->getFiles($eventDataObj->uuid);
+        
+        $timeSheetObj = $timeSheetServ->getTimeSheetByEvent($eventObj,$dataId);
+        
+        $eventFilesObj = $this->photoServ->getFiles($timeSheetObj->uuid);
         $viewDataArray = [
-            'eventObj' => $eventObj,
-            'eventDataObj' => $eventDataObj,
+            'timeSheetObj' => $timeSheetObj,
             'filesObj' =>$eventFilesObj,
             ];
         return view('rentEvent.'.$eventObj->action.'.info',$viewDataArray);
