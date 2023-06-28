@@ -88,6 +88,12 @@
                     </h6>
                     <ul class="nav flex-column">
                         <li class="nav-item">
+                            <a class="nav-link"  href="/payment/accounts">
+                                <i class="fas fa-cash-register"></i>
+                                Счета
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link"  href="/report/list">
                                 <i class="far fa-chart-bar"></i>
                                 Отчеты

@@ -45,3 +45,6 @@ Route::get('/toPaymentInfo/{paymentId}',[PaymentController::class,'toPaymentFull
 
 Route::get('/addBetweenAccounts',[PaymentController::class,'addBetweenAccounts']);
 Route::post('/storeBetweenAccounts',[PaymentController::class,'storeBetweenAccounts']);
+
+
+Route::get('/accounts',[PaymentController::class,'getAccounts']);

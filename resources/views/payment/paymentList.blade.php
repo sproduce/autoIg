@@ -92,7 +92,7 @@
                             <a class="btn-ssm btn-outline-info" href="/payment/info/{{$payment->id}}"><i class="fas fa-info-circle"></i></a>
                             {{$loop->iteration}}.
                         </div>
-                        <div class="col-1 text-right">
+                        <div class="col-1 sumToText text-right">
                             @if($payment->comm)
                                 <i class="fas fa-comment-dollar" title="Комиссия {{$payment->comm}}"></i>
                             @endif
@@ -115,7 +115,7 @@
                         <div class="col-1 p-0" title="{{$payment->dateTime}}">
                             {{$payment->dateTime->format('d-m-Y')}}
                         </div>
-                        <div class="col-1 text-right">{{$payment->balance}}</div>
+                        <div class="col-1 text-right sumToText">{{$payment->balance}}</div>
                         <div class="col-3">{{$payment->operationType->name}}</div>
                         <div class="col-3">{{$payment->contract->number}}</div>
                         <div class="col-2">{{$payment->nickName}}</div>

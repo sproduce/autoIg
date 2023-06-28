@@ -260,5 +260,12 @@ class PaymentController extends Controller
     }
 
 
+    public function getAccounts()
+    {
+        $accountsObj = $this->paymentServ->getAccounts();
+        return view('payment.accounts',['accountsObj' => $accountsObj]);
+    }
+    
+    
 
 }

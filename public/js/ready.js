@@ -14,7 +14,9 @@ $(function() {
 });
 
 
-
+$('.sumToText').each(function(){
+            $(this).text($(this).text().replace(/\B(?=(\d{3})+(?!\d))/g, "`"));
+            });
 
 function initClearButton(){
     $("a.clearButton").click(function(e){
